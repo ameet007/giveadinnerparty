@@ -29,18 +29,17 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/password/reset', 'AdminAuth\ForgotPasswordController@showLinkRequestForm');
     Route::get('/password/reset/{token}', 'AdminAuth\ResetPasswordController@showResetForm');
     Route::group(['middleware' => 'admin'], function() {
-        Route::get('/users', 'adminController@viewUsers');
-        Route::any('/users/edit/{id?}', 'adminController@editUsers');
-        Route::any('/users/add', 'adminController@addUsers');
-        Route::any('/users/delete/{id}', 'adminController@deleteUsers');
+    Route::get('/users', 'adminController@viewUsers');
+    Route::any('/users/edit/{id?}', 'adminController@editUsers');
+    Route::any('/users/add', 'adminController@addUsers');
+    Route::any('/users/delete/{id}', 'adminController@deleteUsers');
+    Route::get('/admins', 'adminController@viewAdmins');
+    Route::any('/admins/edit/{id?}', 'adminController@editAdmins');
+    Route::any('/admins/add', 'adminController@addAdmins');
+    Route::any('/admins/delete/{id}', 'adminController@deleteAdmins');
 
-        Route::get('/admins', 'adminController@viewAdmins');
-        Route::any('/admins/edit/{id?}', 'adminController@editAdmins');
-        Route::any('/admins/add', 'adminController@addAdmins');
-        Route::any('/admins/delete/{id}', 'adminController@deleteAdmins');
-
-        Route::get('/company', 'adminController@viewCompany');
-        Route::any('/company/edit/{id?}', 'adminController@editCompany');
+    Route::get('/company', 'adminController@viewCompany');
+    Route::any('/company/edit/{id?}', 'adminController@editCompany');
     });
 });
 
@@ -107,4 +106,15 @@ Route::group(['prefix' => 'cms'], function () {
         Route::any('/aboutus', 'cmsController@aboutus');
         Route::any('/aboutus/edit/{id}', 'cmsController@aboutusedit');
     });
+});
+
+Route::group(['prefix' => 'offer'], function ()
+{
+	Route::group(['middleware' => 'admin'], function ()
+	{
+		Route::any('/listing', 'offerController@listing');
+		Route::any('/add', 'offerController@addoffer');
+		Route::any('/edit/{id}', 'offerController@editoffer');
+		Route::any('/delete/{id}', 'offerController@deleteoffer');
+	});
 });

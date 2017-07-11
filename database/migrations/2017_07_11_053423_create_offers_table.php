@@ -17,6 +17,9 @@ class CreateOffersTable extends Migration
             $table->increments('id');
 			$table->string('title');
 			$table->string('rule');
+			$table->date('from_date');
+			$table->date('to_date');
+			$table->integer('status');
             $table->timestamps();
         });
     }
