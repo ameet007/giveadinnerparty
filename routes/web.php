@@ -40,6 +40,31 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::get('/company', 'adminController@viewCompany');
     Route::any('/company/edit/{id?}', 'adminController@editCompany');
+	
+	Route::any('/offers', 'offerController@listing');
+	Route::any('/offer/add', 'offerController@addoffer');
+	Route::any('/offer/edit/{id}', 'offerController@editoffer');
+	Route::any('/offer/delete/{id}', 'offerController@deleteoffer');
+	
+	 Route::any('/aboutus', 'cmsController@aboutus');
+     Route::any('/aboutus/edit/{id}', 'cmsController@aboutusedit');
+	 
+	 Route::any('/faq', 'cmsController@faq');
+     Route::any('/faq/add', 'cmsController@addfaq');
+     Route::any('/faq/edit/{id}', 'cmsController@editfaq');
+     Route::any('/faq/delete/{id}', 'cmsController@deletefaq');
+	
+	Route::any('/banners', 'cmsController@banners');
+    Route::any('/banners/add', 'cmsController@addbanner');
+    Route::any('/banners/edit/{id}', 'cmsController@editbanner');
+    Route::any('/banners/delete/{id}', 'cmsController@deletebanner');
+	
+	Route::any('/charity', 'charityController@charity');
+	Route::any('/charity/add', 'charityController@addcharity');
+	Route::any('/charity/edit/{id}', 'charityController@editcharity');
+	Route::any('/charity/delete/{id}', 'charityController@deletecharity');
+
+
     });
 });
 
@@ -89,32 +114,3 @@ Route::group(['prefix' => 'user'], function () {
     });
 });
 Route::post('user/registeration', 'userController@registeration');
-
-Route::group(['prefix' => 'cms'], function () {
-    Route::group(['middleware' => 'admin'], function () {
-        Route::any('/banners', 'cmsController@banners');
-        Route::any('/banners/add', 'cmsController@addbanner');
-        Route::any('/banners/edit/{id}', 'cmsController@editbanner');
-        Route::any('/banners/delete/{id}', 'cmsController@deletebanner');
-
-
-        Route::any('/faq', 'cmsController@faq');
-        Route::any('/faq/add', 'cmsController@addfaq');
-        Route::any('/faq/edit/{id}', 'cmsController@editfaq');
-        Route::any('/faq/delete/{id}', 'cmsController@deletefaq');
-
-        Route::any('/aboutus', 'cmsController@aboutus');
-        Route::any('/aboutus/edit/{id}', 'cmsController@aboutusedit');
-    });
-});
-
-Route::group(['prefix' => 'offer'], function ()
-{
-	Route::group(['middleware' => 'admin'], function ()
-	{
-		Route::any('/listing', 'offerController@listing');
-		Route::any('/add', 'offerController@addoffer');
-		Route::any('/edit/{id}', 'offerController@editoffer');
-		Route::any('/delete/{id}', 'offerController@deleteoffer');
-	});
-});

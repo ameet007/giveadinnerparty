@@ -9,7 +9,7 @@ class offerController extends Controller
     public function listing(Request $request)
 	{
 		$offer_data = Offers::get();
-		return view('offers.listing')->with(['offer_data'=>$offer_data]);
+		return view('admin.offers.listing')->with(['offer_data'=>$offer_data]);
 	}
 	/******offers listing end*****/
 	
@@ -29,15 +29,15 @@ class offerController extends Controller
 		{			
 			unset($data['_token']);
 			Offers::insert($data);
-			return redirect('offer/listing')->with(['success'=>'Offer successfully created']);
+			return redirect('admin/offer/offers')->with(['success'=>'Offer successfully created']);
 		}
 		else
 		{
-			redirect('offer/add')->withErrors($validate)->withInput();
+			redirect('admin/offer/add')->withErrors($validate)->withInput();
 		}
 		
 		
-		return view('offers.edit_offer');
+		return view('admin.offers.edit_offer');
 	}
 	/******offers listing end*****/
 	
@@ -57,15 +57,15 @@ class offerController extends Controller
 		{			
 			unset($data['_token']);
 			Offers::where('id',$id)->update($data);
-			return redirect('offer/listing')->with(['success'=>'offer successfully updated']);
+			return redirect('admin/offers')->with(['success'=>'offer successfully updated']);
 		}
 		else
 		{
-			redirect('offer/edit/'.$id)->withErrors($validate)->withInput();
+			redirect('admin/offer/edit/'.$id)->withErrors($validate)->withInput();
 		}
 		
 		$offer_data = Offers::where('id', $id)->first();
-		return view('offers.edit_offer')->with(['offer_data'=>$offer_data]);
+		return view('admin.offers.edit_offer')->with(['offer_data'=>$offer_data]);
 	}	
 	/**********edit ofer ********/
 	
@@ -73,7 +73,7 @@ class offerController extends Controller
 	public function deleteoffer(Request $request, $id=0)
 	{		
 		Offers::where('id',$id)->delete();
-		return redirect('offer/listing')->with(['success'=>'User successfully deleted',]);
+		return redirect('admin/offers')->with(['success'=>'User successfully deleted',]);
 	}	
 	/*****delete offer *****/
 }

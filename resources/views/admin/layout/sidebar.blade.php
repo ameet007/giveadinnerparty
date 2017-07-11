@@ -45,14 +45,14 @@
             <li>
               <a href="javascript:void(0);">Contact Us</a>
             </li>
-            <li <?= (Request::segment(2) == 'cms') ? 'class="active"' : '' ?>>
-              <a  <?= (Request::segment(2) == 'cms') ? 'class="active"' : '' ?> href="{{Request::root()}}/cms/aboutus">About Us</a>
+            <li <?= (Request::segment(2) == 'admin') ? 'class="active"' : '' ?>>
+              <a  <?= (Request::segment(2) == 'admin') ? 'class="active"' : '' ?> href="{{Request::root()}}/admin/aboutus">About Us</a>
             </li>
-            <li <?= (Request::segment(2) == 'cms') ? 'class="active"' : '' ?>>
-              <a <?= (Request::segment(2) == 'cms') ? 'class="active"' : '' ?> href="{{Request::root()}}/cms/faq">FAQs</a>
+            <li <?= (Request::segment(2) == 'admin') ? 'class="active"' : '' ?>>
+              <a <?= (Request::segment(2) == 'admin') ? 'class="active"' : '' ?> href="{{Request::root()}}/admin/faq">FAQs</a>
             </li>
-            <li <?= (Request::segment(2) == 'cms') ? 'class="active"' : '' ?>>
-              <a <?= (Request::segment(2) == 'cms') ? 'class="active"' : '' ?> href="{{Request::root()}}/cms/banners">Banners and Images</a>
+            <li <?= (Request::segment(2) == 'admin') ? 'class="active"' : '' ?>>
+              <a <?= (Request::segment(2) == 'admin') ? 'class="active"' : '' ?> href="{{Request::root()}}/admin/banners">Banners and Images</a>
             </li>
             <li>
               <a href="javascript:void(0);">SEO</a>
@@ -62,8 +62,8 @@
         <li class="has_sub">
           <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-heart"></i> <span> Charities </span> <span class="menu-arrow"></span></a>
           <ul class="list-unstyled">
-            <li>
-              <a href="javascript:void(0);">Manage Charities</a>
+            <li <?= (Request::segment(2) == 'admin') ? 'class="active"' : '' ?>>
+              <a <?= (Request::segment(2) == 'admin') ? 'class="active"' : '' ?> href="{{Request::root()}}/admin/charity">Manage Charities</a>
             </li>
             <li>
               <a href="javascript:void(0);">Weekly Payout</a>
