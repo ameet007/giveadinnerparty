@@ -361,8 +361,8 @@
                         </table>
                     </div>
                 </div>
-                <div class="row spo-lang hob-interest">
-                    <div class="table-responsive hobbies" >
+                <div class="row spo-lang hob-interest hobbies">
+                    <div class="table-responsive" >
                         <table class="table">
                             <tbody>
                                 <tr>
@@ -545,6 +545,7 @@
                 </div>
             </div>
         </section>
+		<input type="hidden" id="token" name="_token" value="{{ csrf_token() }}">
 		 <script type="text/javascript">		
         $(document).on('click','#edit_name',function(){
             var name = $('#name').html();
@@ -1005,7 +1006,7 @@
 		
 		$('.spokenlanguage').find('input[type=checkbox]').click(function(event) {
 			var values = {};
-			$('input:checkbox:checked').each(function() {
+			$('.spokenlanguage input:checkbox:checked').each(function() {
 				if (values[this.title])
 				  values[this.title].push(this.value);
 				else
@@ -1031,11 +1032,11 @@
 					alert(xhr.status);
 				},	
 			});			
-		});	
+		});
 		
 		$('.hobbies').find('input[type=checkbox]').click(function(event) {
 			var values = {};
-			$('input:checkbox:checked').each(function() {
+			$('.hobbies input:checkbox:checked').each(function() {
 				if (values[this.title])
 				  values[this.title].push(this.value);
 				else
@@ -1045,6 +1046,7 @@
 			var token = $('#token').val(); 
 			var user_id = $('#user_id').val();
 			var hobbies_data = JSON.stringify(values).replace('{"":[', '[').replace(']}', ']');	
+			//alert(hobbies_data);
 			$.ajax({
 				url: '<?php echo url('/user/ajax_user_update'); ?>',
 				type: 'POST',
