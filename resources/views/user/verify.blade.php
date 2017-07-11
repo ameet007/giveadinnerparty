@@ -72,7 +72,7 @@
         </div>
 		@else
 		<div class="row">
-			<form method="post">
+			<form method="post" id="form_hobbies">
 				<input type="hidden" id="token" name="_token" value="{{ csrf_token() }}">
 				<h3>Hobbies &amp; Interest</h3>
 				<div class="spo-lang hob-interest">
@@ -243,12 +243,19 @@
                                    
                                     <td>
                                         <label>
-                                            <input type="checkbox" value="Photography & Videography" /> Photography & Videography
+                                            <input type="checkbox" name="hobbies" value="Photography & Videography" /> Photography & Videography
                                         </label>
                                     </td>
                                     <td>
                                         <label>
-                                            <input type="checkbox" value="Entrepreneurship & Business" /> Entrepreneurship & Business
+                                            <input type="checkbox" name="hobbies" value="Entrepreneurship & Business" /> Entrepreneurship & Business
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <label>
+                                            <input type="button" value="Submit" onClick="submit_hobbies()" />
                                         </label>
                                     </td>
                                 </tr>
@@ -457,6 +464,23 @@ function checkabout()
 		//alert(aboutlenght.length);
 		return false;
 	}	
+}
+
+function submit_hobbies(){
+    var hobbies = '[';
+    $('#form_hobbies').find('input:checkbox:checked').each(function(){
+            hobbies = hobbies + '"' + $(this).val() + '",';
+    })
+    hobbies = hobbies.slice(0,-1);
+    hobbies = hobbies + ']';
+    $.ajax({
+        url: '{{Request::root()}}/user/update_user',
+        type: 'post',
+        data: {'_token':'{{csrf_token()}}', 'hobbies':hobbies},
+        success: function(data){
+            console.log(data);
+        }
+    })
 }
 </script>
 <script type="text/javascript">

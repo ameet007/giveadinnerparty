@@ -1048,7 +1048,7 @@
 			$.ajax({
 				url: '<?php echo url('/user/ajax_user_update'); ?>',
 				type: 'POST',
-				data : {'_token': token, id : user_id, hobbies:hobbies_data },
+				data : {'_token': '{{csrf_token()}}', id : user_id, hobbies:hobbies_data },
 				//dataType: 'JSON',
 				cache: false,
 				success: function(data)
