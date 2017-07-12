@@ -5,6 +5,7 @@ use App\Admin;
 use App\Banner;
 use App\Faq;
 use App\Cms;
+use App\seo;
 use App\systemSettings;
 use Validator;
 
@@ -211,4 +212,68 @@ class cmsController extends Controller
 	}
 	/*********************end about us code***********************/
 	
+	/*********************Start seo code***********************/
+	
+	public function seo(Request $request)
+	{
+		$seo = seo::get();
+		return view('admin.seo.listing')->with(['seo'=>$seo]);
+	}
+	
+	public function addseo(Request $request, $id=0)
+	{
+		$data = $request->all();
+		$validate = Validator::make($data, [ 
+        'url' => 'required|url|max:191', 
+		'title' => 'required|string', 
+        'keyword' => 'required|string',
+        'description' =>'required|string',		
+		]);
+		
+		if(!$validate->fails())
+		{			
+			unset($data['_token']);
+			seo::insert($data);
+			return redirect('admin/seo')->with(['success'=>'seo successfully created']);
+		}
+		else
+		{
+			redirect('admin/seo/add')->withErrors($validate)->withInput();
+		}
+		
+		return view('admin.seo.edit_seo');
+	}
+	
+	public function editseo(Request $request, $id=0)
+	{
+		$data = $request->all();
+		$validate = Validator::make($data, [
+        'url' => 'required|url|max:191', 
+		'title' => 'required|string', 
+        'keyword' => 'required|string',
+        'description' =>'required|string',	
+		]);
+		
+		if(!$validate->fails())
+		{			
+			unset($data['_token']);
+			seo::where('id',$id)->update($data);
+			return redirect('admin/seo')->with(['success'=>'seo successfully created']);
+		}
+		else
+		{
+			redirect('admin/seo/edit')->withErrors($validate)->withInput();
+		}
+		
+		$seo = seo::where('id', $id)->first();
+		//dd($faq);
+		return view('admin.seo.edit_seo')->with(['seo'=>$seo]);
+	}
+	
+	public function deleteseo(Request $request, $id=0)
+	{
+		seo::where('id',$id)->delete();
+		return redirect('admin/seo')->with(['success'=>'seo successfully deleted',]);
+	}
+	/*********************End seo code***********************/
 }
