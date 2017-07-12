@@ -37,6 +37,8 @@
         <script src="{{Request::root()}}/assets/front/js/jquery.blockUI.js" type="text/javascript"></script>
         <script src="{{Request::root()}}/assets/front/js/jquery.core.js" type="text/javascript"></script>
         <script src="{{Request::root()}}/assets/front/js/ckeditor/ckeditor.js" type="text/javascript"></script>
+        <script src="{{Request::root()}}/assets/front/js/bootstrap-datepicker.js" type="text/javascript"></script>
+        <script type="text/javascript" src="{{Request::root()}}/assets/admin/plugins/parsleyjs/parsley.min.js"></script>
     </head>
     <body>
         @include('user.layout.header')

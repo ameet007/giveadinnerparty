@@ -15,12 +15,12 @@ class CreateCharitiesTable extends Migration
     {
         Schema::create('charities', function (Blueprint $table) {
             $table->increments('id');
-			$table->string('title');
-			$table->string('logo');
-			$table->text('description');
-			$table->string('reference');
-			$table->string('website');
-			$table->integer('status');			
+            $table->string('title');
+            $table->string('logo');
+            $table->text('description');
+            $table->string('reference');
+            $table->string('website');
+            $table->integer('status');			
             $table->timestamps();
         });
     }

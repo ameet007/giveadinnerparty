@@ -4,7 +4,7 @@
     <div class="container">
         <h2>Complete Your Profile</h2>
 		@if(Session::has('flash_message'))
-				{!! session('flash_message') !!}
+                    {!! session('flash_message') !!}
 		@endif
         <div class="row bs-wizard" style="border-bottom:0;">
             <div class="col-xs-3 bs-wizard-step <?= (Auth::guard('user')->user()->confirmed == 1) ? 'complete': '' ?>">

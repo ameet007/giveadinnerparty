@@ -10,6 +10,9 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Hash;
 use Mail;
 use App\Userimages;
+use App\Country;
+use App\events;
+use App\Charity;
 
 class userController extends Controller {
 
@@ -99,7 +102,6 @@ class userController extends Controller {
                         'email' => 'required|email|max:191|unique:users',
                         'last_name' => 'required|string|max:191',
                         'password' => 'required|min:6',
-                        //'dob'=>'required|date',
                         'gender' => 'required|string|max:191',
             ]);
             if (!$validate->fails()) {
@@ -204,6 +206,88 @@ class userController extends Controller {
     public function chat(Request $request, $id = 0) {
         if ($request->isMethod('get')) {
             return view('user/message/chat');
+        }
+    }
+    
+    public function edit_profile(Request $request, $id = 0) {
+        if ($request->isMethod('get')) {
+            return view('user/edit_profile');
+        }
+    }
+    
+    public function create_event(Request $request, $id = 0) {
+        if ($request->isMethod('get')) {
+            $country = Country::get();
+            $login_user = Auth::guard('user')->user();
+            $past_events = events::where('user_id',$login_user->id)->get();
+            $charities = Charity::get();
+            return view('user/events/create_event')->with([
+                'country_list'=>$country,
+                'past_events'=>$past_events,
+                'charities'=>$charities,
+            ]);
+        }
+        else if($request->isMethod('post')){
+            echo "<pre>";
+            print_r($request->all());
+            exit;
+            $data = $request->all();
+
+            $validate = Validator::make($data, [
+                'title' => 'required|string|max:191',
+                'description' => 'required|string',
+                'event_date' => 'required|date',
+                'start_time_1' => 'required|numeric',
+                'start_time_2' => 'required|numeric',
+                'end_time_1' => 'required|numeric',
+                'end_time_2' => 'required|numeric',
+                'street' => 'required|string|max:191',
+                'city' => 'required|string|max:191',
+                'county' => 'string|max:191',
+                'country' => 'required|string|max:191',
+                'postal_code' => 'required|string|max:191',
+                'drink_preferences' => 'required|string|max:191',
+                'own_drinks' => 'required|string|max:191',
+                'drinks_included' => 'required|string|max:191',
+                'food_included' => 'required|string|max:191',
+                'food_type' => 'required|string|max:191',
+                'open_to' => 'required|string|max:191',
+                'guest_gender' => 'required|string|max:191',
+                'min_age' => 'required|numeric',
+                'max_age' => 'required|numeric',
+                'orientation' => 'required|string|max:191',
+                'dress_code' => 'required|string|max:191',
+                'setting' => 'required|string|max:191',
+                'seating' => 'string|max:191',
+                'min_guests' => 'required|numeric',
+                'max_guests' => 'required|numeric',
+                'ticket_price' => 'required|numeric',
+                'charity_id' => 'required|numeric',
+                'charity_cut' => 'required|numeric',
+                'reference_number' => 'required|string|max:191',
+                'welcome_note' => 'required|string|max:191',
+            ]);
+            if (!$validate->fails()) {
+                unset($data['_token']);
+                $data['password'] = bcrypt($data['password']);
+                $data['dob'] = $data['birthmonth'] . '/' . $data['birthday'] . '/' . $data['birthyear'];
+                $data['confirmed'] = 0;
+                $data['confirmation_code'] = str_shuffle("1234567890");
+                unset($data['birthmonth']);
+                unset($data['birthday']);
+                unset($data['birthyear']);
+                $user = User::create($data)->id;
+                $authUser = User::where('id', $user)->first();
+                Auth::guard('user')->login($authUser);
+
+                Mail::send('emails.email_confirmation', ['user' => $authUser], function ($message) use($authUser) {
+                    $message->to($authUser->email, $authUser->name . ' ' . $authUser->last_name)->subject('confirm your email!');
+                });
+
+                return redirect('/');
+            } else {
+                return redirect('/');
+            }
         }
     }
 
