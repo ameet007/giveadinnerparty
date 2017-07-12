@@ -12,7 +12,7 @@ $(document).ready(function() {
 					  '</div>',
         theme: 'dragdrop',
 		upload: {
-            url: 'http://localhost/giveadinnerparty/public/user/image_upload', //'php/ajax_upload_file.php',
+            url: 'php/ajax_upload_file.php',
             data: null,
             type: 'POST',
             enctype: 'multipart/form-data',
@@ -21,7 +21,7 @@ $(document).ready(function() {
             beforeSend: null,
             onSuccess: function(result, item) {
                 var data = JSON.parse(result);
-               
+                
 				// if success
                 if (data.isSuccess && data.files[0]) {
                     item.name = data.files[0].name;

@@ -54,7 +54,9 @@
         <div class="row">		    
 			<form method="post" enctype="multipart/form-data" action="{{Request::root()}}/user/image_upload" class="dropzone">
 				<input type="hidden" id="token" name="_token" value="{{ csrf_token() }}">
+                                
             </form>
+            <input type="button" value="Submit" onClick="document.location.reload()" />
         </div>
         @elseif(Auth::guard('user')->user()->about == '')
         <div class="row">
@@ -461,7 +463,6 @@ function checkabout()
 	var aboutlenght = document.getElementById('about').value;
 	if(aboutlenght.length<20 || aboutlenght.length>2000)
 	{
-		//alert(aboutlenght.length);
 		return false;
 	}	
 }
@@ -478,7 +479,7 @@ function submit_hobbies(){
         type: 'post',
         data: {'_token':'{{csrf_token()}}', 'hobbies':hobbies},
         success: function(data){
-            console.log(data);
+            document.location.reload();
         }
     })
 }

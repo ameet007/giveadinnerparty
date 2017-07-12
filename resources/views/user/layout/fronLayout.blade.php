@@ -15,6 +15,15 @@
         <link href="{{Request::root()}}/assets/front/css/main.css" rel="stylesheet" type="text/css" />
         <link href="{{Request::root()}}/assets/front/css/media.css" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" href="{{Request::root()}}/assets/front/css/jquery-ui.css">
+        <link href="{{Request::root()}}/assets/front/css/bootstrap.css" rel="stylesheet" type="text/css" />
+        <link href="{{Request::root()}}/assets/front/css/core.css" rel="stylesheet" type="text/css" />
+        <link href="{{Request::root()}}/assets/front/css/components.css" rel="stylesheet" type="text/css" />
+        <link href="{{Request::root()}}/assets/front/css/icons.css" rel="stylesheet" type="text/css" />
+        <link href="{{Request::root()}}/assets/front/css/pages.css" rel="stylesheet" type="text/css" />
+        <link href="{{Request::root()}}/assets/front/css/menu.css" rel="stylesheet" type="text/css" />
+        <link href="{{Request::root()}}/assets/front/css/responsive.css" rel="stylesheet" type="text/css" />
+        <link href="{{Request::root()}}/assets/front/css/main.css" rel="stylesheet" type="text/css" />
+        <link href="{{Request::root()}}/assets/front/css/media.css" rel="stylesheet" type="text/css" />
 
 
         <script src="{{Request::root()}}/assets/front/js/jQuery.js" type="text/javascript"></script>
@@ -23,6 +32,11 @@
         <script src="{{Request::root()}}/assets/front/js/owl.carousel.js" type="text/javascript"></script>
         <script src="{{Request::root()}}/assets/front/js/bootstrap.min.js" type="text/javascript"></script>		
         <script src="{{Request::root()}}/assets/front/js/jquery-ui.js"></script>
+        <script src="{{Request::root()}}/assets/front/js/detect.js" type="text/javascript"></script>
+        <script src="{{Request::root()}}/assets/front/js/fastclick.js" type="text/javascript"></script>
+        <script src="{{Request::root()}}/assets/front/js/jquery.blockUI.js" type="text/javascript"></script>
+        <script src="{{Request::root()}}/assets/front/js/jquery.core.js" type="text/javascript"></script>
+        <script src="{{Request::root()}}/assets/front/js/ckeditor/ckeditor.js" type="text/javascript"></script>
     </head>
     <body>
         @include('user.layout.header')

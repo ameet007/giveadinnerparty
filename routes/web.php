@@ -79,6 +79,10 @@ Route::group(['prefix' => 'user'], function () {
     Route::any('/security', 'userController@security');
     Route::any('/my_events', 'userController@myevents');
     Route::any('/inbox', 'userController@inbox');
+    Route::any('/public_profile', 'userController@public_profile');
+    Route::any('/invite_friends', 'userController@invite_friends');
+    Route::any('/compose', 'userController@compose');
+    Route::any('/chat', 'userController@chat');
 		
 	Route::any('/send_email_verification_code', 'userController@sendemailvarificationcode');
 	Route::any('/verify_email/{code}', 'userController@verify_email');

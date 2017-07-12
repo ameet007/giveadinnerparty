@@ -53,11 +53,12 @@
                 <div id='cssmenu'>
                     <ul>
                         <li class="{{ (request()->segment(2)=='home')?'active':'' }}"><a href='{{Request::root()}}/user/home'>Edit Profile</a></li>
-                        <li class="{{ (request()->segment(2)=='inbox')?'active':'' }}"><a href='{{Request::root()}}/user/inbox'>Inbox</a></li>
+                        <li class="{{ (request()->segment(2)=='inbox' || request()->segment(2)=='chat' || request()->segment(2)=='compose')?'active':'' }}"><a href='{{Request::root()}}/user/inbox'>Inbox</a></li>
                         <li class="{{ (request()->segment(2)=='notifications')?'active':'' }}"><a href='{{Request::root()}}/user/notifications'>Notifications</a></li>
                         <li class="{{ (request()->segment(2)=='my_account')?'active':'' }}"><a href='{{Request::root()}}/user/my_account'>My Account</a></li>
                         <li class="{{ (request()->segment(2)=='my_events')?'active':'' }}"><a href='{{Request::root()}}/user/my_events'>My Events</a></li>  
-                        <li class=""><a href='#/'>My Reviews</a></li>
+                        <li class="{{ (request()->segment(2)=='public_profile')?'active':'' }}"><a href='{{Request::root()}}/user/public_profile'>My Public Profile</a></li>
+                        <li class="{{ (request()->segment(2)=='invite_friends')?'active':'' }}"><a href='{{Request::root()}}/user/invite_friends'>Invite Friends</a></li>
                     </ul>
                 </div>
             </div>

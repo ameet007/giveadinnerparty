@@ -21,13 +21,12 @@ label{font-size:14px; line-height:15px; color:#121212; font-weight:normal;}
 .textarea{min-height:32px; max-height:320px;}
 .align-center {text-align: center;}
 .align-right {text-align: right;}
-.btn2, .gost-btn, .grey-btn {font-family: 'Lato', sans-serif; display:inline-block; font-size:14px; line-height:14px; font-weight: 700; color:#FFFFFF; text-align:center; text-transform: capitalize; padding:12px 30px; margin:0; border:0; outline:none; background-color: #e85a00; border-radius: 25px; -webkit-border-radius: 25px; -moz-border-radius: 25px;}
+.btn2, .gost-btn, .grey-btn {font-family: 'Lato', sans-serif; display:inline-block; font-size:14px; line-height:14px; font-weight: 700; color:#FFFFFF !important; text-align:center; text-transform: capitalize; padding:12px 30px; margin:0; border:0; outline:none; background-color: #e85a00; border-radius: 25px; -webkit-border-radius: 25px; -moz-border-radius: 25px;}
 .btn2:hover {color:#FFFFFF; background: #4a4a4a;}
-.gost-btn {background-color: transparent; border: solid 3px #e85a00; color: #e85a00; font-weight: 700;}
-.gost-btn:hover {background-color: #e85a00; color: #fff;}
+.gost-btn {background-color: transparent; border: solid 3px #e85a00; color: #e85a00 !important; font-weight: 700;}
+.gost-btn:hover {background-color: #e85a00; color: #fff !important;}
 .grey-btn{background-color: #4a4a4a;}
 .grey-btn:hover {background-color: #e85a00;}
-.btn {font-family: 'Lato', sans-serif; display:inline-block; font-size:14px; line-height:14px; font-weight: 700; height: 39px; vertical-align: top;}
 .btnDisabled{cursor:no-drop; color:#999; background: #4a4a4a; border-color: #4a4a4a;}
 .btnDisabled:hover{color:#999; background: #4a4a4a; border-color: #4a4a4a;}
 .btn-default:focus, .btn-default.focus {background-color: transparent;}
@@ -90,8 +89,8 @@ a.hvr-shutter-out-horizontal {padding: 12px 33px; background: #a9dd7d; margin: 4
 .navbar-inverse::before {content: ""; height: 50px; left: 50%; margin-left: -50px; position: absolute; top: 0; width: 100px; z-index: 1;}
 .navbar-inverse::after {border-radius: 0 0 80px 80px; box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.1); content: ""; height: 50px; left: 50%; margin-left: -50px; position: absolute; top: 50px; width: 100px;}
 .navbar-inverse .navbar-collapse {background: transparent none repeat scroll 0 0;}
-.navbar-inverse .logo {left: 50%; margin-left: -50px; position: absolute;}
-.navbar-inverse .logo .relative-logo {background: transparent none repeat scroll 0 0; bottom: -35px; height: 50px;\ left: -50%; position: relative; text-align: center; width: 100px;}
+.navbar-inverse .logo {left: 50%; margin-left: -50px; position: absolute; top: 50%;}
+.navbar-inverse .logo .relative-logo {background-color: transparent; bottom: -35px; height: 50px; text-align: center; width: 100px;}
 .navbar-inverse .logo .relative-logo img {margin-top: -25px; position: relative; width: 75px; z-index: 1;}
 .navbar-inverse .navbar-brand {background: rgba(0, 0, 0, 0) url("../img/logo.png") no-repeat scroll center center; color: #ffffff; height: 40px; line-height: 0; margin: 20px 0; padding: 0; width: 100px;}
 .navbar-inverse .navbar-nav .open a {background: #333 none repeat scroll 0 0;}
@@ -115,7 +114,7 @@ a.hvr-shutter-out-horizontal {padding: 12px 33px; background: #a9dd7d; margin: 4
 .navbar-inverse.scroll-fixed-navbar .navbar-nav li a {color: #333; transition: all 0.3s ease-in-out 0s;}
 .navbar-inverse.scroll-fixed-navbar .navbar-nav li a:hover {color: #b78f52;}
 .navbar-inverse .input-group {padding-top: 16px;}
-.navbar-inverse .input-group .form-control {height: 39px;}
+.navbar-inverse .input-group .form-control {}
 /*banner section css start*/
 .banner {}
 .banner .back-overlay{background-color: rgba(0, 0, 0, 0.5); position: absolute; left: 0; right: 0; top: 0; bottom: 0;}
@@ -157,6 +156,7 @@ a.hvr-shutter-out-horizontal {padding: 12px 33px; background: #a9dd7d; margin: 4
 .dinner-parties .parties-head .event-mf p {font-size: 12px;}
 .dinner-parties .parties-head .event-mf img {width: auto; display: inline-block;}
 .dinner-parties .parties-head h3 {font-family: 'Lato', sans-serif; font-weight: 700; color: #4a4a4a; font-size: 20px; line-height: 24px; margin-bottom:15px; padding-right: 65px;}
+.dinner-parties .parties-head h3 a {color: #4a4a4a;}
 .dinner-parties .parties-head p {font-family: 'Lato', sans-serif; font-weight: 500; font-size: 12px; margin-bottom: 15px; color: #0a0909; line-height: 18px;}
 .dinner-parties .parties-head .price {font-size: 16px; font-weight: 700; color: #FC6719; vertical-align: middle;}
 .dinner-parties .parties-head .price a {border-bottom: dotted 1px #FC6719;}
@@ -171,7 +171,7 @@ a.hvr-shutter-out-horizontal {padding: 12px 33px; background: #a9dd7d; margin: 4
 .dinner-parties .hosted-by .heart-dil {text-align: center;}
 .dinner-parties .hosted-by .heart-dil a {font-size: 12px; color: #fff;}
 .dinner-parties .hosted-by .heart-dil a:focus {color: #1a1a1a;}
-.dinner-parties .hosted-by .inner img {border-radius: 50%; -moz-border-radius: 50%; -webkit-border-radius: 50%;}
+.dinner-parties .hosted-by .inner img {}
 .dinner-parties .hosted-by .content p {font-size: 12px; font-weight: 400; line-height: 18px; color: #fff;}
 .dinner-parties .parties-foot {border-bottom: 0 none;}
 .dinner-parties .parties-foot .img  {width: 80px;}
@@ -235,6 +235,8 @@ a.hvr-shutter-out-horizontal {padding: 12px 33px; background: #a9dd7d; margin: 4
 .pro-header .pro-header-right .btn {background-color: transparent; border-radius: 0; -moz-border-radius: 0; -webkit-border-radius: 0; border-right: 1px solid #fff; padding: 0;}
 .pro-header .pro-header-right .img {padding-right: 10px;}
 .pro-header .pro-header-right .dropdown a {font-family: 'Lato', sans-serif; font-weight: 400; font-size: 16px; line-height: 16px; color:#9b9b9b; margin-right: 16px;}
+.pro-header .pro-header-right .dropdown a .por-file {display: inline-block; position: relative;}
+.pro-header .pro-header-right .dropdown a .por-file .over-lay {background-image: url(../img/pro-pic-overlay.png); background-position: center center; background-repeat: no-repeat; background-size: contain; position: absolute; left: 0; right: 0; top: 0; right: 0; height: 50px; }
 .pro-header .your-party {padding: 30px 0 50px 0;}
 .pro-header .your-party .pull-left h2 {font-size: 36px; line-height: 36px; font-weight: 900; color: #e85900; margin-bottom: 10px;}
 .pro-header .your-party .pull-left h3 {font-size: 22px; line-height: 24px; color: #4a4a4a;}
@@ -270,9 +272,10 @@ a.hvr-shutter-out-horizontal {padding: 12px 33px; background: #a9dd7d; margin: 4
 .complete-pro .fileuploader-input-button {background-color: #4a4a4a;}
 /*navigation page css start*/
 .navigation {background-color: #4a4a4a;}
+.middle-content {padding: 40px 0;}
 /*Profile Edit page css start*/
 .profile-edit {}
-.profile-edit h2, .all-notification h2, .public-pro .per-details-right h2, .dinnerhost-party h2 {font-size: 32px; line-height: 32px; margin-bottom: 25px; color: #4a4a4a; font-weight: 700;}
+.profile-edit h2, .all-notification h2, .public-pro .per-details-right h2, .dinnerhost-party h2, .invite-fri h2 {font-size: 32px; line-height: 32px; margin-bottom: 25px; color: #4a4a4a; font-weight: 700;}
 .profile-edit .per-details {margin-bottom: 30px;}
 .profile-edit .per-details .pro-pic {text-align: center; position: relative; margin-bottom: 20px;}
 .profile-edit .per-details .pro-pic .over-lay {background-image: url(../img/pro-pic-overlay.png); background-position: center center; background-repeat: no-repeat; background-size: cover; position: absolute; left: 0; right: 0; top: 0; bottom: 0;}
@@ -313,17 +316,18 @@ a.hvr-shutter-out-horizontal {padding: 12px 33px; background: #a9dd7d; margin: 4
 .in-box .chat-section .message-send .textarea {height: 42px; resize: none;}
 .in-box .chat-section .message-send .btn2 {display: block; width: 100%;}
 /*All Notification page css start*/
-.all-notification {}
+.all-notification {padding-bottom: 0;}
 .all-notification ul li {display: block; padding: 10px; border-top: solid 1px #979797;}
 .all-notification ul li:last-child {border-bottom: solid 1px #979797;}
 .all-notification ul li .img, .all-notification ul li .text {vertical-align: top; display: table-cell;}
-.all-notification ul li .img {width: 60px;}
+.all-notification ul li .img {width: 60px; position: relative;}
+.all-notification ul li .img .circle-img {background-image: url(../img/pro-pic-overlay.png); background-repeat: no-repeat; background-position: center center; background-size: cover; position: absolute; left: 0; right: 0; bottom: 0; top: 0;}
 .all-notification ul li .text {padding-left: 10px;}
 .all-notification ul li .text h5 {font-size: 18px; color: #4a4a4a; line-height: 22px; margin-bottom: 15px;}
 .all-notification ul li .text strong {color: #333; font-weight: 700;}
 .all-notification ul li .text p {color: #4a4a4a;}
 /*Account page css start*/
-.middle-content {padding: 40px 0;}
+.account-section {padding-bottom: 0;}
 .account-section .sidenav-list {margin-bottom: 20px;}
 .account-section .sidenav-list ul li {display: block;  padding: 8px 0;}
 .account-section .sidenav-list ul li a {color: #767676; font-size: 14px;}
@@ -350,9 +354,6 @@ a.hvr-shutter-out-horizontal {padding: 12px 33px; background: #a9dd7d; margin: 4
 .account-section .my-hos select, .account-section .secur-ity input {background-color: #fff; border: 1px solid #aaa; border-radius: 2px; color: #484848; display: block; height: 40px; padding: 8px 10px; width: 300px;}
 .account-section .secur-ity {}
 .account-section .secur-ity input {margin-bottom: 10px;}
-/*Events page css start*/
-.my-events {padding: 40px 0 0 0;}
-.my-events .owl-carousel  {margin-bottom: 40px;}
 /*Public Profile page css start*/
 .public-pro {}
 .public-pro .per-details .pro-pic {margin-bottom: 10px;}
@@ -386,7 +387,7 @@ a.hvr-shutter-out-horizontal {padding: 12px 33px; background: #a9dd7d; margin: 4
 .sheng-reviews .essex-from h4 {font-weight: 700;}
 .sheng-reviews .essex-from a {font-size:16px; font-weight: 600;}
 /*Dinner Party Host page css start*/
-.dinnerhost-party {}
+.dinnerhost-party {padding-bottom: 0;}
 .dinnerhost-party h2 span {font-size: 24px; color: #e85a00;}
 .dinnerhost-party ul.date {margin-bottom: 20px;}
 .dinnerhost-party ul.date li {font-size:16px; line-height: 20px; color: #4a4a4a;}
@@ -414,8 +415,15 @@ a.hvr-shutter-out-horizontal {padding: 12px 33px; background: #a9dd7d; margin: 4
 .dinnerhost-party .invite-your ul li a .fa-facebook-square {color: #3c5d9b;}
 .dinnerhost-party .invite-your ul li a .fa-twitter-square {color: #46aeea;}
 .dinnerhost-party .invite-your ul li a .fa-envelope-square {color: #e7e7e7;}
+/*Dinner Party Host Booked Tickets page css start*/
+.dinnerhost-tickets {}
+.dinnerhost-tickets .parti {margin-bottom: 20px;}
+.dinnerhost-tickets .parti ul li {display: inline-block; padding: 0 15px; width:100px; text-align: center;}
+.dinnerhost-tickets .parti .img {width: 100%; position: relative;}
+.dinnerhost-tickets .parti .img .circle-img {background-image: url(../img/pro-pic-overlay.png); background-repeat: no-repeat; background-position: center center; background-size: cover; position: absolute; left: 0; right: 0; bottom: 0; top: 0;}
+.dinnerhost-tickets .parti p{margin-bottom: 0;}
 /*Profile Page css start*/
-.profile-page {padding: 0 0 40px 0;}
+.profile-page {}
 .profile-page .dinner-parties {padding: 0; margin-bottom: 30px;}
 .profile-page .photo-from {margin-bottom: 30px;}
 .profile-page .photo-from img {width: 100%; margin-bottom: 5px;}
@@ -426,7 +434,7 @@ a.hvr-shutter-out-horizontal {padding: 12px 33px; background: #a9dd7d; margin: 4
 .profile-page .party-interest {}
 .profile-page .party-interest ul li {display: block; font-size: 16px; line-height: 20px; margin-bottom: 10px;}
 /*Host Step page css start*/
-.host-step {padding-top: 0;}
+.host-step {}
 .host-step h6, .host-step .dat-time h4 {font-size: 18px; color: #9b9b9b; font-weight: 700; line-height: 18px; margin-bottom: 10px;}
 .host-step h3 {font-size: 26px; color: #4a4a4a; line-height: 32px; font-weight: 700; margin-bottom: 30px;}
 .host-step .dat-time {margin-bottom: 30px;}
@@ -458,22 +466,70 @@ a.hvr-shutter-out-horizontal {padding: 12px 33px; background: #a9dd7d; margin: 4
 .host-step3 .finally-send .checkbox label {font-size: 12px;}
 /**/
 .pro-header .hea-search {padding-top: 15px;}
-.pro-header .hea-search .form-control {height: 39px;}
-
-/*parsley error css*/
-.parsley-error {
-    border: 1px solid #f5707a !important;
-}
-.parsley-errors-list > li {
-    font-size: 12px;
-    list-style: none;
-    color: #f5707a;
-    margin-top: 5px;
-}
-
-.error_validation {
-    font-size: 12px;
-    list-style: none;
-    color: #f5707a;
-    margin-bottom: 5px;
-}
+/*site map page css start*/
+.site-map h2 {text-align: center; font-weight: 600;  font-size: 32px; line-height: 32px; margin-bottom: 30px; padding: 20px 0}
+.tree, .tree ul {color: #369; list-style: outside none none; margin: 0 0 0 1em; padding: 0; position: relative;}
+.tree ul {margin-left: 0.5em;}
+.tree::before, .tree ul::before {border-left: 1px solid; bottom: 0; content: ""; display: block; left: 0; position: absolute; top: 0; width: 0;}
+.tree li {background-image: none;  font-weight: bold; line-height: 2em; margin: 0; padding: 0 1.5em; position: relative; font-weight: 700;}
+.tree li::before {border-top: 1px solid; content: ""; display: block; height: 0; left: 0; margin-top: -1px; position: absolute; top: 1em; width: 10px;}
+.tree li:last-child::before {background: #fff; bottom: 0; height: auto; top: 1em;}
+/*07.07.2017*/
+.in-box .table-detail .chat-widget {margin-top: 20px;}
+.in-box .chat-item-img {position: relative;}
+.in-box .chat-item-img .over-lay {background-image: url(../img/pro-pic-overlay.png); background-position: center center; background-repeat: no-repeat; background-size: contain; position: absolute; left: 0; right: 0; top: 0; right: 0; height: 50px;}
+/*Events page css start*/
+.my-events {}
+.my-events .dinner-parties {padding:0;}
+.my-events .dinner-parties .owl-theme .owl-nav [class*="owl-"] {font-size: 50px;}
+.my-events .owl-carousel  {margin-bottom: 40px;}
+.my-events #tabs {border:none 0; padding:0;}
+.my-events .ui-tabs .ui-tabs-nav {background-color:transparent; width:100%; border-radius:0; text-align:center; border:none 0; border-bottom:solid 1px #E85A00; margin-bottom:40px; padding: 0;}
+.my-events .ui-tabs .ui-tabs-nav li {margin:0 0 10px 0; padding:0; float:none; display:inline-block; border: none 0; vertical-align: middle;}
+.my-events .ui-tabs .ui-tabs-nav li:last-child {font-size: 25px; padding-left: 10px; color: #E85A00;}
+.my-events .ui-tabs .ui-tabs-nav li a {background-color:#2C2A2A; color:#fff !important;}
+.my-events .ui-state-default.ui-corner-top.ui-tabs-active.ui-state-active a {background-color:#E85A00; font-weight:400; border-top: none 0; color: #fff !important;}
+.my-events .ui-tabs .ui-tabs-nav li a, .my-events .ui-state-default.ui-corner-top.ui-tabs-active.ui-state-active a {padding:10px 25px; }
+.my-events .ui-tabs .ui-tabs-panel {padding: 0;}
+/*Pending Request page css start*/
+.pending-req {}
+.pending-req .item {padding: 0 15px; -webkit-border-top-left-radius: 10px; -webkit-border-top-right-radius: 10px; -moz-border-radius-topleft: 10px; -moz-border-radius-topright: 10px; border-top-left-radius: 10px; border-top-right-radius: 10px;}
+.pending-req .dinner-parties .parties-head {background-image: url(../img/galler-pic1.jpg); background-repeat: no-repeat; background-position: center; background-size: cover; z-index: 1; padding-top: 70px; -webkit-border-top-left-radius: 10px; -webkit-border-top-right-radius: 10px; -moz-border-radius-topleft: 10px; -moz-border-radius-topright: 10px; border-top-left-radius: 10px; border-top-right-radius: 10px;}
+.pending-req .dinner-parties {margin-bottom: 30px;}
+.pending-req .dinner-parties .parties-head .tow-btn {position: absolute; right:5px; top: 5px;}
+.pending-req .dinner-parties .parties-head .tow-btn button, .pending-req .dinner-parties .parties-head .tow-btn a {padding: 5px 10px; font-weight: 400; font-size: 12px;}
+.pending-req .dinner-parties .parties-head h3 a {padding-right: 0; color: #fff;}
+.pending-req .dinner-parties .parties-head .event-mf {background-color: rgba(0,0,0,0.25); left: 0; right: 0; top: 0; bottom: 0; z-index: -1; -webkit-border-top-left-radius: 10px; -webkit-border-top-right-radius: 10px; -moz-border-radius-topleft: 10px; -moz-border-radius-topright: 10px; border-top-left-radius: 10px; border-top-right-radius: 10px;}
+.pending-req .dinner-parties .parties-head .event-mf .fa, .pending-req .dinner-parties .parties-head .event-mf p, .pending-req .dinner-parties .parties-head .event-mf img {display: none;}
+.pending-req .dinner-parties .parties-host {background-color: transparent;}
+.pending-req .dinner-parties .hosted-by { border-bottom: 1px solid #4a4a4a;}
+.pending-req .dinner-parties .parties-foot {border-bottom: 0 none;}
+.pending-req .dinner-parties .hosted-by .inner .circle-img {background-image: url(../img/pro-pic-overlay.png);}
+.pending-req .dinner-parties .hosted-by .content p, .dinner-parties .hosted-by .heart-dil a {color: #4a4a4a;}
+/*Invite Friends page css*/
+.invite-fri {}
+.invite-fri h2 {font-weight: 700;}
+.invite-fri p {line-height: 20px; margin-bottom: 15px;}
+.invite-fri .form-group label {display: block;}
+.invite-fri .form-group a {font-weight: 400; padding: 10px 30px;}
+.invite-fri .dis-tance {margin-bottom: 20px;}
+.invite-fri .age-ran {}
+.invite-fri .age-ran .form-inline {margin-bottom: 15px;}
+.invite-fri .more-opt {margin-bottom: 20px;}
+.invite-fri .more-opt ul li {display: inline-block; vertical-align: top;}
+.invite-fri .sias-interests {margin-bottom: 20px;}
+.invite-fri .sias-interests ul {background-color: #eee; margin-bottom: 15px;}
+.invite-fri .sias-interests ul li {display: block; padding: 15px 15px 0 15px;}
+.invite-fri .sias-interests ul li .checkbox-inline {width: 32%; margin-left: 0; margin-bottom: 15px;}
+.invite-fri .sias-interests ul li:nth-child(2n) {background-color: #F5F5F5;}
+.invite-fri .spok {margin-bottom: 30px;}
+.invite-fri .spok ul {background-color: #F5F5F5;}
+.invite-fri .spok ul li .checkbox-inline {width: 19%; margin-left: 0; margin-bottom: 15px;}
+.invite-pop {}
+.invite-pop h4 {font-weight: 700; color: #4a4a4a; margin-bottom: 15px;}
+.invite-pop .close {position: absolute; right: -10px; top: -10px; opacity:1;}
+.invite-pop .media {margin-bottom: 15px;}
+.invite-pop .media-left {padding-right: 0;}
+.invite-pop .media-left .inner {width: 65px; height: 65px; position: relative;}
+.invite-pop .media-left .circle-img {background-image: url(../img/pro-pic-overlay.png); background-repeat: no-repeat; background-position: center center; background-size: cover; position: absolute; left: 0; right: 0; bottom: 0; top: 0;}
+.invite-pop .media-body {padding-left: 10px;}
