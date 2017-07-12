@@ -10,6 +10,8 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Hash;
 use Mail;
 use App\Userimages;
+use Socialite;
+use App\social_logins;
 
 class userController extends Controller {
 
@@ -206,5 +208,120 @@ class userController extends Controller {
             return view('user/message/chat');
         }
     }
-
+	
+	public function hostverification(Request $request, $id = 0)
+	{
+		if($request->isMethod('post'))
+		{			
+			$data = $request->all();	
+			
+			if($data['upload']=='idupload')
+			{
+				$validate = Validator::make($data, [
+				'id_proof' => 'required|image|mimes:jpeg,png,jpg|max:2048',	
+				]);
+				
+				if(!$validate->fails())
+				{
+						$file = $request->file('id_proof');
+						
+						if(isset($_FILES['id_proof']['name']) && !empty($_FILES['id_proof']['name']))
+						{	
+							$file_name = str_replace(' ','_',time().$file->getClientOriginalName());
+							$destinationPath = 'assets\admin\uploads\users';			
+							$file->move($destinationPath,$file_name);
+							if(file_exists('assets/admin/uploads/users/'.$data['old_file']) && !empty($data['old_file']))
+							{	
+								unlink('assets/admin/uploads/users/'.$data['old_file']);
+							}
+							$full_path = 'assets/admin/uploads/users/'.$file_name;
+														
+						}
+						else
+						{
+							$full_path ="";
+							$file_name = $data['old_file'];
+						}
+																	
+						unset($data['_token']);
+						unset($data['old_file']);
+						unset($data['upload']);
+						$data['id_proof']= $file_name;
+						$login_user = Auth::guard('user')->user();
+						User::where('id', $login_user->id)->update($data);
+						
+						if(!empty($full_path))
+						{	
+							Mail::send('emails.id_proof', ['user' => $login_user], function ($message) use($full_path)
+							{							
+								$message->to('phpdeveloper70@gmail.com', 'admin')->subject('ID Proof for Approve');
+								$message->attach($full_path);
+							});	
+						}						
+										
+						$request->session()->flash('flash_message', '<div class="alert alert-success"><span class="glyphicon glyphicon-ok"></span><em> your document has been successfully uploaded.</em></div>');
+						return redirect('user/host_verification');
+				}
+				else
+				{
+					redirect('user/host_verification')->withErrors($validate)->withInput();
+				}
+				
+			}
+			
+			if($data['upload']=='addressupload')	
+			{
+				$validate = Validator::make($data, [
+				'address_proof' => 'required|image|mimes:jpeg,png,jpg|max:2048',	
+				]);
+				
+				if(!$validate->fails())
+				{
+						$file = $request->file('address_proof');						
+						if(isset($_FILES['address_proof']['name']) && !empty($_FILES['address_proof']['name']))
+						{	
+							$file_name = str_replace(' ','_',time().$file->getClientOriginalName());
+							$destinationPath = 'assets\admin\uploads\users';			
+							$file->move($destinationPath,$file_name);
+							if(file_exists('assets/admin/uploads/users/'.$data['old_file']) && !empty($data['old_file']))
+							{	
+								unlink('assets/admin/uploads/users/'.$data['old_file']);
+							}
+						}
+						else
+						{
+							$file_name = $data['old_file'];
+						}
+						
+						unset($data['_token']);
+						unset($data['old_file']);
+						unset($data['upload']);
+						$data['address_proof']= $file_name;
+						$login_user = Auth::guard('user')->user();
+						User::where('id', $login_user->id)->update($data);
+						
+						
+						
+						$request->session()->flash('flash_message', '<div class="alert alert-success"><span class="glyphicon glyphicon-ok"></span><em> your document has been successfully uploaded.</em></div>');
+						return redirect('user/host_verification');
+				}
+				else
+				{
+					redirect('user/host_verification')->withErrors($validate)->withInput();
+				}
+				
+			}	
+            
+           
+        }
+		$user = Auth::guard('user')->user();
+		$social_login = social_logins::where('user_id', $user->id)->first(); //social_logins
+        return view('user.account.host_verify')->with(['user'=>$user,'social_login'=> $social_login]);
+    }
+	
+	public function redirectToFacebook(Request $request, $id = 0)
+	{
+        return Socialite::driver('facebook')->redirect();
+    }
+	
 }

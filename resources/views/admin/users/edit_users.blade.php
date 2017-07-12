@@ -100,6 +100,42 @@
               @endif
             </div>
 
+			<div class="form-group">
+              <label for="fullname">ID Proof * : </label>
+				<?php if(file_exists('assets/admin/uploads/users/'.$user->id_proof) && !empty($user->id_proof)){ ?>				  
+					<a href="{{Request::root()}}/admin/document_download/{{$user->id_proof}}">Download</a> || 
+					<a href="{{Request::root()}}/admin/delete_document/{{$user->id_proof}}" >Delete</a>
+					
+				<?php } ?>
+              <select name="approve_id" required="" class="form-control">
+				<option value="0" <?php if(Request::segment(3) == 'edit'){  echo ($user->approve_id==0)?'selected':''; } ?> >Unapproved</option>
+				<option value="1" <?php if(Request::segment(3) == 'edit'){  echo ($user->approve_id==1)?'selected':''; } ?>>Approved</option>
+			  </select>
+              @if(ISSET($errors))
+              <ul class="parsley-errors-list filled" id="parsley-id-5">
+                <li class="parsley-required">{{$errors->first('approve_id')}}</li>
+              </ul>
+              @endif
+            </div>
+			
+			<div class="form-group">
+              <label for="fullname">Address Proof * :</label>
+			  <?php if(file_exists('assets/admin/uploads/users/'.$user->address_proof) && !empty($user->address_proof)){ ?>	
+			  <a href="{{Request::root()}}/admin/document_download/{{$user->address_proof}}" >Download</a> || 			  
+			  <a href="{{Request::root()}}/admin/delete_document/{{$user->address_proof}}" >Delete</a>
+			  
+			  <?php } ?>
+              <select name="approve_address" required="" class="form-control">
+				<option value="0" <?php if(Request::segment(3) == 'edit'){  echo ($user->approve_address==0)?'selected':''; } ?> >Unapproved</option>
+				<option value="1" <?php if(Request::segment(3) == 'edit'){  echo ($user->approve_address==1)?'selected':''; } ?>>Approved</option>
+			  </select>
+              @if(ISSET($errors))
+              <ul class="parsley-errors-list filled" id="parsley-id-5">
+                <li class="parsley-required">{{$errors->first('approve_address')}}</li>
+              </ul>
+              @endif
+            </div>
+			
             <div class="form-group">
               <label for="fullname">Password * :</label>
               <input type="password" class="form-control" name="password" id="fullname" <?= (Request::segment(3) == 'edit') ? '' : 'required' ?>>
@@ -114,15 +150,11 @@
               <label for="fullname">Status * :</label>
               <div class="radio">
                 <input type="radio" <?= (Request::segment(3) == 'edit' && $user->gender == 0) ? 'checked' : '' ?> <?= (old('gender') == 0) ? 'checked' : '' ?> name="is_disabled" id="genderM" value="0" required="" data-parsley-multiple="is_disabled">
-                <label for="genderM">
-                  Enabled
-                </label>
+                <label for="genderM">Enabled</label>
               </div>
               <div class="radio">
                 <input type="radio" <?= (Request::segment(3) == 'edit' && $user->gender == 1) ? 'checked' : '' ?> <?= (old('gender') == 1) ? 'checked' : '' ?> name="is_disabled" id="genderF" value="1" data-parsley-multiple="is_disabled">
-                <label for="genderF">
-                  Disabled
-                </label>
+                <label for="genderF">Disabled</label>
               </div>
               @if(ISSET($errors))
               <ul class="parsley-errors-list filled" id="parsley-id-5">
