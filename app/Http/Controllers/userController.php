@@ -230,9 +230,6 @@ class userController extends Controller {
             ]);
         }
         else if($request->isMethod('post')){
-            echo "<pre>";
-            print_r($request->all());
-            exit;
             $data = $request->all();
 
             $validate = Validator::make($data, [
@@ -271,24 +268,21 @@ class userController extends Controller {
             ]);
             if (!$validate->fails()) {
                 unset($data['_token']);
-                $data['password'] = bcrypt($data['password']);
-                $data['dob'] = $data['birthmonth'] . '/' . $data['birthday'] . '/' . $data['birthyear'];
-                $data['confirmed'] = 0;
-                $data['confirmation_code'] = str_shuffle("1234567890");
-                unset($data['birthmonth']);
-                unset($data['birthday']);
-                unset($data['birthyear']);
-                $user = User::create($data)->id;
-                $authUser = User::where('id', $user)->first();
-                Auth::guard('user')->login($authUser);
-
-                Mail::send('emails.email_confirmation', ['user' => $authUser], function ($message) use($authUser) {
-                    $message->to($authUser->email, $authUser->name . ' ' . $authUser->last_name)->subject('confirm your email!');
-                });
-
-                return redirect('/');
+                $data['start_time'] = $data['start_time_1'].':'.$data['start_time_2'];
+                $data['end_time'] = $data['end_time_1'].':'.$data['end_time_2'];
+                unset($data['start_time_1']);
+                unset($data['start_time_2']);
+                unset($data['end_time_1']);
+                unset($data['end_time_2']);
+                unset($data['agree']);
+                unset($data['confirm']);
+                $data['food_drink_type'] = json_encode($data['food_drink_type']);
+                $data['user_id'] = Auth::guard('user')->user()->id;
+                $data['status'] = 1;
+                events::insert($data);
+                return redirect('/user/my_events')->with('success','Event Successfully Created!');
             } else {
-                return redirect('/');
+                return redirect('/user/create_event')->withInput()->withErrors($validate);
             }
         }
     }

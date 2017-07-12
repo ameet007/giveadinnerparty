@@ -28,8 +28,8 @@
                                     <select class="form-control" id="sel1">
                                         <option selected="selected">Select A Template</option>
                                         @foreach($past_events as $event)
-                                    <option value="{{$event->id}}">{{$event->title}}</option>
-									 @endforeach
+                                        <option value="{{$event->id}}">{{$event->title}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -44,6 +44,11 @@
                                 <div class="form-group">
                                     <input type="text" name='title' class="form-control" placeholder="Title For Your Event" required />
                                 </div>
+                                @if(ISSET($errors))
+                                <ul class="parsley-errors-list filled" id="parsley-id-5">
+                                    <li class="parsley-required">{{$errors->first('title')}}</li>
+                                </ul>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -56,6 +61,11 @@
                                 <div class="form-group">
                                     <textarea name='description' class="form-control" required ></textarea>
                                 </div>
+                                @if(ISSET($errors))
+                                <ul class="parsley-errors-list filled" id="parsley-id-5">
+                                    <li class="parsley-required">{{$errors->first('description')}}</li>
+                                </ul>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -78,6 +88,11 @@
                                         <span class="glyphicon glyphicon-th"></span>
                                     </div>
                                 </div>
+                                @if(ISSET($errors))
+                                <ul class="parsley-errors-list filled" id="parsley-id-5">
+                                    <li class="parsley-required">{{$errors->first('event_date')}}</li>
+                                </ul>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -113,6 +128,11 @@
                                         <option value="23">23</option> 
                                     </select>
                                 </div>
+                                @if(ISSET($errors))
+                                <ul class="parsley-errors-list filled" id="parsley-id-5">
+                                    <li class="parsley-required">{{$errors->first('start_time_1')}}</li>
+                                </ul>
+                                @endif
                             </div>
                             <div class="col-md-4 col-sm-12">
                                 <h4>&nbsp</h4>
@@ -124,6 +144,11 @@
                                         <option value="45">45</option> 
                                     </select>
                                 </div>
+                                @if(ISSET($errors))
+                                <ul class="parsley-errors-list filled" id="parsley-id-5">
+                                    <li class="parsley-required">{{$errors->first('start_time_2')}}</li>
+                                </ul>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -159,6 +184,11 @@
                                         <option value="23">23</option> 
                                     </select>
                                 </div>
+                                @if(ISSET($errors))
+                                <ul class="parsley-errors-list filled" id="parsley-id-5">
+                                    <li class="parsley-required">{{$errors->first('end_time_1')}}</li>
+                                </ul>
+                                @endif
                             </div>
                             <div class="col-md-4 col-sm-12">
                                 <div class="form-group">
@@ -170,6 +200,11 @@
                                         <option value="45">45</option> 
                                     </select>
                                 </div>
+                                @if(ISSET($errors))
+                                <ul class="parsley-errors-list filled" id="parsley-id-5">
+                                    <li class="parsley-required">{{$errors->first('end_time_2')}}</li>
+                                </ul>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -185,7 +220,13 @@
                                 <div class="form-group">
                                     <input name='street' type="text" class="form-control" placeholder="Enter Your Street and Home Number" required />
                                 </div>
+                                @if(ISSET($errors))
+                                <ul class="parsley-errors-list filled" id="parsley-id-5">
+                                    <li class="parsley-required">{{$errors->first('street')}}</li>
+                                </ul>
+                                @endif
                             </div>
+                            
                         </div>
                     </div>
                     <div class="col-xs-12 feild">
@@ -195,6 +236,11 @@
                                     <div class="form-group">
                                         <input name='city' type="text" class="form-control" placeholder="Enter City" required />
                                     </div>
+                                    @if(ISSET($errors))
+                                <ul class="parsley-errors-list filled" id="parsley-id-5">
+                                    <li class="parsley-required">{{$errors->first('city')}}</li>
+                                </ul>
+                                @endif
                                 </div>
                             </div>
                             <div class="col-md-4 col-sm-12">
@@ -202,6 +248,11 @@
                                     <div class="form-group">
                                         <input name='county' type="text" class="form-control" placeholder="Enter County" />
                                     </div>
+                                    @if(ISSET($errors))
+                                <ul class="parsley-errors-list filled" id="parsley-id-5">
+                                    <li class="parsley-required">{{$errors->first('county')}}</li>
+                                </ul>
+                                @endif
                                 </div>
                             </div>
 
@@ -213,12 +264,17 @@
                                 <div class="form-group">
                                     <div class="form-group">
                                         <select  name="country" class="form-control" required>
-									<option value="">Country You’re In?</option>
-									@foreach($country_list as $country)
-                                    <option value="{{$country->title}}">{{$country->title}}</option>
-									 @endforeach
-                                </select>
+                                            <option value="">Country You’re In?</option>
+                                            @foreach($country_list as $country)
+                                            <option value="{{$country->title}}">{{$country->title}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
+                                    @if(ISSET($errors))
+                                <ul class="parsley-errors-list filled" id="parsley-id-5">
+                                    <li class="parsley-required">{{$errors->first('country')}}</li>
+                                </ul>
+                                @endif
                                 </div>
                             </div>
                         </div>
@@ -228,8 +284,13 @@
                             <div class="col-md-4 col-sm-12">
                                 <div class="form-group">
                                     <div class="form-group">
-                                        <input name='postal_code' type="text" class="form-control" placeholder="Enter Your Postcode" required />
+                                        <input name='postal_code' type="text" pattern="[0-9a-zA-Z]+" class="form-control" placeholder="Enter Your Postcode" required />
                                     </div>
+                                    @if(ISSET($errors))
+                                <ul class="parsley-errors-list filled" id="parsley-id-5">
+                                    <li class="parsley-required">{{$errors->first('postal_code')}}</li>
+                                </ul>
+                                @endif
                                 </div>
                             </div>
                         </div>
@@ -664,11 +725,11 @@
                                 <div class="form-group">
                                     <label>Charity</label>
                                     <select  name="charity_id" class="form-control" required>
-									<option value="">Pick A Charity That Means The Most To You</option>
-									@foreach($charities as $charity)
-                                    <option value="{{$charity->id}}">{{$charity->title}}</option>
-									 @endforeach
-                                </select>
+                                        <option value="">Pick A Charity That Means The Most To You</option>
+                                        @foreach($charities as $charity)
+                                        <option value="{{$charity->id}}">{{$charity->title}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -679,9 +740,9 @@
                                 <div class="form-group">
                                     <label>Charity Receives</label>
                                     <select name='charity_cut' required class="form-control" id="sel1">
-                                        <option selected="selected">100%</option>
-                                        <option>75%</option>
-                                        <option>50%</option>
+                                        <option value="100">100%</option>
+                                        <option value="75">75%</option>
+                                        <option value="50">50%</option>
                                     </select>
                                     <p>$20.00 per ticket</p>
                                 </div>
@@ -722,13 +783,13 @@
                                 <div class="form-group">
                                     <textarea name='welcome_note' required class="form-control" placeholder="Say hi, and Tell Them How to Get To Your Place"></textarea>
                                 </div>
-                                    <label><input name='agree' required type="checkbox" value="1">I agree to be contacted by Action Against Hunger to receive my free recipe and fundraising pack and hear more about their work.</label>
+                                <label><input name='agree' required type="checkbox" value="1">I agree to be contacted by Action Against Hunger to receive my free recipe and fundraising pack and hear more about their work.</label>
 
-                                    <label><input name='confirm' required type="checkbox" value="1">I have read and agree to the <a href="#">Terms And Conditions</a> and <a href="#">Privacy Policy</a></label>
+                                <label><input name='confirm' required type="checkbox" value="1">I have read and agree to the <a href="#">Terms And Conditions</a> and <a href="#">Privacy Policy</a></label>
 
-                                
-                                    <label>Confirmed</label>
-                                
+
+                                <label>Confirmed</label>
+
                             </div>
                         </div>
                     </div>
@@ -743,11 +804,8 @@
 </section>
 <script>
     $(document).ready(function () {
-        $('.datepicker').datepicker({
-            format: 'mm/dd/yyyy',
-            startDate: '-3d'
-        });
-        
+        $('.datepicker').datepicker();
+
         $('form').parsley();
     });
 </script>
