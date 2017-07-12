@@ -15,7 +15,7 @@ class cmsController extends Controller
     public function banners(Request $request)
 	{
 		$banner = Banner::get();
-		return view('cms.banners.listing')->with(['banners'=>$banner]);
+		return view('admin.banners.listing')->with(['banners'=>$banner]);
 	}
 	
 	public function addbanner(Request $request, $id=0)
@@ -38,14 +38,14 @@ class cmsController extends Controller
 			$data['image'] = $file_name;
 			unset($data['_token']);
 			Banner::insert($data);
-			return redirect('cms/banners')->with(['success'=>'banner successfully created']);
+			return redirect('admin/banners')->with(['success'=>'banner successfully created']);
 		}
 		else
 		{
-			redirect('cms/banners/add')->withErrors($validate)->withInput();
+			redirect('admin/banners/add')->withErrors($validate)->withInput();
 		}
 		
-		return view('cms.banners.edit_banner');
+		return view('admin.banners.edit_banner');
 	}
 	
 	public function editbanner(Request $request, $id=0)
@@ -78,16 +78,16 @@ class cmsController extends Controller
 			unset($data['_token']);
 			unset($data['old_image']);
 			Banner::where('id',$id)->update($data);
-			return redirect('cms/banners')->with(['success'=>'banner successfully created']);
+			return redirect('admin/banners')->with(['success'=>'banner successfully created']);
 		}
 		else
 		{
-			redirect('cms/banners/add')->withErrors($validate)->withInput();
+			redirect('admin/banners/add')->withErrors($validate)->withInput();
 		}
 		
 		$banner = Banner::where('id', $id)->first();
 		//dd($banner);
-		return view('cms.banners.edit_banner')->with(['banner'=>$banner]);
+		return view('admin.banners.edit_banner')->with(['banner'=>$banner]);
 	}
 	
 	public function deletebanner(Request $request, $id=0)
@@ -95,7 +95,7 @@ class cmsController extends Controller
 		$banner = Banner::where('id', $id)->first();	
 		unlink('assets/admin/uploads/banner/'.$banner->image);
 		Banner::where('id',$id)->delete();
-		return redirect('cms/banners')->with(['success'=>'User successfully deleted',]);
+		return redirect('admin/banners')->with(['success'=>'User successfully deleted',]);
 	}
 	/*********************end banner code***********************/
 	
@@ -104,7 +104,7 @@ class cmsController extends Controller
     public function faq(Request $request)
 	{
 		$faq = Faq::get();
-		return view('cms.faq.listing')->with(['faq'=>$faq]);
+		return view('admin.faq.listing')->with(['faq'=>$faq]);
 	}
 	
 	public function addfaq(Request $request, $id=0)
@@ -120,14 +120,14 @@ class cmsController extends Controller
 		{			
 			unset($data['_token']);
 			Faq::insert($data);
-			return redirect('cms/faq')->with(['success'=>'faq successfully created']);
+			return redirect('admin/faq')->with(['success'=>'faq successfully created']);
 		}
 		else
 		{
-			redirect('cms/faq/add')->withErrors($validate)->withInput();
+			redirect('admin/faq/add')->withErrors($validate)->withInput();
 		}
 		
-		return view('cms.faq.edit_faq');
+		return view('admin.faq.edit_faq');
 	}
 	
 	public function editfaq(Request $request, $id=0)
@@ -143,22 +143,22 @@ class cmsController extends Controller
 		{			
 			unset($data['_token']);
 			Faq::where('id',$id)->update($data);
-			return redirect('cms/faq')->with(['success'=>'faq successfully created']);
+			return redirect('admin/faq')->with(['success'=>'faq successfully created']);
 		}
 		else
 		{
-			redirect('cms/faq/edit')->withErrors($validate)->withInput();
+			redirect('admin/faq/edit')->withErrors($validate)->withInput();
 		}
 		
 		$faq = Faq::where('id', $id)->first();
 		//dd($faq);
-		return view('cms.faq.edit_faq')->with(['faq'=>$faq]);
+		return view('admin.faq.edit_faq')->with(['faq'=>$faq]);
 	}
 	
 	public function deletefaq(Request $request, $id=0)
 	{
 		Faq::where('id',$id)->delete();
-		return redirect('cms/faq')->with(['success'=>'User successfully deleted',]);
+		return redirect('admin/faq')->with(['success'=>'User successfully deleted',]);
 	}
 	/*********************end FAQ code***********************/	
 	
@@ -168,7 +168,7 @@ class cmsController extends Controller
 	 public function aboutus(Request $request)
 	{
 		$aboutus = Cms::get();
-		return view('cms.aboutus.listing')->with(['aboutus'=>$aboutus]);
+		return view('admin.aboutus.listing')->with(['aboutus'=>$aboutus]);
 	}
 	public function aboutusedit(Request $request, $id=0)
 	{
@@ -199,15 +199,15 @@ class cmsController extends Controller
 			unset($data['_token']);
 			unset($data['old_image']);
 			Cms::where('id',$id)->update($data);
-			return redirect('cms/aboutus')->with(['success'=>'banner successfully created']);
+			return redirect('admin/aboutus')->with(['success'=>'banner successfully created']);
 		}
 		else
 		{
-			redirect('cms/aboutus/edit')->withErrors($validate)->withInput();
+			redirect('admin/aboutus/edit')->withErrors($validate)->withInput();
 		}
 		
 		$aboutus_data = Cms::where('id',1)->first();
-		return view('cms.aboutus.edit_aboutus')->with(['aboutus'=>$aboutus_data]);
+		return view('admin.aboutus.edit_aboutus')->with(['aboutus'=>$aboutus_data]);
 	}
 	/*********************end about us code***********************/
 	
