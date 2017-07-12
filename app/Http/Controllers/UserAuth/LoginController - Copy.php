@@ -45,7 +45,7 @@ class LoginController extends Controller
     {
         $this->middleware('user.guest', ['except' => 'logout']);
     }
-	
+
     /**
      * Show the application's login form.
      *
@@ -82,21 +82,11 @@ class LoginController extends Controller
             ->first();
             if(count($existing) > 0 && $existing->facebook_id == ''){
                 if($existing->confirmed == 1){
-					$login_user = Auth::guard('user')->user();
-					if(count($login_user)>0)
-					{	
-						$uid = $login_user->id;
-					}
-					else
-					{
-						$uid = $existing->id;
-					}
-                    $data['user_id'] = $uid; //$existing->id;
+                    $data['user_id'] = $existing->id;
                     $data['facebook_id'] = $user->user['id'];
                     $data['facebook_link'] = $user->user['link'];
-					
                     social_logins::insert($data);
-                    $authUser = User::where('id',$uid)->first();
+                    $authUser = User::where('id',$existing->id)->first();
 					Auth::guard('user')->login($authUser);
 					return redirect('/user/home');
                 }

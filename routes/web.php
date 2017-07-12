@@ -16,6 +16,10 @@ Route::any('/', 'homeController@index');
 Route::get('login/facebook', 'UserAuth\LoginController@redirectToProvider');
 Route::get('login/facebook/callback', 'UserAuth\LoginController@handleProviderCallback');
 
+
+Route::get('user/verify_facebook', 'userController@redirectToFacebook');
+
+
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/login', 'AdminAuth\LoginController@showLoginForm');
     Route::post('/login', 'AdminAuth\LoginController@login');
@@ -63,10 +67,20 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::any('/charity/add', 'charityController@addcharity');
 	Route::any('/charity/edit/{id}', 'charityController@editcharity');
 	Route::any('/charity/delete/{id}', 'charityController@deletecharity');
+	
+	Route::any('/seo', 'cmsController@seo');
+	Route::any('/seo/add', 'cmsController@addseo');
+	Route::any('/seo/edit/{id}', 'cmsController@editseo');
+	Route::any('/seo/delete/{id}', 'cmsController@deleteseo');
 
+	Route::any('/document_download/{file}', 'adminController@documentdownload');
+	Route::any('/delete_document/{file}', 'adminController@deletedocument');
+	//Route::any('/verify_id/{id}', 'adminController@verifyid');
 
     });
 });
+
+Route::any('admin/verify_id/{id}', 'adminController@verifyid');
 
 Route::group(['prefix' => 'staff'], function () {
     Route::get('/login', 'StaffAuth\LoginController@showLoginForm');
@@ -110,6 +124,7 @@ Route::group(['prefix' => 'user'], function () {
     Route::any('/chat', 'userController@chat');
     Route::any('/edit_profile', 'userController@edit_profile');
     Route::any('/create_event', 'userController@create_event');
+	Route::any('/host_verification', 'userController@hostverification');
 		
 	Route::any('/send_email_verification_code', 'userController@sendemailvarificationcode');
 	Route::any('/verify_email/{code}', 'userController@verify_email');
