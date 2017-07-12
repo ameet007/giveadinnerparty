@@ -63,6 +63,11 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::any('/charity/add', 'charityController@addcharity');
 	Route::any('/charity/edit/{id}', 'charityController@editcharity');
 	Route::any('/charity/delete/{id}', 'charityController@deletecharity');
+	
+	Route::any('/seo', 'cmsController@seo');
+	Route::any('/seo/add', 'cmsController@addseo');
+	Route::any('/seo/edit/{id}', 'cmsController@editseo');
+	Route::any('/seo/delete/{id}', 'cmsController@deleteseo');
 
 
     });
