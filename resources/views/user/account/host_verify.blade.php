@@ -63,12 +63,22 @@
 									<button type="submit" name="upload" value="addressupload" class="btn2 face" ><i class="fa fa-facebook" aria-hidden="true"></i> Verified</button>
 									<?php }else{ ?>											
 									<a href="{{Request::root()}}/user/verify_facebook">
-										<button type="submit" name="upload" value="addressupload" class="btn2 face" ><i class="fa fa-facebook" aria-hidden="true"></i> Verify facebook account</button>	
+										<button name="upload" value="addressupload" class="btn2 face" ><i class="fa fa-facebook" aria-hidden="true"></i> Verify facebook account</button>	
+									</a>
+									<?php } ?>
+								</div><br>
+								<?php if($user->paypal_email!=""){ ?>
+								<div class="media-body">
+									<h4>Paypal Account</h4>
+									<?php if($user->paypal_confirm=='1'){ ?>
+									<button type="submit" name="upload" value="addressupload" class="btn2" >Verified</button>
+									<?php }else{ ?>											
+									<a href="{{Request::root()}}/user/paypal_verify">
+										<button name="upload" value="addressupload" class="btn2" ><i class="fa fa-paypal" aria-hidden="true"></i> Verify Paypal account</button>	
 									</a>
 									<?php } ?>
 								</div>
-								
-								
+								<?php } ?>
 							</div>
 						</div>
 					</div>

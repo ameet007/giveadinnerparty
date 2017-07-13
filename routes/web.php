@@ -133,6 +133,8 @@ Route::group(['prefix' => 'user'], function () {
 	Route::any('/update_user', 'userController@updateuser');
         Route::get('/getEventDetails','userController@getEventDetails');
         Route::post('/search_event','userController@search_event');
+	Route::any('/paypal_verify', 'userController@paypalverify');
+	Route::any('/paypal_success_verify', 'userController@paypal_success_verify');
 		
     });
 });

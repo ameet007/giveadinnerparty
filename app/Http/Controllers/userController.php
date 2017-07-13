@@ -15,6 +15,11 @@ use App\events;
 use App\Charity;
 use Socialite;
 use App\social_logins;
+use PayPal;
+
+use Srmklive\PayPal\Services\ExpressCheckout;
+use Srmklive\PayPal\Services\AdaptivePayments;
+
 
 class userController extends Controller {
 
@@ -26,8 +31,29 @@ class userController extends Controller {
         return view('user.account.notifications');
     }
 
-    public function paymentmethod(Request $request, $id = 0) {
-        return view('user.account.payment-method');
+    public function paymentmethod(Request $request, $id = 0)
+	{
+		$login_user = Auth::guard('user')->user();
+		 if ($request->isMethod('post'))
+		 {
+			 $data = $request->all();
+			 $validate = Validator::make($data, [
+                        'paypal_email' => 'required',                        
+             ]);
+			  if (!$validate->fails())
+			  {
+					unset($data['_token']);                   
+                    User::where('id', $login_user->id)->update($data);
+                    $request->session()->flash('flash_message', '<div class="alert alert-success"><span class="glyphicon glyphicon-ok"></span><em>Paypal email has been updated successfully.</em></div>');
+                    return redirect('user/payment_method');
+			  } 
+			  else
+			  {
+				  return redirect('user/payment_method')->withErrors($validate)->withInput();
+			  }	
+		 }	
+			
+        return view('user.account.payment-method')->with(['user'=>$login_user]);;
     }
 
     public function hostingoption(Request $request, $id = 0) {
@@ -76,7 +102,8 @@ class userController extends Controller {
     }
 
     public function imageupload(Request $request, $id = 0) {
-        if ($request->isMethod('post')) {
+        if ($request->isMethod('post'))
+		{
             $login_user = Auth::guard('user')->user();
             $data = $request->all();
             $file = $request->file('image');
@@ -188,8 +215,12 @@ class userController extends Controller {
     /* --------------end update user ----------------- */
 
     public function public_profile(Request $request, $id = 0) {
-        if ($request->isMethod('get')) {
-            return view('user/public_profile');
+        if ($request->isMethod('get'))
+		{
+			
+			$user = Auth::guard('user')->user();
+			$social_login = social_logins::where('user_id', $user->id)->first(); //social_logins
+            return view('user/public_profile')->with(['user'=>$user,'social_login'=> $social_login]);
         }
     }
 
@@ -312,8 +343,7 @@ class userController extends Controller {
 							{	
 								unlink('assets/admin/uploads/users/'.$data['old_file']);
 							}
-							$full_path = 'assets/admin/uploads/users/'.$file_name;
-														
+							$full_path = 'assets/admin/uploads/users/'.$file_name;														
 						}
 						else
 						{
@@ -329,9 +359,9 @@ class userController extends Controller {
 						User::where('id', $login_user->id)->update($data);
 						
 						if(!empty($full_path))
-						{	
+						{
 							Mail::send('emails.id_proof', ['user' => $login_user], function ($message) use($full_path)
-							{							
+							{						
 								$message->to('phpdeveloper70@gmail.com', 'admin')->subject('ID Proof for Approve');
 								$message->attach($full_path);
 							});	
@@ -376,8 +406,7 @@ class userController extends Controller {
 						unset($data['upload']);
 						$data['address_proof']= $file_name;
 						$login_user = Auth::guard('user')->user();
-						User::where('id', $login_user->id)->update($data);
-						
+						User::where('id', $login_user->id)->update($data);						
 						
 						
 						$request->session()->flash('flash_message', '<div class="alert alert-success"><span class="glyphicon glyphicon-ok"></span><em> your document has been successfully uploaded.</em></div>');
@@ -411,5 +440,56 @@ class userController extends Controller {
         if($request->input('distance') != ''){
             
         }
+	
+	public function paypalverify(Request $request, $id = 0)
+	{
+		$login_user = Auth::guard('user')->user();
+		$provider = new AdaptivePayments;     // To use adaptive payments.
+		$provider = PayPal::setProvider('adaptive_payments'); 
+		 $data = ['receivers'  => [
+                [
+                    'email'   => $login_user->paypal_email,
+                    'amount'  => 0.1,
+                    'primary' => false,
+                ],                
+            ],
+            'payer'      => 'EACHRECEIVER', 
+            'return_url' => url('user/paypal_success_verify'),
+            'cancel_url' => url('user/host_verification'),
+        ];
+        $response = $provider->createPayRequest($data);
+		print_r($response);
+		$redirect_url = $provider->getRedirectUrl('approved', $response['payKey']);
+		return redirect($redirect_url);
+    }
+	
+	public function paypal_success_verify(Request $request, $id = 0)
+	{
+		$login_user = Auth::guard('user')->user();		
+		$data['paypal_confirm'] = 1;
+		User::where('id', $login_user->id)->update($data);
+		return redirect('user/host_verification');
+	}
+		
+	
+	public function paypalsentboxverify(Request $request, $id = 0)
+	{
+		$provider = new ExpressCheckout;     // To use adaptive payments.
+		$provider = PayPal::setProvider('express_checkout');  
+		 $data['items'] = [
+			[
+				'name' => 'Product 1',
+				'price' => 1,
+				'qty' => 1
+			]			
+		];
+		$data['invoice_id'] = 1;
+		$data['invoice_description'] = "Order #1 Invoice";
+		$data['return_url'] = url('/payment/success');
+		$data['cancel_url'] = url('/cart');
+		$data['total'] = 1;
+        $response = $provider->setExpressCheckout($data);
+		$response = $provider->setExpressCheckout($data, true);
+		return redirect($response['paypal_link']);
     }
 }

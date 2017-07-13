@@ -65,9 +65,7 @@
               @endif			  
             <div class="form-group">
               <label for="fullname">Description * :</label>
-	<textarea class="form-control"  name="description" id="description" required=""><?= (Request::segment(3) == 'edit') ? $seo->description : old ('description') ?>
-				
-			  </textarea>  			  
+	<textarea class="form-control"  name="description" id="description" required=""><?= (Request::segment(3) == 'edit') ? $seo->description : old ('description') ?></textarea>  			  
               @if(ISSET($errors))
               <ul class="parsley-errors-list filled" id="parsley-id-5">
 				<li class="parsley-required">{{$errors->first('description')}}</li>

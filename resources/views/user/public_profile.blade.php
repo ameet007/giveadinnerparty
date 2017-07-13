@@ -11,29 +11,39 @@
 				<div class="charity-f">
 					<h3>$65,425</h3>
 					<h5>Charity Funds Raised</h5>
-					<img src="{{Request::root()}}/assets/front/img/start.png" alt="" />
+					<img src="{{Request::root()}}/assets/front/img/start.png"/>
+					<div>
+						<p><img src="{{Request::root()}}/assets/front/img/<?php echo ($user->confirmed=='1')?'tick.png':'cross.png'; ?>" width="15" height="15" /> <b>Email</b>  </p>
+						<p><img src="{{Request::root()}}/assets/front/img/<?php echo ($user->approve_id=='1')?'tick.png':'cross.png'; ?>" width="15" height="15" /> <b>ID Proof</b>  </p>
+						<p><img src="{{Request::root()}}/assets/front/img/<?php echo ($user->paypal_confirm=='1')?'tick.png':'cross.png'; ?>" width="15" height="15" /> <b>Paypal Account</b></p>
+						<p><img src="{{Request::root()}}/assets/front/img/<?php echo ($user->confirmed=='1' && count($social_login)==1)?'tick.png':'cross.png'; ?>" width="15" height="15" /> <b>Facebook Profile</b> </p>
+					</div>
 				</div>
 			</div>
 			<div class="col-md-9">
 				<div class="per-details-right">
-					<h2>Hello. I’m sheng W.,</h2>
-					<h3>Subang, Malaysia. Joined June 2017</h3>
+					<h2>Hello. I’m {{ $user->name.' '.$user->last_name }},</h2>
+					<h3>{{ $user->town }}, {{ $user->country }}. Joined {{date('F Y', strtotime($user->created_at))}}</h3> 
 					<p><i class="fa fa-flag-o" aria-hidden="true"></i> Report User</p>
 					<ul class="age">
-						<li><p><strong>Age:</strong> 29</p></li>
-						<li><p><strong>Gender:</strong> Male</p></li>
-						<li><p><strong>Post Code:</strong> NGU28N</p></li>
+						<li><p><strong>Age:</strong> <?php echo (date('Y') - date('Y',strtotime($user->dob))); ?></p></li>
+						<li><p><strong>Gender:</strong> {{ $user->gender }}</p></li>
+						<li><p><strong>Post Code:</strong> {{ $user->postcode }}</p></li>
 					</ul>
-					<p><strong>Marital Status:</strong> Not Specified</p>
-					<p><strong class="btn-block">Marital Status:</strong> Chinese, Malay, English</p>
-					<p>
-						<strong class="btn-block">Interests:</strong>
-						<a href="#">Dota,</a>
-						<a href="#">Western Food,</a>
-						<a href="#">Action,</a>
-						<a href="#">Against Hunger, Poker</a>
+					<p><strong class="btn-block">Spoken Language:</strong> 
+						<?php if(!empty($user->spoken_languages)){ 	echo implode(", ",json_decode($user->spoken_languages)); }						?>
 					</p>
-					<p><strong class="btn-block">Biography:</strong> I’m a Cool Guy in A Cool World</p>
+					<p>
+						<strong class="btn-block">Hobbies & Interest:</strong>
+						<?php 
+						if(!empty($user->hobbies)){ 
+						$intrest_array = json_decode($user->hobbies);					
+						foreach($intrest_array as $intrest){
+						?>
+							<a href="#"><?php echo $intrest; ?></a>
+						<?php }} ?>						
+					</p>
+					<p><strong class="btn-block">Biography:</strong> {{ $user->about }}</p>
 				</div>
 			</div>
 		</div>

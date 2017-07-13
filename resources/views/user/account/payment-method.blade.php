@@ -11,12 +11,25 @@
 					<div class="panel panel-default push-noti">
 						<div class="panel-heading">Payment Methods</div>
 						<div class="panel-body">
-							<div class="media">
+							<div class="media gift-card">
 								<div class="media-left">
-									<p>Sign-in to your PayPal</p>
-								</div>
-								<div class="media-body">
-									<img src="{{Request::root()}}/assets/front/img/pay-pal.jpg" alt="">
+									<p>Enter to your PayPal Email</p>
+								</div><br>
+								@if(Session::has('flash_message'))
+									{!! session('flash_message') !!}
+								@endif
+								<div class="media-body">									
+									<form method="post" action='{{Request::root()}}/user/payment_method'>
+										<input type="hidden" name="_token" value="{{csrf_token()}}" />
+										<ul>
+											<li><input type="text" placeholder="Paypal Email" name="paypal_email" value="{{ $user->paypal_email }}">
+												@if ($errors->has('paypal_email'))
+													<span class="error_validation">{{ $errors->first('paypal_email') }}</span>
+												@endif
+											</li>
+											<li><button class="btn2" <?php echo ($user->paypal_confirm==1)?'disabled':''; ?>>Update</button></li>
+										</ul>
+									</form>
 								</div>
 							</div>
 						</div>

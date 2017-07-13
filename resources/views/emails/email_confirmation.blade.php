@@ -11,17 +11,17 @@
 						</tr>
 						<tr>
 							<td align="center" style="font:24px/28px Helvetica,Arial,Roboto,Noto,sans-serif;color:#ff6600;letter-spacing:-0.3px;padding:0 0 2px">
-							Confirm your email address on giveadinnerparty
+								Confirm your email address on giveadinnerparty
 							</td>
 						</tr>
 						<tr>
 							<td align="center" style="font:18px/22px Helvetica,Arial,Roboto,Noto,sans-serif;color:#484848">
-							Thanks for creating an account on <a href="{{Request::root()}}" target="_blank">giveadinnerparty</a>.
+								Thanks for creating an account on <a href="{{Request::root()}}" target="_blank">giveadinnerparty</a>.
 							</td>
 						</tr>
 						<tr>
 							<td align="center" style="font:18px/22px Helvetica,Arial,Roboto,Noto,sans-serif;color:#484848">
-							Your account is incomplete. Please click the link below to confirm your email address.
+								Your account is incomplete. Please click the link below to confirm your email address.
 							</td>
 						</tr>
 						<tr>
@@ -42,7 +42,7 @@
 										<tr>
 											<td width="310" align="center" style="font:bold 21px/24px Helvetica,Arial,sans-serif;color:#fff;border-radius:5px;background-size:100% 100%;" bgcolor="#013cbb">
 												<a style="text-decoration:none;color:#fff;display:block;padding:16px 15px" href="{{Request::root()}}/user/verify_email/<?php echo $user->confirmation_code; ?>" target="_blank">
-												Confirm your email address
+													Confirm your email address
 												</a>
 											</td>
 										</tr>
