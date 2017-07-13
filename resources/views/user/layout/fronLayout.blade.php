@@ -1,7 +1,17 @@
+<?php use App\Http\Controllers\cmsController; ?>
+<?php $url = Request::url();  ?>
+<?php $meta_data =  cmsController::get_metatag($url);?>
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Give A Dinner Party</title>
+        <?php if(count($meta_data)>0){ ?>
+			<title>{{ $meta_data->title }}</title>
+			<meta name="description" content=">{{ $meta_data->description }}</">
+			<meta name="keywords" content=">{{ $meta_data->keyword }}</">
+		<?php } else { ?>
+			<title>Give A Dinner Party</title>
+		<?php } ?>
+		
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <meta name="format-detection" content="telephone=no" />
@@ -14,7 +24,7 @@
         <link href="{{Request::root()}}/assets/front/css/bootstrap.css" rel="stylesheet" type="text/css" />
         <link href="{{Request::root()}}/assets/front/css/main.css" rel="stylesheet" type="text/css" />
         <link href="{{Request::root()}}/assets/front/css/media.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" href="{{Request::root()}}/assets/front/css/jquery-ui.css">
+        <link href="{{Request::root()}}/assets/front/css/jquery-ui.css" rel="stylesheet" type="text/css" >
         <link href="{{Request::root()}}/assets/front/css/bootstrap.css" rel="stylesheet" type="text/css" />
         <link href="{{Request::root()}}/assets/front/css/core.css" rel="stylesheet" type="text/css" />
         <link href="{{Request::root()}}/assets/front/css/components.css" rel="stylesheet" type="text/css" />

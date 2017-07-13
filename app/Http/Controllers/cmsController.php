@@ -275,5 +275,11 @@ class cmsController extends Controller
 		seo::where('id',$id)->delete();
 		return redirect('admin/seo')->with(['success'=>'seo successfully deleted',]);
 	}
+	
+	public static function get_metatag($url)
+	 {
+	  $seo = seo::where('url', $url)->first();
+	  return $seo;
+	 }
 	/*********************End seo code***********************/
 }

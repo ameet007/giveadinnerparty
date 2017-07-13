@@ -131,6 +131,9 @@ Route::group(['prefix' => 'user'], function () {
 	
 	Route::any('/image_upload', 'userController@imageupload');
 	Route::any('/update_user', 'userController@updateuser');
+	Route::any('/paypal_verify', 'userController@paypalverify');
+	Route::any('/paypal_success_verify', 'userController@paypal_success_verify');
+	
 		
     });
 });
