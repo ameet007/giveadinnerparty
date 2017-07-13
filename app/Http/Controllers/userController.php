@@ -440,6 +440,7 @@ class userController extends Controller {
         if($request->input('distance') != ''){
             
         }
+    }
 	
 	public function paypalverify(Request $request, $id = 0)
 	{

@@ -433,7 +433,7 @@ $(document).ready(function(){
                 $.ajax({
                     url: '{{Request::root()}}/user/search_event',
                     type: 'post',
-                    data: {'_token':'{{csrf_token(}}','distance':distance},
+                    data: {'_token':'{{csrf_token()}}','distance':distance},
                     success: function(data){
                         data = $.parseJSON(data);
                         console.log(data);
