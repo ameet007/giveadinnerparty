@@ -131,6 +131,8 @@ Route::group(['prefix' => 'user'], function () {
 	
 	Route::any('/image_upload', 'userController@imageupload');
 	Route::any('/update_user', 'userController@updateuser');
+        Route::get('/getEventDetails','userController@getEventDetails');
+        Route::post('/search_event','userController@search_event');
 		
     });
 });

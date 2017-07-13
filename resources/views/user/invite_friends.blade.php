@@ -12,7 +12,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Distance</label>
-                            <select class="form-control">
+                            <select class="form-control" id="select_distance">
                                 <option value="1">1</option>
                                 <option value="5">5</option>
                                 <option value="10">10</option>
@@ -26,7 +26,6 @@
                         <div class="form-group">
                             <label>Units</label>
                             <select class="form-control">
-                                <option selected="" value="mi">mi</option>
                                 <option value="km">km</option>
                             </select>
                         </div>
@@ -430,6 +429,16 @@ $(document).ready(function(){
 		$('#find').hide();
 	})
 	$('#find').click(function(){
+                var distance = $('#select_distance').val();
+                $.ajax({
+                    url: '{{Request::root()}}/user/search_event',
+                    type: 'post',
+                    data: {'_token':'{{csrf_token(}}','distance':distance},
+                    success: function(data){
+                        data = $.parseJSON(data);
+                        console.log(data);
+                    }
+                })
 		$('#pending-req').show();
 	})
 	$('#int').click(function(){

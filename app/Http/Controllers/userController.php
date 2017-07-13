@@ -401,4 +401,15 @@ class userController extends Controller {
 	{
         return Socialite::driver('facebook')->redirect();
     }
+    
+    public function getEventDetails(Request $request){
+       $event = events::where(['id'=>$request->input('event_id'),'user_id'=>Auth::guard('user')->user()->id])->first();
+       return json_encode($event);
+    }
+    
+    public function search_event(Request $request){
+        if($request->input('distance') != ''){
+            
+        }
+    }
 }

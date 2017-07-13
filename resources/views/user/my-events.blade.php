@@ -1,5 +1,15 @@
 @extends('user.layout.fronLayout')
 @section('content')
+@if(Session::get('success')!='')
+    <div class="alert alert-success">
+        {{Session::get('success')}}
+    </div>
+@endif
+@if(Session::get('error')!='')
+    <div class="alert alert-danger">
+        {{Session::get('error')}}
+    </div>
+@endif
 <section class="middle-content my-events">
     <div class="container">
         <div class="row">

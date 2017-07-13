@@ -25,7 +25,7 @@
                             <div class="col-md-4 col-sm-12">
                                 <h4>Template</h4>
                                 <div class="form-group">
-                                    <select class="form-control" id="sel1">
+                                    <select class="form-control" id="template">
                                         <option selected="selected">Select A Template</option>
                                         @foreach($past_events as $event)
                                         <option value="{{$event->id}}">{{$event->title}}</option>
@@ -101,7 +101,7 @@
                             <div class="col-md-4 col-sm-12">
                                 <h4>Start Time</h4>
                                 <div class="form-group">
-                                    <select name='start_time_1' class="form-control" id="sel1" required > 
+                                    <select name='start_time_1' class="form-control" id="start_time_1" required > 
                                         <option value="0">0</option> 
                                         <option value="1">1</option> 
                                         <option value="2">2</option> 
@@ -157,7 +157,7 @@
                             <div class="col-md-4 col-sm-12">
                                 <div class="form-group">
                                     <h4>End Time</h4>
-                                    <select name='end_time_1' class="form-control" id="sel1"> 
+                                    <select name='end_time_1' class="form-control" id="end_time_1"> 
                                         <option value="0">0</option> 
                                         <option value="1">1</option> 
                                         <option value="2">2</option> 
@@ -381,7 +381,7 @@
 
                 </div>
             </div>
-            <div class="dat-time dietary-info">
+            <div class="dat-time dietary-info" id="div_food_drinks">
                 <div class="row">
                     <div class="col-xs-12 feild">
                         <h4>Food And Drinks</h4>
@@ -714,7 +714,7 @@
                             <div class="col-md-4 col-sm-12">
                                 <div class="form-group">
                                     <label>Price Per Ticket ($1 - $100)</label>
-                                    <input name='ticket_price' required type="number" class="form-control" placeholder="20" />
+                                    <input name='ticket_price' id='ticket_price' required type="number" class="form-control" placeholder="20" />
                                 </div>
                             </div>
                         </div>
@@ -739,23 +739,23 @@
                             <div class="col-md-4 col-sm-12">
                                 <div class="form-group">
                                     <label>Charity Receives</label>
-                                    <select name='charity_cut' required class="form-control" id="sel1">
+                                    <select name='charity_cut' required class="form-control" id="charity_cut">
                                         <option value="100">100%</option>
                                         <option value="75">75%</option>
                                         <option value="50">50%</option>
                                     </select>
-                                    <p>$20.00 per ticket</p>
+                                    <p id='charity_price'>$0.00 per ticket</p>
                                 </div>
                             </div>
                             <div class="col-md-4 col-sm-12">
                                 <div class="form-group">
                                     <label>I Receive</label>
-                                    <select class="form-control" id="sel1">
-                                        <option selected="selected">0%</option>
-                                        <option>25%</option>
-                                        <option>50%</option>
+                                    <select class="form-control" id="my_cut">
+                                        <option value='0' selected="selected">0%</option>
+                                        <option value='25'>25%</option>
+                                        <option value='50'>50%</option>
                                     </select>
-                                    <p>$0.00 per ticket</p>
+                                    <p id='my_price'>$0.00 per ticket</p>
                                 </div>
                             </div>
                         </div>
@@ -796,7 +796,7 @@
                 </div>
             </div>
             <div class="tow-btn">
-                <button type='submit' class="btn2">Launch Your Dinner Party</button>
+                <button type='submit' id='submit_event' class="btn2">Launch Your Dinner Party</button>
             </div>
         </div>
         </form>
@@ -805,6 +805,126 @@
 <script>
     $(document).ready(function () {
         $('.datepicker').datepicker();
+        
+        $('#charity_cut').change(function(){
+            if($(this).val() == 100){
+                $('#my_cut').val('0');
+            }
+            else if($(this).val() == 75){
+                $('#my_cut').val('25');
+            }
+            else if($(this).val() == 50){
+                $('#my_cut').val('50');
+            }
+            var amount_charity = ($(this).val()*$('#charity_cut').val())/100;
+            var text_charity = '$'+amount_charity +' per ticket';
+            var amount_my = ($(this).val()*$('#my_cut').val())/100;
+            var text_my = '$'+amount_my +' per ticket';
+            $('#charity_price').html(text_charity);
+            $('#my_price').html(text_my);
+        })
+        
+        $('#my_cut').change(function(){
+            if($(this).val() == 50){
+                $('#charity_cut').val('50');
+            }
+            else if($(this).val() == 25){
+                $('#charity_cut').val('75');
+            }
+            else if($(this).val() == 0){
+                $('#charity_cut').val('100');
+            }
+            var amount_charity = ($(this).val()*$('#charity_cut').val())/100;
+            var text_charity = '$'+amount_charity +' per ticket';
+            var amount_my = ($(this).val()*$('#my_cut').val())/100;
+            var text_my = '$'+amount_my +' per ticket';
+            $('#charity_price').html(text_charity);
+            $('#my_price').html(text_my);
+        })
+        
+        $('#ticket_price').keyup(function(){
+            var amount_charity = ($(this).val()*$('#charity_cut').val())/100;
+            var text_charity = '$'+amount_charity +' per ticket';
+            var amount_my = ($(this).val()*$('#my_cut').val())/100;
+            var text_my = '$'+amount_my +' per ticket';
+            $('#charity_price').html(text_charity);
+            $('#my_price').html(text_my);
+        })
+        
+        $('#template').change(function(){
+            var id = $(this).val();
+            $.ajax({
+                url: '{{Request::root()}}/user/getEventDetails',
+                type: 'get',
+                data: {'event_id':id},
+                success: function(data){
+                    data = $.parseJSON(data);
+                    $('input[name=title]').val(data.title);
+                    $('textarea[name=description]').html(data.description);
+                    $('input[name=event_date]').val(data.event_date);
+                    if(data.start_time.substr(0,1) == 0){
+                        $('select[name=start_time_1]').val(data.start_time.substr(1,1));
+                    }
+                    else{
+                        $('select[name=start_time_1]').val(data.start_time.substr(0,2));
+                    }
+                    $('select[name=start_time_2]').val(data.start_time.substr(3,2));
+                    if(data.start_time.substr(0,1) == 0){
+                        $('select[name=end_time_1]').val(data.end_time.substr(1,1));
+                    }
+                    else{
+                        $('select[name=end_time_1]').val(data.end_time.substr(0,2));
+                    }
+                    $('select[name=end_time_2]').val(data.end_time.substr(3,2));
+                    $('input[name=street]').val(data.street);
+                    $('input[name=county]').val(data.county);
+                    $('input[name=postal_code]').val(data.postal_code);
+                    $('input[name=city]').val(data.city);
+                    $('select[name=country]').val(data.country);
+                    $('select[name=drink_preferences]').val(data.drink_preferences);
+                    $('select[name=own_drinks]').val(data.own_drinks);
+                    $('input[name=drinks_included]').val(data.drinks_included);
+                    $('select[name=food_included]').val(data.food_included);
+                    $('select[name=food_type]').val(data.food_type);
+                    var food_drink_type = $.parseJSON(data.food_drink_type);
+                    $('#div_food_drinks').find('input[type=checkbox]').each(function(){
+                        for(var i=0; i<food_drink_type.length; i++){
+                            if($(this).val() == food_drink_type[i]){
+                                $(this).prop('checked',true);
+                            }
+                        }
+                    });
+                    $('select[name=open_to]').val(data.open_to);
+                    $('select[name=guest_gender]').val(data.guest_gender);
+                    $('select[name=min_age]').val(data.min_age);
+                    $('select[name=max_age]').val(data.max_age);
+                    $('select[name=orientation]').val(data.orientation);
+                    $('select[name=dress_code]').val(data.dress_code);
+                    $('select[name=setting]').val(data.setting);
+                    $('select[name=seating]').val(data.seating);
+                    $('input[name=min_guests]').val(data.min_guests);
+                    $('input[name=max_guests]').val(data.max_guests);
+                    $('input[name=ticket_price]').val(data.ticket_price);
+                    $('select[name=charity_id]').val(data.charity_id);
+                    $('select[name=charity_cut]').val(data.charity_cut);
+                    $('select[name=my_cut]').val(data.my_cut);
+                    $('input[name=reference_number]').val(data.reference_number);
+                    $('textarea[name=welcome_note]').html(data.welcome_note);
+                }
+            })
+        })
+        
+        $('#submit_event').click(function(event){
+            event.preventDefault();
+            if($('#end_time_1').val() >= $('#start_time_1').val()){
+                var error = '<ul class="parsley-errors-list filled" id="parsley-id-5"><li class="parsley-required">Start Time Should Be Less Than End Time</li></ul>';
+                $('#start_time_1').parent('div').parent('div').append(error);
+                $('#start_time_1').focus();
+            }
+            else{
+                $('#create_event_form').submit();
+            }
+        })
 
         $('form').parsley();
     });
