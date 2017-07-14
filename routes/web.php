@@ -131,11 +131,19 @@ Route::group(['prefix' => 'user'], function () {
 	
 	Route::any('/image_upload', 'userController@imageupload');
 	Route::any('/update_user', 'userController@updateuser');
-        Route::get('/getEventDetails','userController@getEventDetails');
-        Route::post('/search_event','userController@search_event');
+    Route::get('/getEventDetails','userController@getEventDetails');
+    Route::post('/search_event','userController@search_event');
 	Route::any('/paypal_verify', 'userController@paypalverify');
 	Route::any('/paypal_success_verify', 'userController@paypal_success_verify');
-		
+	
+	Route::any('/invite_for_event', 'userController@inviteuserforevent');
+	
     });
+	
+	Route::any('/event_payment/{user_id}/{event_id}', 'userController@event_payment');
+	Route::any('/success_event_payment', 'userController@success_event_payment');
+	Route::any('/cancel_event_payment', 'userController@cancel_event_payment');
+	
 });
+Route::post('ipn/notify','userController@postNotify');
 Route::post('user/registeration', 'userController@registeration');

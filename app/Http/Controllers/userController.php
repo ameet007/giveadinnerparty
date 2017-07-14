@@ -16,9 +16,10 @@ use App\Charity;
 use Socialite;
 use App\social_logins;
 use PayPal;
-
+use Crypt;
 use Srmklive\PayPal\Services\ExpressCheckout;
 use Srmklive\PayPal\Services\AdaptivePayments;
+use App\transactions;
 
 
 class userController extends Controller {
@@ -459,7 +460,6 @@ class userController extends Controller {
             'cancel_url' => url('user/host_verification'),
         ];
         $response = $provider->createPayRequest($data);
-		print_r($response);
 		$redirect_url = $provider->getRedirectUrl('approved', $response['payKey']);
 		return redirect($redirect_url);
     }
@@ -493,4 +493,101 @@ class userController extends Controller {
 		$response = $provider->setExpressCheckout($data, true);
 		return redirect($response['paypal_link']);
     }
+	
+	public function inviteuserforevent(Request $request)
+	{
+		$user_id = 5;
+		$event_id = 2;
+		$user = User::where('id', $user_id)->first();  // user who invite
+		$events = events::where('id', $event_id)->first(); // event data
+		$login_user = Auth::guard('user')->user();   // login user
+		
+		Mail::send('emails.send_payment_link_for _event', ['login_user' => $login_user,'invite_user'=>$user,'event'=>$events], function ($message) use($user)
+		{						
+			$message->to('phpdeveloper70@gmail.com', 'admin')->subject('Invitation for a dinner party');
+		});
+	}
+
+	public function event_payment(Request $request, $user_id=0, $event_id=0)
+	{
+		if($request->isMethod('get'))
+		{			
+			$user = User::where('id', Crypt::decrypt($user_id))->first();  // user who invite
+			$events = events::where('id', Crypt::decrypt($event_id))->first(); // event data
+			
+			$provider = new AdaptivePayments;     // To use adaptive payments.
+			$provider = PayPal::setProvider('adaptive_payments'); 
+			$data = ['receivers'  => [
+					[
+						'email'   => $user->email,
+						'amount'  => 0.01,//$events->ticket_price,
+						'description'  => $events->title,
+						'primary' => false,
+					],                
+				],
+				'payer'      => 'EACHRECEIVER', 
+				'return_url' => url('user/success_event_payment'),
+				'cancel_url' => url('user/cancel_event_payment'),
+			];
+			$response = $provider->createPayRequest($data);			
+			$redirect_url = $provider->getRedirectUrl('approved', $response['payKey']);
+			
+			if(isset($response['payKey']) && !empty($response['payKey']))
+			{
+				$tr_data['payKey'] = $response['payKey'];
+				$tr_data['transaction_id'] = '';
+				$tr_data['user_id'] = $user->id;
+				$tr_data['event_id'] = $events->id;
+				$tr_data['amount'] = $events->ticket_price;
+				$tr_data['status'] = '';
+				transactions::insert($tr_data);
+				$request->session()->put('payKey', $response['payKey']);
+				return redirect($redirect_url);
+			}	
+			else
+			{
+				return redirect('');
+			}
+		}	
+	}
+	
+	public function success_event_payment(Request $request, $id=0)
+	{	
+		$key = $request->session()->get('payKey');	
+		$provider = new AdaptivePayments;     // To use adaptive payments.
+		$provider = PayPal::setProvider('adaptive_payments'); 
+		$response = $provider->getPaymentDetails($key);	
+		if($response['status']=='COMPLETED')
+		{
+			$data['transaction_id'] = $response['paymentInfoList']['paymentInfo'][0]['senderTransactionId'];
+			$data['status'] = $response['status'];
+			transactions::where('payKey', $key)->update($data);
+		}
+		$request->session()->forget('payKey');
+		return redirect('');
+	}
+	
+	public function cancel_event_payment(Request $request, $id=0)
+	{	
+		$key = $request->session()->get('payKey');	
+		$provider = new AdaptivePayments;     // To use adaptive payments.
+		$provider = PayPal::setProvider('adaptive_payments'); 
+		$response = $provider->getPaymentDetails($key);	
+		
+		$data['status'] = 'FAILED';
+		transactions::where('payKey', $key)->update($data);
+		$request->session()->forget('payKey');
+		return redirect('');
+	}
+	
+	public function postNotify(Request $request)
+	{
+		//Import the namespace Srmklive\PayPal\Services\ExpressCheckout first in your controller.
+		$provider = new ExpressCheckout;
+		$response = (string) $provider->verifyIPN($request);		
+		if ($response === 'VERIFIED')
+		{                      
+			
+		}                            
+	} 
 }
