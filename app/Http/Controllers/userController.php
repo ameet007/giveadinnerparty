@@ -438,9 +438,170 @@ class userController extends Controller {
     }
     
     public function search_event(Request $request){
-        if($request->input('distance') != ''){
-            
+        $filtered_users = array();
+        $logged_in_id = Auth::guard('user')->user()->id;
+        $users = User::where([
+                    'is_disabled'=>0,
+                    'confirmed'=>1,
+                    'photos'=>1,
+                ])->whereNotIn('id',array($logged_in_id))->get();
+        
+        if($request->input('distance') != '' && $request->input('distance') != 'Any'){
+            $user_post = Auth::guard('user')->user()->postcode;
+            foreach($users as $user){
+                $postcode1 = preg_replace('/\s+/', '', $user_post); 
+                $postcode2 = preg_replace('/\s+/', '', $user->postcode);
+                $url = "http://maps.googleapis.com/maps/api/distancematrix/json?origins=$postcode1&destinations=$postcode2&mode=driving&language=en-EN&sensor=false";
+                $data = @file_get_contents($url);
+                $result = json_decode($data, true);
+                if($result['status'] == "OK" && $result['rows'][0]['elements'][0]['status'] == "OK"){
+                   $distance_value = $result['rows'][0]['elements'][0]['distance']['text'];
+                   $distance_value_array = explode(' ',$distance_value);
+                   if($distance_value_array[1] == 'm'){
+                       $distance_value = $distance_value_array[0]/1000;
+                   }
+                   else{
+                       $distance_value = $distance_value_array[0];
+                   }
+                   if($distance_value <= $request->input('distance')){
+                       $filtered_users[] = $user->id;
+                   }
+                }
+            }
         }
+        else{
+            foreach($users as $user){
+                $filtered_users[] = $user->id;
+            }
+        }
+        if($request->has('age1')){
+            $users = User::where([
+                    'is_disabled'=>0,
+                    'confirmed'=>1,
+                    'photos'=>1,
+                ])->whereIn('id',array($filtered_users))->get();
+            $filtered_users1 = array();
+            foreach($users as $user){
+                $dob = explode('/',$user->dob);
+                if(date('Y') - $dob[2] <= $request->input('age2') && date('Y') - $dob[2] >= $request->input('age1')){
+                    $filtered_users1[] = $user->id;
+                }
+            }
+            unset($filtered_users);
+            $filtered_users = $filtered_users1;
+            unset($filtered_users1);
+        }
+        if($request->has('gender') && $request->input('gender') != "Don't Mind"){
+            $users = User::where([
+                    'is_disabled'=>0,
+                    'confirmed'=>1,
+                    'photos'=>1,
+                    'gender'=>$request->input('gender'),
+                ])->whereIn('id',array($filtered_users))->get();
+            $filtered_users1 = array();
+            foreach($users as $user){
+                $filtered_users1[] = $user->id;
+            }
+            unset($filtered_users);
+            $filtered_users = $filtered_users1;
+            unset($filtered_users1);
+        }
+        if($request->has('status') && $request->input('status') != "Don't Mind"){
+            $users = User::where([
+                    'is_disabled'=>0,
+                    'confirmed'=>1,
+                    'photos'=>1,
+                    'status'=>$request->input('status'),
+                ])->whereIn('id',array($filtered_users))->get();
+            $filtered_users1 = array();
+            foreach($users as $user){
+                $filtered_users1[] = $user->id;
+            }
+            unset($filtered_users);
+            $filtered_users = $filtered_users1;
+            unset($filtered_users1);
+        }
+        if($request->has('sexuality') && $request->input('sexuality') != "Don't Mind"){
+            $users = User::where([
+                    'is_disabled'=>0,
+                    'confirmed'=>1,
+                    'photos'=>1,
+                    'sexuality'=>$request->input('sexuality'),
+                ])->whereIn('id',array($filtered_users))->get();
+            $filtered_users1 = array();
+            foreach($users as $user){
+                $filtered_users1[] = $user->id;
+            }
+            unset($filtered_users);
+            $filtered_users = $filtered_users1;
+            unset($filtered_users1);
+        }
+        if($request->has('ethnicity') && $request->input('ethnicity') != "Don't Mind"){
+            $users = User::where([
+                    'is_disabled'=>0,
+                    'confirmed'=>1,
+                    'photos'=>1,
+                    'ethnicity'=>$request->input('ethnicity'),
+                ])->whereIn('id',array($filtered_users))->get();
+            $filtered_users1 = array();
+            foreach($users as $user){
+                $filtered_users1[] = $user->id;
+            }
+            unset($filtered_users);
+            $filtered_users = $filtered_users1;
+            unset($filtered_users1);
+        }
+        if($request->has('education') && $request->input('education') != "Don't Mind"){
+            $users = User::where([
+                    'is_disabled'=>0,
+                    'confirmed'=>1,
+                    'photos'=>1,
+                    'education'=>$request->input('education'),
+                ])->whereIn('id',array($filtered_users))->get();
+            $filtered_users1 = array();
+            foreach($users as $user){
+                $filtered_users1[] = $user->id;
+            }
+            unset($filtered_users);
+            $filtered_users = $filtered_users1;
+            unset($filtered_users1);
+        }
+        if($request->has('religion') && $request->input('religion') != "Don't Mind"){
+            $users = User::where([
+                    'is_disabled'=>0,
+                    'confirmed'=>1,
+                    'photos'=>1,
+                    'religion'=>$request->input('religion'),
+                ])->whereIn('id',array($filtered_users))->get();
+            $filtered_users1 = array();
+            foreach($users as $user){
+                $filtered_users1[] = $user->id;
+            }
+            unset($filtered_users);
+            $filtered_users = $filtered_users1;
+            unset($filtered_users1);
+        }
+        if($request->has('hobbies') && count($request->input('hobbies')) != 0){
+            $users = User::where([
+                    'is_disabled'=>0,
+                    'confirmed'=>1,
+                    'photos'=>1,
+                ])->whereIn('id',array($filtered_users))->get();
+            $filtered_users1 = array();
+            foreach($users as $user){
+                for($i=0; $i<count($request->input('hobbies')); $i++){
+                    if(strpos($user->hobbies, $request->input('hobbies')[$i]) > 0){
+                        $filtered_users1[] = $user->id;
+                        break;
+                    }
+                }
+            }
+            unset($filtered_users);
+            $filtered_users = $filtered_users1;
+            unset($filtered_users1);
+        }
+        print_r($filtered_users);
+        exit;
     }
 	
 	public function paypalverify(Request $request, $id = 0)
