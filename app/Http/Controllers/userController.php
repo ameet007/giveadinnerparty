@@ -215,13 +215,18 @@ class userController extends Controller {
 
     /* --------------end update user ----------------- */
 
-    public function public_profile(Request $request, $id = 0) {
+    public function public_profile(Request $request, $id = 0) 
+	{
+		
+		//if ($request->isMethod('get')){	}	
+		
         if ($request->isMethod('get'))
 		{
 			
 			$user = Auth::guard('user')->user();
-			$social_login = social_logins::where('user_id', $user->id)->first(); //social_logins
-            return view('user/public_profile')->with(['user'=>$user,'social_login'=> $social_login]);
+			$social_login = social_logins::where('user_id', $user->id)->first();
+			$events = events::where('event_date','>=', date('m/d/Y'))->get();		
+            return view('user/public_profile')->with(['user'=>$user,'social_login'=> $social_login,'upcoming_events'=>$events]);
         }
     }
 
