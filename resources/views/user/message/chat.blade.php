@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="page-title-box">
-                    <h4 class="page-title">Inbox</h4>
+                   
                 </div>
             </div>
         </div>
@@ -27,45 +27,8 @@
                                                 <img src="{{Request::root()}}/assets/front/img/avatar-1.jpg" class="" alt="" width="50px" height="50px">
                                             </div>
                                             <div class="chat-right-text">
-                                                <p class="chat-item-author">Chadengle</p>
-                                                <p class="chat-item-text">Hey! there I'm available...</p>
-                                            </div>
-                                        </div>
-                                    </a>
-
-                                    <a href="message-inbox-chat.html">
-                                        <div class="chat-item">
-                                            <div class="chat-item-img">
-                                                <div class="over-lay"></div>
-                                                <img src="{{Request::root()}}/assets/front/img/avatar-2.jpg" alt="">
-                                            </div>
-                                            <div class="chat-right-text">
-                                                <p class="chat-item-author">Chadengle</p>
-                                                <p class="chat-item-text">Hey! there I'm available...</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a href="message-inbox-chat.html">
-                                        <div class="chat-item">
-                                            <div class="chat-item-img">
-                                                <div class="over-lay"></div>
-                                                <img src="{{Request::root()}}/assets/front/img/avatar-3.jpg" alt="">
-                                            </div>
-                                            <div class="chat-right-text">
-                                                <p class="chat-item-author">Chadengle</p>
-                                                <p class="chat-item-text">Hey! there I'm available...</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a href="message-inbox-chat.html">
-                                        <div class="chat-item">
-                                            <div class="chat-item-img">
-                                                <div class="over-lay"></div>
-                                                <img src="{{Request::root()}}/assets/front/img/avatar-4.jpg" alt="">
-                                            </div>
-                                            <div class="chat-right-text">
-                                                <p class="chat-item-author">Chadengle</p>
-                                                <p class="chat-item-text">Hey! there I'm available...</p>
+                                                <strong><p class="chat-item-author">{{$withUser->name}}</p></strong>
+                                               
                                             </div>
                                         </div>
                                     </a>
@@ -77,43 +40,29 @@
 
                         <div class="table-detail mail-right">
                             <div class="chat-section">
-                                <div class="user1 clearfix">
-                                    <div class="pull-left">
-                                        <div class="img">
-                                            <img src="{{Request::root()}}/assets/front/img/chat-pic.jpg" alt="">
-                                        </div>
-                                        <div class="content">
-                                            <div class="only-text">
-                                                <p>Nam dapibus nisl vitae elit fringilla</p>
-                                            </div>
-                                            <div class="send-img">
-                                                <img src="{{Request::root()}}/assets/front/img/chat-send-pic.jpg" alt="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="user2 clearfix">
+                                @foreach($messages as $msg)
+                                <div class="@if($msg->user_id == Auth::guard('user')->user()->id) user2 @else user1 @endif clearfix">
+                                    @if($msg->user_id == Auth::guard('user')->user()->id)
                                     <div class="pull-right">
+                                    @else
+                                    <div class="pull-left">
+                                    @endif
                                         <div class="content">
                                             <div class="only-text">
-                                                <p>Nam dapibus nisl vitae elit fringilla</p>
+                                                <p>{{$msg->message}}</p>
                                             </div>
-                                            <div class="send-img">
-                                                <img src="{{Request::root()}}/assets/front/img/chat-send-pic.jpg" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="img">
-                                            <img src="{{Request::root()}}/assets/front/img/chat-pic.jpg" alt="">
+                                            <span>{{$msg->humans_time}} ago</span>
                                         </div>
                                     </div>
                                 </div>
+                                @endforeach
                                 <div class="message-send clearfix">
                                     <div class="row">
                                         <div class="col-md-10">
-                                            <textarea class="textarea" placeholder="Message..."></textarea>
+                                            <textarea id='message' class="textarea" placeholder="Message..."></textarea>
                                         </div>
                                         <div class="col-md-2">
-                                            <button class="btn2">Send</button>
+                                            <button id='send' class="btn2">Send</button>
                                         </div>
                                     </div>
                                 </div>
@@ -128,5 +77,25 @@
         <!-- end row -->
     </div> <!-- end container -->
 </section>
+
+<script>
+    $('#send').click(function(){
+        var message = $('#message').val();
+        if(message == ''){
+            alert('Please input some message');
+            return false;
+        }
+        else{
+            $.ajax({
+                url: '{{Request::root()}}/user/sendMessage/{{$withUser->id}}',
+                type: 'post',
+                data: {'_token':'{{csrf_token()}}','message':message},
+                success: function(data){
+                    window.location.reload();
+                }
+            })
+        }
+    })
+</script>
 
 @endsection

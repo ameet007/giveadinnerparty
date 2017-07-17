@@ -178,6 +178,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Nahid\Talk\TalkServiceProvider::class,
 
     ],
 
@@ -228,7 +229,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
-		'PayPal' => Srmklive\PayPal\Facades\PayPal::class,
+        'PayPal' => Srmklive\PayPal\Facades\PayPal::class,
+        'Talk'      => Nahid\Talk\Facades\Talk::class,
     ],
 
 ];
