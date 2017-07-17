@@ -20,7 +20,8 @@ use Crypt;
 use Srmklive\PayPal\Services\ExpressCheckout;
 use Srmklive\PayPal\Services\AdaptivePayments;
 use App\transactions;
-
+use App\reviews;
+use App\friends;
 
 class userController extends Controller {
 
@@ -217,20 +218,57 @@ class userController extends Controller {
 
     public function public_profile(Request $request, $id = 0) 
 	{
-		
-		//if ($request->isMethod('get')){	}	
-		
         if ($request->isMethod('get'))
 		{
-			
 			$user = Auth::guard('user')->user();
 			$social_login = social_logins::where('user_id', $user->id)->first();
-			$events = events::where('event_date','>=', date('m/d/Y'))->get();		
-            return view('user/public_profile')->with(['user'=>$user,'social_login'=> $social_login,'upcoming_events'=>$events]);
+			$upcomint_events = User::rightJoin('events','users.id','=','events.user_id')->where('events.event_date','>=',date('m/d/Y'))->get();
+			$reviews = User::rightJoin('reviews','users.id','=','reviews.post_id')->get();			
+			$user_events = events::where('user_id', $user->id)->get();
+			
+			$friends = friends::where('user_id', $user->id)->get();  //->orWhere('friend_id', $user->id)->get();
+            return view('user/public_profile')->with(['user'=>$user,'social_login'=> $social_login,'upcoming_events'=>$upcomint_events,'reviews'=>$reviews,'user_events'=>$user_events,'friend'=>$friends]);
         }
     }
 
-    public function invite_friends(Request $request, $id = 0) {
+	public function write_review(Request $request, $id = 0) 
+	{
+		if ($request->isMethod('post'))
+		{
+			$data = $request->all();
+			$validate = Validator::make($data, [
+				'review' => 'required|string|max:1000',
+			]);
+			
+			if(!$validate->fails())
+			{
+				$user = Auth::guard('user')->user();
+				
+				$user_reviews = reviews::where('user_id', $user->id)->get();
+				if(count($user_reviews)>0)
+				{
+					return redirect('user/public_profile');
+				}
+				else
+				{
+					unset($data['_token']);
+					$data['post_id'] = base64_decode($data['post_id']); 
+					$data['user_id'] = $user->id;
+					$data['status'] = 0;
+					reviews::insert($data);
+					return redirect('user/public_profile');
+				}					
+				
+			}
+			else
+			{
+				return redirect('user/public_profile')->withErrors($validate)->withInput();
+			}			
+		}	
+	}	
+	
+    public function invite_friends(Request $request, $id = 0)
+	{
         if ($request->isMethod('get')) {
             return view('user/invite_friends');
         }

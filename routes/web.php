@@ -118,7 +118,7 @@ Route::group(['prefix' => 'user'], function () {
     Route::any('/security', 'userController@security');
     Route::any('/my_events', 'userController@myevents');
     Route::any('/inbox', 'userController@inbox');
-    Route::any('/public_profile', 'userController@public_profile');
+    Route::any('/public_profile/{id?}', 'userController@public_profile');
     Route::any('/invite_friends', 'userController@invite_friends');
     Route::any('/compose', 'userController@compose');
     Route::any('/chat', 'userController@chat');
@@ -137,6 +137,8 @@ Route::group(['prefix' => 'user'], function () {
 	Route::any('/paypal_success_verify', 'userController@paypal_success_verify');
 	
 	Route::any('/invite_for_event', 'userController@inviteuserforevent');
+	
+	Route::any('/write_review', 'userController@write_review');
 	
     });
 	

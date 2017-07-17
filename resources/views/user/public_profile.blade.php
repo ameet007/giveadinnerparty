@@ -62,8 +62,8 @@
 						<p>{{ $event->description }}</p> 
 						<p>Tickets <span class="price"><i class="fa fa-gbp" aria-hidden="true"></i>{{ $event->ticket_price }} + <i class="fa fa-gbp" aria-hidden="true"></i><a href="#" data-toggle="tooltip" data-placement="bottom" title="">80.00</a></span> booking fee</p>
 						<div class="event-mf">
-							<i class="fa fa-male" aria-hidden="true"></i>
-							<p>Men only</p>
+							<i class="fa <?php if($event->guest_gender=='Men Only'){echo 'fa-male'; }elseif($event->guest_gender=='Ladies only'){ echo 'fa-female'; }elseif($event->guest_gender=='Singles only'){echo "fa-user"; } ?>" aria-hidden="true"></i>
+							<p>{{ $event->guest_gender }}</p>
 						</div>
 					</div>
 					<div class="parties-host">
@@ -79,11 +79,11 @@
 								<div class="rateyo-readonly-widg"></div>
 							</div>
 							<div class="content">
-								<p>Hosted By: <strong>Khairul P.</strong></p>
-								<p>Aged: <strong>24</strong></p>
-								<p>Friday 05/05/2017</p>
-								<p>9.00pm - 12.00am</p>
-								<p>Bukit Tunku, KL</p>
+								<p>Hosted By: <strong>{{ $event->name.' '.$event->last_name }}</strong></p>
+								<p>Aged: <strong>{{ $event->min_age }} - {{$event->max_age }}</strong></p>
+								<p>Friday {{ $event->event_date }}</p>
+								<p>{{ $event->start_time }} - {{$event->end_time }}</p>
+								<p>{{ $event->street }}, {{ $event->city }}, {{ $event->county }}</p>
 							</div>	
 						</div>
 						<div class="hosted-by parties-foot">
@@ -103,45 +103,59 @@
 		</div>
 	</div>
 	<div class="container sheng-reviews">
-		<h2>Sheng has 7 Reviews</h2>
-		<button class="btn2" id="reviewbtn">Leave Sheng A Review</button>		
+		<h2>Sheng has {{ count($reviews) }} Reviews</h2>
+		<?php if(count($friend)==1){ ?>
+		<button class="btn2" id="reviewbtn">Leave {{ $user->name.' '.$user->last_name }} A Review</button>	
+		<?php } ?>	
 		<ul>
+			<?php if(count($friend)==1){ ?>
 			<li style="display:none" id="review_box">
 				<div class="media">
 					<h3>Leave a Review</h3>
-					<form method="post" action="{{Request::root()}}/user/public_profile">
+					<form method="post" action="{{Request::root()}}/user/write_review" id="myform">
 						<input type="hidden" value="{{csrf_token()}}" name="_token" >
-						<textarea name="comment" class="form-control"></textarea><br>
+						<input type="hidden" value="{{ base64_encode($user->id) }}" name="post_id" >
+						<select name="event" class="form-control" required>
+							<option value="">-- select event --</option>
+							@foreach($user_events as $events)
+							<option value="{{ $events->title }}" >{{ $events->title }}</option>
+							@endforeach
+						</select>
+						<textarea name="review" class="form-control" required ><?php echo old('review'); ?></textarea><br>
+						@if(ISSET($errors))
+						  <ul class="parsley-errors-list">
+							<li class="parsley-required">{{$errors->first('review')}}</li>
+						  </ul>
+						 @endif					  
 						<button type="submit" class="grey-btn pull-right" >Post Review</button>
 					</form>
 				</div>
 			</li>
-		
+			<?php } ?>
+			@foreach($reviews as $review)
 			<li>
 				<div class="media">
 					<div class="media-left">
 						<div class="inner">
 							<img src="{{Request::root()}}/assets/front/img/review-pic.png" class="media-object" />
-							<p>Khairul</p>
+							<p>{{ $review->name}}</p>
 							<img width="80px" src="{{Request::root()}}/assets/front/img/start.png" alt="" />
 						</div>
 					</div>
 					<div class="media-body">
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+						<p>{{ $review->review }}</p>
 						<div class="essex-from clearfix">
 							<div class="pull-left">
-								<h4>From Essex, UK</h4>
+								<h4>From {{ $review->town }}, {{ $review->country }}</h4>
 							</div>
 							<div class="pull-right">
-								<a href="#">Jonathan’s Chess Party</a>
+								<a>{{ $review->event }}</a>
 							</div>
 						</div>
 					</div>
 				</div>
 			</li>
-			
-			
-			
+			@endforeach
 		</ul>
 	</div>
 </section>
@@ -150,6 +164,7 @@ $( document ).ready(function() {
 	$('#reviewbtn').click(function(){
 		$('#review_box').slideToggle('slow');
 	});
+	$('#myform').parsley();
 });
 </script>
 @endsection
