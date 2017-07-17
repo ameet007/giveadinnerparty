@@ -478,7 +478,7 @@ class userController extends Controller {
                     'is_disabled'=>0,
                     'confirmed'=>1,
                     'photos'=>1,
-                ])->whereIn('id',array($filtered_users))->get();
+                ])->whereIn('id',$filtered_users)->get();
             $filtered_users1 = array();
             foreach($users as $user){
                 $dob = explode('/',$user->dob);
@@ -496,7 +496,7 @@ class userController extends Controller {
                     'confirmed'=>1,
                     'photos'=>1,
                     'gender'=>$request->input('gender'),
-                ])->whereIn('id',array($filtered_users))->get();
+                ])->whereIn('id',$filtered_users)->get();
             $filtered_users1 = array();
             foreach($users as $user){
                 $filtered_users1[] = $user->id;
@@ -511,7 +511,7 @@ class userController extends Controller {
                     'confirmed'=>1,
                     'photos'=>1,
                     'status'=>$request->input('status'),
-                ])->whereIn('id',array($filtered_users))->get();
+                ])->whereIn('id',$filtered_users)->get();
             $filtered_users1 = array();
             foreach($users as $user){
                 $filtered_users1[] = $user->id;
@@ -526,7 +526,7 @@ class userController extends Controller {
                     'confirmed'=>1,
                     'photos'=>1,
                     'sexuality'=>$request->input('sexuality'),
-                ])->whereIn('id',array($filtered_users))->get();
+                ])->whereIn('id',$filtered_users)->get();
             $filtered_users1 = array();
             foreach($users as $user){
                 $filtered_users1[] = $user->id;
@@ -541,7 +541,7 @@ class userController extends Controller {
                     'confirmed'=>1,
                     'photos'=>1,
                     'ethnicity'=>$request->input('ethnicity'),
-                ])->whereIn('id',array($filtered_users))->get();
+                ])->whereIn('id',$filtered_users)->get();
             $filtered_users1 = array();
             foreach($users as $user){
                 $filtered_users1[] = $user->id;
@@ -556,7 +556,7 @@ class userController extends Controller {
                     'confirmed'=>1,
                     'photos'=>1,
                     'education'=>$request->input('education'),
-                ])->whereIn('id',array($filtered_users))->get();
+                ])->whereIn('id',$filtered_users)->get();
             $filtered_users1 = array();
             foreach($users as $user){
                 $filtered_users1[] = $user->id;
@@ -571,7 +571,7 @@ class userController extends Controller {
                     'confirmed'=>1,
                     'photos'=>1,
                     'religion'=>$request->input('religion'),
-                ])->whereIn('id',array($filtered_users))->get();
+                ])->whereIn('id',$filtered_users)->get();
             $filtered_users1 = array();
             foreach($users as $user){
                 $filtered_users1[] = $user->id;
@@ -585,11 +585,31 @@ class userController extends Controller {
                     'is_disabled'=>0,
                     'confirmed'=>1,
                     'photos'=>1,
-                ])->whereIn('id',array($filtered_users))->get();
+                ])->whereIn('id',$filtered_users)->get();
             $filtered_users1 = array();
             foreach($users as $user){
                 for($i=0; $i<count($request->input('hobbies')); $i++){
                     if(strpos($user->hobbies, $request->input('hobbies')[$i]) > 0){
+                        $filtered_users1[] = $user->id;
+                        break;
+                    }
+                }
+            }
+            unset($filtered_users);
+            $filtered_users = $filtered_users1;
+            unset($filtered_users1);
+        }
+        
+        if($request->has('languages') && count($request->input('languages')) != 0){
+            $users = User::where([
+                    'is_disabled'=>0,
+                    'confirmed'=>1,
+                    'photos'=>1,
+                ])->whereIn('id',$filtered_users)->get();
+            $filtered_users1 = array();
+            foreach($users as $user){
+                for($i=0; $i<count($request->input('languages')); $i++){
+                    if(strpos($user->spoken_languages, $request->input('languages')[$i]) > 0){
                         $filtered_users1[] = $user->id;
                         break;
                     }
