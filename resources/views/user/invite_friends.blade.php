@@ -494,6 +494,36 @@ $(document).ready(function(){
 		$('#pending-req').show();
 	})
         
+        $('#find4').click(function(){
+                var distance = $('#select_distance').val();
+                var age1 = $('#age1').val();
+                var age2 = $('#age2').val();
+                var gender = $('#gender').val();
+                var status = $('#status').val();
+                var sexuality = $('#sexuality').val();
+                var education = $('#education').val();
+                var ethnicity = $('#ethnicity').val();
+                var religion = $('#religion').val();
+                var languages = [];
+                var i = 0;
+                $('#spok').find('div[class=row]').find('div[class=col-md-9]').find('input[type=checkbox]').each(function(){
+                    if($(this).prop('checked') == true){
+                        languages[i] = $(this).val();
+                        i++;
+                    }
+                })
+                
+                $.ajax({
+                    url: '{{Request::root()}}/user/search_event',
+                    type: 'post',
+                    data: {'_token':'{{csrf_token()}}','distance':distance,'age1':age1,'age2':age2,'gender':gender,'status':status,'sexuality':sexuality,'education':education,'ethnicity':ethnicity,'religion':religion,'languages':languages},
+                    success: function(data){
+                        
+                    }
+                })
+		$('#pending-req').show();
+	})
+        
 	$('#int').click(function(){
             $('#spok').hide();
             $('#sias-interests').toggle();
