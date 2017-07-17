@@ -110,6 +110,7 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('/password/reset/{token}', 'UserAuth\ResetPasswordController@showResetForm');
     // by naseem
     Route::group(['middleware' => 'user'], function () {
+
     Route::any('/ajax_user_update', 'userController@ajaxResponse');
     Route::any('/my_account', 'userController@myaccount');
     Route::any('/notifications', 'userController@notifications');
@@ -133,6 +134,32 @@ Route::group(['prefix' => 'user'], function () {
 	Route::any('/update_user', 'userController@updateuser');
     Route::get('/getEventDetails','userController@getEventDetails');
     Route::post('/search_event','userController@search_event');
+
+        Route::any('/ajax_user_update', 'userController@ajaxResponse');
+        Route::any('/my_account', 'userController@myaccount');
+        Route::any('/notifications', 'userController@notifications');
+        Route::any('/payment_method', 'userController@paymentmethod');
+        Route::any('/hosting_option', 'userController@hostingoption');
+        Route::any('/security', 'userController@security');
+        Route::any('/my_events', 'userController@myevents');
+        Route::any('/inbox', 'chatController@getInbox');
+        Route::any('/public_profile', 'userController@public_profile');
+        Route::any('/invite_friends', 'userController@invite_friends');
+        Route::any('/compose', 'userController@compose');
+        Route::any('/chat/{id}', 'chatController@getChatHistory');
+        Route::post('/sendMessage/{id}','chatController@sendMessage');
+        Route::any('/edit_profile', 'userController@edit_profile');
+        Route::any('/create_event', 'userController@create_event');
+        Route::any('/host_verification', 'userController@hostverification');
+
+        Route::any('/send_email_verification_code', 'userController@sendemailvarificationcode');
+        Route::any('/verify_email/{code}', 'userController@verify_email');
+
+        Route::any('/image_upload', 'userController@imageupload');
+        Route::any('/update_user', 'userController@updateuser');
+        Route::get('/getEventDetails','userController@getEventDetails');
+        Route::post('/search_event','userController@search_event');
+
 	Route::any('/paypal_verify', 'userController@paypalverify');
 	Route::any('/paypal_success_verify', 'userController@paypal_success_verify');
 	
