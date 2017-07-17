@@ -1,13 +1,18 @@
-<?php use App\Http\Controllers\cmsController; ?>
-<?php $url = Request::url();  ?>
-<?php $meta_data =  cmsController::get_metatag($url);?>
+<?php 
+//***********For Making Meta Tags dynamic***********\\
+use App\Http\Controllers\cmsController;
+ 
+ $url=$_SERVER['REQUEST_URI'];
+ $meta_data =  cmsController::get_metatag($url);
+ //**************************************************\\
+ ?>
 <!DOCTYPE html>
 <html>
     <head>
-        <?php if(count($meta_data)>0){ ?>
-			<title>{{ $meta_data->title }}</title>
-			<meta name="description" content=">{{ $meta_data->description }}</">
-			<meta name="keywords" content=">{{ $meta_data->keyword }}</">
+        <?php if(count($meta_data)==1){ ?>
+			<title>{{ $meta_data[0]->title }}</title>
+			<meta name="description" content=">{{ $meta_data[0]->description }}</">
+			<meta name="keywords" content=">{{ $meta_data[0]->keyword }}</">
 		<?php } else { ?>
 			<title>Give A Dinner Party</title>
 		<?php } ?>

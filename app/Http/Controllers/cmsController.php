@@ -224,7 +224,7 @@ class cmsController extends Controller
 	{
 		$data = $request->all();
 		$validate = Validator::make($data, [ 
-        'url' => 'required|url|max:191', 
+        'url' => 'required|string|max:191|unique:seos', 
 		'title' => 'required|string', 
         'keyword' => 'required|string',
         'description' =>'required|string',		
@@ -248,7 +248,7 @@ class cmsController extends Controller
 	{
 		$data = $request->all();
 		$validate = Validator::make($data, [
-        'url' => 'required|url|max:191', 
+        'url' => 'required|string|max:191|unique:seos', 
 		'title' => 'required|string', 
         'keyword' => 'required|string',
         'description' =>'required|string',	
@@ -278,7 +278,7 @@ class cmsController extends Controller
 	
 	public static function get_metatag($url)
 	 {
-	  $seo = seo::where('url', $url)->first();
+	  $seo = seo::where('url', $url)->get();
 	  return $seo;
 	 }
 	/*********************End seo code***********************/
