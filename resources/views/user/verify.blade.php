@@ -3,11 +3,11 @@
 <section class="complete-pro">
     <div class="container">
         <h2>Complete Your Profile</h2>
-		@if(Session::has('flash_message'))
-                    {!! session('flash_message') !!}
-		@endif
+        @if(Session::has('flash_message'))
+        {!! session('flash_message') !!}
+        @endif
         <div class="row bs-wizard" style="border-bottom:0;">
-            <div class="col-xs-3 bs-wizard-step <?= (Auth::guard('user')->user()->confirmed == 1) ? 'complete': '' ?>">
+            <div class="col-xs-3 bs-wizard-step <?= (Auth::guard('user')->user()->confirmed == 1) ? 'complete' : '' ?>">
                 <!--<div class="text-center bs-wizard-stepnum">Step 1</div>-->
                 <div class="progress"><div class="progress-bar"></div></div>
                 <a href="#" class="bs-wizard-dot"></a>
@@ -17,7 +17,7 @@
                 </div>
             </div>
 
-            <div class="col-xs-3 bs-wizard-step <?= (Auth::guard('user')->user()->photos != '') ? 'complete': '' ?>"><!-- complete -->
+            <div class="col-xs-3 bs-wizard-step <?= (Auth::guard('user')->user()->photos != '') ? 'complete' : '' ?>"><!-- complete -->
                 <div class="progress"><div class="progress-bar"></div></div>
                 <a href="#" class="bs-wizard-dot"></a>
                 <div class="bs-wizard-info text-center">
@@ -26,7 +26,7 @@
                 </div>
             </div>
 
-            <div class="col-xs-3 bs-wizard-step <?= (Auth::guard('user')->user()->about != '') ? 'complete': '' ?>"><!-- complete -->
+            <div class="col-xs-3 bs-wizard-step <?= (Auth::guard('user')->user()->about != '') ? 'complete' : '' ?>"><!-- complete -->
                 <div class="progress"><div class="progress-bar"></div></div>
                 <a href="#" class="bs-wizard-dot"></a>
                 <div class="bs-wizard-info text-center">
@@ -35,7 +35,7 @@
                 </div>
             </div>
 
-            <div class="col-xs-3 bs-wizard-step <?= (Auth::guard('user')->user()->hobbies != '') ? 'complete': '' ?>"><!-- complete -->
+            <div class="col-xs-3 bs-wizard-step <?= (Auth::guard('user')->user()->hobbies != '') ? 'complete' : '' ?>"><!-- complete -->
                 <div class="progress"><div class="progress-bar"></div></div>
                 <a href="#" class="bs-wizard-dot"></a>
                 <div class="bs-wizard-info text-center">
@@ -44,40 +44,41 @@
                 </div>
             </div>			
         </div>		
-		
+
         @if(Auth::guard('user')->user()->confirmed == 0)
         <div class="row align-center">
             <h3 style="padding-top:25px;">Thank You for signing up! Please check your email to activate your account</h3>
             <a style="margin-top:25px;" class="btn2" href="{{Request::root()}}/user/send_email_verification_code">Resend Verification Code</a>
         </div>
         @elseif(Auth::guard('user')->user()->photos == '')
-        <div class="row">		    
-			<form method="post" enctype="multipart/form-data" action="{{Request::root()}}/user/image_upload" class="dropzone">
-				<input type="hidden" id="token" name="_token" value="{{ csrf_token() }}">
-                                
+        <div class="row step2">		    
+            <form method="post" enctype="multipart/form-data" action="{{Request::root()}}/user/image_upload" class="dropzone">
+                <input type="hidden" id="token" name="_token" value="{{ csrf_token() }}">
+
             </form>
-            <input type="button" value="Submit" onClick="document.location.reload()" />
+            <div class="align-center">
+                <input type="button" class="btn2" value="Submit" onClick="document.location.reload()" />
+            </div>
         </div>
         @elseif(Auth::guard('user')->user()->about == '')
-        <div class="row">
-			<form method="post" action="{{Request::root()}}/user/update_user">
-				<input type="hidden" id="token" name="_token" value="{{ csrf_token() }}">
-				<table>
-					<tr>
-						<td><textarea class="form-control" name="about" id="about"></textarea></td>
-					</tr>
-					<tr>
-						<td><button type="submit" onclick="return checkabout();" >Submit</button></td>
-					</tr>
-				</table>
-			</form>
+        <div class="row step3">
+            <form method="post" action="{{Request::root()}}/user/update_user">
+                <input type="hidden" id="token" name="_token" value="{{ csrf_token() }}">
+                <table>
+                    <tr>
+                        <td><textarea placeholder="Please enter Biography (Minimum 200 letters)" class="form-control" name="about" id="about"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td><button type="submit" class="btn2" onclick="return checkabout();" >Submit</button></td>
+                    </tr>
+                </table>
+            </form>
         </div>
-		@else
-		<div class="row">
-			<form method="post" id="form_hobbies">
-				<input type="hidden" id="token" name="_token" value="{{ csrf_token() }}">
-				<h3>Hobbies &amp; Interest</h3>
-				<div class="spo-lang hob-interest">
+        @else
+        <div class="row step4">
+            <form method="post" id="form_hobbies">
+                <input type="hidden" id="token" name="_token" value="{{ csrf_token() }}">
+                <div class="spo-lang hob-interest">
                     <div class="table-responsive hobbies" >
                         <table class="table">
                             <tbody>
@@ -104,7 +105,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                   
+
                                     <td>
                                         <label>
                                             <input type="checkbox" value="Charity & Fundraising" /> Charity & Fundraising
@@ -127,7 +128,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>&nbsp;</td>
+                                    
                                     <td>
                                         <label>
                                             <input type="checkbox" value="Video Games" /> Video Games
@@ -150,7 +151,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                   
+
                                     <td>
                                         <label>
                                             <input type="checkbox" value="Reading & Writing" /> Reading & Writing
@@ -173,7 +174,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>&nbsp;</td>
+                                    
                                     <td>
                                         <label>
                                             <input type="checkbox" value="Dancing" /> Dancing
@@ -196,7 +197,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                   
+
                                     <td>
                                         <label>
                                             <input type="checkbox" value="Food & Drink" /> Food & Drink
@@ -219,7 +220,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                   
+
                                     <td>
                                         <label>
                                             <input type="checkbox" value="Home Decor & Interior Design" /> Home Decor & Interior Design
@@ -242,7 +243,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                   
+
                                     <td>
                                         <label>
                                             <input type="checkbox" name="hobbies" value="Photography & Videography" /> Photography & Videography
@@ -255,9 +256,9 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2">
-                                        <label>
-                                            <input type="button" value="Submit" onClick="submit_hobbies()" />
+                                    <td colspan="4">
+                                        <label class="align-center">
+                                            <input type="button" class="btn2" value="Submit" onClick="submit_hobbies()" />
                                         </label>
                                     </td>
                                 </tr>
@@ -265,7 +266,7 @@
                         </table>
                     </div>
                 </div>
-			</form>
+            </form>
         </div>
         @endif
     </div>
@@ -458,36 +459,36 @@
     </div>
 </section>
 <script>
-function checkabout()
-{
-	var aboutlenght = document.getElementById('about').value;
-	if(aboutlenght.length<20 || aboutlenght.length>2000)
-	{
-		return false;
-	}	
-}
-
-function submit_hobbies(){
-    var hobbies = '[';
-    $('#form_hobbies').find('input:checkbox:checked').each(function(){
-            hobbies = hobbies + '"' + $(this).val() + '",';
-    })
-    hobbies = hobbies.slice(0,-1);
-    hobbies = hobbies + ']';
-    $.ajax({
-        url: '{{Request::root()}}/user/update_user',
-        type: 'post',
-        data: {'_token':'{{csrf_token()}}', 'hobbies':hobbies},
-        success: function(data){
-            document.location.reload();
+    function checkabout()
+    {
+        var aboutlenght = document.getElementById('about').value;
+        if (aboutlenght.length < 20 || aboutlenght.length > 2000)
+        {
+            return false;
         }
-    })
-}
+    }
+
+    function submit_hobbies() {
+        var hobbies = '[';
+        $('#form_hobbies').find('input:checkbox:checked').each(function () {
+            hobbies = hobbies + '"' + $(this).val() + '",';
+        })
+        hobbies = hobbies.slice(0, -1);
+        hobbies = hobbies + ']';
+        $.ajax({
+            url: '{{Request::root()}}/user/update_user',
+            type: 'post',
+            data: {'_token': '{{csrf_token()}}', 'hobbies': hobbies},
+            success: function (data) {
+                document.location.reload();
+            }
+        })
+    }
 </script>
 <script type="text/javascript">
-        Dropzone.options.imageUpload = {
-            maxFilesize         :      12,
-            acceptedFiles: ".jpeg,.jpg,.png,.gif"
-        };
+    Dropzone.options.imageUpload = {
+        maxFilesize: 12,
+        acceptedFiles: ".jpeg,.jpg,.png,.gif"
+    };
 </script>
 @endsection

@@ -38,4 +38,16 @@ class chatController extends Controller
             return response()->json(['status'=>'success', 'data'=>$message], 200);
         }
     }
+    
+    public function getUpdatedConversation(Request $request, $id){
+        Talk::setAuthUserId(Auth::guard('user')->user()->id);
+        $message = Talk::getConversationsByUserId($id);
+        $withUser = $message->withUser;
+        $messages = $message->messages;
+        $html = view('user/message/updated_conversation')->with([
+            'withUser'=>$withUser,
+            'messages'=>$messages
+        ]);
+        return $html;
+    }
 }

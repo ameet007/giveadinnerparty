@@ -76,6 +76,7 @@
   -ms-transition: color .2s ease;
   -o-transition: color .2s ease;
   transition: color .2s ease;
+  border-bottom: solid 3px #484848;
 }
 #cssmenu > ul > li:hover > a,
 #cssmenu > ul > li.active > a {
@@ -114,6 +115,7 @@
 }
 #cssmenu li:hover > ul {
   left: auto;
+  z-index: 9;
 }
 #cssmenu.align-right li:hover > ul {
   right: 0;
@@ -135,12 +137,13 @@
   transition: height .2s ease;
 }
 #cssmenu ul li:hover > ul > li {
-  height: 32px;
+  height: auto;
 }
 #cssmenu ul ul li a {
-  padding: 10px 20px;
+  padding: 8px 15px;
   width: 160px;
   font-size: 12px;
+  line-height: 16px;
   background: #333333;
   text-decoration: none;
   color: #dddddd;

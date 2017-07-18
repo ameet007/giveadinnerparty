@@ -814,4 +814,8 @@ class userController extends Controller {
 			
 		}                            
 	} 
+        
+        public function yourHosting(){
+            return view('user/your_hosting');
+        }
 }

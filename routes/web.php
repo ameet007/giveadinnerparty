@@ -166,6 +166,8 @@ Route::group(['prefix' => 'user'], function () {
 	Route::any('/invite_for_event', 'userController@inviteuserforevent');
 	
 	Route::any('/write_review', 'userController@write_review');
+        Route::get('/your_hosting','userController@yourHosting');
+        Route::post('/getUpdatedConversation/{id}','chatController@getUpdatedConversation');
 	
     });
 	
