@@ -40,8 +40,11 @@ use App\Http\Controllers\cmsController;
         <link href="{{Request::root()}}/assets/front/css/main.css" rel="stylesheet" type="text/css" />
         <link href="{{Request::root()}}/assets/front/css/media.css" rel="stylesheet" type="text/css" />
 
+		<link href="{{Request::root()}}/assets/front/css/rateyo.css" rel="stylesheet" type="text/css" />
 
         <script src="{{Request::root()}}/assets/front/js/jQuery.js" type="text/javascript"></script>
+		<script src="{{Request::root()}}/assets/front/js/rateyo.js" type="text/javascript"></script>
+
         <script src="{{Request::root()}}/assets/front/js/dropzone.min.js" type="text/javascript"></script>
         <script src="{{Request::root()}}/assets/front/js/bxslider.js" type="text/javascript"></script>
         <script src="{{Request::root()}}/assets/front/js/owl.carousel.js" type="text/javascript"></script>
