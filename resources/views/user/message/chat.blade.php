@@ -40,6 +40,7 @@
 
                         <div class="table-detail mail-right">
                             <div class="chat-section">
+                                <div class="updated_conversation">
                                 @foreach($messages as $msg)
                                 <div class="@if($msg->user_id == Auth::guard('user')->user()->id) user2 @else user1 @endif clearfix">
                                     @if($msg->user_id == Auth::guard('user')->user()->id)
@@ -56,6 +57,7 @@
                                     </div>
                                 </div>
                                 @endforeach
+                                </div>
                                 <div class="message-send clearfix">
                                     <div class="row">
                                         <div class="col-md-10">
@@ -96,6 +98,22 @@
             })
         }
     })
+    
+    var ajaxCall = {
+        url: '{{Request::root()}}/user/getUpdatedConversation/{{$withUser->id}}',
+        type: 'post',
+        data: {'_token':'{{csrf_token()}}'},
+        success: function(data){
+            $('.updated_conversation').html(data);
+        }
+    }
+
+    var worker = function worker(){
+        $.ajax(ajaxCall);
+        setTimeout(worker, 5000);
+    }
+    
+    setTimeout(worker, 5000);
 </script>
 
 @endsection

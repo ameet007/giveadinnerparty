@@ -18,6 +18,7 @@ class CreateReviewsTable extends Migration
 			$table->integer('post_id');
 			$table->integer('user_id');
 			$table->string('event');
+			$table->string('rating');
 			$table->text('review');
 			$table->integer('status');	
             $table->timestamps();

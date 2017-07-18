@@ -107,7 +107,7 @@ class adminController extends Controller
 			unlink('assets/admin/uploads/users/'.$file);
 			return  back();
         }
-    
+    }
 	
 	public function verifyid(Request $request, $id = 0)
 	{

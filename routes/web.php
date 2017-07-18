@@ -123,7 +123,7 @@ Route::group(['prefix' => 'user'], function () {
     Route::any('/security', 'userController@security');
     Route::any('/my_events', 'userController@myevents');
     Route::any('/inbox', 'userController@inbox');
-    Route::any('/public_profile/{id?}', 'userController@public_profile');
+    Route::any('/public_profile', 'userController@public_profile');
     Route::any('/invite_friends', 'userController@invite_friends');
     Route::any('/compose', 'userController@compose');
     Route::any('/chat', 'userController@chat');
@@ -164,18 +164,24 @@ Route::group(['prefix' => 'user'], function () {
         Route::get('/getEventDetails','userController@getEventDetails');
         Route::post('/search_event','userController@search_event');
 
-	Route::any('/paypal_verify', 'userController@paypalverify');
-	Route::any('/paypal_success_verify', 'userController@paypal_success_verify');
+		Route::any('/paypal_verify', 'userController@paypalverify');
+		Route::any('/paypal_success_verify', 'userController@paypal_success_verify');
 	
-	Route::any('/invite_for_event', 'userController@inviteuserforevent');
+		Route::any('/invite_for_event', 'userController@inviteuserforevent');
 	
 	Route::any('/write_review', 'userController@write_review');
+        Route::get('/your_hosting','userController@yourHosting');
+        Route::post('/getUpdatedConversation/{id}','chatController@getUpdatedConversation');
+		Route::any('/write_review', 'userController@write_review');
+	
+		Route::any('/update_review', 'userController@update_review');
 	
     });
 	
 	Route::any('/event_payment/{user_id}/{event_id}', 'userController@event_payment');
 	Route::any('/success_event_payment', 'userController@success_event_payment');
 	Route::any('/cancel_event_payment', 'userController@cancel_event_payment');
+	Route::any('/profile/{id}', 'userController@user_profile');
 	
 });
 Route::post('ipn/notify','userController@postNotify');

@@ -41,7 +41,28 @@
 
                         <div class="table-detail mail-right">
                             <div class="table-responsive m-t-20">
-                                <table class="table table-hover mails m-0">
+                                <table class="table table-hover mails m-0 myTable">
+                                    <thead>
+                                        <tr class="unread" style="display:none;">
+                                            <td class="mail-select">
+                                                
+                                            </td>
+
+                                            <td>
+                                                
+                                            </td>
+
+                                            <td class="hidden-xs" style="min-width: 370px;">
+                                                
+                                            </td>
+                                            <td style="width: 20px;">
+                                                
+                                            </td>
+                                            <td class="text-right">
+                                               
+                                            </td>
+                                        </tr>
+                                    </thead>
                                     <tbody>
                                         @foreach($inboxes as $inbox)
                                         <tr class="unread">
@@ -75,17 +96,7 @@
                             </div>
 
 
-                            <div class="row m-t-20 m-b-30">
-                                <div class="col-xs-7 m-t-20">
-                                    Showing 1 - 20 of 289
-                                </div>
-                                <div class="col-xs-5 m-t-20">
-                                    <div class="btn-group pull-right">
-                                        <button type="button" class="btn btn-default waves-effect"><i class="fa fa-chevron-left"></i></button>
-                                        <button type="button" class="btn btn-default waves-effect"><i class="fa fa-chevron-right"></i></button>
-                                    </div>
-                                </div>
-                            </div>
+                         
 
 
                         </div>
@@ -97,4 +108,9 @@
         <!-- end row -->
     </div> <!-- end container -->
 </section>
+<script>
+$(document).ready(function(){
+    $('.myTable').DataTable();
+});
+</script>
 @endsection('content')

@@ -39,9 +39,13 @@ use App\Http\Controllers\cmsController;
         <link href="{{Request::root()}}/assets/front/css/responsive.css" rel="stylesheet" type="text/css" />
         <link href="{{Request::root()}}/assets/front/css/main.css" rel="stylesheet" type="text/css" />
         <link href="{{Request::root()}}/assets/front/css/media.css" rel="stylesheet" type="text/css" />
+        <link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css" />
 
+		<link href="{{Request::root()}}/assets/front/css/rateyo.css" rel="stylesheet" type="text/css" />
 
         <script src="{{Request::root()}}/assets/front/js/jQuery.js" type="text/javascript"></script>
+		<script src="{{Request::root()}}/assets/front/js/rateyo.js" type="text/javascript"></script>
+
         <script src="{{Request::root()}}/assets/front/js/dropzone.min.js" type="text/javascript"></script>
         <script src="{{Request::root()}}/assets/front/js/bxslider.js" type="text/javascript"></script>
         <script src="{{Request::root()}}/assets/front/js/owl.carousel.js" type="text/javascript"></script>
@@ -54,6 +58,9 @@ use App\Http\Controllers\cmsController;
         <script src="{{Request::root()}}/assets/front/js/ckeditor/ckeditor.js" type="text/javascript"></script>
         <script src="{{Request::root()}}/assets/front/js/bootstrap-datepicker.js" type="text/javascript"></script>
         <script type="text/javascript" src="{{Request::root()}}/assets/admin/plugins/parsleyjs/parsley.min.js"></script>
+        <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js" ></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js" ></script>
+        
     </head>
     <body>
         @include('user.layout.header')
