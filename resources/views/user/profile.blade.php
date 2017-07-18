@@ -55,6 +55,7 @@
 		</div>
 		<div class="owl-carousel owl-theme">
 		@foreach($upcoming_events as $event)
+		<?php $charity = DB::select( DB::raw("SELECT * FROM charities WHERE id = '$event->charity_id'") ); ?>
 			<div class="item">
 				<div class="parties-wrap">
 					<div class="parties-head">
@@ -76,7 +77,7 @@
 									<div class="circle-img"></div>
 									<img src="{{Request::root()}}/assets/front/img/host-pic.png" alt="" />
 								</div>
-								<div class="rateyo-readonly-widg"></div>
+								<!--<div class="rateyo-readonly-widg"></div>-->
 							</div>
 							<div class="content">
 								<p>Hosted By: <strong>{{ $event->name.' '.$event->last_name }}</strong></p>
@@ -89,11 +90,11 @@
 						<div class="hosted-by parties-foot">
 							<div class="img">
 								<div class="inner">
-									<img src="{{Request::root()}}/assets/front/img/host-logo1.png" alt="" />
+									<img src="{{Request::root()}}/assets/admin/uploads/charity/{{ $charity[0]->logo }}" alt="" />
 								</div>
 							</div>
 							<div class="content">
-								<p><strong>{{ $event->charity_cut }}</strong> of ticket price will go to Action Against Hunger</p>
+								<p><strong>{{ $event->charity_cut }}%</strong> of ticket price will go to {{ $charity[0]->title }}</p>
 							</div>	
 						</div>
 					</div>
@@ -103,8 +104,37 @@
 		</div>
 	</div>
 	<div class="container sheng-reviews">
-		<h2>Sheng has {{ count($reviews) }} Reviews</h2>		
-		<ul>			
+		<h2>Sheng has {{ count($reviews) }} Reviews</h2>
+		<?php //if(count($friend)==1){ ?>
+		<button class="btn2" id="reviewbtn">Leave {{ $user->name.' '.$user->last_name }} A Review</button>	
+		<?php //} ?>	
+		<ul>
+			<?php //if(count($friend)==1){ ?>
+			<li style="display:none" id="review_box">
+				<div class="media">
+					<h3>Leave a Review</h3>
+					<form method="post" action="{{Request::root()}}/user/write_review" id="myform">
+						<input type="hidden" value="{{csrf_token()}}" name="_token" >
+						<input type="hidden" value="{{ base64_encode($user->id) }}" name="post_id" >
+						<input type="hidden" value="" name="rating" id='rating'>
+						<select name="event" class="form-control" required>
+							<option value="">-- select event --</option>
+							@foreach($user_events as $events)
+							<option value="{{ $events->title }}" >{{ $events->title }}</option>
+							@endforeach
+						</select>
+						<div class="rateyo-readonly-widg"></div>
+						<textarea name="review" class="form-control" required ><?php echo old('review'); ?></textarea><br>
+						@if(ISSET($errors))
+						  <ul class="parsley-errors-list">
+							<li class="parsley-required">{{$errors->first('review')}}</li>
+						  </ul>
+						 @endif					  
+						<button type="submit" class="grey-btn pull-right" >Post Review</button>
+					</form>
+				</div>
+			</li>
+			<?php //} ?>
 			@foreach($reviews as $review)
 			<li>
 				<div class="media">
@@ -112,11 +142,19 @@
 						<div class="inner">
 							<img src="{{Request::root()}}/assets/front/img/review-pic.png" class="media-object" />
 							<p>{{ $review->name}}</p>
-							<img width="80px" src="{{Request::root()}}/assets/front/img/start.png" alt="" />
+							<div id="mystar{{ $review->id }}"></div>
 						</div>
 					</div>
-					<div class="media-body">
-						<p>{{ $review->review }}</p>
+					<div class="media-body">						
+						<p class="box_content<?php echo $review->id ?>">{{ $review->review }}</p>
+						<form method="post" id="myform<?php echo $review->id ?>">
+							<p style="display:none;" class="box<?php echo $review->id ?>" ><textarea class="form-control" id="review<?php echo $review->id ?>" name="review">{{ $review->review }}</textarea></p>
+							<input type="hidden" name="_token" value="{{ csrf_token() }}">
+							<input type="hidden" name="id" value="<?php echo $review->id ?>">
+						</form>
+						
+						<div class="pull-right grey-btn" id="editbtn<?php echo $review->id ?>" onclick="return editreviewbox('<?php echo $review->id ?>');">Edit</div>
+						<div class="pull-right btn3"><b>reply</b></div><br><br>
 						<div class="essex-from clearfix">
 							<div class="pull-left">
 								<h4>From {{ $review->town }}, {{ $review->country }}</h4>
@@ -126,7 +164,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div>				
 			</li>
 			@endforeach
 		</ul>
@@ -139,5 +177,56 @@ $( document ).ready(function() {
 	});
 	$('#myform').parsley();
 });
+
+function editreviewbox(BOX)
+{
+	$('.box_content'+BOX).toggle();
+	$('.box'+BOX).toggle();
+	if($('#editbtn'+BOX).html()=='Edit')
+	{
+		$('#editbtn'+BOX).html('Save');
+	}
+	else
+	{
+		var form_data = $("#myform"+BOX);
+		$.ajax({
+			url: '<?php echo url('/user/update_review'); ?>',
+			type: 'POST',
+			data : form_data.serialize(),
+			//dataType: 'JSON',
+			cache: false,
+			success: function(data)
+			{
+				//alert(data);
+				console.log(data);
+			},
+			error: function(xhr, ajaxOptions, thrownError)
+			{
+				alert(xhr.status);
+			},	
+		});		
+		$('.box_content'+BOX).html($('#review'+BOX).val());
+		$('#editbtn'+BOX).html('Edit');
+	}	
+}
+
+ $(function () {
+       var rating = 1;        
+       $(".rateyo-readonly-widg").rateYo({
+            rating: rating,
+            numStars: 5,
+            precision: 2,
+            minValue: 1,
+            maxValue: 5
+        }).on("rateyo.change", function (e, data){			
+			$('#rating').val(data.rating);            
+        });	
+	@foreach($reviews as $review)
+     $("#mystar<?php echo $review->id; ?>").rateYo({
+		rating: <?php echo $review->rating; ?>,
+		readOnly: true
+	  }); 
+	@endforeach
+ });
 </script>
 @endsection

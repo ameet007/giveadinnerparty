@@ -32,6 +32,7 @@ label{font-size:14px; line-height:15px; color:#121212; font-weight:normal;}
 .btn-default:focus, .btn-default.focus {background-color: transparent;}
 .btn:active, .btn.active {box-shadow: 0 3px 5px rgba(0, 0, 0, 0) inset; -moz-box-shadow: 0 3px 5px rgba(0, 0, 0, 0) inset; -webkit-box-shadow: 0 3px 5px rgba(0, 0, 0, 0) inset;}
 .btn-block {display: block; white-space: normal; width: 100%;}
+.mr0 {margin: 0 !important;}
 @import url('https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900,900i');
 /*Login form css start*/
 .signup{width: 100%; margin: 0 auto;}
@@ -170,7 +171,7 @@ a.hvr-shutter-out-horizontal {padding: 12px 33px; background: #a9dd7d; margin: 4
 .dinner-parties .hosted-by .inner .circle-img {background-image: url(../img/circle-pro.png); background-repeat: no-repeat; background-position: center center; background-size: cover; position: absolute; left: 0; right: 0; bottom: 0; top: 0;}
 .dinner-parties .hosted-by .heart-dil {text-align: center;}
 .dinner-parties .hosted-by .heart-dil a {font-size: 12px; color: #fff;}
-.dinner-parties .hosted-by .heart-dil a:focus {color: #1a1a1a;}
+.dinner-parties .hosted-by .heart-dil a:focus {background-color: #fff; color: #484848;}
 .dinner-parties .hosted-by .inner img {}
 .dinner-parties .hosted-by .content p {font-size: 12px; font-weight: 400; line-height: 18px; color: #fff;}
 .dinner-parties .parties-foot {border-bottom: 0 none;}
@@ -224,17 +225,21 @@ a.hvr-shutter-out-horizontal {padding: 12px 33px; background: #a9dd7d; margin: 4
 /*pro-header css start*/
 .pro-header {}
 .pro-header .pro-header-top {}
-.pro-header .logo {}
+.pro-header .logo {float: left; padding-left:15px;}
 .pro-header .logo img {width: 50px; padding: 10px 0;}
 .pro-header .pro-header-right {padding: 10px 0;}
-.pro-header .pro-header-right .tow-notification {float: right; margin-right: 20px;  padding-top: 11px;}
-.pro-header .pro-header-right .tow-notification a {color: #9b9b9b; font-size: 24px; margin-right: 10px;}
+.pro-header .pro-header-right .tow-notification {float: right;}
+.pro-header .pro-header-right .tow-notification a {color: #484848; margin-right: 15px;}
+.pro-header .pro-header-right .tow-notification a .fa {color: #484848; font-size: 24px;}
+.pro-header .pro-header-right .tow-notification .dropdown a, .pro-header .pro-header-right .tow-notification .dropdown a .fa {font-size: 14px;}
+.pro-header .pro-header-right .tow-notification .open .dropdown-menu {left: inherit; right: 0; }
+.pro-header .pro-header-right .tow-notification .dropdown-menu li a {margin-right: 0;white-space: pre-line; font-size: 12px; padding: 5px 15px; color: #484848; width: 185px;}
 .pro-header .pro-header-right .tow-notification sup {background-color: #e85a00; color: #fff; font-size: 10px; height: 17px; top: -14px; width: 17px; right: 5px; text-align: center; display: inline-block; line-height: 17px; text-align: center;}
 .pro-header .pro-header-right .img, .pro-header .pro-header-right .text {display: table-cell; vertical-align: middle;}
 .pro-header .pro-header-right .text {position: relative; text-align: left;}
 .pro-header .pro-header-right .btn {background-color: transparent; border-radius: 0; -moz-border-radius: 0; -webkit-border-radius: 0; border-right: 1px solid #fff; padding: 0;}
 .pro-header .pro-header-right .img {padding-right: 10px;}
-.pro-header .pro-header-right .dropdown a {font-family: 'Lato', sans-serif; font-weight: 400; font-size: 16px; line-height: 16px; color:#9b9b9b; margin-right: 16px;}
+.pro-header .pro-header-right .dropdown a {font-family: 'Lato', sans-serif; font-weight: 400; color:#484848; margin-right: 16px;}
 .pro-header .pro-header-right .dropdown a .por-file {display: inline-block; position: relative;}
 .pro-header .pro-header-right .dropdown a .por-file .over-lay {background-image: url(../img/pro-pic-overlay.png); background-position: center center; background-repeat: no-repeat; background-size: contain; position: absolute; left: 0; right: 0; top: 0; right: 0; height: 50px; }
 .pro-header .your-party {padding: 30px 0 50px 0;}
@@ -270,6 +275,12 @@ a.hvr-shutter-out-horizontal {padding: 12px 33px; background: #a9dd7d; margin: 4
 .bs-wizard .complete h4 {color: #4a4a4a; margin-bottom: 0; font-weight: 900;}
 .complete-pro .fileuploader {width: 50%; margin: 0 auto; margin-top: 30px;}
 .complete-pro .fileuploader-input-button {background-color: #4a4a4a;}
+.complete-pro .step2 .dropzone {margin:20px auto 0 auto;}
+.complete-pro .step3 table {margin:20px auto; width:60%; text-align:center;}
+.complete-pro .step3 table .textarea {height:120px; resize:none;}
+.complete-pro .step3 table tr .btn2 {margin-top:20px;}
+.complete-pro .step4 {padding:30px 0;}
+.complete-pro .step4 table .align-center {display:block;}
 /*navigation page css start*/
 .navigation {background-color: #4a4a4a;}
 .middle-content {padding: 40px 0;}
@@ -391,6 +402,7 @@ a.hvr-shutter-out-horizontal {padding: 12px 33px; background: #a9dd7d; margin: 4
 .dinnerhost-party h2 span {font-size: 24px; color: #e85a00;}
 .dinnerhost-party ul.date {margin-bottom: 20px;}
 .dinnerhost-party ul.date li {font-size:16px; line-height: 20px; color: #4a4a4a;}
+.dinnerhost-party ul.date li a {color: #4a4a4a;}
 .dinnerhost-party .event-o {}
 .dinnerhost-party .event-o h3 {font-size:22px; color: #091623; font-weight: 700; line-height: 26px; margin-bottom: 20px;}
 .dinnerhost-party .event-o h4 {font-size: 18px; font-weight: 700; color:#4a4a4a; margin-bottom: 10px;}
@@ -408,7 +420,8 @@ a.hvr-shutter-out-horizontal {padding: 12px 33px; background: #a9dd7d; margin: 4
 .dinnerhost-party .dinner-hostright footer .media-left .inner {width: 135px;}
 .dinnerhost-party .dinner-hostright footer p {color: #FFF; line-height: 22px;}
 .dinnerhost-party .invite-your {margin: 0;}
-.dinnerhost-party .invite-your header {background-color: #4a4a4a; text-transform:uppercase; font-weight: 700;}
+.dinnerhost-party .invite-your header {background-color: #4a4a4a; text-transform:uppercase; font-weight: 700; margin-bottom: 5px;}
+.dinnerhost-party .invite-your header a {color: #fff;}
 .dinnerhost-party .invite-your .con-gratulation {padding: 20px;}
 .dinnerhost-party .invite-your ul li {display: inline-block; margin-right: 5px;}
 .dinnerhost-party .invite-your ul li a {font-size: 36px;}
@@ -434,11 +447,11 @@ a.hvr-shutter-out-horizontal {padding: 12px 33px; background: #a9dd7d; margin: 4
 .profile-page .party-interest {}
 .profile-page .party-interest ul li {display: block; font-size: 16px; line-height: 20px; margin-bottom: 10px;}
 /*Host Step page css start*/
-.host-step {}
+.host-step {padding-bottom: 40px;}
 .host-step h6, .host-step .dat-time h4 {font-size: 18px; color: #9b9b9b; font-weight: 700; line-height: 18px; margin-bottom: 10px;}
 .host-step h3 {font-size: 26px; color: #4a4a4a; line-height: 32px; font-weight: 700; margin-bottom: 30px;}
 .host-step .dat-time {margin-bottom: 30px;}
-.host-step .dat-time h4 {color: #091623;}
+.host-step .dat-time h4 ,.host-step .dat-time h4 a {color: #091623;}
 .host-step .dat-time .feild {margin-bottom: 15px;}
 .host-step .loca-tion {margin-bottom: 30px;}
 .host-step .loca-tion p {line-height: 20px; margin-bottom: 15px;}
@@ -465,7 +478,7 @@ a.hvr-shutter-out-horizontal {padding: 12px 33px; background: #a9dd7d; margin: 4
 .host-step3 .finally-send .form-group {margin-bottom: 20px;}
 .host-step3 .finally-send .checkbox label {font-size: 12px;}
 /**/
-.pro-header .hea-search {padding-top: 15px;}
+.pro-header .hea-search {padding-top: 18px;}
 /*site map page css start*/
 .site-map h2 {text-align: center; font-weight: 600;  font-size: 32px; line-height: 32px; margin-bottom: 30px; padding: 20px 0}
 .tree, .tree ul {color: #369; list-style: outside none none; margin: 0 0 0 1em; padding: 0; position: relative;}
@@ -505,7 +518,7 @@ a.hvr-shutter-out-horizontal {padding: 12px 33px; background: #a9dd7d; margin: 4
 .pending-req .dinner-parties .hosted-by { border-bottom: 1px solid #4a4a4a;}
 .pending-req .dinner-parties .parties-foot {border-bottom: 0 none;}
 .pending-req .dinner-parties .hosted-by .inner .circle-img {background-image: url(../img/pro-pic-overlay.png);}
-.pending-req .dinner-parties .hosted-by .content p, .dinner-parties .hosted-by .heart-dil a {color: #4a4a4a;}
+.pending-req .dinner-parties .hosted-by .content p, .dinner-parties .hosted-by .heart-dil a {color: #4a4a4a; background-color: #484848; border-radius: 3px; color: #fff; display: inline-block; padding: 4px 10px;}
 /*Invite Friends page css*/
 .invite-fri {}
 .invite-fri h2 {font-weight: 700;}
@@ -533,3 +546,8 @@ a.hvr-shutter-out-horizontal {padding: 12px 33px; background: #a9dd7d; margin: 4
 .invite-pop .media-left .inner {width: 65px; height: 65px; position: relative;}
 .invite-pop .media-left .circle-img {background-image: url(../img/pro-pic-overlay.png); background-repeat: no-repeat; background-position: center center; background-size: cover; position: absolute; left: 0; right: 0; bottom: 0; top: 0;}
 .invite-pop .media-body {padding-left: 10px;}
+/*Your Hosting page css start*/
+.your-hosting {}
+.your-hosting .dinner-parties {padding: 0;}
+.your-hosting .dinner-parties .item {padding: 0; margin-bottom: 25px;}
+/*Events page css start*/

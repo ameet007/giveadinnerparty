@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\events;
 use App\Admin;
 use App\systemSettings;
 use Validator;
@@ -106,7 +107,7 @@ class adminController extends Controller
 			unlink('assets/admin/uploads/users/'.$file);
 			return  back();
         }
-    
+    }
 	
 	public function verifyid(Request $request, $id = 0)
 	{
@@ -274,5 +275,22 @@ class adminController extends Controller
   /* -------------Manage Company Details----------------- */
   
  
+  /* -------------Manage Events----------------- */
+
+  public function viewEvents(){
+    $events = events::leftJoin('users','users.id','=','events.user_id')->select('users.name','events.*')->get();
+    return view('admin/events/events')->with([
+        'events'=>$events,
+      ]);
+  }
   
+  
+  public function statusEvents(Request $request,  $id){
+    events::where('id',$id)->update([
+        'status'=>$request->input('status'),
+        
+    ]);
+    return redirect('admin/events')->with(['success'=>'Status changed successfully']);
+  }
+  /* -------------End Manage  Events----------------- */
 }
