@@ -62,7 +62,8 @@ class userController extends Controller {
         return view('user.account.hosting-option');
     }
 
-    public function security(Request $request, $id = 0) {
+    public function security(Request $request, $id = 0)
+	{
         if ($request->isMethod('post')) {
             $data = $request->all();
             $validate = Validator::make($data, [
@@ -161,9 +162,9 @@ class userController extends Controller {
 
     /* ----------- send email varification code ------------ */
 
-    public function sendemailvarificationcode(Request $request) {
+    public function sendemailvarificationcode(Request $request)
+	{
         $login_user = Auth::guard('user')->user();
-
         Mail::send('emails.email_confirmation', ['user' => $login_user], function ($message) use($login_user) {
             $message->to($login_user->email, $login_user->name . ' ' . $login_user->last_name)->subject('confirm your email!');
         });
@@ -231,6 +232,20 @@ class userController extends Controller {
         }
     }
 
+	public function user_profile(Request $request, $id = 0) 
+	{
+        if($request->isMethod('get'))
+		{
+			$user = User::where('id', $id)->get()->first(); //Auth::guard('user')->user();			
+			$social_login = social_logins::where('user_id', $id)->first();
+			$upcomint_events = User::rightJoin('events','users.id','=','events.user_id')->where('events.event_date','>=',date('m/d/Y'))->get();
+			$reviews = User::rightJoin('reviews','users.id','=','reviews.post_id')->get();			
+			$user_events = events::where('user_id', $id)->get();			
+			$friends = 1;  //friends::where('user_id', $id)->get();
+            return view('user/profile')->with(['user'=>$user,'social_login'=> $social_login,'upcoming_events'=>$upcomint_events,'reviews'=>$reviews,'user_events'=>$user_events,'friend'=>$friends]);
+        }
+    }
+	
 	public function write_review(Request $request, $id = 0) 
 	{
 		if ($request->isMethod('post'))
@@ -244,10 +259,10 @@ class userController extends Controller {
 			{
 				$user = Auth::guard('user')->user();
 				
-				$user_reviews = reviews::where('user_id', $user->id)->get();
+				$user_reviews = reviews::where('user_id', $user->id)->where('event', $data['event'])->get();
 				if(count($user_reviews)>0)
 				{
-					return redirect('user/public_profile');
+					return redirect('user/profile/'.base64_decode($data['post_id']));
 				}
 				else
 				{
@@ -256,16 +271,29 @@ class userController extends Controller {
 					$data['user_id'] = $user->id;
 					$data['status'] = 0;
 					reviews::insert($data);
-					return redirect('user/public_profile');
+					return redirect('user/profile/'.base64_decode($data['post_id']));
 				}					
 				
 			}
 			else
 			{
-				return redirect('user/public_profile')->withErrors($validate)->withInput();
+				return redirect('user/profile/'.base64_decode($data['post_id']))->withErrors($validate)->withInput();
 			}			
 		}	
 	}	
+	
+	public function update_review(Request $request, $id = 0) 
+	{
+		if ($request->isMethod('post'))
+		{
+			$data = $request->all();
+			//print_r($data);
+			$id = $data['id'];
+			unset($data['_token']);
+			unset($data['id']);						
+            reviews::where('id', $id )->update($data);				
+		}	
+	}
 	
     public function invite_friends(Request $request, $id = 0)
 	{
@@ -450,9 +478,8 @@ class userController extends Controller {
 						unset($data['upload']);
 						$data['address_proof']= $file_name;
 						$login_user = Auth::guard('user')->user();
-						User::where('id', $login_user->id)->update($data);						
-						
-						
+						User::where('id', $login_user->id)->update($data);		
+												
 						$request->session()->flash('flash_message', '<div class="alert alert-success"><span class="glyphicon glyphicon-ok"></span><em> your document has been successfully uploaded.</em></div>');
 						return redirect('user/host_verification');
 				}
