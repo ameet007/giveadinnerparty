@@ -76,7 +76,11 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::any('/document_download/{file}', 'adminController@documentdownload');
 	Route::any('/delete_document/{file}', 'adminController@deletedocument');
 	//Route::any('/verify_id/{id}', 'adminController@verifyid');
-
+        Route::get('/events', 'adminController@viewEvents');
+        Route::any('/events/status/{id}', 'adminController@statusEvents');
+        
+        
+        
     });
 });
 
