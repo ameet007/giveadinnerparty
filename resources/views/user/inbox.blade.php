@@ -111,6 +111,7 @@
 <script>
 $(document).ready(function(){
     $('.myTable').DataTable();
+    $('.dataTables_empty').html('');
 });
 </script>
 @endsection('content')

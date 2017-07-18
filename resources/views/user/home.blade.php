@@ -214,42 +214,6 @@
             </div>
         </div>
     </div>
-    <div class="container party-interest">
-        <div class="main-heading">
-            <h2>Diner Parties by Your Interest?</h2>
-        </div>
-        <div class="col-xs-12">
-            <div class="row">
-                <div class="col-md-4 col-sm-12">
-                    <ul>
-                        <li>Dota(8)</li>
-                        <li>Mahjong (10)</li>
-                        <li>Homosexual(15)</li>
-                        <li>Digital Marketing(6)</li>
-                        <li>Fine Art(2)</li>
-                    </ul>
-                </div>
-                <div class="col-md-4 col-sm-12">
-                    <ul>
-                        <li>Dota(8)</li>
-                        <li>Mahjong (10)</li>
-                        <li>Homosexual(15)</li>
-                        <li>Digital Marketing(6)</li>
-                        <li>Fine Art(2)</li>
-                    </ul>
-                </div>
-                <div class="col-md-4 col-sm-12">
-                    <ul>
-                        <li>Dota(8)</li>
-                        <li>Mahjong (10)</li>
-                        <li>Homosexual(15)</li>
-                        <li>Digital Marketing(6)</li>
-                        <li>Fine Art(2)</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
 </section>
 
 @endsection
