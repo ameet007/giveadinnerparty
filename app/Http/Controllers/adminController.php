@@ -104,10 +104,12 @@ class adminController extends Controller
 	public function deletedocument(Request $request, $file = 0)
 	{
         if ($request->isMethod('get')) 
+		{
 			unlink('assets/admin/uploads/users/'.$file);
 			return  back();
         }
     }
+	
 	
 	public function verifyid(Request $request, $id = 0)
 	{
