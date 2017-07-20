@@ -109,6 +109,7 @@ class adminController extends Controller
         }
     }
 	
+	
 	public function verifyid(Request $request, $id = 0)
 	{
         if($request->isMethod('get')) 
