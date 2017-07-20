@@ -58,7 +58,8 @@ class userController extends Controller {
         return view('user.account.payment-method')->with(['user'=>$login_user]);;
     }
 
-    public function hostingoption(Request $request, $id = 0) {
+    public function hostingoption(Request $request, $id = 0)
+	{
         return view('user.account.hosting-option');
     }
 
@@ -91,7 +92,7 @@ class userController extends Controller {
                 return redirect('user/security')->withErrors($validate)->withInput();
             }
         }
-
+		
         //echo Auth::user()->password;
         return view('user.account.security');
     }
@@ -125,7 +126,8 @@ class userController extends Controller {
         }
     }
 
-    public function registeration(Request $request, $id = 0) {
+    public function registeration(Request $request, $id = 0)
+	{
         if ($request->isMethod('post')) {
             $data = $request->all();
 
@@ -136,7 +138,8 @@ class userController extends Controller {
                         'password' => 'required|min:6',
                         'gender' => 'required|string|max:191',
             ]);
-            if (!$validate->fails()) {
+            if (!$validate->fails())
+			{
                 unset($data['_token']);
                 $data['password'] = bcrypt($data['password']);
                 $data['dob'] = $data['birthmonth'] . '/' . $data['birthday'] . '/' . $data['birthyear'];
@@ -149,12 +152,14 @@ class userController extends Controller {
                 $authUser = User::where('id', $user)->first();
                 Auth::guard('user')->login($authUser);
 
-                Mail::send('emails.email_confirmation', ['user' => $authUser], function ($message) use($authUser) {
+                Mail::send('emails.email_confirmation', ['user' => $authUser], function ($message) use($authUser){
                     $message->to($authUser->email, $authUser->name . ' ' . $authUser->last_name)->subject('confirm your email!');
                 });
 
                 return redirect('/');
-            } else {
+            }
+			else
+			{
                 return redirect('/');
             }
         }
@@ -193,7 +198,8 @@ class userController extends Controller {
 
     /* ------------- update user --------------------- */
 
-    public function updateuser(Request $request, $id = 0) {
+    public function updateuser(Request $request, $id = 0)
+	{
         $login_user = Auth::guard('user')->user();
         if ($request->isMethod('post')) {
             $data = $request->all();
@@ -224,9 +230,8 @@ class userController extends Controller {
 			$user = Auth::guard('user')->user();
 			$social_login = social_logins::where('user_id', $user->id)->first();
 			$upcomint_events = User::rightJoin('events','users.id','=','events.user_id')->where('events.event_date','>=',date('m/d/Y'))->get();
-			$reviews = User::rightJoin('reviews','users.id','=','reviews.post_id')->get();			
-			$user_events = events::where('user_id', $user->id)->get();
-			
+			$reviews = User::rightJoin('reviews','users.id','=','reviews.post_id')->where('reviews.reply_id',0)->get();	
+			$user_events = events::where('user_id', $user->id)->get();			
 			$friends = friends::where('user_id', $user->id)->get();  //->orWhere('friend_id', $user->id)->get();
             return view('user/public_profile')->with(['user'=>$user,'social_login'=> $social_login,'upcoming_events'=>$upcomint_events,'reviews'=>$reviews,'user_events'=>$user_events,'friend'=>$friends]);
         }
@@ -239,7 +244,7 @@ class userController extends Controller {
 			$user = User::where('id', $id)->get()->first(); //Auth::guard('user')->user();			
 			$social_login = social_logins::where('user_id', $id)->first();
 			$upcomint_events = User::rightJoin('events','users.id','=','events.user_id')->where('events.event_date','>=',date('m/d/Y'))->get();
-			$reviews = User::rightJoin('reviews','users.id','=','reviews.post_id')->get();			
+			$reviews = User::rightJoin('reviews','users.id','=','reviews.post_id')->where('reviews.reply_id',0)->get();			
 			$user_events = events::where('user_id', $id)->get();			
 			$friends = 1;  //friends::where('user_id', $id)->get();
             return view('user/profile')->with(['user'=>$user,'social_login'=> $social_login,'upcoming_events'=>$upcomint_events,'reviews'=>$reviews,'user_events'=>$user_events,'friend'=>$friends]);
@@ -270,6 +275,7 @@ class userController extends Controller {
 					$data['post_id'] = base64_decode($data['post_id']); 
 					$data['user_id'] = $user->id;
 					$data['status'] = 0;
+					$data['created_at'] = date('Y-m-d h:m:s');
 					reviews::insert($data);
 					return redirect('user/profile/'.base64_decode($data['post_id']));
 				}					
@@ -280,7 +286,23 @@ class userController extends Controller {
 				return redirect('user/profile/'.base64_decode($data['post_id']))->withErrors($validate)->withInput();
 			}			
 		}	
-	}	
+	}
+	
+	public function reply_for_review(Request $request, $id = 0) 
+	{
+		if($request->isMethod('post'))
+		{
+			$data = $request->all();			
+			$user = Auth::guard('user')->user();				
+			unset($data['_token']);
+			$data['post_id'] = $data['post_id']; 
+			$data['user_id'] = $user->id;
+			$data['status'] = 0;
+			$data['created_at'] = date('Y-m-d h:m:s');
+			reviews::insert($data);
+			return redirect('user/profile/'.$data['post_id']);		
+		}
+	}
 	
 	public function update_review(Request $request, $id = 0) 
 	{
@@ -292,7 +314,7 @@ class userController extends Controller {
 			unset($data['_token']);
 			unset($data['id']);						
             reviews::where('id', $id )->update($data);				
-		}	
+		}
 	}
 	
     public function invite_friends(Request $request, $id = 0)
@@ -759,6 +781,20 @@ class userController extends Controller {
 		});
 	}
 
+	public function invite_unregister_user(Request $request)
+	{
+		$user_id = 5;
+		$event_id = 2;
+		$user = User::where('id', $user_id)->first();  // user who invite
+		$events = events::where('id', $event_id)->first(); // event data
+		$login_user = Auth::guard('user')->user();   // login user
+		
+		Mail::send('emails.send_payment_link_for _event', ['login_user' => $login_user,'invite_user'=>$user,'event'=>$events], function ($message) use($user)
+		{						
+			$message->to('phpdeveloper70@gmail.com', 'admin')->subject('Invitation for a dinner party');
+		});
+	}	
+	
 	public function event_payment(Request $request, $user_id=0, $event_id=0)
 	{
 		if($request->isMethod('get'))
@@ -842,7 +878,18 @@ class userController extends Controller {
 		}                            
 	} 
         
-        public function yourHosting(){
-            return view('user/your_hosting');
+        public function yourHosting()
+		{
+			$user = Auth::guard('user')->user(); 
+			$events = User::rightJoin('events','users.id','=','events.user_id')->where('events.user_id',$user->id)->get();
+            return view('user/your_hosting')->with(['events'=>$events,]);
+        }
+		
+		 public function myActiveEvent()
+		{
+			$user = Auth::guard('user')->user(); 
+			$events = User::rightJoin('events','users.id','=','events.user_id')->where('events.user_id',$user->id)->get();
+            //dd($events);
+			return view('user/my_active_events')->with(['events'=>$events,]);
         }
 }

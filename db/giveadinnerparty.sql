@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 18, 2017 at 02:44 PM
--- Server version: 10.1.21-MariaDB
--- PHP Version: 5.6.30
+-- Generation Time: Jul 19, 2017 at 10:56 AM
+-- Server version: 10.1.16-MariaDB
+-- PHP Version: 7.0.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `dinner_db`
+-- Database: `giveadinnerparty`
 --
 
 -- --------------------------------------------------------
@@ -41,7 +41,7 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Admin', 'admin@giveadinnerparty.com', '$2y$10$LWenYgaEONwxu1C16VnReO5kSngQAeI26zr.rr6eKZwEjDMGIFWiq', 'Cn9KLAUP1rOWqm9YETmia6hZQxsE9gUN9O1weQ7XmpAGcbnF9SFZ7V5jjq31', '2017-06-24 13:02:19', '2017-06-24 13:02:19');
+(1, 'Admin', 'admin@giveadinnerparty.com', '$2y$10$LWenYgaEONwxu1C16VnReO5kSngQAeI26zr.rr6eKZwEjDMGIFWiq', 'sgTLT8LUuLVQXo66Ny3zPbk5sZGm6DgEBaskazbnDWsacZxPDOvmpbfDrbfy', '2017-06-24 13:02:19', '2017-06-24 13:02:19');
 
 -- --------------------------------------------------------
 
@@ -76,7 +76,7 @@ CREATE TABLE `banners` (
 --
 
 INSERT INTO `banners` (`id`, `title`, `sub_title`, `image`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Give A Dinner Party', 'Get together. Have fun. Give back', '149941007901.jpg', '1', NULL, '2017-07-11 07:35:10');
+(1, 'Give A Dinner Party', 'Get together. Have fun. Give back', '149941007901.jpg', '1', NULL, '2017-07-07 04:01:06');
 
 -- --------------------------------------------------------
 
@@ -101,7 +101,7 @@ CREATE TABLE `charities` (
 --
 
 INSERT INTO `charities` (`id`, `title`, `logo`, `description`, `reference`, `website`, `status`, `created_at`, `updated_at`) VALUES
-(2, 'Give A Dinner Party', '1499777993Hydrangeas.jpg', 'ytuytu', 'ytuytu', 'ytuytuyt', 1, NULL, NULL);
+(1, 'Action Against Hunger', '1499866540why.png', 'dfsdfsdfsfsfdfsd', 'ffsdfdfsdfdsfsd', 'http://www.fsfsd.com', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -123,7 +123,31 @@ CREATE TABLE `cms` (
 --
 
 INSERT INTO `cms` (`id`, `title`, `image`, `description`, `created_at`, `updated_at`) VALUES
-(1, 'about us', '1499423710chat-pic.jpg', '<p>ghgfhg</p>', NULL, '2017-07-11 05:53:20');
+(1, 'about us', '1499423710chat-pic.jpg', '<p>ghgfhg</p>', NULL, '2017-07-07 06:52:27');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `conversations`
+--
+
+CREATE TABLE `conversations` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `user_one` int(11) NOT NULL,
+  `user_two` int(11) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `conversations`
+--
+
+INSERT INTO `conversations` (`id`, `user_one`, `user_two`, `status`, `created_at`, `updated_at`) VALUES
+(1, 2, 5, 1, '2017-07-17 06:11:43', '2017-07-17 08:20:15'),
+(2, 2, 4, 1, '2017-07-17 06:50:13', '2017-07-17 07:38:14'),
+(3, 1, 2, 1, '2017-07-17 06:51:30', '2017-07-18 04:15:25');
 
 -- --------------------------------------------------------
 
@@ -258,12 +282,12 @@ INSERT INTO `countries` (`id`, `code`, `title`, `created_at`, `updated_at`) VALU
 (112, 'KZ', 'Kazakhstan', NULL, NULL),
 (113, 'KE', 'Kenya', NULL, NULL),
 (114, 'KI', 'Kiribati', NULL, NULL),
-(115, 'KP', 'Korea, Democratic People\'s Republic of', NULL, NULL),
+(115, 'KP', 'Korea, Democratic People''s Republic of', NULL, NULL),
 (116, 'KR', 'Korea, Republic of', NULL, NULL),
 (117, 'XK', 'Kosovo', NULL, NULL),
 (118, 'KW', 'Kuwait', NULL, NULL),
 (119, 'KG', 'Kyrgyzstan', NULL, NULL),
-(120, 'LA', 'Lao People\'s Democratic Republic', NULL, NULL),
+(120, 'LA', 'Lao People''s Democratic Republic', NULL, NULL),
 (121, 'LV', 'Latvia', NULL, NULL),
 (122, 'LB', 'Lebanon', NULL, NULL),
 (123, 'LS', 'Lesotho', NULL, NULL),
@@ -440,7 +464,7 @@ CREATE TABLE `events` (
 --
 
 INSERT INTO `events` (`id`, `user_id`, `title`, `description`, `event_date`, `start_time`, `end_time`, `street`, `city`, `county`, `postal_code`, `country`, `drink_preferences`, `food_included`, `own_drinks`, `drinks_included`, `food_type`, `food_drink_type`, `open_to`, `guest_gender`, `min_age`, `max_age`, `orientation`, `dress_code`, `setting`, `seating`, `min_guests`, `max_guests`, `charity_id`, `charity_cut`, `reference_number`, `welcome_note`, `ticket_price`, `status`, `created_at`, `updated_at`) VALUES
-(1, 2, 'Give A Dinner Party', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.', '07/12/2017', '01:30:00', '04:15:00', 'street 007', 'delhi', 'india', '110009', 'India', 'Alcohol Ok', '5 Courses', 'Yes', 'any', 'Brunch', '[\"Vegetarian\",\"Vegan\",\"Kosher\",\"Gluten Free\"]', 'Singles Only', 'Men Only', 21, 27, 'Straight', 'Smart', 'Indoor', 'Sofa And/or Chairs', '4', '5', '2', '100', '9899009988', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry.', 20, 1, NULL, NULL);
+(1, 2, 'fdsdfsdfds', 'fsdfdfdsfsdfd', '06/27/2017', '04:30:00', '19:15:00', 'sdfsdfsdfdfsd', 'fsdfsdfsdf', 'dfsdfsdfsdf', 'DN17 2HJ', 'Qatar', 'No Alcohol', 'None', 'Don’t Mind', 'dfsdfsdfsdfsdfsd', 'Breakfast', '["Vegetarian","Vegan","Pescatarian","Kosher"]', 'Don’t Mind', 'Don’t Mind', 18, 18, 'Don''t Mind', 'As You Like', 'Indoor', 'Around A Table', '5', '15', '1', '100', 'fsfsdfsdf', 'sdfsdfsdfdfsdf', 30, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -463,6 +487,62 @@ CREATE TABLE `faqs` (
 
 INSERT INTO `faqs` (`id`, `question`, `answer`, `status`, `created_at`, `updated_at`) VALUES
 (2, 'ffd', 'fdgfdgfdgfdgfd', 1, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `friends`
+--
+
+CREATE TABLE `friends` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `friend_id` int(11) NOT NULL,
+  `status` enum('0','1','2') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `messages`
+--
+
+CREATE TABLE `messages` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `message` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `is_seen` tinyint(1) NOT NULL DEFAULT '0',
+  `deleted_from_sender` tinyint(1) NOT NULL DEFAULT '0',
+  `deleted_from_receiver` tinyint(1) NOT NULL DEFAULT '0',
+  `user_id` int(11) NOT NULL,
+  `conversation_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `messages`
+--
+
+INSERT INTO `messages` (`id`, `message`, `is_seen`, `deleted_from_sender`, `deleted_from_receiver`, `user_id`, `conversation_id`, `created_at`, `updated_at`) VALUES
+(1, 'Hi!', 0, 0, 0, 2, 1, '2017-07-17 06:11:43', '2017-07-17 06:11:43'),
+(2, 'Hi..How re You?', 0, 0, 0, 2, 2, '2017-07-17 06:50:13', '2017-07-17 06:50:13'),
+(3, 'Hi..How re You?', 0, 0, 0, 2, 2, '2017-07-17 06:50:22', '2017-07-17 06:50:22'),
+(4, 'BB Ki Vines', 0, 0, 0, 2, 3, '2017-07-17 06:51:30', '2017-07-17 06:51:30'),
+(5, 'BB Ki Vines', 0, 0, 0, 2, 3, '2017-07-17 06:51:33', '2017-07-17 06:51:33'),
+(6, 'How are you!', 0, 0, 0, 4, 2, '2017-07-17 07:38:14', '2017-07-17 07:38:14'),
+(7, 'How are you!', 0, 0, 0, 1, 3, '2017-07-17 07:38:31', '2017-07-17 07:38:31'),
+(8, 'I am fine', 0, 0, 0, 2, 3, '2017-07-17 08:17:01', '2017-07-17 08:17:01'),
+(9, 'how are you', 0, 0, 0, 2, 1, '2017-07-17 08:18:11', '2017-07-17 08:18:11'),
+(10, 'ok', 0, 0, 0, 5, 1, '2017-07-17 08:18:24', '2017-07-17 08:18:24'),
+(11, 'I am fine', 0, 0, 0, 2, 1, '2017-07-17 08:20:03', '2017-07-17 08:20:03'),
+(12, 'Ok Good', 0, 0, 0, 5, 1, '2017-07-17 08:20:15', '2017-07-17 08:20:15'),
+(13, 'I am fine too', 0, 0, 0, 1, 3, '2017-07-18 04:13:44', '2017-07-18 04:13:44'),
+(14, 'Wow thats great', 0, 0, 0, 2, 3, '2017-07-18 04:14:18', '2017-07-18 04:14:18'),
+(15, 'yes it is', 0, 0, 0, 1, 3, '2017-07-18 04:14:28', '2017-07-18 04:14:28'),
+(16, 'I am working', 0, 0, 0, 2, 3, '2017-07-18 04:15:14', '2017-07-18 04:15:14'),
+(17, 'Ok!!', 0, 0, 0, 1, 3, '2017-07-18 04:15:25', '2017-07-18 04:15:25');
 
 -- --------------------------------------------------------
 
@@ -497,8 +577,13 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (18, '2017_07_10_124254_create_userimages_table', 9),
 (19, '2017_07_11_053423_create_offers_table', 10),
 (20, '2017_07_11_120403_create_charities_table', 11),
-(21, '2017_07_12_085447_create_seos_table', 12),
-(22, '2017_07_12_092903_create_events_table', 12);
+(23, '2017_07_12_085447_create_seos_table', 12),
+(24, '2017_07_12_092903_create_events_table', 12),
+(25, '2015_10_05_110608_create_messages_table', 13),
+(26, '2015_10_05_110622_create_conversations_table', 13),
+(27, '2017_07_14_112948_create_transactions_table', 14),
+(28, '2017_07_17_085745_create_friends_table', 14),
+(29, '2017_07_17_093511_create_reviews_table', 15);
 
 -- --------------------------------------------------------
 
@@ -510,20 +595,9 @@ CREATE TABLE `offers` (
   `id` int(10) UNSIGNED NOT NULL,
   `title` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `rule` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `from_date` date NOT NULL,
-  `to_date` date NOT NULL,
-  `status` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `offers`
---
-
-INSERT INTO `offers` (`id`, `title`, `rule`, `from_date`, `to_date`, `status`, `created_at`, `updated_at`) VALUES
-(2, 'TENDISCOUNT', '10', '2017-07-09', '2017-07-13', 1, NULL, '2017-07-11 06:12:07'),
-(3, 'TWODISCOUNT', '5', '2017-07-01', '2017-07-26', 1, NULL, '2017-07-11 06:12:26');
 
 -- --------------------------------------------------------
 
@@ -542,8 +616,24 @@ CREATE TABLE `password_resets` (
 --
 
 INSERT INTO `password_resets` (`email`, `token`, `created_at`) VALUES
-('naseembca1990@gmail.com', '$2y$10$hRfJdM9UX4CajBegF/KICOuot6Dz02lfqwT5zBRUtn/W.oaCt0oVC', '2017-07-05 06:26:40'),
-('anaseem711@gmail.com', '$2y$10$uUnkkZh5aS265YpG5y0oU.gBYg/jOu/k/Ot61VKEMRK2YMHuXGCPO', '2017-07-12 01:05:17');
+('naseembca1990@gmail.com', '$2y$10$hRfJdM9UX4CajBegF/KICOuot6Dz02lfqwT5zBRUtn/W.oaCt0oVC', '2017-07-05 06:26:40');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reviews`
+--
+
+CREATE TABLE `reviews` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `post_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `event` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `review` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -560,16 +650,6 @@ CREATE TABLE `seos` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `seos`
---
-
-INSERT INTO `seos` (`id`, `url`, `title`, `keyword`, `description`, `created_at`, `updated_at`) VALUES
-(4, '/giveadinnerparty/public/', 'Give A Dinner Party', 'Give Keyword', 'jchjenrdvnrjkvj,ds', NULL, NULL),
-(5, '/giveadinnerparty/public/user/home', 'User', 'user home page, user', 'rrrrrrrrrrrrrrrrrrrrrrrrrrrrrr', NULL, '2017-07-17 00:57:52'),
-(6, '/giveadinnerparty/public/user/inbox', 'User Inbox', 'user inbox, inbox', 'This is a user inbox page.', NULL, NULL),
-(7, '/giveadinnerparty/public/user/notifications', 'Notification', 'notification', 'This is a user notification page.', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -591,11 +671,7 @@ CREATE TABLE `social_logins` (
 --
 
 INSERT INTO `social_logins` (`id`, `user_id`, `facebook_id`, `facebook_link`, `created_at`, `updated_at`) VALUES
-(1, 1, '1959063524377417', 'https://www.facebook.com/app_scoped_user_id/1959063524377417/', NULL, NULL),
-(6, 4, '1539889042740095', 'https://www.facebook.com/app_scoped_user_id/1539889042740095/', NULL, NULL),
-(7, 3, '1539889042740095', 'https://www.facebook.com/app_scoped_user_id/1539889042740095/', NULL, NULL),
-(9, 8, '1539889042740095', 'https://www.facebook.com/app_scoped_user_id/1539889042740095/', NULL, NULL),
-(10, 9, '821620574662458', 'https://www.facebook.com/app_scoped_user_id/821620574662458/', NULL, NULL);
+(1, 1, '1959063524377417', 'https://www.facebook.com/app_scoped_user_id/1959063524377417/', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -612,13 +688,6 @@ CREATE TABLE `staff` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `staff`
---
-
-INSERT INTO `staff` (`id`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Ravi Verma', 'ravi.mygzb@gmail.com', '$2y$10$YGUdLzyITiK2J0D3LwFrJuzoVfuxoTZaVboRm6V68rlwq3Mh7NZ0C', NULL, '2017-07-17 07:55:50', '2017-07-17 07:55:50');
 
 -- --------------------------------------------------------
 
@@ -665,6 +734,24 @@ INSERT INTO `system_settings` (`id`, `company_name`, `company_logo`, `address1`,
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `transactions`
+--
+
+CREATE TABLE `transactions` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `payKey` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `transaction_id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `event_id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `amount` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `userimages`
 --
 
@@ -682,9 +769,9 @@ CREATE TABLE `userimages` (
 --
 
 INSERT INTO `userimages` (`id`, `user_id`, `image`, `default`, `created_at`, `updated_at`) VALUES
-(1, '5', '1499691846Hydrangeas.jpg', 0, NULL, NULL),
-(2, '5', '1499692015Desert.jpg', 0, NULL, NULL),
-(3, '2', '1499768443Chrysanthemum.jpg', 0, NULL, NULL);
+(1, '2', '1499840830bold.png', 0, NULL, NULL),
+(2, '1', '1500370995images.jpg', 0, NULL, NULL),
+(3, '6', '1500376256images.jpg', 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -721,12 +808,7 @@ CREATE TABLE `users` (
   `paypal_fname` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `paypal_lname` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `paypal_email` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `paypal_confirm` int(11) NOT NULL DEFAULT '0',
   `photos` text COLLATE utf8mb4_unicode_ci,
-  `id_proof` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `approve_id` int(11) NOT NULL DEFAULT '0',
-  `address_proof` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `approve_address` int(11) NOT NULL DEFAULT '0',
   `confirmed` int(11) NOT NULL DEFAULT '0',
   `confirmation_code` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `is_disabled` int(11) NOT NULL DEFAULT '0',
@@ -739,16 +821,13 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `password`, `last_name`, `dob`, `status`, `gender`, `ethnicity`, `sexuality`, `telephone`, `address`, `town`, `county`, `country`, `postcode`, `spoken_languages`, `hosting_option`, `notifications`, `invites`, `about`, `hobbies`, `profession`, `education`, `religion`, `paypal_fname`, `paypal_lname`, `paypal_email`, `paypal_confirm`, `photos`, `id_proof`, `approve_id`, `address_proof`, `approve_address`, `confirmed`, `confirmation_code`, `is_disabled`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Prashant Gupta', 'prashant2621993@live.com', '$2y$10$k0hV3jWQmyhiYgKHtJRjwexw3MadoOZ4BPP.RJryGt7zwrrl9.P/m', 'sefgfh', '07/13/2017', NULL, 'Male', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0, NULL, 0, 1, NULL, 0, 'MFpQGUiN6R4kRaclWulOoVjkamlgh88f6S2hHpcLC9j69bGSNJQ3tqRVBZDr', '2017-06-30 16:23:13', '2017-07-12 04:17:06'),
-(2, 'Naseem', 'anaseem711@gmail.com', '$2y$10$6rVxHMcq81qH2qWmmKDuo.UhGDW2SrdlgrWlkwFk8hqdctjADaTXC', 'ahmad', '07/05/90', 'Married', 'Female', 'Chinese', 'Lesbian', '9899004510', 'H.No. 217, Okhla 1', 'Delhi 2 ok', 'county 3', 'India 4', '110009 5', '[\"Arabic\",\"Bengali\",\"Czech\",\"Dutch\",\"French\",\"Mandarin\",\"Punjabi\",\"Romanian\",\"Swedish\",\"Thai\"]', '', NULL, NULL, 'dfdhfgghj mhk jhkjhkjhkjhkjhk', '[\"Socialising & Friendship\",\"Dating\",\"Travel & Culture\",\"Charity & Fundraising\",\"Religion & Spirituality\",\"Video Games\",\"Card Games\",\"Art & Antiques\"]', 'profession testing okkkk', 'bca', 'testing', '$2y$10$WBEDCFhAfcF2o0tpBTYIhe7ZtMLS20KA08QiIG4Hski.Hsfm.vCkm', NULL, 'testmail0987654@gmail.com', 0, '1', '1499859467Tulips.jpg', 1, '1499859461Tulips.jpg', 0, 1, '35467874323456789', 0, 'YTEAzEilRgC0vLvuhrC48uiLfRWwuZVX4sB235otAIapZceeT2rKA0Wh3S3E', '2017-07-04 18:30:00', '2017-07-13 06:21:46'),
-(3, 'Rahul', 'phpdeveloper7@gmail.com', '$2y$10$7jnxL9SDOTY7oR8P6dPXW.fNAMODkKUdrYDM2VSUt2Mkb6Pjq6EHi', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0, NULL, 0, 0, NULL, 0, 'CZWkG9pZuy2So6MwJDsFYeY1hLoDpQHpphd1dJCzThjbfh645aE8bAWaXn1i', '2017-07-10 01:59:47', '2017-07-10 01:59:47'),
-(4, 'Arun', 'phpdeveloper71@gmail.com', '$2y$10$S/O2PeyjGDZ/JBsHvjseL.2QnItbBLnpufBBZ.5TcO9cU0HM/fI6G', NULL, '3/5/1990', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0, NULL, 0, 0, '2497563081', 0, 'RbbjkibSegGkB5X96uG0UpQPPL3buWZZPJSiJNO0zR6vejJ889LP9Ahhn77I', '2017-07-10 02:11:41', '2017-07-10 02:11:41'),
-(5, 'Praveen', 'phpdeveloper70@gmail.com', '$2y$10$1kxSA.mr48dAbzdlAfDKtOSJnsVc5n9j1pBmCrDxAaiUAH76mgE3.', NULL, '3/5/1990', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sadfgfdggdfg fdgfdgfdgfd  fdgfdgfdgfd  fgdfdg', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '1', NULL, 0, NULL, 0, 1, '8031925476', 0, 'n5rwUTYlMaZvPEVNRbJWDEoCbT7EPUMU7puOwVjfvrK0TKv675bQBpKRfDs2', '2017-07-10 02:16:22', '2017-07-10 08:10:22'),
-(7, 'Naseem Ahmad', 'naseembca19901@gmail.com', '$2y$10$S/O2PeyjGDZ/JBsHvjseL.2QnItbBLnpufBBZ.5TcO9cU0HM/fI6G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0, NULL, 0, 1, NULL, 0, '9G7bzywtnONj4im8UGNu8QkncI2aj1sYMbS44rkkhINeW4gSgnUa87wbxZVO', '2017-07-12 07:52:54', '2017-07-12 07:52:54'),
-(8, 'Naseem Ahmad', 'naseembca1990@gmail.com', '$2y$10$CyQ5G8ER2ruSH9c7CwZht.Spmg3qcMWn0t.zm/36Hs6xo5qwSK3sG', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0, NULL, 0, 1, NULL, 0, NULL, '2017-07-12 08:42:13', '2017-07-12 08:42:13'),
-(9, 'Er Ravi Verma', 'ravi.mygzb@gmail.com', '$2y$10$wvuqZUTCMosgGgktLJ2laO5pf2HoYjdo0CoLSq6E8MtFIKVigCP7a', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0, NULL, 0, 1, NULL, 0, NULL, '2017-07-14 01:17:29', '2017-07-14 01:17:29'),
-(10, 'Ravi', 'ravi@gmail.com', '$2y$10$oxJBAnXfyVUl63f1tP2mQ.CJmo3nZ0Yib4dQEbekjookswc5he1ny', 'Verma', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0, NULL, 0, 0, NULL, 0, 'E353Tq9gKli4iWIq5aApWxBYb6Sr9sv2gxzvqwlWknCeymzBAwjW6JLlMUEM', '2017-07-17 00:28:36', '2017-07-17 01:02:10');
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `last_name`, `dob`, `status`, `gender`, `ethnicity`, `sexuality`, `telephone`, `address`, `town`, `county`, `country`, `postcode`, `spoken_languages`, `hosting_option`, `notifications`, `invites`, `about`, `hobbies`, `profession`, `education`, `religion`, `paypal_fname`, `paypal_lname`, `paypal_email`, `photos`, `confirmed`, `confirmation_code`, `is_disabled`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Prashant Gupta', 'prashant2621993@live.com', '$2y$10$S/O2PeyjGDZ/JBsHvjseL.2QnItbBLnpufBBZ.5TcO9cU0HM/fI6G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'fsdgfdgdgfdgfdgfdgfdglfjdgklfkghfkdghfhgjkfhghfdjghfjdghjfdhgjfhdgjhfdghfdhgfhghfgjfdhgfjdhgfdhghfdghfdhgkfdhkgfd', '["Travel & Culture","Religion & Spirituality","Meditation, Yoga & Healing","Video Games"]', NULL, NULL, NULL, NULL, NULL, NULL, '1', 1, NULL, 0, 'MFpQGUiN6R4kRaclWulOoVjkamlgh88f6S2hHpcLC9j69bGSNJQ3tqRVBZDr', '2017-06-30 16:23:13', '2017-07-18 04:13:30'),
+(2, 'Naseem', 'anaseem711@gmail.com', '$2y$10$6rVxHMcq81qH2qWmmKDuo.UhGDW2SrdlgrWlkwFk8hqdctjADaTXC', 'kkfgfdgfdg', '07/05/2017', 'Married', 'Male', 'Chinese', 'Lesbian', '9899004511', 'H.No. 217, Okhla', 'Delhi', 'county', 'India', 'DN17 2HG', '["Arabic","French","Hindi","Italian","Japanese","Malay","Polish","Punjabi","Romanian","Russian","Swedish","Vietnamese"]', '["Socialising & Friendship","Dating","Charity & Fundraising","Meditation, Yoga & Healing","Art & Antiques","Tv & Cinema","Outdoor Pursuits","Entrepreneurship & Business"]', NULL, NULL, 'bnbbbmmbdfsdfsffsdfsddfdsdfsdfdfsdfsdfsdfdfdfdfsdfdfdfdfdfdfsd ggfdgfdgfdgfdgfdgfgfdgfdfgfgfgfdgfgfdgfdgfdgfgfgfdgfdgfdgfd', '["Travel & Culture","Meditation, Yoga & Healing","Card Games","Tv & Cinema","Instruments & Singing","Dancing"]', 'profession testing okkkk', 'bca', 'testing', '$2y$10$WBEDCFhAfcF2o0tpBTYIhe7ZtMLS20KA08QiIG4Hski.Hsfm.vCkm', NULL, NULL, '1', 1, '35467874323456789', 0, '4GWE58ILnjM75rSLZzU8VEbiC8ffJftFICwV7Otl61VW4bsc41DBeREzZpHs', '2017-07-04 18:30:00', '2017-07-17 23:33:47'),
+(3, 'Rahul', 'phpdeveloper7@gmail.com', '$2y$10$7jnxL9SDOTY7oR8P6dPXW.fNAMODkKUdrYDM2VSUt2Mkb6Pjq6EHi', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 'CZWkG9pZuy2So6MwJDsFYeY1hLoDpQHpphd1dJCzThjbfh645aE8bAWaXn1i', '2017-07-10 01:59:47', '2017-07-10 01:59:47'),
+(4, 'Arun', 'phpdeveloper71@gmail.com', '$2y$10$S/O2PeyjGDZ/JBsHvjseL.2QnItbBLnpufBBZ.5TcO9cU0HM/fI6G', NULL, '3/5/1990', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DN17 2HJ', '["Arabic","French","Hindi","Italian","Japanese","M...', NULL, NULL, NULL, NULL, '["Travel & Culture","Meditation, Yoga & Healing","Card Games","Tv & Cinema","Instruments & Singing","Dancing"]', NULL, NULL, NULL, NULL, NULL, NULL, '1', 1, '2497563081', 0, 'RbbjkibSegGkB5X96uG0UpQPPL3buWZZPJSiJNO0zR6vejJ889LP9Ahhn77I', '2017-07-10 02:11:41', '2017-07-10 02:11:41'),
+(5, 'Praveen', 'phpdeveloper70@gmail.com', '$2y$10$1kxSA.mr48dAbzdlAfDKtOSJnsVc5n9j1pBmCrDxAaiUAH76mgE3.', NULL, '3/5/1990', 'Married', 'Male', 'Chinese', 'Lesbian', NULL, NULL, NULL, NULL, NULL, 'DN17 2HJ', '["Arabic","French","Hindi","Italian","Japanese","M...', NULL, NULL, NULL, 'sadfgfdggdfg fdgfdgfdgfd  fdgfdgfdgfd  fgdfdg', '["Travel & Culture","Meditation, Yoga & Healing","Card Games","Tv & Cinema","Instruments & Singing","Dancing"]', NULL, NULL, NULL, NULL, NULL, NULL, '1', 1, '8031925476', 0, 'n5rwUTYlMaZvPEVNRbJWDEoCbT7EPUMU7puOwVjfvrK0TKv675bQBpKRfDs2', '2017-07-10 02:16:22', '2017-07-10 08:10:22'),
+(6, 'dsadsad', 'sdaas@fsdffs.com', '$2y$10$qKGhjL/3354dsk7ANSStreh8XmOoY.rAbdlUqBCSOnHv7Q5rMQnUy', NULL, '3/15/2001', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'hskhsukdfkgdfuksdkfgsdjfgkdafgsukdagfkjdagfuksdgfjksgdafkgdasfyugdjhkfsgdajsgdafyjgdsjhfgsdjhvfghfgsyjdvfgafgfsyjdgfhdafgfsyegfk', '["Vegetarian & Vegan","Animals & Pets","Entrepreneurship & Business"]', NULL, NULL, NULL, NULL, NULL, NULL, '1', 1, '4726850193', 0, NULL, '2017-07-18 05:26:34', '2017-07-18 06:04:30');
 
 -- --------------------------------------------------------
 
@@ -799,6 +878,12 @@ ALTER TABLE `cms`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `conversations`
+--
+ALTER TABLE `conversations`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `countries`
 --
 ALTER TABLE `countries`
@@ -814,6 +899,18 @@ ALTER TABLE `events`
 -- Indexes for table `faqs`
 --
 ALTER TABLE `faqs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `friends`
+--
+ALTER TABLE `friends`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `messages`
+--
+ALTER TABLE `messages`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -833,6 +930,12 @@ ALTER TABLE `offers`
 --
 ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
+
+--
+-- Indexes for table `reviews`
+--
+ALTER TABLE `reviews`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `seos`
@@ -864,6 +967,12 @@ ALTER TABLE `staff_password_resets`
 -- Indexes for table `system_settings`
 --
 ALTER TABLE `system_settings`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `transactions`
+--
+ALTER TABLE `transactions`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -904,12 +1013,17 @@ ALTER TABLE `banners`
 -- AUTO_INCREMENT for table `charities`
 --
 ALTER TABLE `charities`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `cms`
 --
 ALTER TABLE `cms`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `conversations`
+--
+ALTER TABLE `conversations`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `countries`
 --
@@ -926,35 +1040,55 @@ ALTER TABLE `events`
 ALTER TABLE `faqs`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
+-- AUTO_INCREMENT for table `friends`
+--
+ALTER TABLE `friends`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `messages`
+--
+ALTER TABLE `messages`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+--
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 --
 -- AUTO_INCREMENT for table `offers`
 --
 ALTER TABLE `offers`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `reviews`
+--
+ALTER TABLE `reviews`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `seos`
 --
 ALTER TABLE `seos`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `social_logins`
 --
 ALTER TABLE `social_logins`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `system_settings`
 --
 ALTER TABLE `system_settings`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `transactions`
+--
+ALTER TABLE `transactions`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `userimages`
 --
@@ -964,7 +1098,7 @@ ALTER TABLE `userimages`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -31,7 +31,7 @@
                     </div>
                     <div class="row">
 						@foreach($events as $event)
-						<?php $charity = DB::select( DB::raw("SELECT * FROM charities WHERE id = '$event->charity_id'") ); ?>
+					    <?php $charity = DB::select( DB::raw("SELECT * FROM charities WHERE id ='$event->charity_id'") ); ?>
                         <div class="col-md-4">
                             <div class="item">
 								<div class="parties-wrap">
