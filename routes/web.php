@@ -149,6 +149,9 @@ Route::group(['prefix' => 'user'], function () {
         Route::any('/inbox', 'chatController@getInbox');
         Route::any('/public_profile', 'userController@public_profile');
         Route::any('/invite_friends', 'userController@invite_friends');
+		
+		Route::any('/invite_friend_payment/{event}/{friend_id}', 'userController@invite_friend_payment');
+		
         Route::any('/compose', 'userController@compose');
         Route::any('/chat/{id}', 'chatController@getChatHistory');
         Route::post('/sendMessage/{id}','chatController@sendMessage');
@@ -171,8 +174,10 @@ Route::group(['prefix' => 'user'], function () {
 	
 		Route::any('/write_review', 'userController@write_review');
         Route::get('/your_hosting','userController@yourHosting');
-		 Route::get('/my_active_event','userController@myActiveEvent');
-        Route::post('/getUpdatedConversation/{id}','chatController@getUpdatedConversation');
+		Route::get('/my_active_event','userController@myActiveEvent');
+        Route::get('/my_ended_event','userController@myEndedEvent');
+		
+		Route::post('/getUpdatedConversation/{id}','chatController@getUpdatedConversation');
 		Route::any('/write_review', 'userController@write_review');
 	
 		Route::any('/update_review', 'userController@update_review');

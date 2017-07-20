@@ -22,6 +22,7 @@ use Srmklive\PayPal\Services\AdaptivePayments;
 use App\transactions;
 use App\reviews;
 use App\friends;
+use App\invitefriend;
 
 class userController extends Controller {
 
@@ -48,7 +49,7 @@ class userController extends Controller {
                     User::where('id', $login_user->id)->update($data);
                     $request->session()->flash('flash_message', '<div class="alert alert-success"><span class="glyphicon glyphicon-ok"></span><em>Paypal email has been updated successfully.</em></div>');
                     return redirect('user/payment_method');
-			  } 
+			  }
 			  else
 			  {
 				  return redirect('user/payment_method')->withErrors($validate)->withInput();
@@ -65,7 +66,8 @@ class userController extends Controller {
 
     public function security(Request $request, $id = 0)
 	{
-        if ($request->isMethod('post')) {
+        if ($request->isMethod('post'))
+		{
             $data = $request->all();
             $validate = Validator::make($data, [
                         'old_password' => 'required|min:6|',
@@ -138,7 +140,7 @@ class userController extends Controller {
                         'password' => 'required|min:6',
                         'gender' => 'required|string|max:191',
             ]);
-            if (!$validate->fails())
+            if(!$validate->fails())
 			{
                 unset($data['_token']);
                 $data['password'] = bcrypt($data['password']);
@@ -155,7 +157,6 @@ class userController extends Controller {
                 Mail::send('emails.email_confirmation', ['user' => $authUser], function ($message) use($authUser){
                     $message->to($authUser->email, $authUser->name . ' ' . $authUser->last_name)->subject('confirm your email!');
                 });
-
                 return redirect('/');
             }
 			else
@@ -319,11 +320,106 @@ class userController extends Controller {
 	
     public function invite_friends(Request $request, $id = 0)
 	{
-        if ($request->isMethod('get')) {
-            return view('user/invite_friends');
+        if ($request->isMethod('get'))
+		{
+			$user = Auth::guard('user')->user(); 
+			$events = User::rightJoin('events','users.id','=','events.user_id')
+			->where('events.event_date','>=',date('m/d/Y'))->where('events.user_id',$user->id)->get();  
+			
+            return view('user/invite_friends')->with(['events'=>$events,]);
+			
         }
+		if($request->isMethod('post'))
+		{
+			$data = $request->all();
+			$user = Auth::guard('user')->user(); 
+			$validate = Validator::make($data, ['friend_email' => 'required|string','event_id' => 'required|string',]);
+			if(!$validate->fails())
+			{			
+				unset($data['_token']);
+				
+				$friend_email = $data['friend_email'];
+				$event_id = $data['event_id'];
+				$invite_friend_data = invitefriend::where('friend_email', $friend_email)
+				->where('event_id', $event_id)->get()->first();
+				
+				if(count($invite_friend_data)==0)
+				{		
+					$data['user_id'] = $user->id;
+					$data['created_at'] = date('Y-m-d h:m:s');
+					$last_friend_id = invitefriend::insert($data);
+					$invite_friend_data = invitefriend::where('id', $last_friend_id)->get()->first();
+				}				
+				
+				$event = events::where('id', $data['event_id'])->get()->first();	
+                //dd($event);				
+				Mail::send('emails.invite_friend', ['user' => $user,'event' => $event,'friend' => $invite_friend_data], function($message) use($friend_email)
+				{						
+					$message->to($friend_email, 'give a dinner party')->subject('your friend invite you to a dinner party');
+				});								
+				
+				return redirect('user/invite_friends')->with(['success'=>"$friend_email invited successfully"]);
+			}
+			else
+			{
+				redirect('user/invite_friends')->withErrors($validate)->withInput();
+			}
+		}	
     }
 
+	 public function invite_friend_payment(Request $request, $event=0, $friend_id=0)
+	 {
+        if ($request->isMethod('get'))
+		{
+            $event_id = Crypt::decrypt($event);
+			$friend_id = Crypt::decrypt($friend_id);			
+			
+			$friend = invitefriend::where('id', $friend_id)->first();  // user who invite
+			$events = events::where('id', $event_id)->first(); // event data
+			
+			$provider = new AdaptivePayments;     // To use adaptive payments.
+			$provider = PayPal::setProvider('adaptive_payments'); 
+			$data = ['receivers'  => [
+					[
+						'email'   => $friend->friend_email,
+						'amount'  => 0.01,//$events->ticket_price,
+						'description'  => $events->title,
+						'primary' => false,
+					],                
+				],
+				'payer'      => 'EACHRECEIVER', 
+				'return_url' => url('user/success_event_payment'),
+				'cancel_url' => url('user/cancel_event_payment'),
+			];
+			$response = $provider->createPayRequest($data);			
+			$redirect_url = $provider->getRedirectUrl('approved', $response['payKey']);
+			
+			if(isset($response['payKey']) && !empty($response['payKey']))
+			{
+				$tr_data['payKey'] = $response['payKey'];
+				$tr_data['transaction_id'] = '';
+				$tr_data['user_id'] = $friend->friend_email;
+				$tr_data['event_id'] = $events->id;
+				$tr_data['amount'] = $events->ticket_price;
+				$tr_data['status'] = '';
+				$transaction_id = transactions::insert($tr_data);
+				//echo $friend->id; die;
+				
+				$data_friend['transaction_id'] =  $transaction_id;				
+				invitefriend::where('id', $friend->id)->update($data_friend);			
+				
+				$request->session()->put('payKey', $response['payKey']);
+				return redirect($redirect_url);
+			}	
+			else
+			{
+				return redirect('');
+			}
+			
+			
+        }
+    }
+	
     public function compose(Request $request, $id = 0) {
         if ($request->isMethod('get')) {
             return view('user/message/compose');
@@ -459,7 +555,7 @@ class userController extends Controller {
 								$message->to('phpdeveloper70@gmail.com', 'admin')->subject('ID Proof for Approve');
 								$message->attach($full_path);
 							});	
-						}						
+						}					
 										
 						$request->session()->flash('flash_message', '<div class="alert alert-success"><span class="glyphicon glyphicon-ok"></span><em> your document has been successfully uploaded.</em></div>');
 						return redirect('user/host_verification');
@@ -529,7 +625,8 @@ class userController extends Controller {
        return json_encode($event);
     }
     
-    public function search_event(Request $request){
+    public function search_event(Request $request)
+	{
         $filtered_users = array();
         $logged_in_id = Auth::guard('user')->user()->id;
         $users = User::where([
@@ -538,7 +635,8 @@ class userController extends Controller {
                     'photos'=>1,
                 ])->whereNotIn('id',array($logged_in_id))->get();
         
-        if($request->input('distance') != '' && $request->input('distance') != 'Any'){
+        if($request->input('distance') != '' && $request->input('distance') != 'Any')
+		{
             $user_post = Auth::guard('user')->user()->postcode;
             foreach($users as $user){
                 $postcode1 = preg_replace('/\s+/', '', $user_post); 
@@ -712,9 +810,20 @@ class userController extends Controller {
             $filtered_users = $filtered_users1;
             unset($filtered_users1);
         }
-        print_r($filtered_users);
-        exit;
-    }
+        //print_r($filtered_users);
+        //exit;
+		if(count($filtered_users)>0)
+		{	
+			$user_ids = array(1,5);	
+			$users = User::whereIn('id', $filtered_users)->get();
+			//dd($users);
+			return view('user/ajax_filter_users')->with(['users'=>$users,]);
+		}
+		else
+		{
+			exit;
+		}
+	}
 	
 	public function paypalverify(Request $request, $id = 0)
 	{
@@ -854,29 +963,29 @@ class userController extends Controller {
 		return redirect('');
 	}
 	
-	public function cancel_event_payment(Request $request, $id=0)
-	{	
-		$key = $request->session()->get('payKey');	
-		$provider = new AdaptivePayments;     // To use adaptive payments.
-		$provider = PayPal::setProvider('adaptive_payments'); 
-		$response = $provider->getPaymentDetails($key);	
-		
-		$data['status'] = 'FAILED';
-		transactions::where('payKey', $key)->update($data);
-		$request->session()->forget('payKey');
-		return redirect('');
-	}
-	
-	public function postNotify(Request $request)
-	{
-		//Import the namespace Srmklive\PayPal\Services\ExpressCheckout first in your controller.
-		$provider = new ExpressCheckout;
-		$response = (string) $provider->verifyIPN($request);		
-		if ($response === 'VERIFIED')
-		{                      
+		public function cancel_event_payment(Request $request, $id=0)
+		{	
+			$key = $request->session()->get('payKey');	
+			$provider = new AdaptivePayments;     // To use adaptive payments.
+			$provider = PayPal::setProvider('adaptive_payments'); 
+			$response = $provider->getPaymentDetails($key);	
 			
-		}                            
-	} 
+			$data['status'] = 'FAILED';
+			transactions::where('payKey', $key)->update($data);
+			$request->session()->forget('payKey');
+			return redirect('');
+		}
+	
+		public function postNotify(Request $request)
+		{
+			//Import the namespace Srmklive\PayPal\Services\ExpressCheckout first in your controller.
+			$provider = new ExpressCheckout;
+			$response = (string) $provider->verifyIPN($request);		
+			if ($response === 'VERIFIED')
+			{                      
+				
+			}                         
+		} 
         
         public function yourHosting()
 		{
@@ -885,11 +994,21 @@ class userController extends Controller {
             return view('user/your_hosting')->with(['events'=>$events,]);
         }
 		
-		 public function myActiveEvent()
+		 public function myActiveEvent(Request $request)
 		{
 			$user = Auth::guard('user')->user(); 
-			$events = User::rightJoin('events','users.id','=','events.user_id')->where('events.user_id',$user->id)->get();
-            //dd($events);
+			$events = User::rightJoin('events','users.id','=','events.user_id')
+			->where('events.event_date','>=',date('m/d/Y'))
+			->where('events.user_id',$user->id)->get();            		
 			return view('user/my_active_events')->with(['events'=>$events,]);
+        }
+		
+		 public function myEndedEvent(Request $request)
+		{
+			$user = Auth::guard('user')->user(); 
+			$events = User::rightJoin('events','users.id','=','events.user_id')
+			->where('events.event_date','<',date('m/d/Y'))
+			->where('events.user_id',$user->id)->get();            		
+			return view('user/my_ended_events')->with(['events'=>$events,]);
         }
 }
