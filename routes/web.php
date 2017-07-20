@@ -169,13 +169,14 @@ Route::group(['prefix' => 'user'], function () {
 	
 		Route::any('/invite_for_event', 'userController@inviteuserforevent');
 	
-	Route::any('/write_review', 'userController@write_review');
+		Route::any('/write_review', 'userController@write_review');
         Route::get('/your_hosting','userController@yourHosting');
+		 Route::get('/my_active_event','userController@myActiveEvent');
         Route::post('/getUpdatedConversation/{id}','chatController@getUpdatedConversation');
 		Route::any('/write_review', 'userController@write_review');
 	
 		Route::any('/update_review', 'userController@update_review');
-	
+		Route::any('/reply_for_review', 'userController@reply_for_review');
     });
 	
 	Route::any('/event_payment/{user_id}/{event_id}', 'userController@event_payment');
