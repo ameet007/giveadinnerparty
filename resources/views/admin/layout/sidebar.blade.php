@@ -31,7 +31,7 @@
           <a href="{{Request::root()}}/admin/users" class="waves-effect <?= (Request::segment(2) == 'users') ? 'active' : '' ?>"><i class="fa fa-users"></i> <span> Manage Users </span> </a>
         </li>
         <li class="has_sub">
-          <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-calendar"></i> <span> Manage Events </span></a>
+          <a href="{{Request::root()}}/admin/events" class="waves-effect"><i class="fa fa-calendar"></i> <span> Manage Events </span></a>
         </li>
         <li class="has_sub">
           <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-dollar"></i> <span> Transaction Reports </span></a>
