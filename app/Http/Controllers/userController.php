@@ -309,11 +309,12 @@ class userController extends Controller {
         if ($request->isMethod('get')) {
             $user = Auth::guard('user')->user();
             $events = User::rightJoin('events', 'users.id', '=', 'events.user_id')
-                            ->where('events.event_date', '>=', date('m/d/Y'))->where('events.user_id', $user->id)->get();
+                            ->where('events.event_date', '>=', date('m/d/Y'))
+							->where('events.user_id', $user->id)->get();
 
             return view('user/invite_friends')->with(['events' => $events,]);
         }
-        if ($request->isMethod('post')) {
+        if ($request->isMethod('post')){
             $data = $request->all();
             $user = Auth::guard('user')->user();
             $validate = Validator::make($data, ['friend_email' => 'required|string', 'event_id' => 'required|string',]);
@@ -325,7 +326,8 @@ class userController extends Controller {
                 $invite_friend_data = invitefriend::where('friend_email', $friend_email)
                                 ->where('event_id', $event_id)->get()->first();
 
-                if (count($invite_friend_data) == 0) {
+                if (count($invite_friend_data) == 0)
+				{
                     $data['user_id'] = $user->id;
                     $data['created_at'] = date('Y-m-d h:m:s');
                     $last_friend_id = invitefriend::insert($data);
@@ -346,7 +348,7 @@ class userController extends Controller {
     }
 
     public function invite_friend_payment(Request $request, $event = 0, $friend_id = 0) {
-        if ($request->isMethod('get')) {
+        if ($request->isMethod('get')){
             $event_id = Crypt::decrypt($event);
             $friend_id = Crypt::decrypt($friend_id);
 
@@ -370,7 +372,7 @@ class userController extends Controller {
             $response = $provider->createPayRequest($data);
             $redirect_url = $provider->getRedirectUrl('approved', $response['payKey']);
 
-            if (isset($response['payKey']) && !empty($response['payKey'])) {
+            if (isset($response['payKey']) && !empty($response['payKey'])){
                 $tr_data['payKey'] = $response['payKey'];
                 $tr_data['transaction_id'] = '';
                 $tr_data['user_id'] = $friend->friend_email;
@@ -379,7 +381,7 @@ class userController extends Controller {
                 $tr_data['status'] = '';
                 $transaction_id = transactions::insert($tr_data);
                 //echo $friend->id; die;
-
+				
                 $data_friend['transaction_id'] = $transaction_id;
                 invitefriend::where('id', $friend->id)->update($data_friend);
 
@@ -810,16 +812,22 @@ class userController extends Controller {
         return redirect($response['paypal_link']);
     }
 
-    public function inviteuserforevent(Request $request) {
-        $user_id = 5;
-        $event_id = 2;
-        $user = User::where('id', $user_id)->first();  // user who invite
-        $events = events::where('id', $event_id)->first(); // event data
-        $login_user = Auth::guard('user')->user();   // login user
+    public function inviteuserforevent(Request $request)
+	{
+		if ($request->isMethod('post')) 
+		{
+            $data = $request->all();
+			
+			$user_id = $data['friend_id'];
+			$event_id = $data['event_id'];			
+			$user = User::where('id', $user_id)->first();  // user who invite
+			$events = events::where('id', $event_id)->first(); // event data
+			$login_user = Auth::guard('user')->user();   // login user
 
-        Mail::send('emails.send_payment_link_for _event', ['login_user' => $login_user, 'invite_user' => $user, 'event' => $events], function ($message) use($user) {
-            $message->to('phpdeveloper70@gmail.com', 'admin')->subject('Invitation for a dinner party');
-        });
+			Mail::send('emails.send_payment_link_for _event', ['login_user' => $login_user, 'invite_user' => $user, 'event' => $events], function ($message) use($user) {
+				$message->to('phpdeveloper70@gmail.com', 'admin')->subject('Invitation for a dinner party');
+			});
+		}	
     }
 
     public function invite_unregister_user(Request $request) {

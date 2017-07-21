@@ -39,6 +39,8 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
+        $this->mapCharityRoutes();
+
         $this->mapUserRoutes();
 
         $this->mapStaffRoutes();
@@ -67,6 +69,18 @@ class RouteServiceProvider extends ServiceProvider
         });
     }
 
+	
+	 protected function mapCharityRoutes()
+    {
+        Route::group([
+            'middleware' => ['web', 'charity', 'auth:charity'],
+            'prefix' => 'charity',
+            'as' => 'charity.',
+            'namespace' => $this->namespace,
+        ], function ($router) {
+            require base_path('routes/charity.php');
+        });
+    }
     /**
      * Define the "staff" routes for the application.
      *

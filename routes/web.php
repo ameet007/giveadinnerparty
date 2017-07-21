@@ -134,7 +134,7 @@ Route::group(['prefix' => 'user'], function () {
         Route::post('/search_event', 'userController@search_event');
         Route::any('/paypal_verify', 'userController@paypalverify');
         Route::any('/paypal_success_verify', 'userController@paypal_success_verify');
-        Route::any('/invite_for_event', 'userController@inviteuserforevent');
+        Route::any('/invite_user_for_event', 'userController@inviteuserforevent');
         Route::any('/write_review', 'userController@write_review');
         Route::get('/your_hosting', 'userController@yourHosting');
         Route::get('/my_active_event', 'userController@myActiveEvent');
@@ -152,5 +152,41 @@ Route::group(['prefix' => 'user'], function () {
     Route::any('/cancel_event_payment', 'userController@cancel_event_payment');
     Route::any('/profile/{id}', 'userController@user_profile');
 });
+
+Route::group(['prefix' => 'charity'], function ()
+{
+  Route::get('/login', 'CharityAuth\LoginController@showLoginForm');
+  Route::post('/login', 'CharityAuth\LoginController@login');
+  Route::post('/logout', 'CharityAuth\LoginController@logout');
+
+  Route::get('/register', 'CharityAuth\RegisterController@showRegistrationForm');
+  Route::post('/register', 'CharityAuth\RegisterController@register');
+
+  Route::post('/password/email', 'CharityAuth\ForgotPasswordController@sendResetLinkEmail');
+  Route::post('/password/reset', 'CharityAuth\ResetPasswordController@reset');
+  Route::get('/password/reset', 'CharityAuth\ForgotPasswordController@showLinkRequestForm');
+  Route::get('/password/reset/{token}', 'CharityAuth\ResetPasswordController@showResetForm');
+  Route::group(['middleware' => 'charity'], function()
+  {
+		Route::any('/edit_profile', 'charityController@edit_charity_profile');
+  });
+  
+});
+
+
 Route::post('ipn/notify', 'userController@postNotify');
 Route::post('user/registeration', 'userController@registeration');
+
+Route::group(['prefix' => 'charity'], function () {
+  Route::get('/login', 'CharityAuth\LoginController@showLoginForm');
+  Route::post('/login', 'CharityAuth\LoginController@login');
+  Route::post('/logout', 'CharityAuth\LoginController@logout');
+
+  Route::get('/register', 'CharityAuth\RegisterController@showRegistrationForm');
+  Route::post('/register', 'CharityAuth\RegisterController@register');
+
+  Route::post('/password/email', 'CharityAuth\ForgotPasswordController@sendResetLinkEmail');
+  Route::post('/password/reset', 'CharityAuth\ResetPasswordController@reset');
+  Route::get('/password/reset', 'CharityAuth\ForgotPasswordController@showLinkRequestForm');
+  Route::get('/password/reset/{token}', 'CharityAuth\ResetPasswordController@showResetForm');
+});

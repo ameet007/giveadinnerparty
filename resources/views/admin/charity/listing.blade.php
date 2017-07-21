@@ -30,6 +30,7 @@
                 <tr role="row">
                   <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 67px;">ID</th>
                   <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 197px;">Title</th>
+				  <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 127px;">Email</th>
                   <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 127px;">Logo</th>
 				  <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 127px;">Status</th>                 
                   <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="Actions" style="width: 127px;">Actions</th>
@@ -40,6 +41,7 @@
                 <tr role="row" class="odd">
 					<td>{{$item->id}}</td>
 					<td class="sorting_1">{{$item->title}}</td>
+					<td class="sorting_1">{{$item->email}}</td>
 					<td class="sorting_1"><img style="width:80px; height:80px;" src="{{Request::root()}}/assets/admin/uploads/charity/{{$item->logo}}" /></td>
 					<td><?= ($item->status == 0) ? 'Disabled' : 'Enabled' ?></td>
 					<td class="actions">

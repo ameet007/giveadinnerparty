@@ -274,8 +274,145 @@
     <div class="container">
         <div class="row">
             <div class="col-md-9">
-                <div class="dinner-parties clearfix" id="filter_response_data">
-                                        
+                <div class="dinner-parties clearfix">
+                    <div class="item col-md-4">
+                        <div class="parties-wrap">
+                            <div class="parties-head">
+                                <div class="tow-btn">
+                                    <button data-toggle="modal" data-target="#myModal" class="btn2">Invite</button>
+                                    <a href="dinner-party-page-host.html" class="grey-btn">More</a>
+                                </div>
+                                <h3><a href="dinner-party-page-host.html">Summer BBQ With Cocktails</a></h3>
+                                <div class="event-mf">
+                                    <i class="fa fa-male" aria-hidden="true"></i>
+                                    <p>Men only</p>
+                                </div>
+                            </div>
+                            <div class="parties-host">
+                                <div class="hosted-by">
+                                    <div class="img">
+                                        <div class="heart-dil">
+                                            <a class="follow-ing" href="#/">Follow</a>
+                                        </div>
+                                        <div class="inner">
+                                            <div class="circle-img"></div>
+                                            <img src="{{Request::root()}}/assets/front/img/host-pic.png" alt="" />
+                                        </div>
+                                        <div class="rateyo-readonly-widg"></div>
+                                    </div>
+                                    <div class="content">
+                                        <p>Requested By: <strong>Khairul P.</strong></p>
+                                        <p>Aged: <strong>24</strong></p>
+                                        <p>Friday 05/05/2017</p>
+                                        <p>9.00pm - 12.00am</p>
+                                        <p>Bukit Tunku, KL</p>
+                                    </div>	
+                                </div>
+                                <div class="hosted-by parties-foot">
+                                    <div class="img">
+                                        <div class="inner">
+                                            <img src="{{Request::root()}}/assets/front/img/host-logo2.png" alt="" />
+                                        </div>
+                                    </div>
+                                    <div class="content">
+                                        <p><strong>100%</strong> of ticket price will go to Action Against Hunger</p>
+                                    </div>	
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item col-md-4">
+                        <div class="parties-wrap">
+                            <div class="parties-head">
+                                <div class="tow-btn">
+                                    <button class="btn2">Invite</button>
+                                    <a href="dinner-party-page-host.html" class="grey-btn">More</a>
+                                </div>
+                                <h3><a href="dinner-party-page-host.html">Summer BBQ With Cocktails</a></h3>
+                                <div class="event-mf">
+                                    <i class="fa fa-female" aria-hidden="true"></i>
+                                    <p>Ladies only</p>
+                                </div>
+                            </div>
+                            <div class="parties-host">
+                                <div class="hosted-by">
+                                    <div class="img">
+                                        <div class="heart-dil">
+                                            <a class="follow-ing" href="#/">Follow</a>
+                                        </div>
+                                        <div class="inner">
+                                            <div class="circle-img"></div>
+                                            <img src="{{Request::root()}}/assets/front/img/host-pic.png" alt="" />
+                                        </div>
+                                        <div class="rateyo-readonly-widg"></div>
+                                    </div>
+                                    <div class="content">
+                                        <p>Requested By : <strong>Khairul P.</strong></p>
+                                        <p>Aged : <strong>24</strong></p>
+                                        <p>Friday 05/05/2017</p>
+                                        <p>9.00pm - 12.00am</p>
+                                        <p>Bukit Tunku, KL</p>
+                                    </div>	
+                                </div>
+                                <div class="hosted-by parties-foot">
+                                    <div class="img">
+                                        <div class="inner">
+                                            <img src="{{Request::root()}}/assets/front/img/host-logo2.png" alt="" />
+                                        </div>
+                                    </div>
+                                    <div class="content">
+                                        <p><strong>100%</strong> of ticket price will go to Action Against Hunger</p>
+                                    </div>	
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item col-md-4">
+                        <div class="parties-wrap">
+                            <div class="parties-head">
+                                <div class="tow-btn">
+                                    <button class="btn2">Invite</button>
+                                    <a href="dinner-party-page-host.html" class="grey-btn">More</a>
+                                </div>
+                                <h3><a href="dinner-party-page-host.html">Summer BBQ With Cocktails</a></h3>
+                                <div class="event-mf">
+                                    <span><img src="{{Request::root()}}/assets/front/img/icon1.png" alt="" /></span>
+                                    <p>Singles only</p>
+                                </div>
+                            </div>
+                            <div class="parties-host">
+                                <div class="hosted-by">
+                                    <div class="img">
+                                        <div class="heart-dil">
+                                            <a class="follow-ing" href="#/">Follow</a>
+                                        </div>
+                                        <div class="inner">
+                                            <div class="circle-img"></div>
+                                            <img src="{{Request::root()}}/assets/front/img/host-pic.png" alt="" />
+                                        </div>
+                                        <div class="rateyo-readonly-widg"></div>
+                                    </div>
+                                    <div class="content">
+                                        <p>Requested By : <strong>Khairul P.</strong></p>
+                                        <p>Aged : <strong>24</strong></p>
+                                        <p>Friday 05/05/2017</p>
+                                        <p>9.00pm - 12.00am</p>
+                                        <p>Bukit Tunku, KL</p>
+                                    </div>	
+                                </div>
+                                <div class="hosted-by parties-foot">
+                                    <div class="img">
+                                        <div class="inner">
+                                            <img src="{{Request::root()}}/assets/front/img/host-logo2.png" alt="" />
+                                        </div>
+                                    </div>
+                                    <div class="content">
+                                        <p><strong>100%</strong> of ticket price will go to Action Against Hunger</p>
+                                    </div>	
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -294,20 +431,19 @@
 					</div>
 				</div>
 				<div class="media-body media-middle">
-					<h4><strong><span id="username"><span></strong></h4>
+					<h4><strong>Khairul P.</strong></h4>
 				</div>
 			</div>
-			<input type="hidden" name="friend_id" id="friend_id">
 			<div class="form-group">	
 				<label><strong>Select Event</strong></label>
-				<select name="event_id" id="event_id" class="form-control">
-					@foreach($events as $event)
-						<option value="{{ $event->id }}">{{ $event->title }}</option>	
-					@endforeach									
+				<select class="form-control">
+					<option>Summer BBQ With Cocktails2</option>
+					<option>Summer BBQ With Cocktails3</option>
+					<option>Summer BBQ With Cocktails</option>
 				</select>
 			</div>
 			<div class="align-center">
-				<button class="btn2 inviteuser" >Invite</button>
+				<button class="btn2">Invite</button>
 			</div>
 		</div>
     </div>
@@ -340,9 +476,8 @@ $(document).ready(function(){
                     url: '{{Request::root()}}/user/search_event',
                     type: 'post',
                     data: {'_token':'{{csrf_token()}}','distance':distance},
-                    success: function(data)
-					{
-                        $('#filter_response_data').html(data);
+                    success: function(data){
+                        
                     }
                 })
 		$('#pending-req').show();
@@ -364,7 +499,7 @@ $(document).ready(function(){
                     type: 'post',
                     data: {'_token':'{{csrf_token()}}','distance':distance,'age1':age1,'age2':age2,'gender':gender,'status':status,'sexuality':sexuality,'education':education,'ethnicity':ethnicity,'religion':religion},
                     success: function(data){
-                        $('#filter_response_data').html(data);
+                        
                     }
                 })
 		$('#pending-req').show();
@@ -394,7 +529,7 @@ $(document).ready(function(){
                     type: 'post',
                     data: {'_token':'{{csrf_token()}}','distance':distance,'age1':age1,'age2':age2,'gender':gender,'status':status,'sexuality':sexuality,'education':education,'ethnicity':ethnicity,'religion':religion,'hobbies':hobbies},
                     success: function(data){
-                        $('#filter_response_data').html(data);
+                        
                     }
                 })
 		$('#pending-req').show();
@@ -423,10 +558,9 @@ $(document).ready(function(){
                     url: '{{Request::root()}}/user/search_event',
                     type: 'post',
                     data: {'_token':'{{csrf_token()}}','distance':distance,'age1':age1,'age2':age2,'gender':gender,'status':status,'sexuality':sexuality,'education':education,'ethnicity':ethnicity,'religion':religion,'languages':languages},
-                    success: function(responsedata)
-					{
-						$('#filter_response_data').html(data);
-                    }				
+                    success: function(data){
+                        
+                    }
                 })
 		$('#pending-req').show();
 	})
@@ -454,39 +588,6 @@ $(document).ready(function(){
 	})
 	
 	$('#invite-friends-form').parsley();
-	
-	var rating = 1.5;
-	$(".rateyo-readonly-widg").rateYo({
-		  rating: rating,
-		  numStars: 5,		  
-		  readOnly: true,		 
-	}).on("rateyo.change", function (e, data) {
-			console.log(data.rating);
-	});
-	
-	//$('.btn2')	
-	
-	$('.inviteuser').click(function(){
-		
-		$.ajax({
-			   url: '{{Request::root()}}/user/invite_user_for_event',
-			   type: 'post',
-			   data: {'_token':'{{csrf_token()}}','friend_id':$('#friend_id').val(),'event_id':$('#event_id').val()},
-			   success: function(responsedata)
-			   {
-					alert(responsedata);
-					//$('#filter_response_data').html(data);
-			   }				
-		})
-	})
-	
 });
-
-function inviteuser(USERID, NAME)
-{
-	$('#friend_id').val(USERID);
-	$('#username').html(NAME);
-	$('#myModal').modal('show');	
-}
 </script>
 @endsection

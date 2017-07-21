@@ -1,9 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCharitiesTable extends Migration
+class CreateInviteUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +13,11 @@ class CreateCharitiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('charities', function (Blueprint $table) {
+        Schema::create('invite_users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->rememberToken();
+			$table->integer('user_id');
+			$table->string('friend_id');
+			$table->string('event_id');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateCharitiesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('charities');
+        Schema::dropIfExists('invite_users');
     }
 }

@@ -16,9 +16,9 @@
             <aside class="col-md-2 left-sidebar">
                 <div class="sidenav-list">
                     <ul>
-                        <li class='active'><a href='{{Request::root()}}/user/your_hosting'>Host New Event</a></li>
+                        <li class=''><a href='{{Request::root()}}/user/your_hosting'>Host New Event</a></li>
                         <li class=''><a href='{{Request::root()}}/user/my_active_event'>My Active Events</a></li>
-                        <li class=''><a href='{{Request::root()}}/user/my_ended_event'>My Ended Events</a></li>
+                        <li class='active'><a href='{{Request::root()}}/user/my_ended_event'>My Ended Events</a></li>
                         <li class=''><a href='#'>Verify Me As A Host</a></li>
                         <li class=''><a href='{{Request::root()}}/user/invite_friends'>Invite Users</a></li>
                     </ul>
@@ -27,11 +27,11 @@
             <article class="col-md-10">
                 <div class="dinner-parties">
                     <div class="main-heading">
-                        <h2>You Hosting</h2>
+                        <h2>My Ended Events</h2>
                     </div>
                     <div class="row">
 						@foreach($events as $event)
-						<?php $charity = DB::select( DB::raw("SELECT * FROM charities WHERE id = '$event->charity_id'") ); ?>
+					    
                         <div class="col-md-4">
                             <div class="item">
 								<div class="parties-wrap">
@@ -64,6 +64,7 @@
 												<p>{{ $event->street }}, {{ $event->city }}, {{ $event->county }}</p>
 											</div>	
 										</div>
+										<?php $charity = DB::select( DB::raw("SELECT * FROM charities WHERE id ='$event->charity_id'") ); ?>
 										<div class="hosted-by parties-foot">
 											<div class="img">
 												<div class="inner">
