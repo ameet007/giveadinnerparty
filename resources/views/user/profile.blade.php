@@ -55,7 +55,7 @@
 		</div>
 		<div class="owl-carousel owl-theme">
 		@foreach($upcoming_events as $event)
-		<?php $charity = DB::select( DB::raw("SELECT * FROM charities WHERE id = '$event->charity_id'") ); ?>
+		<?php //$charity = DB::select( DB::raw("SELECT * FROM charities WHERE id = '$event->charity_id'") ); ?>
 			<div class="item">
 				<div class="parties-wrap">
 					<div class="parties-head">
@@ -90,11 +90,11 @@
 						<div class="hosted-by parties-foot">
 							<div class="img">
 								<div class="inner">
-									<img src="{{Request::root()}}/assets/admin/uploads/charity/{{ $charity[0]->logo }}" alt="" />
+									<img src="{{Request::root()}}/assets/admin/uploads/charity/{{ $event->logo }}" alt="" />
 								</div>
 							</div>
 							<div class="content">
-								<p><strong>{{ $event->charity_cut }}%</strong> of ticket price will go to {{ $charity[0]->title }}</p>
+								<p><strong>{{ $event->charity_cut }}%</strong> of ticket price will go to {{ $event->charity_name }}</p>
 							</div>	
 						</div>
 					</div>

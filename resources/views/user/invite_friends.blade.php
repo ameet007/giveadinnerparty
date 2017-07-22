@@ -466,17 +466,27 @@ $(document).ready(function(){
 	
 	//$('.btn2')	
 	
-	$('.inviteuser').click(function(){
+	$('.inviteuser').click(function()
+	{
+		
 		
 		$.ajax({
 			   url: '{{Request::root()}}/user/invite_user_for_event',
 			   type: 'post',
+			    beforeSend: function() 
+				{
+					$('.inviteuser').prop('disabled', true);
+					$('.inviteuser').html('wait ...');
+				},
 			   data: {'_token':'{{csrf_token()}}','friend_id':$('#friend_id').val(),'event_id':$('#event_id').val()},
 			   success: function(responsedata)
-			   {
-					alert(responsedata);
-					//$('#filter_response_data').html(data);
-			   }				
+			   {		      
+				   $('.inviteuser').html('Invited');					
+					setTimeout(function(){
+						$('.inviteuser').prop('disabled', false);
+						$('.inviteuser').html('Invite');
+					}, 10000);
+			   }			
 		})
 	})
 	

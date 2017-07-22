@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use App\Charity;
 use Validator;
 use Illuminate\Support\Facades\Auth;
+use App\charity_report;
 class charityController extends Controller
 {
     /****charity listing****/
@@ -174,5 +175,17 @@ class charityController extends Controller
 		$charity = Charity::where('id', $login_charity->id)->first();		
 		return view('charity.edit_charity')->with(['charity'=>$charity]);
 	}
+	
+	 /****charity listing****/
+	public function weeklypayout(Request $request)
+	{
+		
+		 $report_data = charity_report::leftJoin('charities', 'charity_reports.charity_id', '=', 'charities.id')
+                        ->where('charities.id', 1)
+						->select('charity_reports.*','charities.title')->get();	
+						
+		  return view('charity.weekly_payout')->with(['report_data'=>$report_data]);
+	}
+	/****charity listing****/
 
 }

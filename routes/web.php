@@ -169,6 +169,7 @@ Route::group(['prefix' => 'charity'], function ()
   Route::group(['middleware' => 'charity'], function()
   {
 		Route::any('/edit_profile', 'charityController@edit_charity_profile');
+		Route::any('/weekly_payout', 'charityController@weeklypayout');
   });
   
 });
@@ -176,7 +177,7 @@ Route::group(['prefix' => 'charity'], function ()
 
 Route::post('ipn/notify', 'userController@postNotify');
 Route::post('user/registeration', 'userController@registeration');
-
+/*
 Route::group(['prefix' => 'charity'], function () {
   Route::get('/login', 'CharityAuth\LoginController@showLoginForm');
   Route::post('/login', 'CharityAuth\LoginController@login');
@@ -189,4 +190,4 @@ Route::group(['prefix' => 'charity'], function () {
   Route::post('/password/reset', 'CharityAuth\ResetPasswordController@reset');
   Route::get('/password/reset', 'CharityAuth\ForgotPasswordController@showLinkRequestForm');
   Route::get('/password/reset/{token}', 'CharityAuth\ResetPasswordController@showResetForm');
-});
+});*/

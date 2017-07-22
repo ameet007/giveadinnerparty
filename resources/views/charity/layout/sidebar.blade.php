@@ -21,8 +21,8 @@
 			  <span class="menu-arrow"></span>
 		  </a>
           <ul class="list-unstyled">           
-            <li><a href="javascript:void(0);">Weekly Payout</a></li>
-            <li><a href="javascript:void(0);">Transaction Reports</a></li>
+            <li><a href="{{Request::root()}}/charity/weekly_payout">Weekly Payout</a></li>
+            <li><a href="{{Request::root()}}/charity/weekly_payout">Transaction Reports</a></li>
           </ul>
         </li>
 		 
@@ -61,6 +61,18 @@
 <script src="{{Request::root()}}/assets/admin/pages/jquery.datatables.init.js"></script>
 <script src="{{Request::root()}}/assets/admin/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="{{Request::root()}}/assets/admin/plugins/datatables/dataTables.bootstrap.js"></script>
+
+
+<script src="//cdn.datatables.net/buttons/1.3.1/js/dataTables.buttons.min.js"></script>
+<script src="//cdn.datatables.net/buttons/1.3.1/js/buttons.flash.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/pdfmake.min.js"></script>
+<script src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/vfs_fonts.js"></script>
+<script src="//cdn.datatables.net/buttons/1.3.1/js/buttons.html5.min.js"></script>
+<script src="//cdn.datatables.net/buttons/1.3.1/js/buttons.print.min.js"></script>
+
+
+
 <!-- HTML5 Shiv and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>

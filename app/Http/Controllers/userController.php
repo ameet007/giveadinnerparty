@@ -24,6 +24,7 @@ use App\reviews;
 use App\friends;
 use App\invitefriend;
 use App\followed_users;
+use App\invite_users;
 
 class userController extends Controller {
 
@@ -35,7 +36,7 @@ class userController extends Controller {
         return view('user.account.notifications');
     }
 
-    public function paymentmethod(Request $request, $id = 0) {
+    public function paymentmethod(Request $request, $id = 0){
         $login_user = Auth::guard('user')->user();
         if ($request->isMethod('post')) {
             $data = $request->all();
@@ -244,11 +245,17 @@ class userController extends Controller {
         if ($request->isMethod('get')) {
             $user = User::where('id', $id)->get()->first(); //Auth::guard('user')->user();			
             $social_login = social_logins::where('user_id', $id)->first();
-            $upcomint_events = User::rightJoin('events', 'users.id', '=', 'events.user_id')->where('events.event_date', '>=', date('m/d/Y'))->get();
-            $reviews = User::rightJoin('reviews', 'users.id', '=', 'reviews.post_id')->where('reviews.reply_id', 0)->get();
-            $user_events = events::where('user_id', $id)->get();
-            $friends = 1;  //friends::where('user_id', $id)->get();
-            return view('user/profile')->with(['user' => $user, 'social_login' => $social_login, 'upcoming_events' => $upcomint_events, 'reviews' => $reviews, 'user_events' => $user_events, 'friend' => $friends]);
+			
+            $upcomint_events = User::leftJoin('events', 'users.id', '=', 'events.user_id')
+			->leftJoin('charities', 'charities.id', '=', 'events.charity_id')
+			->where('events.event_date', '>=', date('m/d/Y'))
+			->select('events.*', 'users.name','charities.title as charity_name','charities.logo')->get();
+           
+			//dd($upcomint_events);
+       	   $reviews = User::rightJoin('reviews', 'users.id', '=', 'reviews.post_id')->where('reviews.reply_id', 0)->get();
+           $user_events = events::where('user_id', $id)->get();
+           $friends = 1;  //friends::where('user_id', $id)->get();
+           return view('user/profile')->with(['user' => $user, 'social_login' => $social_login, 'upcoming_events' => $upcomint_events, 'reviews' => $reviews, 'user_events' => $user_events, 'friend' => $friends]);
         }
     }
 
@@ -379,7 +386,7 @@ class userController extends Controller {
                 $tr_data['event_id'] = $events->id;
                 $tr_data['amount'] = $events->ticket_price;
                 $tr_data['status'] = '';
-                $transaction_id = transactions::insert($tr_data);
+                $transaction_id = transactions::insertGetId($tr_data);
                 //echo $friend->id; die;
 				
                 $data_friend['transaction_id'] = $transaction_id;
@@ -792,7 +799,8 @@ class userController extends Controller {
         return redirect('user/host_verification');
     }
 
-    public function paypalsentboxverify(Request $request, $id = 0) {
+    public function paypalsentboxverify(Request $request, $id = 0)
+	{
         $provider = new ExpressCheckout;     // To use adaptive payments.
         $provider = PayPal::setProvider('express_checkout');
         $data['items'] = [
@@ -819,10 +827,24 @@ class userController extends Controller {
             $data = $request->all();
 			
 			$user_id = $data['friend_id'];
-			$event_id = $data['event_id'];			
+			$event_id = $data['event_id'];
+			$login_user = Auth::guard('user')->user();   // login user
+			
+			$invite_friend_data = invite_users::where('friend_id', $user_id)
+                                ->where('event_id', $event_id)->get()->first();
+			if(count($invite_friend_data)==0)
+			{
+				$insert_data['user_id'] = $login_user->id;
+				$insert_data['event_id'] = $event_id;
+				$insert_data['friend_id'] = $user_id;
+				$insert_data['transaction_id'] = "";
+				$insert_data['created_at'] = date('Y-m-d h:m:s');
+				invite_users::insert($insert_data);
+			}	
+						
 			$user = User::where('id', $user_id)->first();  // user who invite
 			$events = events::where('id', $event_id)->first(); // event data
-			$login_user = Auth::guard('user')->user();   // login user
+			
 
 			Mail::send('emails.send_payment_link_for _event', ['login_user' => $login_user, 'invite_user' => $user, 'event' => $events], function ($message) use($user) {
 				$message->to('phpdeveloper70@gmail.com', 'admin')->subject('Invitation for a dinner party');
@@ -871,10 +893,17 @@ class userController extends Controller {
                 $tr_data['event_id'] = $events->id;
                 $tr_data['amount'] = $events->ticket_price;
                 $tr_data['status'] = '';
-                transactions::insert($tr_data);
+                $transaction_id = transactions::insertGetId($tr_data);
+				
+				$user_data['transaction_id'] = $transaction_id;
+                invite_users::where('friend_id', $user->id)
+				->where('event_id',$events->id)->update($user_data);
+				
                 $request->session()->put('payKey', $response['payKey']);
                 return redirect($redirect_url);
-            } else {
+            } 
+			else
+			{
                 return redirect('');
             }
         }

@@ -24,6 +24,9 @@
   <link href="{{Request::root()}}/assets/admin/plugins/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>
   <link href="{{Request::root()}}/assets/admin/plugins/datatables/responsive.bootstrap.min.css" rel="stylesheet" type="text/css"/>
   <link href="{{Request::root()}}/assets/admin/plugins/datatables/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css"/>
+   
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.3.1/css/buttons.dataTables.min.css">
+  
   <!-- Notification css (Toastr) -->
   <link href="{{Request::root()}}/assets/admin/plugins/toastr/toastr.min.css" rel="stylesheet" type="text/css" />
   <link href="{{Request::root()}}/assets/admin/css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
