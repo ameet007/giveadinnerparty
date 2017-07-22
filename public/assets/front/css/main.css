@@ -551,3 +551,35 @@ a.hvr-shutter-out-horizontal {padding: 12px 33px; background: #a9dd7d; margin: 4
 .your-hosting .dinner-parties {padding: 0;}
 .your-hosting .dinner-parties .item {padding: 0; margin-bottom: 25px;}
 /*Events page css start*/
+/*inner banner css start*/
+.inner-banner {position: relative;}
+.inner-banner .bread-main {background-color: rgba(0, 0, 0, 0.74); border-top: solid 1px #d6d6d6; width: 100%; position: absolute; left: 0; bottom: 0;}
+.inner-banner .breadcrumb {background-color: transparent; margin: 0; padding: 15px 0;}
+.inner-banner .breadcrumb li {position: relative; color: #fff; padding: 0 5px 0 0;}
+.inner-banner .breadcrumb li a:hover {color: #fff;}
+.inner-banner .breadcrumb li.active {}
+.inner-banner .breadcrumb > li + li:before { background-image: url("../img/right-arrow.png"); background-repeat: no-repeat; content: ""; padding: 0 8px 0 16px; position: relative; top: 5px;}
+/*start inner page default ccs*/
+.cms-content {padding:30px 0}
+.cms-content h3{font-family: 'Lato', sans-serif; font-size:22px; color:#252525; font-weight: 600; line-height:1.2; margin-bottom:15px;}
+.cms-content h4{font-family: 'Lato', sans-serif; font-size:20px; color:#252525; font-weight: 600; line-height:1.2; margin-bottom:15px;}
+.cms-content h5{font-family: 'Lato', sans-serif; font-size:16px; color:#252525; font-weight: 400; line-height:1; padding-bottom:15px;}
+.cms-content h6{font-family: 'Lato', sans-serif; font-size:14px; color:#252525; font-weight: 400; line-height:1; padding-bottom:15px; text-transform: uppercase;}
+.cms-content,.cms-content p,.cms-content ul,.cms-content ol {font-family: 'Lato', sans-serif; font-weight:400; color:#303030; font-size: 15px; line-height:22px;}
+.cms-content p,.cms-content ul,.cms-content ol,.cms-content table {font-family: 'Lato', sans-serif; margin-bottom:15px; /*margin-top:-7px;*/}
+.cms-content p strong,.cms-content ul strong,.cms-content ol strong,
+.cms-content p b,.cms-content ul b,.cms-content ol b,.cms-content table b {font-family: 'Lato', sans-serif; font-weight:600; font-size:14px;}
+.cms-content ul ul,.cms-content ul ol,.cms-content ol ul,.cms-content ol ol {margin-top:5px; margin-bottom:5px;}
+.cms-content ul li,.cms-content ol li {margin-bottom:4px;}
+.cms-content ul > li {background:url(../img/arrow-list.png) no-repeat left top 8px; margin-left: 0; padding-left: 18px;}
+.cms-content ul > li a {color: #FC6719;}
+.cms-content ul > li a:hover {color: #484848;text-decoration: underline;}
+.cms-content a {color: #FC6719;}
+.cms-content a:hover {color: #DB3641;text-decoration: none !important;}
+.cms-content ol > li {list-style:decimal; padding-left:5px; margin-left:15px; padding-bottom:15px;}
+.cms-content table{background:#fff; border:solid 1px #ccc; border-collapse:collapse; vertical-align:top;}
+.cms-content table th,.cms-content table td{padding:5px 8px; border:solid 1px #ccc;}
+.cms-content table th{font-family: 'Open Sans', sans-serif; font-weight:400; text-align:center; color:#fff;}
+.cms-content table thead th{background:#1354A8;}
+.cms-content table tbody th{background:#002e66;}
+.cms-content img {max-width:100%; display:inline-block; -webkit-box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.3); -moz-box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.3);box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.3); border:solid 2px #f1f1f1; box-sizing:border-box;}

@@ -22,6 +22,9 @@ use Srmklive\PayPal\Services\AdaptivePayments;
 use App\transactions;
 use App\reviews;
 use App\friends;
+use App\contact;
+
+//use App\Banner; 
 
 class userController extends Controller {
 
@@ -845,4 +848,44 @@ class userController extends Controller {
         public function yourHosting(){
             return view('user/your_hosting');
         }
+//**************Contact Us**************\\
+  public function contact()
+	{
+		return view('staticpage.contact');
+	}
+	public function contactus(Request $request)
+	{
+		$name=$request->input('name');
+		$email=$request->input('email');
+		$number=$request->input('number');
+		$message=$request->input('message');
+		
+		contact::insert(['name'=>$name, 'email'=>$email, 'number'=>$number, 'message'=>$message, 'status'=>'']);
+		
+		return redirect('/contact')->withInput()->with('success', 'We have received your message ');
+		
+	}
+	public function contactlist(Request $request)
+	{
+		$contact = contact::get()->sortByDesc('id');
+		return view('admin.contactus.listing')->with(['contact'=>$contact]);
+	}
+	public function deletecontact($id)
+	{
+		contact::where('id', $id)->delete();
+		return redirect('admin/contactus')->with(['success'=>'Contact Successfuly Deleted']);	
+	}
+  //**************End Contact Us**************\\
+  
+  //**************About Us**************\\
+  public function aboutus()
+  {
+	  return view('staticpage.about-us');
+  }
+  public function index()
+	{		
+		
+		$country = Country::get();
+	    return view('staticpage.about-us')->with(['country_list'=>$country/*,'banners'=>$banner,*/]);
+	}
 }

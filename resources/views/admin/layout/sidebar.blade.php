@@ -43,7 +43,7 @@
               <a href="javascript:void(0);">Social Links</a>
             </li>
             <li>
-              <a href="javascript:void(0);">Contact Us</a>
+              <a <?= (Request::segment(2) == 'admin') ? 'class="active"' : '' ?> href="{{Request::root()}}/admin/contactus">Contact Us</a>
             </li>
             <li <?= (Request::segment(2) == 'admin') ? 'class="active"' : '' ?>>
               <a  <?= (Request::segment(2) == 'admin') ? 'class="active"' : '' ?> href="{{Request::root()}}/admin/aboutus">About Us</a>
@@ -55,7 +55,7 @@
               <a <?= (Request::segment(2) == 'admin') ? 'class="active"' : '' ?> href="{{Request::root()}}/admin/banners">Banners and Images</a>
             </li>
             <li>
-              <a href="javascript:void(0);">SEO</a>
+              <a <?= (Request::segment(2) == 'admin') ? 'class="active"' : '' ?> href="{{Request::root()}}/admin/seo">SEO</a>
             </li>
           </ul>
         </li>
