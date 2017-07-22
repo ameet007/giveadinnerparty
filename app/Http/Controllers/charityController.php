@@ -176,7 +176,6 @@ class charityController extends Controller
 		return view('charity.edit_charity')->with(['charity'=>$charity]);
 	}
 	
-	 /****charity listing****/
 	public function weeklypayout(Request $request)
 	{
 		
@@ -186,6 +185,5 @@ class charityController extends Controller
 						
 		  return view('charity.weekly_payout')->with(['report_data'=>$report_data]);
 	}
-	/****charity listing****/
 
 }

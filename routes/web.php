@@ -177,17 +177,18 @@ Route::group(['prefix' => 'charity'], function ()
 
 Route::post('ipn/notify', 'userController@postNotify');
 Route::post('user/registeration', 'userController@registeration');
-/*
-Route::group(['prefix' => 'charity'], function () {
-  Route::get('/login', 'CharityAuth\LoginController@showLoginForm');
-  Route::post('/login', 'CharityAuth\LoginController@login');
-  Route::post('/logout', 'CharityAuth\LoginController@logout');
 
-  Route::get('/register', 'CharityAuth\RegisterController@showRegistrationForm');
-  Route::post('/register', 'CharityAuth\RegisterController@register');
+Route::post('ipn/notify','userController@postNotify');
+Route::post('user/registeration', 'userController@registeration');
 
-  Route::post('/password/email', 'CharityAuth\ForgotPasswordController@sendResetLinkEmail');
-  Route::post('/password/reset', 'CharityAuth\ResetPasswordController@reset');
-  Route::get('/password/reset', 'CharityAuth\ForgotPasswordController@showLinkRequestForm');
-  Route::get('/password/reset/{token}', 'CharityAuth\ResetPasswordController@showResetForm');
-});*/
+//**********************Contact Us***********************\\
+Route::get('/contact', 'userController@contact');
+Route::post('/contact', 'userController@contactus');
+Route::get('/admin/contactus', 'userController@contactlist');
+Route::any('/admin/contactus/delete/{id}', 'userController@deletecontact');
+//*********************End Contact Us*********************\\
+
+//**********************About Us***********************\\
+Route::get('/about-us', 'userController@index');
+
+
