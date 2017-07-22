@@ -41,6 +41,26 @@
               @endif
             </div>
 			
+			<div class="form-group">
+              <label for="email">Email * :</label>
+              <input type="text" class="form-control" value="<?= (Request::segment(3) == 'edit') ? $charity->email : old('email') ?>" name="email" id="email" required="">
+              @if(ISSET($errors))
+              <ul class="parsley-errors-list filled" id="parsley-id-5">
+                <li class="parsley-required">{{$errors->first('email')}}</li>
+              </ul>
+              @endif
+            </div>
+			
+			<div class="form-group">
+              <label for="password">Password * :</label>
+              <input type="text" class="form-control" value="<?php old('password') ?>" name="password" id="password" <?php echo (Request::segment(3) == 'add')?'required=""':''; ?>>
+              @if(ISSET($errors))
+              <ul class="parsley-errors-list filled" id="parsley-id-5">
+                <li class="parsley-required">{{$errors->first('password')}}</li>
+              </ul>
+              @endif
+            </div>
+			
 			<?php if((Request::segment(3) == 'edit')){ ?>
 			<div class="form-group">
 				<label for="title">Preview</label>

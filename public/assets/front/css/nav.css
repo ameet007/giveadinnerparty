@@ -76,7 +76,6 @@
   -ms-transition: color .2s ease;
   -o-transition: color .2s ease;
   transition: color .2s ease;
-  border-bottom: solid 3px #484848;
 }
 #cssmenu > ul > li:hover > a,
 #cssmenu > ul > li.active > a {

@@ -170,10 +170,12 @@ a.hvr-shutter-out-horizontal {padding: 12px 33px; background: #a9dd7d; margin: 4
 .dinner-parties .hosted-by .inner {position: relative;}
 .dinner-parties .hosted-by .inner .circle-img {background-image: url(../img/circle-pro.png); background-repeat: no-repeat; background-position: center center; background-size: cover; position: absolute; left: 0; right: 0; bottom: 0; top: 0;}
 .dinner-parties .hosted-by .heart-dil {text-align: center;}
-.dinner-parties .hosted-by .heart-dil a {font-size: 12px; color: #fff;}
+.dinner-parties .hosted-by .heart-dil a {font-size: 12px; color: #fff; background-color: #484848; border-radius: 20px; -moz-border-radius: 20px; -webkit-border-radius: 20px; color: #fff; padding: 4px 8px; display: inline-block;}
 .dinner-parties .hosted-by .heart-dil a:focus {background-color: #fff; color: #484848;}
 .dinner-parties .hosted-by .inner img {}
 .dinner-parties .hosted-by .content p {font-size: 12px; font-weight: 400; line-height: 18px; color: #fff;}
+.dinner-parties .hosted-by .jq-ry-container {padding: 0; display: inline-block; vertical-align: middle;}
+.dinner-parties .hosted-by .re-view {font-size: 11px; color: #fff; vertical-align: middle;}
 .dinner-parties .parties-foot {border-bottom: 0 none;}
 .dinner-parties .parties-foot .img  {width: 80px;}
 .dinner-parties .parties-foot .inner {position: relative; padding-right: 10px;}
@@ -286,7 +288,7 @@ a.hvr-shutter-out-horizontal {padding: 12px 33px; background: #a9dd7d; margin: 4
 .middle-content {padding: 40px 0;}
 /*Profile Edit page css start*/
 .profile-edit {}
-.profile-edit h2, .all-notification h2, .public-pro .per-details-right h2, .dinnerhost-party h2, .invite-fri h2 {font-size: 32px; line-height: 32px; margin-bottom: 25px; color: #4a4a4a; font-weight: 700;}
+.profile-edit h2, .all-notification h2, .public-pro .per-details-right h2, .dinnerhost-party h2, .invite-fri h2 {color: #4a4a4a; font-size: 24px; font-weight: 700; line-height: 24px; margin-bottom: 25px;}
 .profile-edit .per-details {margin-bottom: 30px;}
 .profile-edit .per-details .pro-pic {text-align: center; position: relative; margin-bottom: 20px;}
 .profile-edit .per-details .pro-pic .over-lay {background-image: url(../img/pro-pic-overlay.png); background-position: center center; background-repeat: no-repeat; background-size: cover; position: absolute; left: 0; right: 0; top: 0; bottom: 0;}
@@ -368,7 +370,9 @@ a.hvr-shutter-out-horizontal {padding: 12px 33px; background: #a9dd7d; margin: 4
 /*Public Profile page css start*/
 .public-pro {}
 .public-pro .per-details .pro-pic {margin-bottom: 10px;}
-.public-pro .charity-f {}
+.public-pro .charity-f {text-align: center;}
+.public-pro .charity-f .jq-ry-container {padding: 0; display:inline-block; margin-right: 5px; margin-bottom: 10px;}
+.public-pro .charity-f .re-view {vertical-align: super; font-size: 18px; color: #484848;}
 .public-pro .charity-f h3 {font-size: 32px; line-height: 32px; color: #fa6200; margin-bottom: 15px; font-weight: 700;}
 .public-pro .charity-f h5 {font-size: 24px; line-height: 24px; color: #000; margin-bottom: 15px;}
 .charity-f > img {width: 151px;}
@@ -385,18 +389,23 @@ a.hvr-shutter-out-horizontal {padding: 12px 33px; background: #a9dd7d; margin: 4
 .public-pro .per-details-right a {text-decoration: underline;}
 .public-pro .dinner-parties {padding: 0;}
 .public-pro .dinner-parties .main-heading h2 {margin-bottom: -1px;}
-.sheng-reviews {padding-top: 40px; position: relative;}
-.sheng-reviews .btn2 {position: absolute; right: 15px; top: 40px;}
+.sheng-reviews {position: relative;}
+.sheng-reviews .btn2 {position: absolute; right: 0; top: 0;}
 .sheng-reviews ul li {display: block; padding: 20px 0; border-bottom: solid 1px #979797;}
 .sheng-reviews .media-left {padding-right: 0;}
 .sheng-reviews .media-left .inner {width: 150px; padding-right: 50px; text-align: center;}
 .sheng-reviews .media-left .inner img {box-shadow: 0 0 0px rgba(0,0,0,0); -moz-box-shadow: 0 0 0px rgba(0,0,0,0); -webkit-box-shadow: 0 0 0px rgba(0,0,0,0);}
 .sheng-reviews .media-left .inner img.media-object {border-radius: 50%; -moz-border-radius: 50%; box-shadow: 0 0 3px rgba(0,0,0,0.4); -moz-box-shadow: 0 0 3px rgba(0,0,0,0.4); -webkit-box-shadow: 0 0 3px rgba(0,0,0,0.4); display: inline-block; margin-bottom: 5px;}
 .sheng-reviews .media-left p {font-weight: 700; color: #4a4a4a;}
-.sheng-reviews .media-body p {line-height: 20px; font-size: 16px; color: #000; margin-bottom: 10px;}
+.sheng-reviews .media-body p {line-height: 20px; font-size: 14px; color: #000; margin-bottom: 10px;}
 .sheng-reviews .essex-from {}
 .sheng-reviews .essex-from h4 {font-weight: 700;}
 .sheng-reviews .essex-from a {font-size:16px; font-weight: 600;}
+.public-pro .my-events .ui-tabs .ui-tabs-nav li:last-child {color: inherit; font-size: inherit; padding-left: 0;}
+.public-pro .my-events .ui-tabs .ui-tabs-nav {text-align: left;}
+.public-pro .panel-default {border-radius: 0; -moz-border-radius: 0; -webkit-border-radius: 0;}
+.public-pro .panel-heading {border-bottom: 1px solid #dce0e0; color: #484848; font-size: 16px; font-weight: 600; line-height: 16px; padding: 15px;}
+.public-pro .panel-body ul li {display: block; padding: 10px 0;}
 /*Dinner Party Host page css start*/
 .dinnerhost-party {padding-bottom: 0;}
 .dinnerhost-party h2 span {font-size: 24px; color: #e85a00;}
@@ -421,6 +430,8 @@ a.hvr-shutter-out-horizontal {padding: 12px 33px; background: #a9dd7d; margin: 4
 .dinnerhost-party .dinner-hostright footer p {color: #FFF; line-height: 22px;}
 .dinnerhost-party .invite-your {margin: 0;}
 .dinnerhost-party .invite-your header {background-color: #4a4a4a; text-transform:uppercase; font-weight: 700; margin-bottom: 5px;}
+.dinnerhost-party .invite-your header:first-child {text-align: center; font-size: 18px;}
+.dinnerhost-party .invite-your header:first-child img {width: 60px;}
 .dinnerhost-party .invite-your header a {color: #fff;}
 .dinnerhost-party .invite-your .con-gratulation {padding: 20px;}
 .dinnerhost-party .invite-your ul li {display: inline-block; margin-right: 5px;}
@@ -506,19 +517,23 @@ a.hvr-shutter-out-horizontal {padding: 12px 33px; background: #a9dd7d; margin: 4
 .my-events .ui-tabs .ui-tabs-panel {padding: 0;}
 /*Pending Request page css start*/
 .pending-req {}
-.pending-req .item {padding: 0 15px; -webkit-border-top-left-radius: 10px; -webkit-border-top-right-radius: 10px; -moz-border-radius-topleft: 10px; -moz-border-radius-topright: 10px; border-top-left-radius: 10px; border-top-right-radius: 10px;}
-.pending-req .dinner-parties .parties-head {background-image: url(../img/galler-pic1.jpg); background-repeat: no-repeat; background-position: center; background-size: cover; z-index: 1; padding-top: 70px; -webkit-border-top-left-radius: 10px; -webkit-border-top-right-radius: 10px; -moz-border-radius-topleft: 10px; -moz-border-radius-topright: 10px; border-top-left-radius: 10px; border-top-right-radius: 10px;}
+.pending-req .item {padding: 0 15px; -webkit-border-top-left-radius: 10px; -webkit-border-top-right-radius: 10px; -moz-border-radius-topleft: 10px; -moz-border-radius-topright: 10px; border-top-left-radius: 10px; border-top-right-radius: 10px; margin-bottom: 20px;}
+.pending-req .dinner-parties .parties-head {background-image: url(../img/galler-pic1.jpg); background-repeat: no-repeat; background-position: center; background-size: cover; z-index: 1; padding-top: 70px; -webkit-border-top-left-radius: 10px; -webkit-border-top-right-radius: 10px; -moz-border-radius-topleft: 10px; -moz-border-radius-topright: 10px; border-top-left-radius: 10px; border-top-right-radius: 10px; min-height: 140px;}
 .pending-req .dinner-parties {margin-bottom: 30px;}
-.pending-req .dinner-parties .parties-head .tow-btn {position: absolute; right:5px; top: 5px;}
-.pending-req .dinner-parties .parties-head .tow-btn button, .pending-req .dinner-parties .parties-head .tow-btn a {padding: 5px 10px; font-weight: 400; font-size: 12px;}
+.pending-req .dinner-parties .hosted-by .tow-btn {}
+.pending-req .dinner-parties .hosted-by .tow-btn button, .pending-req .dinner-parties .hosted-by .tow-btn a {padding: 5px 10px; font-weight: 400; font-size: 12px;}
 .pending-req .dinner-parties .parties-head h3 a {padding-right: 0; color: #fff;}
 .pending-req .dinner-parties .parties-head .event-mf {background-color: rgba(0,0,0,0.25); left: 0; right: 0; top: 0; bottom: 0; z-index: -1; -webkit-border-top-left-radius: 10px; -webkit-border-top-right-radius: 10px; -moz-border-radius-topleft: 10px; -moz-border-radius-topright: 10px; border-top-left-radius: 10px; border-top-right-radius: 10px;}
 .pending-req .dinner-parties .parties-head .event-mf .fa, .pending-req .dinner-parties .parties-head .event-mf p, .pending-req .dinner-parties .parties-head .event-mf img {display: none;}
 .pending-req .dinner-parties .parties-host {background-color: transparent;}
-.pending-req .dinner-parties .hosted-by { border-bottom: 1px solid #4a4a4a;}
+.pending-req .dinner-parties .hosted-by {}
 .pending-req .dinner-parties .parties-foot {border-bottom: 0 none;}
 .pending-req .dinner-parties .hosted-by .inner .circle-img {background-image: url(../img/pro-pic-overlay.png);}
-.pending-req .dinner-parties .hosted-by .content p, .dinner-parties .hosted-by .heart-dil a {color: #4a4a4a; background-color: #484848; border-radius: 3px; color: #fff; display: inline-block; padding: 4px 10px;}
+.pending-req .dinner-parties .hosted-by .content p {color: #484848;}
+.pending-req .dinner-parties .hosted-by .heart-dil a:focus {background-color: #E85A00; color: #fff;}
+.pending-req .dinner-parties .hosted-by .re-view {color: #484848;}
+.pending-req .dinner-parties .hosted-by .img, .pending-req .dinner-parties .hosted-by .content {display: block; text-align: center;}
+.pending-req .dinner-parties .hosted-by .img {margin: 0 auto 10px auto;}
 /*Invite Friends page css*/
 .invite-fri {}
 .invite-fri h2 {font-weight: 700;}
@@ -550,8 +565,12 @@ a.hvr-shutter-out-horizontal {padding: 12px 33px; background: #a9dd7d; margin: 4
 .your-hosting {}
 .your-hosting .dinner-parties {padding: 0;}
 .your-hosting .dinner-parties .item {padding: 0; margin-bottom: 25px;}
+<<<<<<< HEAD
 /*Events page css start*/
 /*inner banner css start*/
+=======
+/*inner banner css start 18.07.2017*/
+>>>>>>> 35ebd57e3eaed35ee90cb1b8d99f457fbd6b3525
 .inner-banner {position: relative;}
 .inner-banner .bread-main {background-color: rgba(0, 0, 0, 0.74); border-top: solid 1px #d6d6d6; width: 100%; position: absolute; left: 0; bottom: 0;}
 .inner-banner .breadcrumb {background-color: transparent; margin: 0; padding: 15px 0;}
@@ -583,3 +602,18 @@ a.hvr-shutter-out-horizontal {padding: 12px 33px; background: #a9dd7d; margin: 4
 .cms-content table thead th{background:#1354A8;}
 .cms-content table tbody th{background:#002e66;}
 .cms-content img {max-width:100%; display:inline-block; -webkit-box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.3); -moz-box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.3);box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.3); border:solid 2px #f1f1f1; box-sizing:border-box;}
+
+/*FAQs page css start date is 19.07.2017*/
+.cd-faq-group {width: 78%; margin: 0 auto;}
+.cd-faq-group > li {background-color: #ffffff; margin-bottom: 15px !important; box-shadow: 0 0 3px rgba(0, 0, 0, 0.2); -webkit-transition: box-shadow 0.2s; -moz-transition: box-shadow 0.2s; transition: box-shadow 0.2s; padding-left: 0 !important; }
+.cd-faq-group > li a {color: #484848 !important;}
+.cd-faq-trigger {position: relative; display: block; margin: 1.6em 0 .4em; line-height: 1.2;}
+.cd-faq-trigger {font-size: 24px; font-size: 1.5rem; font-weight: 300; margin: 0; padding: 24px 72px 24px 24px;}
+.cd-faq-trigger::before, .cd-faq-trigger::after {position: absolute; right: 24px; top: 50%; height: 2px; width: 13px; background-color: #484848; -webkit-backface-visibility: hidden; backface-visibility: hidden; -webkit-transition-property: -webkit-transform; -moz-transition-property: -moz-transform; transition-property: transform; -webkit-transition-duration: 0.2s; -moz-transition-duration: 0.2s; transition-duration: 0.2s;}
+.cd-faq-trigger::before {-webkit-transform: rotate(45deg); -moz-transform: rotate(45deg); -ms-transform: rotate(45deg); -o-transform: rotate(45deg); transform: rotate(45deg); right: 32px;}
+.cd-faq-trigger::after {-webkit-transform: rotate(-45deg); -moz-transform: rotate(-45deg); -ms-transform: rotate(-45deg); -o-transform: rotate(-45deg); transform: rotate(-45deg);}
+.content-visible .cd-faq-trigger::before {-webkit-transform: rotate(-45deg); -moz-transform: rotate(-45deg); -ms-transform: rotate(-45deg); -o-transform: rotate(-45deg); transform: rotate(-45deg);}
+.content-visible .cd-faq-trigger::after {-webkit-transform: rotate(45deg); -moz-transform: rotate(45deg);0 -ms-transform: rotate(45deg); -o-transform: rotate(45deg); transform: rotate(45deg);}
+.cd-faq-content {display: none; padding: 0 24px 30px;}
+
+

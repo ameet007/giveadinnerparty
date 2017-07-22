@@ -120,7 +120,7 @@
 						<select name="event" class="form-control" required>
 							<option value="">-- select event --</option>
 							@foreach($user_events as $events)
-							<option value="{{ $events->title }}" >{{ $events->title }}</option>
+							<option value="{{ $events->id }}" >{{ $events->title }}</option>
 							@endforeach
 						</select>
 						<div class="rateyo-readonly-widg"></div>
@@ -136,6 +136,8 @@
 			</li>
 			<?php //} ?>
 			@foreach($reviews as $review)
+			<?php $event_data = DB::select( DB::raw("SELECT * FROM events WHERE id = '$review->event'") ); ?>
+			<?php $event_next_seven_days_date = date('Y-m-d',strtotime("+7 day",strtotime($event_data[0]->event_date))); ?>
 			<li>
 				<div class="media">
 					<div class="media-left">
@@ -153,18 +155,40 @@
 							<input type="hidden" name="id" value="<?php echo $review->id ?>">
 						</form>
 						
-						<div class="pull-right grey-btn" id="editbtn<?php echo $review->id ?>" onclick="return editreviewbox('<?php echo $review->id ?>');">Edit</div>
-						<div class="pull-right btn3"><b>reply</b></div><br><br>
+						<?php if($event_next_seven_days_date>= date('Y-m-d')){ ?>
+						<div class="pull-right grey-btn" id="editbtn<?php echo $review->id ?>" 
+						onclick="return editreviewbox('<?php echo $review->id ?>');" >Edit</div>
+						<?php } ?>						
+						<form method="post" action="{{Request::root()}}/user/reply_for_review">							
+							<div style="display:none" id="replybox<?php echo $review->id; ?>">
+								<input type="hidden" name="_token" value="{{ csrf_token() }}">
+								<input type="hidden" name="post_id" value="<?php echo $review->post_id; ?>">
+								<input type="hidden" name="reply_id" value="<?php echo $review->id; ?>">
+								<input type="hidden" name="event" value="<?php echo $event_data[0]->title; ?>">
+								<textarea class="form-control" name="review"></textarea>
+								<button class="grey-btn">Submit</button>
+							</div>
+						</form>	
+						
+						<div class="pull-right btn3" ><a onclick="return showreplybox(<?php echo $review->id; ?>);">reply</a></div><br><br>
 						<div class="essex-from clearfix">
 							<div class="pull-left">
 								<h4>From {{ $review->town }}, {{ $review->country }}</h4>
 							</div>
 							<div class="pull-right">
-								<a>{{ $review->event }}</a>
+								<a>{{ $event_data[0]->title }}</a>
 							</div>
 						</div>
+						<?php $reply_reviews = DB::select( DB::raw("SELECT * FROM reviews WHERE reply_id = '$review->id'") ); ?>
+						<?php foreach($reply_reviews as $reply ){ ?>
+						<div class="reply">
+							<p>{{ $reply->review }}</p>
+						</div>
+						<?php } ?>
+						
 					</div>
-				</div>				
+				</div>	
+					
 			</li>
 			@endforeach
 		</ul>
@@ -208,6 +232,12 @@ function editreviewbox(BOX)
 		$('.box_content'+BOX).html($('#review'+BOX).val());
 		$('#editbtn'+BOX).html('Edit');
 	}	
+}
+
+
+function showreplybox(BOX_ID)
+{
+	$('#replybox'+BOX_ID).toggle();
 }
 
  $(function () {

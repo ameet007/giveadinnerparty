@@ -36,6 +36,11 @@ return [
     */
 
     'guards' => [
+        'charity' => [
+            'driver' => 'session',
+            'provider' => 'charities',
+        ],
+
         'user' => [
             'driver' => 'session',
             'provider' => 'users',
@@ -80,6 +85,11 @@ return [
     */
 
     'providers' => [
+        'charities' => [
+            'driver' => 'eloquent',
+            'model' => App\Charity::class,
+        ],
+
         'staff' => [
             'driver' => 'eloquent',
             'model' => App\Staff::class,
@@ -117,6 +127,12 @@ return [
     */
 
     'passwords' => [
+        'charities' => [
+            'provider' => 'charities',
+            'table' => 'charity_password_resets',
+            'expire' => 60,
+        ],
+
         'users' => [
             'provider' => 'users',
             'table' => 'user_password_resets',
