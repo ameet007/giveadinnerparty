@@ -22,7 +22,7 @@
 		  </a>
           <ul class="list-unstyled">           
             <li><a href="{{Request::root()}}/charity/weekly_payout">Weekly Payout</a></li>
-            <li><a href="{{Request::root()}}/charity/weekly_payout">Transaction Reports</a></li>
+            <li><a href="{{Request::root()}}/charity/transaction_report">Transaction Reports</a></li>
           </ul>
         </li>
 		 

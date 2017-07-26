@@ -22,10 +22,7 @@ use Srmklive\PayPal\Services\AdaptivePayments;
 use App\transactions;
 use App\reviews;
 use App\friends;
-
 use App\contact;
-
-
 use App\invitefriend;
 use App\followed_users;
 use App\invite_users;
@@ -259,7 +256,7 @@ class userController extends Controller {
 			//dd($upcomint_events);
        	   $reviews = User::rightJoin('reviews', 'users.id', '=', 'reviews.post_id')->where('reviews.reply_id', 0)->get();
            $user_events = events::where('user_id', $id)->get();
-           $friends = 1;  //friends::where('user_id', $id)->get();
+           $friends = array();  //friends::where('user_id', $id)->get();
            return view('user/profile')->with(['user' => $user, 'social_login' => $social_login, 'upcoming_events' => $upcomint_events, 'reviews' => $reviews, 'user_events' => $user_events, 'friend' => $friends]);
         }
     }
@@ -994,8 +991,7 @@ class userController extends Controller {
             $follow_status = followed_users::where([
                         'follower_id' => Auth::guard('user')->user()->id,
                         'followed_id' => $id
-                    ])->get();
-        
+                    ])->get();        
             if(count($follow_status) > 0){
                 followed_users::where([
                         'follower_id' => Auth::guard('user')->user()->id,
@@ -1011,7 +1007,7 @@ class userController extends Controller {
                 echo "Following";
             }
         }
-
+	}
 //**************Contact Us**************\\
   public function contact()
 	{
@@ -1052,10 +1048,5 @@ class userController extends Controller {
 		$country = Country::get();
 	    return view('staticpage.about-us')->with(['country_list'=>$country]);
 	}
-
-    }
-    
-    
-
 
 }

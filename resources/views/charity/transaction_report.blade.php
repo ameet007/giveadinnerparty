@@ -8,12 +8,12 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="page-title-box">
-            <h4 class="page-title">Weekly Payout</h4>
+            <h4 class="page-title">Transaction Report</h4>
             <ol class="breadcrumb p-0 m-0">
               <li>
                 <a href="{{Request::root()}}/charity/home">admin</a>
               </li>
-              <li class="active">weekly payout</li>
+              <li class="active">Transaction Report</li>
             </ol>
             <div class="clearfix"></div>
           </div>
@@ -29,6 +29,7 @@
                 <tr role="row">
                   <th class="sorting" style="width: 67px;">ID</th> 
                   <th class="sorting" style="width: 127px;">Amount</th>
+				  <th class="sorting" style="width: 100px;">Transaction ID</th>	
 				  <th class="sorting" style="width: 127px;">Date</th>                 
                   <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="Actions" style="width: 127px;">Status</th>
                 </tr>
@@ -38,6 +39,7 @@
                 <tr role="row" class="odd">
 					<td>{{$item->id}}</td>
 					<td class="sorting_1">{{$item->amount}}</td>
+					<td class="sorting_1">{{ $item->transaction_id }}</td>
 					<td class="sorting_1">{{$item->created_at}}</td>					
 					<td>
 						<?php if($item->status=='paid'){ ?>
@@ -66,8 +68,8 @@
   $(document).ready(function ()
   {
     $('#datatable').dataTable({
-		dom: 'Bfrtip',
-		buttons: ['excel', 'pdf']
+		//dom: 'Bfrtip',
+		//buttons: ['excel', 'pdf']
 	});
   })
   </script>

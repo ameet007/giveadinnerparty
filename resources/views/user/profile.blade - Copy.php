@@ -105,11 +105,11 @@
 	</div>
 	<div class="container sheng-reviews">
 		<h2>Sheng has {{ count($reviews) }} Reviews</h2>
-		<?php if(count($friend)==1){ ?>
+		<?php //if(count($friend)==1){ ?>
 		<button class="btn2" id="reviewbtn">Leave {{ $user->name.' '.$user->last_name }} A Review</button>	
-		<?php } ?>	
+		<?php //} ?>	
 		<ul>
-			<?php if(count($friend)==1){ ?>
+			<?php //if(count($friend)==1){ ?>
 			<li style="display:none" id="review_box">
 				<div class="media">
 					<h3>Leave a Review</h3>
@@ -134,7 +134,7 @@
 					</form>
 				</div>
 			</li>
-			<?php } ?>
+			<?php //} ?>
 			@foreach($reviews as $review)
 			<?php $event_data = DB::select( DB::raw("SELECT * FROM events WHERE id = '$review->event'") ); ?>
 			<?php $event_next_seven_days_date = date('Y-m-d',strtotime("+7 day",strtotime($event_data[0]->event_date))); ?>
@@ -156,12 +156,8 @@
 						</form>
 						
 						<?php if($event_next_seven_days_date>= date('Y-m-d')){ ?>
-							<?php if(Auth::guard('user')->check()){ ?>
-								<?php if(Auth::guard('user')->user()->id==$review->user_id){ ?>
-								<div class="pull-right grey-btn" id="editbtn<?php echo $review->id ?>" 
-								onclick="return editreviewbox('<?php echo $review->id ?>');" >Edit</div>
-								<?php } ?>
-							<?php } ?>
+						<div class="pull-right grey-btn" id="editbtn<?php echo $review->id ?>" 
+						onclick="return editreviewbox('<?php echo $review->id ?>');" >Edit</div>
 						<?php } ?>						
 						<form method="post" action="{{Request::root()}}/user/reply_for_review">							
 							<div style="display:none" id="replybox<?php echo $review->id; ?>">
@@ -173,9 +169,8 @@
 								<button class="grey-btn">Submit</button>
 							</div>
 						</form>	
-						<?php if(Auth::guard('user')->check()){ ?>						
+						
 						<div class="pull-right btn3" ><a onclick="return showreplybox(<?php echo $review->id; ?>);">reply</a></div><br><br>
-						<?php } ?>	
 						<div class="essex-from clearfix">
 							<div class="pull-left">
 								<h4>From {{ $review->town }}, {{ $review->country }}</h4>

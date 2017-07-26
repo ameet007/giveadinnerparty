@@ -54,6 +54,11 @@ Route::group(['prefix' => 'admin'], function () {
         Route::any('/charity/add', 'charityController@addcharity');
         Route::any('/charity/edit/{id}', 'charityController@editcharity');
         Route::any('/charity/delete/{id}', 'charityController@deletecharity');
+		Route::any('/charity/weekly_payout', 'charityController@charityWeeklyPayout');
+		Route::any('/charity/transaction_report', 'charityController@transactionReport');
+		Route::any('/charity/edit_weekly_payout/{id}', 'charityController@editWeeklyPayout');
+		
+		
         Route::any('/seo', 'cmsController@seo');
         Route::any('/seo/add', 'cmsController@addseo');
         Route::any('/seo/edit/{id}', 'cmsController@editseo');
@@ -170,6 +175,7 @@ Route::group(['prefix' => 'charity'], function ()
   {
 		Route::any('/edit_profile', 'charityController@edit_charity_profile');
 		Route::any('/weekly_payout', 'charityController@weeklypayout');
+		Route::any('/transaction_report', 'charityController@transaction_report');
   });
   
 });
@@ -181,14 +187,16 @@ Route::post('user/registeration', 'userController@registeration');
 Route::post('ipn/notify','userController@postNotify');
 Route::post('user/registeration', 'userController@registeration');
 
-//**********************Contact Us***********************\\
+//********************** Contact Us ***********************\\
 Route::get('/contact', 'userController@contact');
 Route::post('/contact', 'userController@contactus');
 Route::get('/admin/contactus', 'userController@contactlist');
 Route::any('/admin/contactus/delete/{id}', 'userController@deletecontact');
-//*********************End Contact Us*********************\\
+//********************* End Contact Us *********************\\
 
-//**********************About Us***********************\\
+
+//********************** About Us ***********************\\
 Route::get('/about-us', 'userController@index');
 
-
+//************ genrate weekly payout ***********//
+Route::get('/genrate_weekly_payout', 'charityController@genrate_weekly_payout');

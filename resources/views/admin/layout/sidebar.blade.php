@@ -66,10 +66,10 @@
               <a <?= (Request::segment(2) == 'admin') ? 'class="active"' : '' ?> href="{{Request::root()}}/admin/charity">Manage Charities</a>
             </li>
             <li>
-              <a href="javascript:void(0);">Weekly Payout</a>
+              <a href="{{Request::root()}}/admin/charity/weekly_payout">Weekly Payout</a>
             </li>
             <li>
-              <a href="javascript:void(0);">Transaction Reports</a>
+              <a href="{{Request::root()}}/admin/charity/transaction_report">Transaction Reports</a>
             </li>
           </ul>
         </li>

@@ -565,12 +565,7 @@ a.hvr-shutter-out-horizontal {padding: 12px 33px; background: #a9dd7d; margin: 4
 .your-hosting {}
 .your-hosting .dinner-parties {padding: 0;}
 .your-hosting .dinner-parties .item {padding: 0; margin-bottom: 25px;}
-<<<<<<< HEAD
-/*Events page css start*/
-/*inner banner css start*/
-=======
 /*inner banner css start 18.07.2017*/
->>>>>>> 35ebd57e3eaed35ee90cb1b8d99f457fbd6b3525
 .inner-banner {position: relative;}
 .inner-banner .bread-main {background-color: rgba(0, 0, 0, 0.74); border-top: solid 1px #d6d6d6; width: 100%; position: absolute; left: 0; bottom: 0;}
 .inner-banner .breadcrumb {background-color: transparent; margin: 0; padding: 15px 0;}
@@ -602,7 +597,6 @@ a.hvr-shutter-out-horizontal {padding: 12px 33px; background: #a9dd7d; margin: 4
 .cms-content table thead th{background:#1354A8;}
 .cms-content table tbody th{background:#002e66;}
 .cms-content img {max-width:100%; display:inline-block; -webkit-box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.3); -moz-box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.3);box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.3); border:solid 2px #f1f1f1; box-sizing:border-box;}
-
 /*FAQs page css start date is 19.07.2017*/
 .cd-faq-group {width: 78%; margin: 0 auto;}
 .cd-faq-group > li {background-color: #ffffff; margin-bottom: 15px !important; box-shadow: 0 0 3px rgba(0, 0, 0, 0.2); -webkit-transition: box-shadow 0.2s; -moz-transition: box-shadow 0.2s; transition: box-shadow 0.2s; padding-left: 0 !important; }
@@ -615,5 +609,4 @@ a.hvr-shutter-out-horizontal {padding: 12px 33px; background: #a9dd7d; margin: 4
 .content-visible .cd-faq-trigger::before {-webkit-transform: rotate(-45deg); -moz-transform: rotate(-45deg); -ms-transform: rotate(-45deg); -o-transform: rotate(-45deg); transform: rotate(-45deg);}
 .content-visible .cd-faq-trigger::after {-webkit-transform: rotate(45deg); -moz-transform: rotate(45deg);0 -ms-transform: rotate(45deg); -o-transform: rotate(45deg); transform: rotate(45deg);}
 .cd-faq-content {display: none; padding: 0 24px 30px;}
-
 

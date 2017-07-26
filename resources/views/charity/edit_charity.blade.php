@@ -142,11 +142,7 @@
       });
       $('.datepicker').datepicker({ format: 'yyyy-mm-dd' });
       </script>
-
       <!-- end row -->
-
     </div> <!-- container -->
-
   </div> <!-- content -->
-
   @endsection

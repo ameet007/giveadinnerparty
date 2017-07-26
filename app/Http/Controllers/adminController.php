@@ -10,6 +10,9 @@ use App\systemSettings;
 use Validator;
 use Crypt;
 use Illuminate\Support\Facades\Auth;
+use App\charity_report;
+
+
 /* -------------Manage Users----------------- */
 class adminController extends Controller
 {
@@ -294,4 +297,5 @@ class adminController extends Controller
     return redirect('admin/events')->with(['success'=>'Status changed successfully']);
   }
   /* -------------End Manage  Events----------------- */
+  
 }

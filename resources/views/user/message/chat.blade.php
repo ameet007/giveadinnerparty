@@ -18,7 +18,7 @@
                     <div class="table-box">
                         <div class="table-detail">
                             <div class="p-20">
-                                <a href="email-compose.html" class="btn2">Compose</a>
+                                <a href="#" class="btn2">Compose</a>
                                 <div class="chat-widget hidden-xxs">
                                     <a href="message-inbox-chat.html">
                                         <div class="chat-item">

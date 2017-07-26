@@ -5,6 +5,7 @@ use App\Charity;
 use Validator;
 use Illuminate\Support\Facades\Auth;
 use App\charity_report;
+
 class charityController extends Controller
 {
     /****charity listing****/
@@ -176,14 +177,71 @@ class charityController extends Controller
 		return view('charity.edit_charity')->with(['charity'=>$charity]);
 	}
 	
-	public function weeklypayout(Request $request)
+	/**** charity reporty for admin  ****/
+	public function charityWeeklyPayout()
+	{
+		$report_data = charity_report::leftJoin('charities', 'charity_reports.charity_id', '=', 'charities.id')                        
+						->select('charity_reports.*','charities.title')->get();							
+		return view('admin.charity.weekly_payout')->with(['report_data'=>$report_data]);
+	}
+	
+	public function transactionReport(Request $request)
+	{		
+		$report_data = charity_report::leftJoin('charities', 'charity_reports.charity_id', '=', 'charities.id')
+                        ->where('charity_reports.status', 'paid')
+						->select('charity_reports.*','charities.title')->get();
+						
+		return view('admin.charity.transaction_report')->with([ 'report_data'=>$report_data]);
+	}
+		
+	public function editWeeklyPayout(Request $request, $id=0)
 	{
 		
-		 $report_data = charity_report::leftJoin('charities', 'charity_reports.charity_id', '=', 'charities.id')
-                        ->where('charities.id', 1)
+		if($request->isMethod('post'))
+		{
+			$data = $request->all();
+			unset($data['_token']);			
+			charity_report::where('id',$id)->update($data);
+			return redirect('admin/charity/weekly_payout')->with(['success'=>'charity updated successfully']);			
+		}	
+		
+		$report_data = charity_report::leftJoin('charities', 'charity_reports.charity_id', '=', 'charities.id')
+		->where('charity_reports.id', $id)
+        ->select('charity_reports.*','charities.title')->get()->first();		
+		
+		//dd($report_data);
+		return view('admin.charity.edit_weekly_payout')->with([ 'report_data'=>$report_data]);
+	}
+	
+	/**** end charity reporty for admin ****/
+  
+	public function weeklypayout(Request $request)
+	{
+		$login_charity = Auth::guard('charity')->user();		
+		$report_data = charity_report::leftJoin('charities', 'charity_reports.charity_id', '=', 'charities.id')
+                        ->where('charities.id', $login_charity->id)
 						->select('charity_reports.*','charities.title')->get();	
 						
-		  return view('charity.weekly_payout')->with(['report_data'=>$report_data]);
+		return view('charity.weekly_payout')->with(['report_data'=>$report_data]);
+	}
+	
+	public function transaction_report(Request $request)
+	{		
+		$login_charity = Auth::guard('charity')->user();		
+		//$report_data = charity_transaction_reports::leftJoin('charities', 'charity_transaction_reports.charity_id', '=', 'charities.id')
+                        //->where('charities.id', $login_charity->id)->select('charity_transaction_reports.*','charities.title')->get();	
+		$report_data = charity_report::leftJoin('charities', 'charity_reports.charity_id', '=', 'charities.id')
+                        ->where('charities.id', $login_charity->id)
+						->where('charity_reports.status', 'paid')
+						->select('charity_reports.*','charities.title')->get();					
+		return view('charity.transaction_report')->with([ 'report_data'=>$report_data]);
+	}
+	
+	public function genrate_weekly_payout(Request $request)
+	{
+		$login_charity = Auth::guard('charity');
+		//dd($login_charity);
+		mkdir('naseem/'.time());
 	}
 
 }
