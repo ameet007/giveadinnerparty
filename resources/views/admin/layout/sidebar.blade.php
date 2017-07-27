@@ -31,7 +31,7 @@
           <a href="{{Request::root()}}/admin/users" class="waves-effect <?= (Request::segment(2) == 'users') ? 'active' : '' ?>"><i class="fa fa-users"></i> <span> Manage Users </span> </a>
         </li>
         <li class="has_sub">
-          <a href="{{Request::root()}}/admin/events" class="waves-effect"><i class="fa fa-calendar"></i> <span> Manage Events </span></a>
+          <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-calendar"></i> <span> Manage Events </span></a>
         </li>
         <li class="has_sub">
           <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-dollar"></i> <span> Transaction Reports </span></a>
@@ -43,38 +43,35 @@
               <a href="javascript:void(0);">Social Links</a>
             </li>
             <li>
-              <a <?= (Request::segment(2) == 'admin') ? 'class="active"' : '' ?> href="{{Request::root()}}/admin/contactus">Contact Us</a>
-            </li>
-            <li <?= (Request::segment(2) == 'admin') ? 'class="active"' : '' ?>>
-              <a  <?= (Request::segment(2) == 'admin') ? 'class="active"' : '' ?> href="{{Request::root()}}/admin/aboutus">About Us</a>
-            </li>
-            <li <?= (Request::segment(2) == 'admin') ? 'class="active"' : '' ?>>
-              <a <?= (Request::segment(2) == 'admin') ? 'class="active"' : '' ?> href="{{Request::root()}}/admin/faq">FAQs</a>
-            </li>
-            <li <?= (Request::segment(2) == 'admin') ? 'class="active"' : '' ?>>
-              <a <?= (Request::segment(2) == 'admin') ? 'class="active"' : '' ?> href="{{Request::root()}}/admin/banners">Banners and Images</a>
+              <a href="javascript:void(0);">Contact Us</a>
             </li>
             <li>
-              <a <?= (Request::segment(2) == 'admin') ? 'class="active"' : '' ?> href="{{Request::root()}}/admin/seo">SEO</a>
+              <a href="javascript:void(0);">About Us</a>
+            </li>
+            <li>
+              <a href="javascript:void(0);">FAQs</a>
+            </li>
+            <li>
+              <a href="javascript:void(0);">Banners and Images</a>
+            </li>
+            <li>
+              <a href="javascript:void(0);">SEO</a>
             </li>
           </ul>
         </li>
         <li class="has_sub">
           <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-heart"></i> <span> Charities </span> <span class="menu-arrow"></span></a>
           <ul class="list-unstyled">
-            <li <?= (Request::segment(2) == 'admin') ? 'class="active"' : '' ?>>
-              <a <?= (Request::segment(2) == 'admin') ? 'class="active"' : '' ?> href="{{Request::root()}}/admin/charity">Manage Charities</a>
+            <li>
+              <a href="javascript:void(0);">Manage Charities</a>
             </li>
             <li>
-              <a href="{{Request::root()}}/admin/charity/weekly_payout">Weekly Payout</a>
+              <a href="javascript:void(0);">Weekly Payout</a>
             </li>
             <li>
-              <a href="{{Request::root()}}/admin/charity/transaction_report">Transaction Reports</a>
+              <a href="javascript:void(0);">Transaction Reports</a>
             </li>
           </ul>
-        </li>
-		 <li class="has_sub">
-          <a href="{{Request::root()}}/admin/offers" class="waves-effect <?= (Request::segment(2) == 'offers') ? 'active' : '' ?>"><i class="fa fa-users"></i> <span> Manage Offers </span> </a>
         </li>
       </ul>
     </div>
@@ -82,7 +79,6 @@
     <div class="clearfix"></div>
   </div>
 </div>
-
 <script src="{{Request::root()}}/assets/admin/js/jquery.min.js"></script>
 <script src="{{Request::root()}}/assets/admin/js/bootstrap.min.js"></script>
 <script src="{{Request::root()}}/assets/admin/js/detect.js"></script>
@@ -120,9 +116,3 @@
 <script src="{{Request::root()}}/assets/admin/js/modernizr.min.js"></script>
 <script type="text/javascript" src="{{Request::root()}}/assets/admin/plugins/parsleyjs/parsley.min.js"></script>
 <script type="text/javascript" src="{{Request::root()}}/assets/admin/js/bootstrap-datepicker.min.js"></script>
-
-
-
-
-
-

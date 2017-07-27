@@ -53,7 +53,3 @@
 </div>
 </div>
 <!-- END wrapper -->
-<script src="{{Request::root()}}/assets/admin/plugins/ckeditor/ckeditor.js"></script>
-<script>
-	CKEDITOR.replace( 'textarea' )
-</script>

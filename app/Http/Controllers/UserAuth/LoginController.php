@@ -45,7 +45,7 @@ class LoginController extends Controller
     {
         $this->middleware('user.guest', ['except' => 'logout']);
     }
-	
+
     /**
      * Show the application's login form.
      *
@@ -82,23 +82,11 @@ class LoginController extends Controller
             ->first();
             if(count($existing) > 0 && $existing->facebook_id == ''){
                 if($existing->confirmed == 1){
-					$login_user = Auth::guard('user')->user();
-					if(count($login_user)>0)
-					{	
-						$uid = $login_user->id;
-					}
-					else
-					{
-						$uid = $existing->id;
-					}
-                    $data['user_id'] = $uid; //$existing->id;
+                    $data['user_id'] = $existing->id;
                     $data['facebook_id'] = $user->user['id'];
                     $data['facebook_link'] = $user->user['link'];
-					
                     social_logins::insert($data);
-                    $authUser = User::where('id',$uid)->first();
-					Auth::guard('user')->login($authUser);
-					return redirect('/user/home');
+                    return redirect('/user/login')->with('success','Your account already existed. Please follow password reset link to reset your password');
                 }
                 else{
                     User::where('id',$existing->id)->update(['confirmed'=>1]);
@@ -106,22 +94,24 @@ class LoginController extends Controller
                     $data['facebook_id'] = $user->user['id'];
                     $data['facebook_link'] = $user->user['link'];
                     social_logins::insert($data);
-                    $authUser = User::where('id',$existing->id)->first();
-					Auth::guard('user')->login($authUser);
-					return redirect('/user/home');
+                    $credentials = ['email' => $existing->email];
+                    $response = Password::sendResetLink($credentials, function (Message $message) {
+                        $message->subject($this->getEmailSubject());
+                    });
+                    return redirect('/user/login')->with('success','Your account already existed. Please check your email for password reset link');
                 }
             }
             else if(count($existing) > 0 && $existing->facebook_id != ''){
                 if($existing->confirmed == 1){
-                    $authUser = User::where('id',$existing->id)->first();
-					Auth::guard('user')->login($authUser);
-					return redirect('/user/home');
+                    return redirect('/user/login')->with('success','Your account already existed. Please follow password reset link to reset your password');
                 }
                 else{
                     User::where('id',$existing->id)->update(['confirmed'=>1]);
-                    $authUser = User::where('id',$existing->id)->first();
-					Auth::guard('user')->login($authUser);
-					return redirect('/user/home');
+                    $credentials = ['email' => $existing->email];
+                    $response = Password::sendResetLink($credentials, function (Message $message) {
+                        $message->subject($this->getEmailSubject());
+                    });
+                    return redirect('/user/login')->with('success','Your account already existed. Please check your email for password reset link');
                 }
             }
             else{
@@ -144,9 +134,13 @@ class LoginController extends Controller
                 $data['facebook_id'] = $user->user['id'];
                 $data['facebook_link'] = $user->user['link'];
                 social_logins::insert($data);
-                $authUser = User::where('id',$user_id)->first();
-                Auth::guard('user')->login($authUser);
-                return redirect('/user/home');
+                $credentials = ['email' => $user->user['email']];
+                $response = Password::sendResetLink($credentials, function (Message $message) {
+                    $message->subject($this->getEmailSubject());
+                });
+                $credentials = ['email' => $user->user['email'], 'password' => $password];
+                Auth::guard('user')->attempt($credentials);
+                return redirect('/user/login')->with('success','Please check your email for password reset link');
             }
         }
         else{

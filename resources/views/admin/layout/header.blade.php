@@ -6,7 +6,7 @@
 
                 <!-- LOGO -->
                 <div class="topbar-left">
-                    <a href="{{Request::root()}}/admin/home" class="logo"><span>Admin<span>Panel</span></span><i class="mdi mdi-layers"></i></a>
+                    <a href="index.html" class="logo"><span>Admin<span>Panel</span></span><i class="mdi mdi-layers"></i></a>
                     <!-- Image logo -->
                     <!--<a href="index.html" class="logo">-->
                         <!--<span>-->

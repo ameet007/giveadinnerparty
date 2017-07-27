@@ -4,14 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
-use App\events;
 use App\Admin;
 use App\systemSettings;
 use Validator;
-use Crypt;
-use Illuminate\Support\Facades\Auth;
-use App\charity_report;
-
 
 /* -------------Manage Users----------------- */
 class adminController extends Controller
@@ -48,7 +43,8 @@ class adminController extends Controller
         ]);
       }
       else{
-        return redirect('admin/users/add')->withErrors($validate)->withInput();
+        return redirect('admin/users/add')->withErrors($validate)
+                                          ->withInput();
       }
     }
   }
@@ -85,62 +81,19 @@ class adminController extends Controller
         ]);
       }
       else{
-        return redirect('admin/users/edit/'.$id)->withErrors($validate)->withInput();
+        return redirect('admin/users/edit/'.$id)->withErrors($validate)
+                                          ->withInput();
       }
     }
   }
 
   public function deleteUsers(Request $request, $id){
     User::where('id',$id)->delete();
-    return redirect('admin/users')->with(['success'=>'User successfully deleted',]);
+    return redirect('admin/users')->with([
+      'success'=>'User successfully deleted',
+    ]);
   }
 
-  
-  public function documentdownload(Request $request, $file = 0) {
-        if ($request->isMethod('get')) 
-		{
-             $file_path = public_path('assets/admin/uploads/users').'/'.$file;
-			return response()->download($file_path);
-        }
-    }
-	
-	public function deletedocument(Request $request, $file = 0)
-	{
-        if ($request->isMethod('get'))
-		{	
-			unlink('assets/admin/uploads/users/'.$file);
-			return  back();
-        }
-    }
-	
-	public function verifyid(Request $request, $id = 0)
-	{
-        if($request->isMethod('get')) 
-		{            
-			$user_id = Crypt::decrypt($id);
-			
-			$user = User::where('id',$user_id)->first();
-			if(count($user)>0)
-			{	
-				$authUser = Admin::where('id', 1)->first();
-				Auth::guard('admin')->login($authUser);
-				
-				return view('admin.users.verify_id')->with(['user'=>$user,]);
-			}
-			else
-			{
-				return redirect('/');
-			}
-        }
-		if($request->isMethod('post'))
-		{
-			$user_id = Crypt::decrypt($id);
-			$data = $request->all();
-			unset($data['_token']);
-			User::where('id',$user_id)->update($data);
-			return redirect('admin/users')->with(['success'=>'User successfully updated',]);
-		}
-    }
   /* -------------Manage Users----------------- */
 
   /* -------------Manage Admins----------------- */
@@ -173,7 +126,8 @@ class adminController extends Controller
         ]);
       }
       else{
-        return redirect('admin/admins/add')->withErrors($validate)->withInput();
+        return redirect('admin/admins/add')->withErrors($validate)
+                                          ->withInput();
       }
     }
   }
@@ -254,9 +208,8 @@ class adminController extends Controller
         if(ISSET($_FILES['company_logo']) && !EMPTY($_FILES['company_logo']['name'])){
           $destination = public_path().'/assets/admin/uploads/images/'.$_FILES['company_logo']['name'];
           $image_url = url('/').'/assets/admin/uploads/images/'.$_FILES['company_logo']['name'];
-          if(file_exists($destination))
-		  {
-			unlink($destination);
+          if(file_exists($destination)){
+            unlink($destination);
           }
           move_uploaded_file($_FILES['company_logo']['tmp_name'],$destination);
           $data['company_logo'] = $image_url;
@@ -269,33 +222,12 @@ class adminController extends Controller
           'success'=>'Admin successfully updated',
         ]);
       }
-      else
-	  {
-        return redirect('admin/company/edit/'.$id)->withErrors($validate)->withInput();
+      else{
+        return redirect('admin/company/edit/'.$id)->withErrors($validate)
+                                          ->withInput();
       }
     }
   }
 
   /* -------------Manage Company Details----------------- */
-  
- 
-  /* -------------Manage Events----------------- */
-
-  public function viewEvents(){
-    $events = events::leftJoin('users','users.id','=','events.user_id')->select('users.name','events.*')->get();
-    return view('admin/events/events')->with([
-        'events'=>$events,
-      ]);
-  }
-  
-  
-  public function statusEvents(Request $request,  $id){
-    events::where('id',$id)->update([
-        'status'=>$request->input('status'),
-        
-    ]);
-    return redirect('admin/events')->with(['success'=>'Status changed successfully']);
-  }
-  /* -------------End Manage  Events----------------- */
-  
 }

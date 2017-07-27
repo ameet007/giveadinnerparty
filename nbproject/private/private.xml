@@ -3,13 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/giveadinnerparty/resources/views/user/events/create_event.blade.php</file>
-            <file>file:/C:/xampp/htdocs/giveadinnerparty/database/migrations/2017_07_12_092903_create_events_table.php</file>
-            <file>file:/C:/xampp/htdocs/giveadinnerparty/app/Http/Controllers/homeController.php</file>
-            <file>file:/C:/xampp/htdocs/giveadinnerparty/resources/views/welcome.blade.php</file>
+            <file>file:/C:/xampp/htdocs/giveadinnerparty/resources/views/user/events/event_detail_host.blade.php</file>
+            <file>file:/C:/xampp/htdocs/giveadinnerparty/resources/views/user/events/event_detail_guest.blade.php</file>
+            <file>file:/C:/xampp/htdocs/giveadinnerparty/resources/views/user/my-events.blade.php</file>
+            <file>file:/C:/xampp/htdocs/giveadinnerparty/resources/views/user/your_hosting.blade.php</file>
             <file>file:/C:/xampp/htdocs/giveadinnerparty/app/Http/Controllers/userController.php</file>
-            <file>file:/C:/xampp/htdocs/giveadinnerparty/resources/views/user/invite_friends.blade.php</file>
-            <file>file:/C:/xampp/htdocs/giveadinnerparty/resources/views/common/layout/front-header.blade.php</file>
             <file>file:/C:/xampp/htdocs/giveadinnerparty/routes/web.php</file>
         </group>
     </open-files>

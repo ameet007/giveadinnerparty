@@ -7,8 +7,8 @@
                     <ul>
                         <li><a href="#">Frequently Asked Questions</a></li>
                         <li><a href="#">Trust</a></li>
-                        <li><a href="{{Request::root()}}/blog">Blog</a></li>
-                        <li><a href="{{Request::root()}}/about-us">About Us</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">About Us</a></li>
                     </ul>
                 </div>
                 <div class="one-fourth">
@@ -17,7 +17,7 @@
                         <li><a href="#">Terms &amp; Conditions</a></li>
                         <li><a href="#">Privacy Policy</a></li>
                         <li><a href="#">Refunds</a></li>
-                        <li><a href="{{Request::root()}}/contact">Contact Us</a></li>
+                        <li><a href="#">Contact Us</a></li>
                     </ul>
                 </div>
                 <div class="one-fourth">
