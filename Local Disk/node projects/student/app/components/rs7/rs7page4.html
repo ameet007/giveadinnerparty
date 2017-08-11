@@ -1,0 +1,40 @@
+
+    <div class="card no-print-padding">
+        <div class="card-header no-print">
+            <h2>Attestation</h2>
+        </div>
+        <div class="card-body card-padding no-print-padding">
+
+            <p>RS7 Return</p>
+            <p>{{rs7.facility.name}} ({{rs7.facility.ServiceId}})</p>
+
+                <p><b>Attestation of Certificated Teachers’ Salaries</b></p>
+
+                <p>Is your service paying all employed certificated teachers at least at the level identified on the
+                    <a target="_blank" href="http://www.education.govt.nz/early-childhood/running-an-ece-service/employing-ece-staff/attestation/">http://www.education.govt.nz/early-childhood/running-an-ece-service/employing-ece-staff/attestation/</a> webpage</p>
+
+                <p>By answering YES to this question, your service is identified as meeting this funding condition. Your service will, therefore, have access to higher levels of funding</p>
+                <p>By answering NO to this question, your service is identified as not meeting this funding condition. Your service will, therefore, be paid at the lowest level of funding. Note: This funding condition applies to days on which your service operates as teacher-led<p></p>
+
+
+            <div class="text-center" style="padding:10px">
+                <button class="btn btn-info" ng-style="rs7.getAttestationStyle(true)" ng-click="rs7.attestation(true)">Yes</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                <button class="btn btn-info" ng-style="rs7.getAttestationStyle(false)" ng-click="rs7.attestation(false)">No</button>
+            </div>
+
+
+
+
+                <p><b>Note: This funding condition applies to days on which your service operates as teacher-led.</b></p>
+
+
+
+        </div>
+
+        <div class="text-center" style="padding:10px">
+            <button ng-disabled="rs7.attestationAnswer==null" class="btn btn-info" ng-click="rs7.continue()">Continue</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-info" ng-click="rs7.back()">Back</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-warning" ng-click="rs7.cancel()">Cancel</button>
+        </div>
+    </div>
+
+

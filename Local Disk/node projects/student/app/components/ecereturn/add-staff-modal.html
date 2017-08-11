@@ -1,0 +1,28 @@
+<div class="modal-demo">
+	<div class="modal-header">
+	  <ul class="tab-nav">
+	   <li class="active">
+				<a>Add Staff</a>
+	   </li>
+	  </ul>
+	</div>
+	<div class="modal-body" id="modal-body">
+		<div class="row">
+			<!-- <div class="col-md-6 text-right"><label>Select Staff</label></div> -->
+			<div class="col-md-offset-2 col-md-8 text-center">
+				<select ng-model='vm.new_staff_index' class="form-control">
+					<option value="" selected disabled>Please select from the list</option>
+					<option ng-repeat='staff in vm.remaining_staff track by $index' value="{{$index}}">{{staff.LastName}} {{staff.FirstName}}</option>
+				</select>
+			</div>
+		</div>
+		<br>
+		<br>
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<button class="btn btn-sm btn-success" ng-disabled='!vm.new_staff_index' ng-click="vm.addStaff()"> Add Staff</button>
+				<button class="btn btn-sm btn-warning" ng-click="vm.cancel()"> Cancel </button>
+			</div>
+		</div>
+	</div>
+</div>

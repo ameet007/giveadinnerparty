@@ -1,0 +1,70 @@
+<header id="header" data-ng-include="'template/header.html'" data-ng-controller="headerCtrl as hctrl"></header>
+
+<section id="main">
+    <aside id="sidebar" data-ng-include="'template/sidebar-left.html'"
+           data-ng-class="{ 'toggled': mactrl.sidebarToggle.left === true }"></aside>
+
+    <aside id="chat" data-ng-include="'template/chat.html'"
+           data-ng-class="{ 'toggled': mactrl.sidebarToggle.right === true }"></aside>
+
+    <section id="content">
+
+        <div class="container">
+            <div class="block-header">
+                <h2>Dashboard</h2>
+
+                <ul class="actions">
+                    <li>
+                        <a href="">
+                            <i class="zmdi zmdi-trending-up"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <i class="zmdi zmdi-check-all"></i>
+                        </a>
+                    </li>
+                    <li class="dropdown" dropdown>
+                        <a href="" dropdown-toggle>
+                            <i class="zmdi zmdi-more-vert"></i>
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li>
+                                <a href="">Refresh</a>
+                            </li>
+                            <li>
+                                <a href="">Manage Widgets</a>
+                            </li>
+                            <li>
+                                <a href="">Widgets Settings</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </div>
+
+
+            <link rel="stylesheet" href="../components/formly/formly.css">
+
+
+            <div class="formly-container">
+                <div class="row" ng-if="isNewOrEdit">
+                    <span class="pull-right">
+                        <a class="btn btn-success" ng-disabled="!vm.form.$valid" ng-click="save()">Save</a>
+                        <a class="btn btn-warning" ng-click="cancel()">Cancel</a>
+                        <a class="btn btn-danger" ng-if="isEdit" ng-click="delete()">Delete</a>
+                    </span>
+                </div>
+                <div class="row">
+                    <div ui-view=""></div>
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+</section>
+
+<footer id="footer" data-ng-include="'template/footer.html'"></footer>

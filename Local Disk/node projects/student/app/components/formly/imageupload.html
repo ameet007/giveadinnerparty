@@ -1,0 +1,29 @@
+<!--<div class="date-picker input-group" ng-class="{ 'is-opened': opened == true }" ng-controller="FormlyDatePickerCtrl">-->
+    <!--<span class="input-group-addon"><i class="zmdi zmdi-calendar ma-icon"></i></span>-->
+    <!--<div class="fg-line" ng-class="{ 'fg-toggled': opened == true }">-->
+        <!--<input ng-click="open($event, 'opened')" type="text" class="form-control" datepicker-popup="{{format}}" show-weeks="false" ng-model="model[options.key]" is-open="opened" min-date="minDate" datepicker-options="dateOptions" ng-required="true" close-text="Close" placeholder="Select Date" />-->
+    <!--</div>-->
+<!--</div>-->
+
+
+<div class="fileinput" ng-class='!model[options.key].base64?fileinput-new:fileinput-exists' data-provides="fileinput">
+    <div  ng-show="!model[options.key].base64" class="fileinput-preview thumbnail" data-trigger="fileinput">
+     </div>
+     <div  ng-show="model[options.key].base64" class="fileinput-preview fileinput-exists thumbnail" data-trigger="fileinput" style="line-height:150px;">
+       <img ng-src="data:{{model[options.key].filetype}};base64,{{model[options.key].base64}}" />
+     </div>
+    <div>
+            <span class="btn btn-info btn-file">
+            <span ng-show="!model[options.key].base64" class="fileinput-new">Select image</span>
+            <span  ng-show="model[options.key].base64" class="fileinput-exists">Change</span>
+            <input ng-model="model[options.key]"  base-sixty-four-input type="file" name="..." />
+            </span>
+        <a  ng-show="model[options.key].base64" ng-click="model[options.key]=null" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Remove</a>
+    </div>
+
+    
+
+   
+    
+   
+</div>

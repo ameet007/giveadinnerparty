@@ -1,0 +1,13 @@
+<div class="modal-header">
+    <h3 class="modal-title">Select Duplicate Child</h3>
+</div>
+<div class="modal-body">
+    <ul>
+    <li ng-repeat="kid in params.dupes"><h5><span>{{kid.OfficialGiven1Name}} {{kid.OfficialFamilyName}}</span>
+    <span>({{kid.OfficialGiven2Name}} {{kid.OfficialGiven3Name}}) | {{kid.ChildBirthDate | date : 'dd-MM-yyyy' }} | {{kid.GenderCode}}  </span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-success" ng-click="select(kid);">Select</button></h5></li>
+    </ul>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-danger" ng-click="cancel()">Cancel</button>
+</div>

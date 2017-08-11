@@ -1,0 +1,38 @@
+<div class="container" ui-view>
+	<div class="block-header">
+	<h2>ECE Return</h2>
+	</div>
+
+	<div class="card no-print-padding">
+		<div class="card-header no-print">
+			<h2>ECE Return Wizard</h2>
+		</div>
+		<div class="card-body card-padding no-print-padding">
+
+			<!-- show loader -->
+			<div ng-if='vm.loading'>
+				loading, please wait...
+			</div>
+
+			<!-- show pages -->
+			<div ng-show='!vm.loading && !vm.open_subpage  && !vm.open_final_response_page && !vm.open_final_warning_page'>
+				<ng-include src="vm.getCurrentPage(vm.fields.current_page)" />
+			</div>
+			
+			<!-- show sub page -->
+			<div ng-show='!vm.loading  && !vm.open_final_warning_page  && !vm.open_final_response_page && vm.open_subpage'>
+				<ng-include src="vm.getCurrentSubPage()" />
+			</div>
+
+			<!-- show final submission warning page -->
+			<div ng-show='!vm.loading && !vm.open_subpage  && !vm.open_final_response_page && vm.open_final_warning_page'>
+				<ng-include src="'components/ecereturn/ecereturn.final-warning.html'" />
+			</div>
+
+			<!-- show final submission warning page -->
+			<div ng-show='!vm.loading && !vm.open_subpage && !vm.open_final_warning_page && vm.open_final_response_page'>
+				<ng-include src="'components/ecereturn/ecereturn.final-response.html'" />
+			</div>
+		</div>
+	</div>
+</div>

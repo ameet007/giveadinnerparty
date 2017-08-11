@@ -1,0 +1,28 @@
+var materialAdmin = angular.module('materialAdmin', [
+    'ngAnimate',
+    'ngResource',
+    'ui.router',
+    'ui.bootstrap',
+    'angular-loading-bar',
+    'oc.lazyLoad',
+    'nouislider',
+    'ngTable',
+  'LocalStorageModule',
+  'sms.util',
+  'sms.forms',
+  'sms.auth',
+  'sms.nsi',
+  'sms.eli',
+  'sms.directives',
+  'sms.attendance',
+  'sms.vacations',
+  'sms.roster',
+  'sms.fch',
+  'sms.facility',
+  'sms.rs7',
+  'sms.ecereturn',
+  'ngPrint',
+  'naif.base64',
+  'angular-click-outside'
+
+]);

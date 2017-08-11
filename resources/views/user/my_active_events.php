@@ -40,16 +40,14 @@
 										<p>{{ $event->description }}</p> 
 										<p>Tickets <span class="price"><i class="fa fa-gbp" aria-hidden="true"></i>{{ $event->ticket_price }} + <i class="fa fa-gbp" aria-hidden="true"></i><a href="#" data-toggle="tooltip" data-placement="bottom" title="">80.00</a></span> booking fee</p>
 										<div class="event-mf">
-											<i class="fa <?php if($event->guest_gender=='Men Only'){echo 'fa-male'; }elseif($event->guest_gender=='Ladies only'){ echo 'fa-female'; }elseif($event->guest_gender=='Singles only'){echo "fa-user"; } ?>" aria-hidden="true"></i>
+											<i class="fa <?php if($event->guest_gender=='Men Only'){ echo 'fa-male'; }elseif($event->guest_gender=='Ladies only'){ echo 'fa-female'; }elseif($event->guest_gender=='Singles only'){echo "fa-user"; } ?>" aria-hidden="true"></i>
 											<p>{{ $event->guest_gender }}</p>
 										</div>
 									</div>
 									<div class="parties-host">
 										<div class="hosted-by">
 											<div class="img">
-												<div class="heart-dil">
-													<a class="follow-ing" href="#/">Follow</a>
-												</div>
+												
 												<div class="inner">
 													<div class="circle-img"></div>
 													<img src="{{Request::root()}}/assets/front/img/host-pic.png" alt="" />
@@ -67,11 +65,11 @@
 										<div class="hosted-by parties-foot">
 											<div class="img">
 												<div class="inner">
-													<img src="{{Request::root()}}/assets/admin/uploads/charity/{{ $charity[0]->logo }}" alt="" />
+													<img src="{{Request::root()}}/assets/admin/uploads/charity/{{ $event->logo }}" alt="" />
 												</div>
 											</div>
 											<div class="content">
-												<p><strong>{{ $event->charity_cut }}%</strong> of ticket price will go to {{ $charity[0]->title }}</p>
+												<p><strong>{{ $event->charity_cut }}%</strong> of ticket price will go to {{ $event->charity_name }}</p>
 											</div>	
 										</div>
 									</div>

@@ -1,0 +1,94 @@
+<div>
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			
+			Wait Times at Your Service
+		</div>
+	</div>
+	<div class="alert alert-info">
+		Please select estimated wait time for respective age category. Indicative data is populated by system but you are required to review and edit as appropriate.		
+	</div>
+	<div class="row">
+		<div class="col-md-6 text-right">
+				<h5>Age Categories</h5>
+		</div>
+		<div class="col-md-4">
+			<h5>Wait Codes</h5>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6 text-right">
+			Under One year (Between 0 to 12 months) 
+		</div>
+		<div class="col-md-4"> 
+			<select ng-model='vm.fields.ece_wait_times_selected.a0_12' class="form-control">
+				<option selected="" value="" disabled="">Please select from the list</option>
+				<option ng-repeat='waittime in vm.fields.ece_wait_times' value="{{waittime.Code}}">{{waittime.Name}}</option>
+			</select>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6 text-right">
+			One Year (Between 12 to 24 months)
+		</div>
+		<div class="col-md-4">
+			<select ng-model='vm.fields.ece_wait_times_selected.a12_24' class="form-control">
+				<option selected="" value="" disabled="">Please select from the list</option>
+				<option ng-repeat='waittime in vm.fields.ece_wait_times' value="{{waittime.Code}}">{{waittime.Name}}</option>
+			</select>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6 text-right">
+			Two Years  (Between 24 to 36 months)
+		</div>
+		<div class="col-md-4">
+			<select ng-model='vm.fields.ece_wait_times_selected.a24_36' class="form-control">
+				<option selected="" value="" disabled="">Please select from the list</option>
+				<option ng-repeat='waittime in vm.fields.ece_wait_times' value="{{waittime.Code}}">{{waittime.Name}}</option>
+			</select>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6 text-right">
+			Three Years  (Between 36 to 48 months)
+		</div>
+		<div class="col-md-4">
+			<select ng-model='vm.fields.ece_wait_times_selected.a36_48' class="form-control">
+				<option selected="" value="" disabled="">Please select from the list</option>
+				<option ng-repeat='waittime in vm.fields.ece_wait_times' value="{{waittime.Code}}">{{waittime.Name}}</option>
+			</select>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6 text-right">
+			Four Years (Between 48 to 60 months)
+		</div>
+		<div class="col-md-4">
+			<select ng-model='vm.fields.ece_wait_times_selected.a48_60' class="form-control">
+				<option selected="" value="" disabled="">Please select from the list</option>
+				<option ng-repeat='waittime in vm.fields.ece_wait_times' value="{{waittime.Code}}">{{waittime.Name}}</option>
+			</select>
+		</div>
+	</div>
+	<br/>
+	<br/>
+	<div class="alert alert-danger" ng-show='vm.fields.ece_wait_times_selected.a0_12=="NA" && vm.fields.ece_wait_times_selected.a12_24=="NA" && vm.fields.ece_wait_times_selected.a24_36=="NA" && vm.fields.ece_wait_times_selected.a36_48=="NA" && vm.fields.ece_wait_times_selected.a48_60=="NA"'>
+		All wait times can not be set to NA
+	</div>
+	<div class="text-center">
+		<button class="btn btn-success"
+		ng-disabled='!vm.fields.ece_wait_times_selected.a0_12 ||
+		 !vm.fields.ece_wait_times_selected.a12_24 || 
+		 !vm.fields.ece_wait_times_selected.a24_36 ||
+		 !vm.fields.ece_wait_times_selected.a36_48 ||
+		 !vm.fields.ece_wait_times_selected.a48_60 ||
+		 (vm.fields.ece_wait_times_selected.a0_12=="NA" && vm.fields.ece_wait_times_selected.a12_24=="NA" && vm.fields.ece_wait_times_selected.a24_36=="NA" && vm.fields.ece_wait_times_selected.a36_48=="NA" && vm.fields.ece_wait_times_selected.a48_60=="NA")'
+		 ng-click='vm.gotoPage(3,4)'
+		>
+			Continue		
+		</button>
+		<button class="btn btn-warning"  ng-click='vm.gotoPage(3,2, true)'>Back</button>
+		<button ng-hide='vm.is_edit_mode' class="btn btn-danger" ng-click='vm.cancelWizard()'>Cancel</button>
+	</div>
+</div>

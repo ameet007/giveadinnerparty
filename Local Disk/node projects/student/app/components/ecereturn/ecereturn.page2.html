@@ -1,0 +1,48 @@
+<div>
+	<div class="alert alert-info">
+		The data collected in the return provides information about your ECE service that is not allocated elsewhere. The Ministry of Education will provide advance notice of the dates for ECE Return week.	
+	</div>
+		
+	<br/>
+	<br/>
+	<div class="text-center row">
+
+		
+		<div class="text-center">
+			Please enter start date for the return week specified by the Ministry of Education
+		</div>
+		<div class="col-md-offset-4 col-md-4">
+			
+			<!--  -->
+			<div class="date-picker input-group"  ng-class="{ 'is-opened': vm.startOpened == true }">
+			  <span class="input-group-addon linked-clander"
+			   ng-click="vm.openDatePicker($event, 'start')"  
+			   datepicker-popup="{{vm.date_format}}" show-weeks="false" 
+			   ng-model="vm.fields.ecereturn_date" 
+			   datepicker-options="vm.dateOptions"
+			   close-text="Close"><i class="zmdi zmdi-calendar ma-icon"></i></span>
+			  <div class="fg-line" outside-if-not="dp-table" click-outside="vm.formClicked('start')">
+			    <input  date-format-filter="{{vm.date_format}}" type="text" class="form-control" 
+			    ng-model="vm.fields.ecereturn_date"  ng-required="true" 
+			    close-text="Close" placeholder="dd-mm-yyyy" name="ecereturn_date"/>
+			  </div>
+			</div>
+			<div class="pull-left" style="width:100%" ng-if="!vm.fields.ecereturnweekend_date">
+				 <div  class="error-messages">
+				        <div class="message">Ece Return week date is not set. Add ece return week from listview</div>
+				    </div>
+			</div>
+			<!--  -->
+		</div>
+	</div>
+	<br/>
+	<br/>
+	<div class="alert alert-danger" ng-show='vm.dateNotValid(vm.fields.ecereturn_date).invalid'>
+		{{vm.dateNotValid(vm.fields.ecereturn_date).err}}
+	</div>
+	<div class="text-center">
+		<button class="btn btn-success" ng-disabled='!vm.fields.ecereturn_date || vm.dateNotValid(vm.fields.ecereturn_date).invalid' ng-click='vm.gotoPage(2,3)'>Continue</button>
+		<button class="btn btn-warning"  ng-click='vm.gotoPage(2,1, true)'>Back</button>
+		<button ng-hide='vm.is_edit_mode' class="btn btn-danger"  ng-click='vm.cancelWizard()'>Cancel</button>
+	</div>
+</div>

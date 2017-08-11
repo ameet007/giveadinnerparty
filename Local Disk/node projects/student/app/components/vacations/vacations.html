@@ -1,0 +1,139 @@
+<div class="container">
+    <div class="block-header">
+        <h2>Vacation Register</h2>
+    </div>
+
+    <div class="card no-print-padding">
+        <div class="card-header no-print">
+            <h2>View Vacations Data
+                <a class="btn btn-success pull-right" data-ui-sref="main.addVacation" >Add New Vacation</a>
+            </h2>
+
+        </div>
+        <div class="card-body card-padding no-print-padding">
+            <div class="row">
+                <div class="col-sm-5">
+                    <p class="c-black f-500 m-b-20">Child</p>
+
+                    <div class="form-group">
+                        <div class="fg-line">
+                            <div class="select">
+                                <select ng-change chosen data-placeholder="Select a Child..." class="form-control input-group" ng-model="vacations.selectedChild" ng-options="child as ((child.PreferredGiven1Name?child.PreferredGiven1Name:child.OfficialGiven1Name)+' '+child.OfficialFamilyName) for child in vacations.childlist"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5 pull-right">
+                    <p class="c-black f-500 m-b-20">Is Child</p>
+                    
+                    <div class="form-group">
+                        <div class="fg-line">
+                            <div class="select">
+                                <select ng-change chosen data-placeholder="Select a Reason..." class="form-control input-group" ng-model="vacations.selectedReasonCode" ng-options="absencereason as (absencereason.Description ? absencereason.Description : absencereason.Name) for absencereason in vacations.absenceReasons"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <p class="c-black f-500 m-b-20">Start Date</p>
+
+                    <div class="form-group">
+                        <div class="fg-line">
+
+                                <div class="date-picker input-group" ng-class="{ 'is-opened': vacations.startOpened == true }">
+                                    <span class="input-group-addon linked-clander"
+                                            ng-click="vacations.open($event, 'start')"
+                                            datepicker-popup="{{vacations.format}}" show-weeks="false"
+                                            ng-model="vacations.startDate"
+                                            datepicker-options="dateOptions"
+                                            close-text="Close" 
+
+                                    ><i class="zmdi zmdi-calendar ma-icon"></i></span>
+                                    <div class="fg-line" outside-if-not="dp-table" click-outside="vacations.formClicked('start')" ng-class="{ 'fg-toggled': vacations.startOpened == true }">
+                                    <input  type="text" class="form-control"
+                                            date-format-filter="{{vacations.format}}"
+                                          ng-model="vacations.startDate"   ng-required="true" placeholder="dd-mm-yyyy" />
+                                        <!-- <input ng-click="vacations.open($event, 'start')" type="text" class="form-control" datepicker-popup="{{vacations.format}}" show-weeks="false" ng-model="vacations.startDate"  is-open="vacations.startOpened" datepicker-options="dateOptions" ng-required="true" close-text="Close" placeholder="dd-mm-yyyy" /> -->
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5 pull-right">
+                    <p class="c-black f-500 m-b-20">End Date</p>
+
+                    <div class="form-group">
+                        <div class="fg-line">
+
+                            <div class="date-picker input-group" ng-class="{ 'is-opened': vacations.stopOpened == true }">
+                                <span class="input-group-addon linked-clander"
+                                        ng-click="vacations.open($event, 'stop')"
+                                        datepicker-popup="{{vacations.format}}" show-weeks="false"
+                                        ng-model="vacations.stopDate"
+                                         datepicker-options="dateOptions" 
+                                         close-text="Close"
+                                ><i class="zmdi zmdi-calendar ma-icon"></i></span>
+                                <div class="fg-line" outside-if-not="dp-table" click-outside="vacations.formClicked('stop')" ng-class="{ 'fg-toggled': vacations.stopOpened == true }">
+                                 <input  type="text" class="form-control" 
+                                         date-format-filter="{{vacations.format}}"
+                                         ng-model="vacations.stopDate"  ng-required="true" 
+                                         placeholder="dd-mm-yyyy" />
+                                   <!--  <input ng-click="vacations.open($event, 'stop')" type="text" class="form-control" datepicker-popup="{{vacations.format}}" show-weeks="false" ng-model="vacations.stopDate"  is-open="vacations.stopOpened" datepicker-options="dateOptions" ng-required="true" close-text="Close" placeholder="dd-mm-yyyy" /> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="card no-print-padding">
+        <div class="table-responsive">
+            <table ng-table="vacations.tableEdit" class="table table-striped table-vmiddle no-print-padding">
+                <tr ng-repeat="w in $data"  ng-class="{ 'active': w.$edit }" class="no-print-padding">
+                    
+                    <td data-title="'Child Name'" class="no-print-padding">
+                        
+                        <span ng-repeat="kid in vacations.kids" ng-if="kid._id==w.child" >
+                        {{kid.OfficialGiven1Name}} {{kid.OfficialFamilyName}}
+                        </span>
+                    </td>
+
+                    <td data-title="'Start Date'" class="no-print-padding">
+                        <span>{{ w.startDate | date : vacations.format }}</span>
+                    </td>
+
+                    <td data-title="'End Date'" class="no-print-padding">
+                        <span>{{ w.endDate | date : vacations.format }}</span>
+                    </td>
+
+                    <td data-title="'Reason Code'" class="no-print-padding">
+                        <span ng-if="absencereason._id==w.reasonCode"  ng-repeat="absencereason in vacations.absenceReasons">
+                        {{absencereason.Description ? absencereason.Description : absencereason.Name}}
+                        </span>
+                    </td>
+
+                     <td class="" data-title="'Actions'">
+                        
+                        <button type="button" class="btn btn-default"  ng-click="editObject(w);"><i class="zmdi zmdi-edit"></i></button>
+                       <button type="button" class="btn btn-danger" ng-click="deleteRow(w,$index);"><i class="zmdi zmdi-delete"></i>
+                        </button>
+
+                    </td>
+
+                
+                </tr>
+            </table>
+        </div>
+
+        
+    </div>
+</div>
+
+

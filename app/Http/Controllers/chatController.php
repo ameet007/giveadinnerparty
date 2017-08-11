@@ -10,13 +10,13 @@ use App\User;
 use Validator;
 
 class chatController extends Controller
-{
-    
+{    
     public function getInbox(){
         Talk::setAuthUserId(Auth::guard('user')->user()->id);
-        $inboxes = Talk::getInbox();
-        return view('user/inbox')->with([
-            'inboxes'=>$inboxes,
+        $inboxes = Talk::getInbox();	
+        //dd($inboxes);	
+		return view('user/inbox')->with([
+           'inboxes'=>$inboxes,
         ]);
     }
     

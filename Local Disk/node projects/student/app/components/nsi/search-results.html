@@ -1,0 +1,45 @@
+<div class="popover-header">
+    <a href="#" ng-click="cancel()" style="float:left">Cancel</a>
+    <span class="titlebar-title">NSI Search Results</span>
+</div>
+<div class="nsi-results">
+    <div ng-if="isError">
+        <h3 ng-if="error.code!=785">An Error Occurred</h3>
+        <h3 ng-if="error.code==785">NSI Search Results</h3>
+        <h5>Description: {{error.MessageDescription}}</h5>
+        <h5>Code: {{error.MessageCode}}</h5>
+    </div>
+    <h3 ng-if="filteredResults.length === 0">No Records Found</h3>
+    <div ng-if="!isError" ng-repeat="row in filteredResults" class="nsi-result">
+        <h3>Search Result {{$index+1}}</h3>
+        <div class="namesheader">
+            <span class="width14 nsiheader">Name Type</span>
+            <span class="width18 nsiheader">Surname</span>
+            <span class="width18 nsiheader">First Given Name</span>
+            <span class="width18 nsiheader">Second Given Name</span>
+            <span class="width18 nsiheader">Third Given Name</span>
+            <span class="width14 nsiheader">Name/Birthdate Verification</span>
+        </div>
+        <div ng-repeat="name in row.name_list.name">
+            <span class="width14" ng-if="$index == 0"><b>Primary</b></span>
+            <span class="width14" ng-if="$index > 0"><i>Alternative</i></span>
+            <span class="width18" >{{name.surname}}&nbsp;</span>
+            <span class="width18" >{{name.forename1}}&nbsp;</span>
+            <span class="width18" >{{name.forename2}}&nbsp;</span>
+            <span class="width18" >{{name.forename3}}&nbsp;</span>
+            <span class="width14" >{{name.name_dob_verification}}&nbsp;</span>
+        </div>
+        <hr style="float:left;width:100%;"/>
+        <div class="nsirowdata">
+            <label>NSN</label><span ng-bind="row.NSN"></span>
+            <label>Date of Birth  </label><span>{{ row.dob | date:'d/M/yyyy'}}</span>
+            <label>Search Ranking</label><span ng-bind="row.MatchScore"></span>
+            <label>Gender</label><span ng-bind="row.Gender"></span>
+            <label>Date NSN Created</label><span>{{ row.created_date | date:'d/M/yyyy'}}</span>
+            <label>Match Indicator</label><span ng-bind="getMatchIndicatorText(row.MatchIndicator)"></span>
+        </div>
+        <a ng-disabled="row.MatchIndicator!=0" class="btn btn-large btn-info" ng-click="select(row)">Select This Record</a>
+    </div>
+    {{definitMatchFlag}}
+    <a ng-if="enableAdd()" class="btn btn-large btn-success" ng-click="add(matchScore)">Add New NSN</a>
+</div>

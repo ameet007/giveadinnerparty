@@ -15,13 +15,7 @@
         <div class="row clearfix">
             <aside class="col-md-2 left-sidebar">
                 <div class="sidenav-list">
-                    <ul>
-                        <li class='active'><a href='{{Request::root()}}/user/your_hosting'>Host New Event</a></li>
-                        <li class=''><a href='{{Request::root()}}/user/my_active_event'>My Active Events</a></li>
-                        <li class=''><a href='{{Request::root()}}/user/my_ended_event'>My Ended Events</a></li>
-                        <li class=''><a href='#'>Verify Me As A Host</a></li>
-                        <li class=''><a href='{{Request::root()}}/user/invite_friends'>Invite Users</a></li>
-                    </ul>
+                    @include('user.layout.host-sidebar')
                 </div>
             </aside>
             <article class="col-md-10">
@@ -31,12 +25,12 @@
                     </div>
                     <div class="row">
 						@foreach($events as $event)
-						<?php $charity = DB::select( DB::raw("SELECT * FROM charities WHERE id = '$event->charity_id'") ); ?>
+						<?php /* $charity = DB::select( DB::raw("SELECT * FROM charities WHERE id = '$event->charity_id'") ); */?>
                         <div class="col-md-4">
                             <div class="item">
 								<div class="parties-wrap">
 									<div class="parties-head">
-										<h3><a href="#">{{ $event->title }}</a></h3>
+										<h3><a target="_blank" href="{{Request::root()}}/user/event/host/{{$event->id}}">{{ $event->title }}</a></h3>
 										<p>{{ $event->description }}</p> 
 										<p>Tickets <span class="price"><i class="fa fa-gbp" aria-hidden="true"></i>{{ $event->ticket_price }} + <i class="fa fa-gbp" aria-hidden="true"></i><a href="#" data-toggle="tooltip" data-placement="bottom" title="">80.00</a></span> booking fee</p>
 										<div class="event-mf">
@@ -47,9 +41,6 @@
 									<div class="parties-host">
 										<div class="hosted-by">
 											<div class="img">
-												<div class="heart-dil">
-													<a class="follow-ing" href="#/">Follow</a>
-												</div>
 												<div class="inner">
 													<div class="circle-img"></div>
 													<img src="{{Request::root()}}/assets/front/img/host-pic.png" alt="" />
@@ -67,11 +58,11 @@
 										<div class="hosted-by parties-foot">
 											<div class="img">
 												<div class="inner">
-													<img src="{{Request::root()}}/assets/admin/uploads/charity/{{ $charity[0]->logo }}" alt="" />
+													<img src="{{Request::root()}}/assets/admin/uploads/charity/{{ $event->logo }}" alt="" />
 												</div>
 											</div>
 											<div class="content">
-												<p><strong>{{ $event->charity_cut }}%</strong> of ticket price will go to {{ $charity[0]->title }}</p>
+												<p><strong>{{ $event->charity_cut }}%</strong> of ticket price (<i class="fa fa-gbp" aria-hidden="true"></i>{{ ($event->ticket_price*$event->charity_cut)/100 }}) will go to {{ $event->charity_name }}</p>
 											</div>	
 										</div>
 									</div>

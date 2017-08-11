@@ -5,13 +5,7 @@
         <div class="row">
             <aside class="col-md-2 left-sidebar">
                 <div class="sidenav-list">
-                    <ul>
-                        <li class=''><a href='#'>Host New Event</a></li>
-                        <li class=''><a href='#'>My Active Events</a></li>
-                        <li class=''><a href='#'>My Ended Events</a></li>
-                        <li class=''><a href='#'>Verify Me As A Host</a></li>
-                        <li class=''><a href='#'>Invite Users</a></li>
-                    </ul>
+                    @include('user.layout.host-sidebar')
                 </div>
             </aside>
             <div class="col-md-6 col-sm-12">

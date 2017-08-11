@@ -1,0 +1,257 @@
+.formly-container {
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    padding: 20px;
+    top: 20px;
+    -webkit-box-shadow: 0 2px 2px 1px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 2px 1px rgba(0,0,0,0.2);
+    max-width:1000px;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:50px;
+}
+
+.week-col {
+    width: 100px;
+    float: left;
+    margin-left: 1%;
+    margin-right: 1%;
+    position: relative;
+    min-height: 1px;
+}
+
+.week-end-field {
+    clear:both !important
+}
+
+.floatingButtons {
+    position: fixed;
+    z-index: 10;
+    background: white;
+    top: 66px;
+    right: 29px;
+    padding: 2px 10px 10px 10px;
+    border: 1px solid #eee;
+    opacity: 1;
+}
+
+.copyAddressButton {
+    position: absolute !important;
+    top: -50px;
+    left: 140px;
+    background: white;
+}
+
+
+.copySessionTimes {
+    top: 0px;
+    left: 0;
+    background: white;
+    font-size: 10px;
+}
+
+.copySessionTimes > .btn {
+    font-size: 10px !important;
+}
+
+.reenrollButton {
+    position: absolute !important;
+    top: -50px;
+    left: 120px;
+    background: white;
+    font-weight: 900 !important;
+}
+
+.cleanRecord {
+
+}
+
+.dirtyRecord {
+    font-size: 110% !important;
+    font-weight: 900 !important;
+    text-shadow: 1px 1px 0px #797974;
+    border: 1px solid yellow !important;
+}
+
+.clearTwentyHours {
+    position: absolute !important;
+    top: -50px;
+    left: 200px;
+    background: white;
+}
+.clearTimes {
+    position: absolute !important;
+    top: 42px;
+    left: -76px;
+    background: white;
+}
+
+.formly-field {
+    margin-bottom: 0px;
+}
+
+.formly-field > .form-group {
+    margin-bottom:20px;
+}
+
+
+.formlyRepeatRow {
+    position: absolute;
+    left: -18px;
+    border: 1px solid #ccc;
+    padding: 3px;
+    background: #aaa;
+    color: white;
+    font-size: 22px;
+}
+
+.repeatsection {
+    margin-bottom:0 !important;
+}
+
+.addRefSelect {
+    float: left;
+    margin-right: 10px;
+}
+
+.refselect-form-control {
+    width:80% !important;
+}
+
+.error-messages {
+    position: relative;
+}
+
+.error-messages, .message {
+    opacity: 1;
+    transition: .3s linear all;
+}
+
+.message {
+    font-size: .8em;
+    position: absolute;
+    width: 100%;
+    color: #a94442;
+    margin-top: 2px;
+}
+
+.error-messages.ng-enter.ng-enter-active,
+.message.ng-enter.ng-enter-active {
+    opacity: 1;
+    top: 0;
+}
+
+.error-messages.ng-enter,
+.message.ng-enter {
+    opacity: 0;
+    top: -10px;
+}
+
+.error-messages.ng-leave,
+.message.ng-leave {
+    opacity: 1;
+    top: 0;
+}
+
+.error-messages.ng-leave-active,
+.message.ng-leave-active {
+    opacity: 0;
+    top: -10px;
+}
+
+.nav-tabs > li.inactive > a, .nav-tabs > li.inactive > a:hover, .nav-tabs > li.inactive > a:focus {
+     color: #333;
+     border: 1px solid #bbb;
+     border-bottom-color: #bbb;
+     cursor: pointer;
+ }
+
+.nav-tabs > li.inactive > a:hover {
+    color: #111;
+    background-color: #fff;
+    border: 1px solid #bbb;
+    border-bottom-color: #fff;
+    cursor: pointer;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+    border-bottom-color: #ddd;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    border: 1px solid #bbb;
+}
+
+.forms-button-header {
+    position:absolute;
+    width:100%;
+    padding: 0px 10px 5px 10px;
+    border-bottom:1px solid #bbb;
+}
+
+.form-control:not(.fc-alt), .form-control {
+    border-bottom: 1px solid #aaa !important;
+    color:#111 !important;
+}
+
+.customAccordin{
+    position: absolute !important;
+    top: -50px;
+    right: -450px;
+    cursor:pointer;
+   
+}
+
+/*.checkbox.custom-checkbox {
+    position: absolute;
+    left: -7px;
+    top: 0;
+}*/
+
+.checkbox.custom-checkbox {
+    position: relative;
+    left: 7px;
+    top: 0;
+}
+
+ul.pagination {
+    display: none;
+}
+
+.staffdialog .modal-dialog{
+    width:900px;
+}
+.adjustedheight{
+    height:40px;
+    margin-top:40px;
+    float:left;
+}
+
+.hideInputUnderMe input {
+    display: none;
+}    
+.hideLabelUnderMe label {
+    display: none;
+} 
+.hideInputUnderMe input.no-hideme {
+    display: block !important;
+}    
+.hideLabelUnderMe label.no-hideme {
+    display: block !important;
+}    
+.addNewFeeBtn {
+    margin-left: -30px;
+    text-transform: capitalize !important;
+}
+.right-padding-zero{
+    padding-right: 0 !important;
+}
+
+div#notifications .lv-body {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.widthsetter .chosen-container {
+    width: 100% !important;
+}

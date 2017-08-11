@@ -1,0 +1,27 @@
+
+        
+        <form ng-hide="!formsCtrl.showForm" ng-submit="formsCtrl.vm.onSubmit()" name="formsCtrl.vm.form" novalidate>
+            <tabset>
+                <tab ng-repeat="tab in formsCtrl.getTabs(formsCtrl.vm.selectedSchema.tabs)"
+                     heading="{{tab.title}}"
+                     ng-init="formsCtrl.getTabs(formsCtrl.vm.selectedSchema.tabs)[0].showTab = true;"
+                     ng-click="tab.showTab = true;"
+                     ng-hide="!formsCtrl.showTab(tab)"
+                     active="tab.active"
+                     class="{{!tab.active?'inactive':'active'}}  {{formsCtrl.isInvalid(tab)?'has-error':''}}"
+                     disable="tab.disabled">
+                    <div ng-if="tab.form.fields[0].templateOptions.extras.customHTML" ng-controller="CustomCtrl as customCtrl">
+                        <span compile="tab.form.fields[0].templateOptions.extras.customHTML"></span>
+                    </div>
+                   
+                    <formly-form style="padding: 10px;float:left;width:100%;"
+                                 ng-if="tab.showTab == true;"
+                                 model="tab.form.model"
+                                 fields="tab.form.fields"
+                                 form="formsCtrl.vm.form[tab.title]"
+                                 options="tab.form.options">
+
+                    </formly-form>
+                </tab>
+            </tabset>
+        </form>

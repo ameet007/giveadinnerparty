@@ -1,0 +1,24 @@
+<div class="alert alert-success">
+	<p>
+		An ECE Return for {{vm.ecereturn_date_readable}} has been submitted to the Ministry of Education. If you have made any mistakes in your submitted ECE Return, you can resubmit ECE Return by clicking on appropriate option below. 
+	</p>
+</div>
+<br>
+<br>
+<div class="row">
+	<div class="col-md-4 text-center">
+		<button class="btn btn-success" ng-click='vm.finishSubmission()'>
+			Finish
+		</button>
+	</div>
+	<div class="col-md-4 text-center">
+		<a class="btn btn-info" ui-sref='main.ecereturn-history'>
+			View History
+		</a>
+	</div>
+	<div class="col-md-4 text-center">
+		<button class="btn btn-warning" ng-click='vm.editSubmission()'>
+			Edit
+		</button>
+	</div>
+</div>

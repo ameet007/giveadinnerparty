@@ -2,28 +2,19 @@
 @section('content')
 <div class="banner">
     <ul class="bxslider">
+		@foreach($banners as $banner)
         <li>
             <div class="back-overlay"></div>
-            <img class="media-object" src="{{Request::root()}}/assets/front/img/01.jpg" alt="" />
+            <img class="media-object" src="{{Request::root()}}/assets/admin/uploads/banner/{{$banner->image}}" alt="" />
             <div class="bx-caption">
                 <div class="container">
-                    <h2>Give A Dinner Party</h2>
-                    <h4>Get together. Have fun. Give back</h4>
+                    <h2>{{$banner->title}}</h2>
+                    <h4>{{$banner->sub_title}}</h4>
                     <a class="btn2" href="#/">Join Our Community</a>
                 </div>
             </div>
         </li>
-        <li>
-            <div class="back-overlay"></div>
-            <img class="media-object" src="{{Request::root()}}/assets/front/img/01.jpg" alt="" />
-            <div class="bx-caption">
-                <div class="container">
-                    <h2>Give A Dinner Party</h2>
-                    <h4>Get together. Have fun. Give back</h4>
-                    <a class="btn2" href="#/">Join Our Community</a>
-                </div>
-            </div>
-        </li>
+         @endforeach
     </ul>
 </div>
 <section class="wel-section">
@@ -52,182 +43,56 @@
             <span><a href="#">(See All)</a></span>
         </div>
         <div class="owl-carousel owl-theme">
-            <div class="item">
-                <div class="parties-wrap">
-                    <div class="parties-head">
-                        <h3>Summer BBQ With Cocktails</h3>
-                        <p>Vestibulum rutrum quam vitae <br /> Fringilla tincidunt. Suspendisse.</p>
-                        <p>Tickets <span class="price"><i class="fa fa-gbp" aria-hidden="true"></i>850.00 + <i class="fa fa-gbp" aria-hidden="true"></i><a href="#" data-toggle="tooltip" data-placement="bottom" title="Lorem Ipsum, giving information on its origins, as well as a random Lipsum generator.">80.00</a></span> booking fee</p>
-                        <div class="event-mf">
-                            <i class="fa fa-male" aria-hidden="true"></i>
-                            <p>Men only</p>
-                        </div>
-                    </div>
-                    <div class="parties-host">
-                        <div class="hosted-by">
-                            <div class="img">
-                                <div class="heart-dil">
-                                    <a class="follow-ing" href="#/">Follow</a>
-                                </div>
-                                <div class="inner">
-                                    <div class="circle-img"></div>
-                                    <img src="{{Request::root()}}/assets/front/img/host-pic.png" alt="" />
-                                </div>
-                                <div class="rateyo-readonly-widg"></div>
-                            </div>
-                            <div class="content">
-                                <p>Hosted By: <strong>Khairul P.</strong></p>
-                                <p>Aged: <strong>24</strong></p>
-                                <p>Friday 05/05/2017</p>
-                                <p>9.00pm - 12.00am</p>
-                                <p>Bukit Tunku, KL</p>
-                            </div>	
-                        </div>
-                        <div class="hosted-by parties-foot">
-                            <div class="img">
-                                <div class="inner">
-                                    <img src="{{Request::root()}}/assets/front/img/host-logo1.png" alt="" />
-                                </div>
-                            </div>
-                            <div class="content">
-                                <p><strong>100%</strong> of ticket price will go to Action Against Hunger</p>
-                            </div>	
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="parties-wrap">
-                    <div class="parties-head">
-                        <h3>Summer BBQ With Cocktails</h3>
-                        <p>Vestibulum rutrum quam vitae <br />Fringilla tincidunt. Suspendisse.</p>
-                        <p>Tickets <span class="price"><i class="fa fa-gbp" aria-hidden="true"></i>850.00 + <i class="fa fa-gbp" aria-hidden="true"></i><a href="#" data-toggle="tooltip" data-placement="bottom" title="Lorem Ipsum, giving information on its origins, as well as a random Lipsum generator.">80.00</a></span> booking fee</p>
-                        <div class="event-mf">
-                            <i class="fa fa-female" aria-hidden="true"></i>
-                            <p>Ladies only</p>
-                        </div>
-                    </div>
-                    <div class="parties-host">
-                        <div class="hosted-by">
-                            <div class="img">
-                                <div class="heart-dil">
-                                    <a class="follow-ing" href="#/">Follow</a>
-                                </div>
-                                <div class="inner">
-                                    <div class="circle-img"></div>
-                                    <img src="{{Request::root()}}/assets/front/img/host-pic.png" alt="" />
-                                </div>
-                                <div class="rateyo-readonly-widg"></div>
-                            </div>
-                            <div class="content">
-                                <p>Hosted By : <strong>Khairul P.</strong></p>
-                                <p>Aged : <strong>24</strong></p>
-                                <p>Friday 05/05/2017</p>
-                                <p>9.00pm - 12.00am</p>
-                                <p>Bukit Tunku, KL</p>
-                            </div>	
-                        </div>
-                        <div class="hosted-by parties-foot">
-                            <div class="img">
-                                <div class="inner">
-                                    <img src="{{Request::root()}}/assets/front/img/host-logo1.png" alt="" />
-                                </div>
-                            </div>
-                            <div class="content">
-                                <p><strong>100%</strong> of ticket price will go to Action Against Hunger</p>
-                            </div>	
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="parties-wrap">
-                    <div class="parties-head">
-                        <h3>Summer BBQ With Cocktails</h3>
-                        <p>Vestibulum rutrum quam vitae <br /> Fringilla tincidunt. Suspendisse.</p>
-                        <p>Tickets <span class="price"><i class="fa fa-gbp" aria-hidden="true"></i>850.00 + <i class="fa fa-gbp" aria-hidden="true"></i><a href="#" data-toggle="tooltip" data-placement="bottom" title="Lorem Ipsum, giving information on its origins, as well as a random Lipsum generator.">80.00</a></span> booking fee</p>
-                        <div class="event-mf">
-                            <span><img src="{{Request::root()}}/assets/front/img/icon1.png" alt="" /></span>
-                            <p>Singles only</p>
-                        </div>
-                    </div>
-                    <div class="parties-host">
-                        <div class="hosted-by">
-                            <div class="img">
-                                <div class="heart-dil">
-                                    <a class="follow-ing" href="#/">Follow</a>
-                                </div>
-                                <div class="inner">
-                                    <div class="circle-img"></div>
-                                    <img src="{{Request::root()}}/assets/front/img/host-pic.png" alt="" />
-                                </div>
-                                <div class="rateyo-readonly-widg"></div>
-                            </div>
-                            <div class="content">
-                                <p>Hosted By : <strong>Khairul P.</strong></p>
-                                <p>Aged : <strong>24</strong></p>
-                                <p>Friday 05/05/2017</p>
-                                <p>9.00pm - 12.00am</p>
-                                <p>Bukit Tunku, KL</p>
-                            </div>	
-                        </div>
-                        <div class="hosted-by parties-foot">
-                            <div class="img">
-                                <div class="inner">
-                                    <img src="{{Request::root()}}/assets/front/img/host-logo1.png" alt="" />
-                                </div>
-                            </div>
-                            <div class="content">
-                                <p><strong>100%</strong> of ticket price will go to Action Against Hunger</p>
-                            </div>	
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="parties-wrap">
-                    <div class="parties-head">
-                        <h3>Summer BBQ With Cocktails</h3>
-                        <p>Vestibulum rutrum quam vitae <br /> Fringilla tincidunt. Suspendisse.</p>
-                        <p>Tickets <span class="price"><i class="fa fa-gbp" aria-hidden="true"></i>850.00 + <i class="fa fa-gbp" aria-hidden="true"></i><a href="#" data-toggle="tooltip" data-placement="bottom" title="Lorem Ipsum, giving information on its origins, as well as a random Lipsum generator.">80.00</a></span> booking fee</p>
-                        <div class="event-mf">
-                            <span><img src="{{Request::root()}}/assets/front/img/icon2.png" alt="" /></span>
-                            <p>Couples only</p>
-                        </div>
-                    </div>
-                    <div class="parties-host">
-                        <div class="hosted-by">
-                            <div class="img">
-                                <div class="heart-dil">
-                                    <a class="follow-ing" href="#/">Follow</a>
-                                </div>
-                                <div class="inner">
-                                    <div class="circle-img"></div>
-                                    <img src="{{Request::root()}}/assets/front/img/host-pic.png" alt="" />
-                                </div>
-                                <div class="rateyo-readonly-widg"></div>
-                            </div>
-                            <div class="content">
-                                <p>Hosted By : <strong>Khairul P.</strong></p>
-                                <p>Aged : <strong>24</strong></p>
-                                <p>Friday 05/05/2017</p>
-                                <p>9.00pm - 12.00am</p>
-                                <p>Bukit Tunku, KL</p>
-                            </div>	
-                        </div>
-                        <div class="hosted-by parties-foot">
-                            <div class="img">
-                                <div class="inner">
-                                    <img src="{{Request::root()}}/assets/front/img/host-logo1.png" alt="" />
-                                </div>
-                            </div>
-                            <div class="content">
-                                <p><strong>100%</strong> of ticket price will go to Action Against Hunger</p>
-                            </div>	
-                        </div>
-                    </div>
-                </div>
-            </div>
+          @foreach($events as $event)
+		  <?php $charity = DB::select( DB::raw("SELECT * FROM charities WHERE id = '$event->charity_id'") ); ?>
+			<div class="item">
+				<div class="parties-wrap">
+					<div class="parties-head">
+						<h3><a href="#">{{ $event->title }}</a></h3>
+						<p>{{ $event->description }}</p> 
+						<p>Tickets <span class="price"><i class="fa fa-gbp" aria-hidden="true"></i>{{ $event->ticket_price }} + <i class="fa fa-gbp" aria-hidden="true"></i><a href="#" data-toggle="tooltip" data-placement="bottom" title="">80.00</a></span> booking fee</p>
+						<div class="event-mf">
+							<i class="fa <?php if($event->guest_gender=='Men Only'){echo 'fa-male'; }elseif($event->guest_gender=='Ladies only'){ echo 'fa-female'; }elseif($event->guest_gender=='Singles only'){echo "fa-user"; } ?>" aria-hidden="true"></i>
+							<p>{{ $event->guest_gender }}</p>
+						</div>
+					</div>
+					<div class="parties-host">
+						<div class="hosted-by">
+							<div class="img">
+								<div class="heart-dil">
+									<a class="follow-ing" href="#/">Follow</a>
+								</div>
+								<div class="inner">
+									<div class="circle-img"></div>
+									<img src="{{Request::root()}}/assets/front/img/host-pic.png" alt="" />
+								</div>
+								<div class="align-center">
+									<div class="rateYo1"></div>
+									<span class="re-view">(17)</span>
+								</div>
+							</div>
+							<div class="content">
+								<p>Hosted By: <strong>{{ $event->name.' '.$event->last_name }}</strong></p>
+								<p>Aged: <strong>{{ $event->min_age }} - {{$event->max_age }}</strong></p>
+								<p>Friday {{ $event->event_date }}</p>
+								<p>{{ $event->start_time }} - {{$event->end_time }}</p>
+								<p>{{ $event->street }}, {{ $event->city }}, {{ $event->county }}</p>
+							</div>	
+						</div>
+						<div class="hosted-by parties-foot">
+							<div class="img">
+								<div class="inner">
+									<img src="{{Request::root()}}/assets/admin/uploads/charity/{{ $charity[0]->logo }}" alt="" />
+								</div>
+							</div>
+							<div class="content">
+								<p><strong>{{ $event->charity_cut }}%</strong> of ticket price will go to {{ $charity[0]->title }}</p>
+							</div>	
+						</div>
+					</div>
+				</div>
+			</div>
+		@endforeach	           
         </div>
     </div>
 </section>
@@ -342,46 +207,15 @@
         })
     });
 
-    $(function () {
-        var rating = 1.5;
-        $(".counter").text(rating);
-        $("#rateYo1").on("rateyo.init", function () {
-            console.log("rateyo.init");
-        });
-        $("#rateYo1").rateYo({
-            rating: rating,
-            numStars: 2,
-            precision: 2,
-            starWidth: "16px",
-            spacing: "5px",
-            rtl: true,
-            multiColor: {
-                startColor: "#fff",
-                endColor: "#ffffff"
-            },
-            onInit: function () {
-                console.log("On Init");
-            },
-            onSet: function () {
-                console.log("On Set");
-            }
-        }).on("rateyo.set", function () {
-            console.log("rateyo.set");
-        })
-                .on("rateyo.change", function () {
-                    console.log("rateyo.change");
-                });
-        $(".rateyo").rateYo();
-        $(".rateyo-readonly-widg").rateYo({
-            rating: rating,
-            numStars: 5,
-            precision: 2,
-            minValue: 1,
-            maxValue: 5
-        }).on("rateyo.change", function (e, data) {
-            console.log(data.rating);
-        });
-    });
+   $(function () {
+		$(".rateYo1").rateYo({
+			starWidth: "11px",
+			normalFill: "#484848",
+			ratedFill: "#fff"
+		});
+	});
+
+	
     function showLogin() {
         $('#myModal').modal('show');
         $('.signup').show();

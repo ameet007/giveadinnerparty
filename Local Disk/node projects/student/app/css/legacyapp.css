@@ -1,0 +1,114 @@
+.printable {
+    display:none;
+}
+
+.nsipopover > .modal-dialog {
+    height: 90%;
+    width: 90%;
+    overflow:hidden;
+}
+
+.nsipopover > .modal-dialog > .modal-content {
+    height:100%;
+    border-radius:0px;
+}
+.has-error > a, .has-error {
+    color: #f44336 !important;
+}
+.popover-header {
+    width: 100%;
+    text-align: center;
+    background: #ddd;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 13px;
+    border-radius: 0px;
+}
+
+.titlebar-title {
+    color:black;
+    font-size:13px;
+    font-weight:bold;
+}
+
+.nsi-results {
+    margin: 10px;
+    overflow: scroll;
+    height: 100%;
+    padding-bottom: 80px;
+}
+
+.nsi-result {
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    padding: 0px 10px 10px 10px;
+    margin-bottom: 15px;
+}
+.nsiheader {
+    font-weight:bolder;
+}
+
+.namesheader {
+    border-bottom:1px solid #aaa;
+    float: left;
+    width: 100%;
+}
+
+.width20 {
+    width: 20%;
+    display: block;
+    float: left;
+}
+
+.width15 {
+    width: 15%;
+    display: block;
+    float: left;
+}
+
+.width10 {
+    width: 10%;
+    display: block;
+    float: left;
+}
+
+.width18 {
+    width: 18%;
+    display: block;
+    float: left;
+}
+
+.width14 {
+    width: 14%;
+    display: block;
+    float: left;
+}
+
+.nsirowdata span {
+    margin-right: 20px;
+    background: #FFEB00;
+    padding: 3px;
+    margin-left: 3px;
+}
+
+.form-inline .form-group {
+    margin-left:2px !important;
+    margin-right:2px !important;
+}
+
+.edit-header {
+    margin-top:10px !important;
+}
+
+.roster-header {
+    min-width:130px;
+}
+th.roster-header.educator-header {
+    min-width: 150px;
+}
+
+.height500 {
+    height:500px;
+}

@@ -10,24 +10,243 @@
     {{Session::get('error')}}
 </div>
 @endif
-<div class="middle-content account-section your-hosting">
+<section class="middle-content account-section my-events pending-req">
     <div class="container">
         <div class="row clearfix">
             <aside class="col-md-2 left-sidebar">
                 <div class="sidenav-list">
-                    <ul>
-                        <li class=''><a href='{{Request::root()}}/user/your_hosting'>Host New Event</a></li>
-                        <li class='active'><a href='{{Request::root()}}/user/my_active_event'>My Active Events</a></li>
-                        <li class=''><a href='{{Request::root()}}/user/my_ended_event'>My Ended Events</a></li>
-                        <li class=''><a href='#'>Verify Me As A Host</a></li>
-                        <li class=''><a href='{{Request::root()}}/user/invite_friends'>Invite Users</a></li>
-                    </ul>
+                    @include('user.layout.host-sidebar')
                 </div>
             </aside>
-            <article class="col-md-10">
-                <div class="dinner-parties">
+			
+			<div class="col-md-10">
+				<div class="dinner-parties">
+					<div class="main-heading">
+						<h2>Awaiting Approval Decision</h2>
+					</div>
+					<div class="col-xs-12">
+						<h4 class="mr20">Friday 23rd August <br/>Summer BBQ With Cocktails</h4>
+						<div class="owl-carousel owl-theme">
+							<div class="item">
+								<div class="parties-wrap">
+									<div class="parties-head">
+										<div class="event-mf">
+											<i class="fa fa-male" aria-hidden="true"></i>
+											<p>Men only</p>
+										</div>
+									</div>
+									<div class="parties-host">
+										<div class="hosted-by">
+											<div class="content">
+												<strong>Khairul P,</strong>
+												<span>Aged: <strong>24</strong></>
+												<p>Bukit Tunku, KL</p>
+												<div class="img">
+													<div class="inner">
+														<div class="circle-img"></div>
+														<img src="{{Request::root()}}/assets/front/img/host-pic.png" alt="" />
+													</div>
+													<div class="rateYo3"></div><span class="re-view">(17)</span>
+												</div>
+												<p><strong>Number of tickets requested:</strong> 2</p>
+												<p><strong>Dietary (or other) restrictions:</strong>  Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+												<div class="tow-btn">
+													<button class="btn2 accep-t">Accept</button>
+													<button class="grey-btn rejec-t">Reject</button>
+													<button data-toggle="modal" data-target="#myModal" class="btn2">Message</button>
+												</div>
+											</div>	
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="item">
+								<div class="parties-wrap">
+									<div class="parties-head">
+										<div class="event-mf">
+											<i class="fa fa-male" aria-hidden="true"></i>
+											<p>Men only</p>
+										</div>
+									</div>
+									<div class="parties-host">
+										<div class="hosted-by">
+											<div class="content">
+												<strong>Khairul P,</strong>
+												<span>Aged: <strong>24</strong></>
+												<p>Bukit Tunku, KL</p>
+												<div class="img">
+													<div class="inner">
+														<div class="circle-img"></div>
+														<img src="{{Request::root()}}/assets/front/img/host-pic.png" alt="" />
+													</div>
+													<div class="rateYo3"></div><span class="re-view">(17)</span>
+												</div>
+												<p><strong>Number of tickets requested:</strong> 2</p>
+												<p><strong>Dietary (or other) restrictions:</strong> Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+												<div class="tow-btn">
+													<button class="btn2 accep-t">Accept</button>
+													<button class="grey-btn rejec-t">Reject</button>
+													<button data-toggle="modal" data-target="#myModal" class="btn2">Message</button>
+												</div>
+											</div>	
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="item">
+								<div class="parties-wrap">
+									<div class="parties-head">
+										<div class="event-mf">
+											<i class="fa fa-male" aria-hidden="true"></i>
+											<p>Men only</p>
+										</div>
+									</div>
+									<div class="parties-host">
+										<div class="hosted-by">
+											<div class="content">
+												<strong>Khairul P,</strong>
+												<span>Aged: <strong>24</strong></>
+												<p>Bukit Tunku, KL</p>
+												<div class="img">
+													<div class="inner">
+														<div class="circle-img"></div>
+														<img src="{{Request::root()}}/assets/front/img/host-pic.png" alt="" />
+													</div>
+													<div class="rateYo3"></div><span class="re-view">(17)</span>
+												</div>
+												<p><strong>Number of tickets requested:</strong> 2</p>
+												<p><strong>Dietary (or other) restrictions:</strong> Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+												<div class="tow-btn">
+													<button class="btn2 accep-t">Accept</button>
+													<button class="grey-btn rejec-t">Reject</button>
+													<button data-toggle="modal" data-target="#myModal" class="btn2">Message</button>
+												</div>
+											</div>	
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 ">
+						<h4 class="mr20">Friday 22nd August <br/>Summer BBQ With Cocktails</h4>
+						<div class="owl-carousel owl-theme">
+							<div class="item">
+								<div class="parties-wrap">
+									<div class="parties-head">
+										<div class="event-mf">
+											<i class="fa fa-male" aria-hidden="true"></i>
+											<p>Men only</p>
+										</div>
+									</div>
+									<div class="parties-host">
+										<div class="hosted-by">
+											<div class="content">
+												<strong>Khairul P,</strong>
+												<span>Aged: <strong>24</strong></>
+												<p>Bukit Tunku, KL</p>
+												<div class="img">
+													<div class="inner">
+														<div class="circle-img"></div>
+														<img src="{{Request::root()}}/assets/front/img/host-pic.png" alt="" />
+													</div>
+													<div class="rateYo3"></div><span class="re-view">(17)</span>
+												</div>
+												<p><strong>Number of tickets requested:</strong> 2</p>
+												<p><strong>Dietary (or other) restrictions:</strong> Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+												<div class="tow-btn">
+													<button class="btn2 accep-t">Accept</button>
+													<button class="grey-btn rejec-t">Reject</button>
+													<button data-toggle="modal" data-target="#myModal" class="btn2">Message</button>
+												</div>
+											</div>	
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="item">
+								<div class="parties-wrap">
+									<div class="parties-head">
+										<div class="event-mf">
+											<i class="fa fa-male" aria-hidden="true"></i>
+											<p>Men only</p>
+										</div>
+									</div>
+									<div class="parties-host">
+										<div class="hosted-by">
+											<div class="content">
+												<strong>Khairul P,</strong>
+												<span>Aged: <strong>24</strong></>
+												<p>Bukit Tunku, KL</p>
+												<div class="img">
+													<div class="inner">
+														<div class="circle-img"></div>
+														<img src="{{Request::root()}}/assets/front/img/host-pic.png" alt="" />
+													</div>
+													<div class="rateYo3"></div><span class="re-view">(17)</span>
+												</div>
+												<p><strong>Number of tickets requested:</strong> 2</p>
+												<p><strong>Dietary (or other) restrictions:</strong> Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+												<div class="tow-btn">
+													<button class="btn2 accep-t">Accept</button>
+													<button class="grey-btn rejec-t">Reject</button>
+													<button data-toggle="modal" data-target="#myModal" class="btn2">Message</button>
+												</div>
+											</div>	
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="item">
+								<div class="parties-wrap">
+									<div class="parties-head">
+										<div class="event-mf">
+											<i class="fa fa-male" aria-hidden="true"></i>
+											<p>Men only</p>
+										</div>
+									</div>
+									<div class="parties-host">
+										<div class="hosted-by">
+											<div class="content">
+												<strong>Khairul P,</strong>
+												<span>Aged: <strong>24</strong></>
+												<p>Bukit Tunku, KL</p>
+												<div class="img">
+													<div class="inner">
+														<div class="circle-img"></div>
+														<img src="{{Request::root()}}/assets/front/img/host-pic.png" alt="" />
+													</div>
+													<div class="rateYo3"></div><span class="re-view">(17)</span>
+												</div>
+												<p><strong>Number of tickets requested:</strong> 2</p>
+												<p><strong>Dietary (or other) restrictions:</strong> Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+												<div class="tow-btn">
+													<button class="btn2 accep-t">Accept</button>
+													<button class="grey-btn rejec-t">Reject</button>
+													<button data-toggle="modal" data-target="#myModal" class="btn2">Message</button>
+												</div>
+											</div>	
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+            
+        </div>
+    </div>
+</section>
+
+
+
+<div class="dinner-parties">
+	<div class="container">
+		<div class="col-md-10 col-md-offset-2">
                     <div class="main-heading">
-                        <h2>My Active Events</h2>
+                        <h2>Your Active Events</h2>
                     </div>
                     <div class="row">
 						@foreach($events as $event)
@@ -36,7 +255,7 @@
                             <div class="item">
 								<div class="parties-wrap">
 									<div class="parties-head">
-										<h3><a href="#">{{ $event->title }}</a></h3>
+										<h3><a href="{{Request::root()}}/user/event/host/{{$event->id}}">{{ $event->title }}</a></h3>
 										<p>{{ $event->description }}</p> 
 										<p>Tickets <span class="price"><i class="fa fa-gbp" aria-hidden="true"></i>{{ $event->ticket_price }} + <i class="fa fa-gbp" aria-hidden="true"></i><a href="#" data-toggle="tooltip" data-placement="bottom" title="">80.00</a></span> booking fee</p>
 										<div class="event-mf">
@@ -47,14 +266,15 @@
 									<div class="parties-host">
 										<div class="hosted-by">
 											<div class="img">
-												<div class="heart-dil">
-													<a class="follow-ing" href="#/">Follow</a>
-												</div>
+
 												<div class="inner">
 													<div class="circle-img"></div>
 													<img src="{{Request::root()}}/assets/front/img/host-pic.png" alt="" />
 												</div>
-												<div class="rateyo-readonly-widg"></div>
+												<div class="align-center">
+													<div class="rateYo1"></div>
+													<span class="re-view">(17)</span>
+												</div>
 											</div>
 											<div class="content">
 												<p>Hosted By: <strong>{{ $event->name.' '.$event->last_name }}</strong></p>
@@ -72,7 +292,7 @@
 												</div>
 											</div>
 											<div class="content">
-												<p><strong>{{ $event->charity_cut }}%</strong> of ticket price will go to {{ $charity[0]->title }}</p>
+												<p><strong>{{ $event->charity_cut }}%</strong> of ticket price (<i class="fa fa-gbp" aria-hidden="true"></i>{{ ($event->ticket_price*$event->charity_cut)/100 }}) will go to {{ $charity[0]->title }}</p>
 											</div>	
 										</div>
 									</div>
@@ -83,13 +303,19 @@
                        
                     </div>
                 </div>
-            </article>
-        </div>
-    </div>
-</div>
+            </div>
+			</div>
+
+
 <script>
     $("#tabs").tabs();
-
+    $(function () {
+		$(".rateYo1").rateYo({
+			starWidth: "11px",
+			normalFill: "#484848",
+			ratedFill: "#fff"
+		});
+	});
     $('.search-panel .dropdown-menu').find('a').click(function (e) {
         e.preventDefault();
         var param = $(this).attr("href").replace("#", "");

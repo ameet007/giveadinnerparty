@@ -1,0 +1,1137 @@
+<style type="text/css">
+	.hours-body{
+		padding: 0 15px;
+	}
+	.list_roles{
+		line-height: 40px;
+		padding: 15px; 
+	}
+	.panel-body .row:nth-child(odd){
+		background-color: #FFF;
+	}
+.col-md-1.week-hdng-box {
+    width: 14%;
+    border: none;
+    text-align: center;
+}
+.col-md-1.week-day-box {
+    width: 14%;
+    border: none;
+}
+.week-day-box .row.weekday_hours {
+    padding: 10px;
+    margin: 0 0 15px 0;
+    border: 1px solid #ccc;
+    position: relative;
+}
+.week-day-box .row.weekday_hours .col-md-12 {
+    padding: 0;
+    position: inherit;
+    font-size: 11px;
+}
+
+.week-day-box .row.del-btn {
+    position: absolute;
+    top: -10px;
+    right: 6px;
+    padding: 0;
+}
+.week-day-box button.btn.btn-xs.btn-danger {
+    
+    padding: 1px 3px;
+    font-size: 10px;
+    border-radius: 20px;
+}
+.week-day-box .row.weekday_hours .col-md-12 select {
+    padding: 0;
+    line-height: normal;
+    float: left;
+    width: 100%;
+    margin: 3px 0 5px 0;
+    background: #fff;
+    border: 1px solid #ccc;
+    font-size: 13px;
+}
+.week-day-box .row.weekday_hours .col-md-12 {
+    padding: 0;
+    position: inherit;
+    border-bottom: 1px solid #ccc;
+    padding: 0 0 2px 0;
+    margin-bottom: 6px;
+}
+.week-day-box .row.weekday_hours .col-md-12.no-bordr-custm{
+    border-bottom:none;
+    padding: 0;
+    margin-bottom: 0;
+}
+
+.week-day-box .row.weekday_hours .col-md-12.no-bordr-custm input {
+    border: none;
+    float: left;
+    width: 100%;
+    cursor: not-allowed;
+    font-size: 12px;
+    padding: 2px 2px;
+}
+.row.add-btn{ padding-top: 0; }
+.row.add-btn button.btn {
+    border-radius: 25px;
+}
+</style>
+<div>
+	<div class="alert alert-info">
+		<p>
+			These initials are used for ECE Return to help you enter correct details about your staff. Information submitted to Ministry of Education about your staff does not include name, initials or personal identifies
+		</p>
+	</div>
+
+	<br>
+	<div class="row">
+		<div class="col-md-12">
+			<label>{{vm.subpage_staff.LastName}} {{vm.subpage_staff.FirstName}}</label>
+		</div>
+		<div class="col-md-4">
+		<select ng-model='vm.subpage_staff.Gender' ng-options="gender.value as (gender.label) for gender in vm.genderData" class="form-control" ng-disabled="true">
+			</select>
+			<!-- <select ng-model='vm.subpage_staff.Gender' class="form-control" ng-disabled="true">
+				<option value="M-Male">M-Male</option>
+				<option value="F-Female">F-Female</option>
+				<option value="U-Unknown">U-Unknown</option>
+			</select> -->
+		</div>
+	</div>
+
+	
+	<br>
+	<h4>
+		<label  class="label label-warning">	
+			Staff Roles at my Service 
+		</label>
+	</h4>
+	<!--  -->
+	<br>
+	<div ng-repeat='(key, value) in vm.subpage_staff.StaffRoleCode'>
+		<div class="row" ng-if="key=='EducationalRoleCode' || key=='EducationalRoleCode2'">
+			<div class="col-md-12">
+			<div class="checkbox">
+				<label ng-if="key=='EducationalRoleCode'">
+			    <input type="checkbox"  ng-model="vm.subpage_staff.StaffRoleCode[key].is_valid"
+			    ng-change='vm.activateRoleIfNeeded("EducationalRoleCode",vm.subpage_staff.StaffRoleCode[key].is_valid)'
+			    >
+			    <i class="input-helper"></i>
+					<b>{{vm.educatorText}}</b>
+				</label>
+				<label  ng-if="key=='EducationalRoleCode2'">
+			    <input type="checkbox" ng-model="vm.subpage_staff.StaffRoleCode[key].is_valid"
+			    ng-change='vm.activateRoleIfNeeded("EducationalRoleCode2",vm.subpage_staff.StaffRoleCode[key].is_valid)'
+			    >
+			    <i class="input-helper"></i>
+					<b>{{vm.educatorText1}}</b>
+				</label>
+				<label class="col-md-12" ng-if="key=='EducationalRoleCode' && vm.subpage_staff.extra_details.StaffRoleCode[key]._id">
+			    	{{vm.personText}}
+				</label>
+				<label class="col-md-12" ng-if="key=='EducationalRoleCode2' && vm.subpage_staff.extra_details.StaffRoleCode[key]._id">
+			    	{{vm.personText1}}
+				</label>
+				
+			</div>
+			</div>
+			<!-- <div class="col-md-3">
+				<label>
+					{{vm.getReadableRoleCode(key)}}
+				</label>
+			</div>
+			<div class="col-md-3">
+				<select ng-model='vm.subpage_staff.extra_details.StaffRoleCode[key]._id' class="form-control" ng-change='vm.updateStaffRoleObj(key)'>
+					<option selected="" value="">Please select from the list</option>
+					<option ng-repeat='role in vm.getRolesListByKey(key)' value="{{role._id}}">{{role.Label}}</option>
+				</select>					
+			</div>
+			<div class="col-md-4">
+				<label>
+					<input type="radio" value="true" name="{{key}}" ng-model='vm.subpage_staff.StaffRoleCode[key].is_valid'>
+					Yes
+				</label>
+				<label>
+					<input type="radio" value="false" name="{{key}}" ng-model='vm.subpage_staff.StaffRoleCode[key].is_valid'>
+					Did not work in this role
+				</label>
+			</div> -->
+		</div>
+
+		<!-- row -->
+	
+	<!-- <div class="row" ng-hide='vm.ifRolesContain(["SNRMS","SUPS","SPEC"])'> -->
+	<div class="row" ng-if="(key=='EducationalRoleCode') && vm.subpage_staff.StaffRoleCode[key].is_valid" ng-show='vm.subpage_staff.StaffRoleCode.EducationalRoleCode &&  vm.subpage_staff.StaffRoleCode.EducationalRoleCode.Code=="PE" '>
+	<br/>
+		<div class="col-md-12">
+			<label>
+				Highest Playcentre Qualification Code
+	    </label>
+		</div>
+		<div class="col-md-12">
+			<select class="form-control" ng-model='vm.subpage_staff.extra_details.HighestPlaycentreQualificationCode'
+			ng-options="q._id as (q.Code +' '+ q.Label) for q in vm.fields.playcentre_qualification_codes "
+			>
+			</select>
+			<!-- <select class="form-control" ng-model='vm.subpage_staff.extra_details.HighestPlaycentreQualificationCode'>
+				<option value=""> Please select from the list</option>
+				<option ng-repeat='q in vm.fields.playcentre_qualification_codes' value="{{q._id}}"> {{q.Code}} {{q.Label}}</option>
+			</select> -->
+			<p class="help-block"></p>
+		</div>
+	</div>
+	<!-- row ends -->
+		<!-- row -->
+	
+	<!-- <div class="row" ng-hide='vm.ifRolesContain(["SNRMS","SUPS","SPEC"])'> -->
+	<!-- <div class="row form-group" ng-show='vm.checkRoleEligibility(vm.subpage_staff.StaffRoleCode.EducationalRoleCode, ["ECET","HBC","HBE"]) || vm.checkRoleEligibility(vm.subpage_staff.StaffRoleCode.EducationalRoleCode2, ["ECET","HBC","HBE"]) ' ng-class='{"has-error": 
+  	(
+  		vm.checkRoleEligibility(vm.subpage_staff.StaffRoleCode.EducationalRoleCode, ["ECET","HBC","HBE"]) 
+				|| 	
+			vm.checkRoleEligibility(vm.subpage_staff.StaffRoleCode.EducationalRoleCode2, ["ECET","HBC","HBE"]) 
+		)
+		&&
+		!vm.subpage_staff.extra_details.HighestQualificationCode
+	}'
+	> -->
+	<div ng-if="(key=='EducationalRoleCode')  && vm.subpage_staff.StaffRoleCode[key].is_valid" class="row form-group" >
+	<br/>
+		<div class="col-md-12">
+			<label>
+				Highest ECE Qualification Code
+	    </label>
+
+		</div>
+		<div class="col-md-12">
+			<select class="form-control" ng-model='vm.subpage_staff.extra_details.HighestQualificationCode'
+			ng-options="q._id as (q.Code +' '+ q.Label) for q in vm.fields.educator_qualification_codes "
+			>
+			</select>
+			<!-- <select class="form-control" ng-model='vm.subpage_staff.extra_details.HighestQualificationCode'>
+				<option value=""> Please select from the list</option>
+				<option ng-repeat='q in vm.fields.educator_qualification_codes' value="{{q._id}}">{{q.Code}} {{q.Label}}</option>
+			</select> -->
+			<p class="help-block"></p>
+		</div>
+	</div>
+
+	<div ng-if="(key=='EducationalRoleCode2')  && vm.subpage_staff.StaffRoleCode[key].is_valid" class="row form-group" >
+	<br/>
+		<div class="col-md-12">
+			<label>
+				Highest ECE Qualification Code
+	    </label>
+		</div>
+		<div class="col-md-12">
+			<select class="form-control" ng-model='vm.subpage_staff.extra_details.HighestQualificationCode1'
+			ng-options="q._id as (q.Code +' '+ q.Label) for q in vm.fields.educator_qualification_codes "
+			></select>
+			<!-- <select class="form-control" ng-model='vm.subpage_staff.extra_details.HighestQualificationCode1'>
+				<option value=""> Please select from the list</option>
+				<option ng-repeat='q in vm.fields.educator_qualification_codes' value="{{q._id}}">{{q.Code}} {{q.Label}}</option>
+			</select> -->
+			<p class="help-block"></p>
+		</div>
+	</div>
+	<!-- row ends -->
+
+
+	
+		<!-- per role isPaid, isRegister etc -->
+		<!-- row -->
+		<!-- <br/> -->
+   <div class="row form-group" ng-if="(key=='EducationalRoleCode' || key=='EducationalRoleCode2') && vm.subpage_staff.StaffRoleCode[key].is_valid ">
+
+		<div class="col-md-12">
+			<div class="col-md-6">
+						<!-- row -->
+						<div class="row" ng-if="(key=='EducationalRoleCode' || key=='EducationalRoleCode2' ) && vm.subpage_staff.StaffRoleCode[key]">
+								
+
+						<div class="row" ng-class='{"has-error": vm.subpage_staff.StaffRoleCode[key] && !vm.subpage_staff.StaffRoleCode[key].IsRegistered}'> 
+							<div class="col-md-12">
+								<label>
+									{{vm.registeredText}}
+						       </label>
+							</div>
+							<div class="col-md-6">
+								<label>
+									<input type="radio" value="true" ng-model='vm.subpage_staff.StaffRoleCode[key].IsRegistered'>
+									Yes
+								</label>
+								<br>
+								<label>
+									<input type="radio" value="false" ng-model='vm.subpage_staff.StaffRoleCode[key].IsRegistered'>
+									No
+								</label>
+								<p class="help-block"></p>
+							</div>
+						</div>
+						
+						</div>
+						<!-- row ends -->
+
+						<!-- <div class="col-md-6"> -->
+			
+
+						<!-- row -->
+						<!-- <div class="row" 
+						ng-hide='vm.facility_details.CenterType=="Home Based" && vm.subpage_staff.StaffRoleCode.EducationalRoleCode && vm.ifRolesContain(["HBE"])'> -->
+						<div class="row">
+						<div class="row" ng-if=' vm.facility_details.CenterType=="Home Based" && vm.subpage_staff.StaffRoleCode[key] && vm.subpage_staff.StaffRoleCode[key].Code!="HBE"' ng-class='{"has-error": vm.subpage_staff.StaffRoleCode[key] && !vm.subpage_staff.StaffRoleCode[key].IsPaid}'>
+							<div class="col-md-12">
+								<label>
+									Is this person paid for this role at your service? 
+						    </label>
+							</div>
+							<div class="col-md-6">
+								<label>
+									<input type="radio" value="true" ng-model='vm.subpage_staff.StaffRoleCode[key].IsPaid'>
+									Yes
+								</label>
+								<br>
+								<label>
+									<input type="radio" value="false" ng-model='vm.subpage_staff.StaffRoleCode[key].IsPaid'>
+									No
+								</label>
+								<p class="help-block"></p>
+							</div>
+						</div>
+
+						<div class="row" ng-if='vm.facility_details.CenterType!="Home Based" && vm.subpage_staff.StaffRoleCode[key]' ng-class='{"has-error": vm.subpage_staff.StaffRoleCode[key] && !vm.subpage_staff.StaffRoleCode[key].IsPaid}'>
+							<div class="col-md-12">
+								<label>
+									Is this person paid for this role at your service? 
+						    </label>
+							</div>
+							<div class="col-md-6">
+								<label>
+									<input type="radio" value="true" ng-model='vm.subpage_staff.StaffRoleCode[key].IsPaid'>
+									Yes
+								</label>
+								<br>
+								<label>
+									<input type="radio" value="false" ng-model='vm.subpage_staff.StaffRoleCode[key].IsPaid'>
+									No
+								</label>
+								<p class="help-block"></p>
+							</div>
+						</div>
+						</div>
+						<!-- row ends -->
+
+						<!-- </div>			
+						<div class="col-md-6"> -->
+
+						<!-- row -->
+						<div class="row">
+						<div class="row" ng-if='vm.subpage_staff.StaffRoleCode[key]' ng-class='{"has-error": vm.subpage_staff.StaffRoleCode[key] && !vm.subpage_staff.StaffRoleCode[key].IsPermanent}'>
+							<div class="col-md-12">
+								<label>
+									Is this person permanently appointed in this role? 
+						    </label>
+							</div>
+							<div class="col-md-6">
+								<label>
+									<input type="radio" value="true" ng-model='vm.subpage_staff.StaffRoleCode[key].IsPermanent'>
+									Yes
+								</label>
+								<br>
+								<label>
+									<input type="radio" value="false" ng-model='vm.subpage_staff.StaffRoleCode[key].IsPermanent'>
+									No
+								</label>
+								<p class="help-block"></p>
+							</div>
+						</div>
+						</div>
+						<!-- row ends -->
+
+						<!-- </div>			
+						<div class="col-md-6"> -->
+
+						<!-- row -->
+						<div class="row">
+						<div class="row" ng-if='vm.subpage_staff.StaffRoleCode[key]' ng-class='{"has-error": vm.subpage_staff.StaffRoleCode[key] && !vm.subpage_staff.StaffRoleCode[key].IsFullTime}'>
+							<div class="col-md-12">
+								<label>
+									Is this person full time in this role?
+						    </label>
+							</div>
+							<div class="col-md-12">
+								<label>
+									<input type="radio" value="true" ng-model='vm.subpage_staff.StaffRoleCode[key].IsFullTime'>
+									Yes
+								</label>
+								<br>
+								<label>
+									<input type="radio" value="false" ng-model='vm.subpage_staff.StaffRoleCode[key].IsFullTime'>
+									No
+								</label>
+								<p class="help-block">
+									(A person in this role working 25 hours per week or more is considered full-time.)
+								</p>
+							</div>
+						</div>
+						</div>
+						<!-- row ends -->
+
+
+
+			</div>
+			<div class="col-md-6" ng-if="key=='EducationalRoleCode'">
+						<!-- row -->
+						<div class="col-md-12"  ng-hide='!vm.subpage_staff.StaffRoleCode.EducationalRoleCode || vm.subpage_staff.StaffRoleCode.EducationalRoleCode.Code=="HBE" '>
+							<div class="col-md-12"
+								ng-class='{"has-error": !vm.validateStartLeftDates("started") }'
+							>
+
+								<label>
+									Started
+						    </label>
+							</div>
+							<div class="col-md-12">
+								<!--  -->
+								<div class="date-picker input-group"  ng-class="{ 'is-opened': vm.startedOpened == true,'has-error': !vm.validateStartLeftDates('started') }"
+								
+								>
+								  <span class="input-group-addon linked-clander"
+								   ng-click=" vm.openDatePicker($event, 'started')"  
+								   datepicker-popup="{{vm.date_format}}" show-weeks="false" 
+								   ng-model="vm.subpage_staff.extra_details.started" 
+								   datepicker-options="vm.dateOptions"
+								   close-text="Close"><i class="zmdi zmdi-calendar ma-icon"></i></span>
+								  <div class="fg-line" outside-if-not="dp-table" click-outside="vm.formClicked('started')">
+								    <input  date-format-filter="{{vm.date_format}}" type="text" class="form-control" 
+								    ng-model="vm.subpage_staff.extra_details.started" close-text="Close" placeholder="dd-mm-yyyy"/>
+								  </div>
+								</div>
+								<!--  -->
+								<br>
+								<p class="help-block"></p>
+								<div class="has-error " style="margin-left:30px; margin-top:-10px;" ng-show="!vm.validateStartLeftDates('started')">Start date can not be after ece return date</div>
+							
+							</div>
+							
+						</div>
+						<!-- row ends -->
+
+						<!-- row -->
+						<div class="col-md-12"  ng-hide='!vm.subpage_staff.StaffRoleCode.EducationalRoleCode || vm.subpage_staff.StaffRoleCode.EducationalRoleCode.Code=="HBE" '>
+							<div class="col-md-12"
+								ng-class='{"has-error": !vm.validateStartLeftDates("left") || !vm.validateStartEndDates("left")}'
+							>
+								<label>
+									Left
+						    </label>
+							</div>
+							<div class="col-md-12">
+								<!--  -->
+								<div class="date-picker input-group"  ng-class="{ 'is-opened': vm.endOpened == true,'has-error': !vm.validateStartLeftDates('left') || !vm.validateStartEndDates('left')} "
+								
+								>
+								  <span class="input-group-addon linked-clander"
+								   ng-click=" vm.openDatePicker($event, 'end')"  
+								   datepicker-popup="{{vm.date_format}}" show-weeks="false" 
+								   ng-model="vm.subpage_staff.extra_details.left" 
+								   datepicker-options="vm.dateOptions"
+								   close-text="Close"><i class="zmdi zmdi-calendar ma-icon"></i></span>
+								  <div class="fg-line" outside-if-not="dp-table" click-outside="vm.formClicked('end')">
+								    <input  date-format-filter="{{vm.date_format}}" type="text" class="form-control" 
+								    ng-model="vm.subpage_staff.extra_details.left" close-text="Close" placeholder="dd-mm-yyyy"/>
+								  </div>
+								</div>
+								<!--  -->
+								<br>
+								<p class="help-block"></p>
+								<div class="has-error" style="margin-left:30px; margin-top:-10px;" ng-show="!vm.validateStartLeftDates('left')">Left date can not be before ece return date</div>
+								<div class="has-error " style="margin-left:30px; margin-top:-10px;padding-top:10px;" ng-show="!vm.validateStartEndDates('left')">Left date can not be before start date</div>
+							</div>
+							
+						</div>
+						<!-- row ends -->
+
+						<!-- row -->
+						<div class="col-md-6 form-group" ng-hide='!vm.subpage_staff.StaffRoleCode.EducationalRoleCode' ng-class='{"has-error": 	!vm.subpage_staff.extra_details.ethnicity1 && vm.subpage_staff.StaffRoleCode.EducationalRoleCode	}'>
+							<div class="col-md-12">
+								<label>
+									Ethnicity 1 *
+						    </label>
+							</div>
+							<div class="col-md-12">
+							<select class="form-control" ng-model='vm.subpage_staff.extra_details.ethnicity1'
+								ng-options="code._id as (code.EthnicGroup) for code in vm.fields.ethnic_codes "
+								></select>
+								<!-- <select class="form-control" ng-model='vm.subpage_staff.extra_details.ethnicity1'>
+									<option value="" selected> Please select from the list</option>
+									<option ng-repeat='code in vm.fields.ethnic_codes' value="{{code._id}}">{{code.EthnicGroup}}</option>
+								</select> -->
+								<p class="help-block"></p>
+							</div>
+						</div>
+						<!-- row ends -->
+
+
+						<!-- row -->
+						<div class="col-md-6" ng-hide='!vm.subpage_staff.StaffRoleCode.EducationalRoleCode'>
+							<div class="col-md-12">
+								<label>
+									Ethnicity 2
+						    </label>
+							</div>
+							<div class="col-md-12">
+								<select class="form-control" ng-model='vm.subpage_staff.extra_details.ethnicity2'
+								ng-options="code._id as (code.EthnicGroup) for code in vm.fields.ethnic_codes "
+								></select>
+								<!-- <select class="form-control" ng-model='vm.subpage_staff.extra_details.ethnicity2'>
+									<option value="" selected> Please select from the list</option>
+									<option ng-repeat='code in vm.fields.ethnic_codes' value="{{code._id}}">{{code.EthnicGroup}}</option>
+								</select> -->
+								<p class="help-block"></p>
+							</div>
+						</div>
+						<!-- row ends -->
+
+
+						<!-- row -->
+						<div class="col-md-12" ng-hide='!vm.subpage_staff.StaffRoleCode.EducationalRoleCode'>
+							<div class="col-md-12">
+								<label>
+									Ethnicity 3
+						    </label>
+							</div>
+							<div class="col-md-12">
+							<select class="form-control" ng-model='vm.subpage_staff.extra_details.ethnicity3'
+								ng-options="code._id as (code.EthnicGroup) for code in vm.fields.ethnic_codes "
+								></select>
+								<!-- <select class="form-control" ng-model='vm.subpage_staff.extra_details.ethnicity3'>
+									<option value="" selected> Please select from the list</option>
+									<option ng-repeat='code in vm.fields.ethnic_codes' value="{{code._id}}">{{code.EthnicGroup}}</option>
+								</select> -->
+								<p class="help-block"></p>
+							</div>
+						</div>
+						<!-- row ends -->
+
+			</div>
+
+			<div class="col-md-6" ng-if="key=='EducationalRoleCode2'">
+						<!-- row -->
+						<div class="col-md-12"  ng-hide='!vm.subpage_staff.StaffRoleCode.EducationalRoleCode2 || vm.subpage_staff.StaffRoleCode.EducationalRoleCode2.Code!="HBC"'>
+							<div class="col-md-12" ng-class='{"has-error": !vm.validateStartLeftDates("started1") }'>
+								<label>
+									Started
+						    </label>
+							</div>
+							<div class="col-md-12">
+								<!--  -->
+								<div class="date-picker input-group"  ng-class="{ 'is-opened': vm.started1Opened == true,'has-error': !vm.validateStartLeftDates('started1') }">
+								  <span class="input-group-addon linked-clander"
+								   ng-click=" vm.openDatePicker($event, 'started1')"  
+								   datepicker-popup="{{vm.date_format}}" show-weeks="false" 
+								   ng-change="vm.dateChanged('started1')"
+								   ng-model="vm.subpage_staff.extra_details.started1" 
+								   datepicker-options="vm.dateOptions"
+								   close-text="Close"><i class="zmdi zmdi-calendar ma-icon"></i></span>
+								  <div class="fg-line" outside-if-not="dp-table" click-outside="vm.formClicked('started1')">
+								    <input  date-format-filter="{{vm.date_format}}" type="text" class="form-control" 
+								    ng-model="vm.subpage_staff.extra_details.started1" close-text="Close" placeholder="dd-mm-yyyy"/>
+								  </div>
+								</div>
+								<!--  -->
+								<br>
+								<p class="help-block"></p>
+								<div class="has-error " style="margin-left:30px; margin-top:-10px;" ng-show="!vm.validateStartLeftDates('started1')">Start date can not be after ece return date</div>
+								
+							</div>
+							
+						</div>
+						<!-- row ends -->
+
+						<!-- row -->
+						<div class="col-md-12"  ng-hide='!vm.subpage_staff.StaffRoleCode.EducationalRoleCode2 || vm.subpage_staff.StaffRoleCode.EducationalRoleCode2.Code!="HBC"'>
+							<div class="col-md-12" ng-class='{"has-error": !vm.validateStartLeftDates("left1") || !vm.validateStartEndDates("left1")}'>
+								<label>
+									Left
+						    </label>
+							</div>
+							<div class="col-md-12">
+								<!--  -->
+								<div class="date-picker input-group"  ng-class="{ 'is-opened': vm.end1Opened == true,'has-error': !vm.validateStartLeftDates('left1') || !vm.validateStartEndDates('left1') }">
+								  <span class="input-group-addon linked-clander"
+								   ng-click=" vm.openDatePicker($event, 'end1')"  
+								   datepicker-popup="{{vm.date_format}}" show-weeks="false" 
+								   ng-change="vm.dateChanged('end1')"
+								   ng-model="vm.subpage_staff.extra_details.left1" 
+								   datepicker-options="vm.dateOptions"
+								   close-text="Close"><i class="zmdi zmdi-calendar ma-icon"></i></span>
+								  <div class="fg-line" outside-if-not="dp-table" click-outside="vm.formClicked('end1')">
+								    <input  date-format-filter="{{vm.date_format}}" type="text" class="form-control" 
+								    ng-model="vm.subpage_staff.extra_details.left1" close-text="Close" placeholder="dd-mm-yyyy"/>
+								  </div>
+								</div>
+								<!--  -->
+								<br>
+								<p class="help-block"></p>
+								<div class="has-error" style="margin-left:30px; margin-top:-10px;" ng-show="!vm.validateStartLeftDates('left1')">Left date can not be before ece return date</div>
+								<div class="has-error " style="margin-left:30px; margin-top:-10px;padding-top:10px;" ng-show="!vm.validateStartEndDates('left1')">Left date can not be before start date</div>
+							</div>
+							
+						</div>
+						<!-- row ends -->
+
+						<!-- row -->
+						<div class="col-md-6 form-group" ng-hide='!vm.subpage_staff.StaffRoleCode.EducationalRoleCode2' ng-class='{"has-error": 	!vm.subpage_staff.extra_details.ethnicity4 && vm.subpage_staff.StaffRoleCode.EducationalRoleCode2	}'>
+							<div class="col-md-12">
+								<label>
+									Ethnicity 1 *
+						    </label>
+							</div>
+							<div class="col-md-12">
+							<select class="form-control" ng-model='vm.subpage_staff.extra_details.ethnicity4'
+								ng-options="code._id as (code.EthnicGroup) for code in vm.fields.ethnic_codes "
+								></select>
+								<!-- <select class="form-control" ng-model='vm.subpage_staff.extra_details.ethnicity4'>
+									<option value="" selected> Please select from the list</option>
+									<option ng-repeat='code in vm.fields.ethnic_codes' value="{{code._id}}">{{code.EthnicGroup}}</option>
+								</select> -->
+								<p class="help-block"></p>
+							</div>
+						</div>
+						<!-- row ends -->
+
+
+						<!-- row -->
+						<div class="col-md-6" ng-hide='!vm.subpage_staff.StaffRoleCode.EducationalRoleCode2'>
+							<div class="col-md-12">
+								<label>
+									Ethnicity 2
+						    </label>
+							</div>
+							<div class="col-md-12">
+							<select class="form-control" ng-model='vm.subpage_staff.extra_details.ethnicity5'
+								ng-options="code._id as (code.EthnicGroup) for code in vm.fields.ethnic_codes "
+								></select>
+								<!-- <select class="form-control" ng-model='vm.subpage_staff.extra_details.ethnicity5'>
+									<option value="" selected> Please select from the list</option>
+									<option ng-repeat='code in vm.fields.ethnic_codes' value="{{code._id}}">{{code.EthnicGroup}}</option>
+								</select> -->
+								<p class="help-block"></p>
+							</div>
+						</div>
+						<!-- row ends -->
+
+
+						<!-- row -->
+						<div class="col-md-12" ng-hide='!vm.subpage_staff.StaffRoleCode.EducationalRoleCode2'>
+							<div class="col-md-12">
+								<label>
+									Ethnicity 3
+						    </label>
+							</div>
+							<div class="col-md-12">
+							<select class="form-control" ng-model='vm.subpage_staff.extra_details.ethnicity6'
+								ng-options="code._id as (code.EthnicGroup) for code in vm.fields.ethnic_codes "
+								></select>
+								<!-- <select class="form-control" ng-model='vm.subpage_staff.extra_details.ethnicity6'>
+									<option value="" selected> Please select from the list</option>
+									<option ng-repeat='code in vm.fields.ethnic_codes' value="{{code._id}}">{{code.EthnicGroup}}</option>
+								</select> -->
+								<p class="help-block"></p>
+							</div>
+						</div>
+						<!-- row ends -->
+
+			</div>
+
+		</div>
+  </div>
+		<!-- per role isPaid, isRegister etc ends-->
+
+</div>
+	<!--  -->
+	<!-- row --
+	<div class="row" ng-show='vm.facility_details.CenterType=="Centre based"'>
+		<div class="col-md-12">
+			<div class="checkbox">
+				<label>
+			    <input type="checkbox" ng-model="vm.subpage_staff.extra_details.this_person_is_an_ECE_teacher_engaged_in_education_and_care_of_children">
+			    <i class="input-helper"></i>
+  				This person is an ECE Teacher engaged in education and care of children
+				</label>
+			</div>
+			<p class="help-block"></p>
+		</div>
+	</div>
+	<!-- row ends -->
+
+	<!-- row --
+	<div class="row" ng-show='vm.facility_details.CenterType=="Home Based"'>
+		<div class="col-md-12">
+			<div class="checkbox">
+				<label>
+			    <input type="checkbox" ng-model="vm.subpage_staff.extra_details.this_person_is_a_homebased_coordinator_engaged_in_the_selection_supervision_and_support_of_a_caregiver_the_placement_of_children_and_monitoring_of_education_and_care_program">
+			    <i class="input-helper"></i>
+  				This person is a Homebased Coordinator engaged in the selection, supervision and support of a caregiver, the placement of children and monitoring of education and care program
+				</label>
+			</div>
+			<p class="help-block"></p>
+		</div>
+	</div>
+	<!-- row ends -->
+
+	<!-- row --
+	<div class="row" ng-show='vm.facility_details.CenterType=="Home Based"'>
+		<div class="col-md-12">
+			<div class="checkbox">
+				<label>
+			    <input type="checkbox" ng-model="vm.subpage_staff.extra_details.this_person_is_a_homebased_educator_engaged_in_the_care_and_education_of_children">
+			    <i class="input-helper"></i>
+					This person is a Homebased Educator engaged in the care and education of children
+				</label>
+			</div>
+			<p class="help-block"></p>
+		</div>
+	</div>
+	<!-- row ends -->
+
+	<!-- row -->
+	<div class="row">
+		<div class="col-md-12">
+			<div class="checkbox">
+				<label>
+			    <input type="checkbox" ng-model="vm.subpage_staff.extra_details.this_person_has_a_senior_management_staff_role" 
+			    ng-change='vm.activateRoleIfNeeded("ManagementRoleCode",vm.subpage_staff.extra_details.this_person_has_a_senior_management_staff_role)'
+			    >
+			    <!-- ng-checked='vm.subpage_staff.StaffRoleCode.ManagementRoleCode.Code=="SNRMS"' -->
+			    <i class="input-helper"></i>
+					This person has a <b>SENIOR MANAGEMENT STAFF</b> role
+				</label>
+			</div>
+			<p class="help-block">
+				(Senior Management Staff includes service managers, directors, senior staff-staff professional leaders, parent liaison, curriculum planning staff, etc. These staff are not usually involved in the teaching of children but may be available to work in teaching capacity if necessary. A person in this role working 25 hours per week or more is considered full-time.)
+			</p>
+		</div>
+		<div class="col-md-12">
+		<!-- is paid etc -->
+		<div class="row"  ng-if='vm.subpage_staff.StaffRoleCode.ManagementRoleCode.Code=="SNRMS" && vm.subpage_staff.extra_details.this_person_has_a_senior_management_staff_role'>
+
+		
+		<div class="col-md-6">
+			
+
+		<!-- row -->
+		<div class="row" ng-class='{"has-error": vm.subpage_staff.StaffRoleCode.ManagementRoleCode && !vm.subpage_staff.StaffRoleCode.ManagementRoleCode.IsPaid}'>
+			<div class="col-md-12">
+				<label>
+					Is this person paid for this role at your service? 
+		    </label>
+			</div>
+			<div class="col-md-6">
+				<label>
+					<input type="radio" value="true" ng-model='vm.subpage_staff.StaffRoleCode.ManagementRoleCode.IsPaid'>
+					Yes
+				</label>
+				<br>
+				<label>
+					<input type="radio" value="false" ng-model='vm.subpage_staff.StaffRoleCode.ManagementRoleCode.IsPaid'>
+					No
+				</label>
+				<p class="help-block"></p>
+			</div>
+		</div>
+		<!-- row ends -->
+
+
+		</div>			
+		<div class="col-md-6">
+
+		<!-- row -->
+		<div class="row" ng-if='vm.subpage_staff.StaffRoleCode.ManagementRoleCode' ng-class='{"has-error": vm.subpage_staff.StaffRoleCode.ManagementRoleCode && !vm.subpage_staff.StaffRoleCode.ManagementRoleCode.IsPermanent}'>
+			<div class="col-md-12">
+				<label>
+					Is this person permanently appointed in this role? 
+		    </label>
+			</div>
+			<div class="col-md-6">
+				<label>
+					<input type="radio" value="true" ng-model='vm.subpage_staff.StaffRoleCode.ManagementRoleCode.IsPermanent'>
+					Yes
+				</label>
+				<br>
+				<label>
+					<input type="radio" value="false" ng-model='vm.subpage_staff.StaffRoleCode.ManagementRoleCode.IsPermanent'>
+					No
+				</label>
+				<p class="help-block"></p>
+			</div>
+		</div>
+		<!-- row ends -->
+		</div>			
+		<div class="col-md-6">
+
+		<!-- row -->
+		<div class="row" ng-if='vm.subpage_staff.StaffRoleCode.ManagementRoleCode' ng-class='{"has-error": vm.subpage_staff.StaffRoleCode.ManagementRoleCode && !vm.subpage_staff.StaffRoleCode.ManagementRoleCode.IsFullTime}'>
+			<div class="col-md-12">
+				<label>
+					Is this person full time in this role?
+		    </label>
+			</div>
+			<div class="col-md-12">
+				<label>
+					<input type="radio" value="true" ng-model='vm.subpage_staff.StaffRoleCode.ManagementRoleCode.IsFullTime'>
+					Yes
+				</label>
+				<br>
+				<label>
+					<input type="radio" value="false" ng-model='vm.subpage_staff.StaffRoleCode.ManagementRoleCode.IsFullTime'>
+					No
+				</label>
+				<p class="help-block">
+					(A person in this role working 25 hours per week or more is considered full-time.)
+				</p>
+			</div>
+		</div>
+		<!-- row ends -->
+		</div>
+
+		</div>
+
+		<!-- is paid etc ends -->
+		</div>
+	</div>
+	<!-- row ends -->
+
+	<!-- row -->
+	<div class="row">
+		<div class="col-md-12">
+			<div class="checkbox">
+				<label>
+			    <input type="checkbox" ng-model="vm.subpage_staff.extra_details.this_person_has_a_support_staff_role" ng-change='vm.activateRoleIfNeeded("SupportStaffRoleCode",vm.subpage_staff.extra_details.this_person_has_a_support_staff_role)'>
+			    <i class="input-helper"></i>
+					This person has a <b>SUPPORT STAFF</b> role
+				</label>
+			</div>
+			<p class="help-block">
+				(Support staff are primarily engaged in maintenance, cleaning, food preparation and administrative support. A person in this role working 25 hours per week or more is considered full-time.)
+			</p>
+		</div>
+		<div class="col-md-12">
+		<!-- is paid etc -->
+		<div class="row"  ng-if='vm.subpage_staff.StaffRoleCode.SupportStaffRoleCode.Code=="SUPS" && vm.subpage_staff.extra_details.this_person_has_a_support_staff_role'>
+
+		
+		<div class="col-md-6">
+			
+
+		<!-- row -->
+		<div class="row" ng-class='{"has-error": vm.subpage_staff.StaffRoleCode.SupportStaffRoleCode && !vm.subpage_staff.StaffRoleCode.SupportStaffRoleCode.IsPaid}'>
+			<div class="col-md-12">
+				<label>
+					Is this person paid for this role at your service? 
+		    </label>
+			</div>
+			<div class="col-md-6">
+				<label>
+					<input type="radio" value="true" ng-model='vm.subpage_staff.StaffRoleCode.SupportStaffRoleCode.IsPaid'>
+					Yes
+				</label>
+				<br>
+				<label>
+					<input type="radio" value="false" ng-model='vm.subpage_staff.StaffRoleCode.SupportStaffRoleCode.IsPaid'>
+					No
+				</label>
+				<p class="help-block"></p>
+			</div>
+		</div>
+		<!-- row ends -->
+
+
+		</div>			
+		<div class="col-md-6">
+
+		<!-- row -->
+		<div class="row" ng-if='vm.subpage_staff.StaffRoleCode.SupportStaffRoleCode' ng-class='{"has-error": vm.subpage_staff.StaffRoleCode.SupportStaffRoleCode && !vm.subpage_staff.StaffRoleCode.SupportStaffRoleCode.IsPermanent}'>
+			<div class="col-md-12">
+				<label>
+					Is this person permanently appointed in this role? 
+		    </label>
+			</div>
+			<div class="col-md-6">
+				<label>
+					<input type="radio" value="true" ng-model='vm.subpage_staff.StaffRoleCode.SupportStaffRoleCode.IsPermanent'>
+					Yes
+				</label>
+				<br>
+				<label>
+					<input type="radio" value="false" ng-model='vm.subpage_staff.StaffRoleCode.SupportStaffRoleCode.IsPermanent'>
+					No
+				</label>
+				<p class="help-block"></p>
+			</div>
+		</div>
+		<!-- row ends -->
+		</div>			
+		<div class="col-md-6">
+
+		<!-- row -->
+		<div class="row" ng-if='vm.subpage_staff.StaffRoleCode.SupportStaffRoleCode' ng-class='{"has-error": vm.subpage_staff.StaffRoleCode.SupportStaffRoleCode && !vm.subpage_staff.StaffRoleCode.SupportStaffRoleCode.IsFullTime}'>
+			<div class="col-md-12">
+				<label>
+					Is this person full time in this role?
+		    </label>
+			</div>
+			<div class="col-md-12">
+				<label>
+					<input type="radio" value="true" ng-model='vm.subpage_staff.StaffRoleCode.SupportStaffRoleCode.IsFullTime'>
+					Yes
+				</label>
+				<br>
+				<label>
+					<input type="radio" value="false" ng-model='vm.subpage_staff.StaffRoleCode.SupportStaffRoleCode.IsFullTime'>
+					No
+				</label>
+				<p class="help-block">
+					(A person in this role working 25 hours per week or more is considered full-time.)
+				</p>
+			</div>
+		</div>
+		<!-- row ends -->
+		</div>
+		</div>
+
+		<!-- is paid etc ends -->
+		</div>
+	</div>
+	<!-- row ends -->
+
+	<!-- row -->
+	<div class="row">
+		<div class="col-md-12">
+			<div class="checkbox">
+				<label>
+			    <input type="checkbox" ng-model="vm.subpage_staff.extra_details.this_person_has_a_specialist_staff_role" ng-change='vm.activateRoleIfNeeded("SpecialStaffRoleCode",vm.subpage_staff.extra_details.this_person_has_a_specialist_staff_role)'>
+			    <i class="input-helper"></i>
+					This person has a <b> SPECIALIST STAFF </b> role
+				</label>
+			</div>
+			<p class="help-block">
+				(Specialist staff are primarily engaged in the care and education of children, e.g. psychologists, physiotherapists, etc. A person in this role working 25 hours per week or more is considered full-time.)
+			</p>
+		</div>
+		<div class="col-md-12">
+		<!-- is paid etc -->
+		<div class="row"  ng-if='vm.subpage_staff.StaffRoleCode.SpecialStaffRoleCode.Code=="SPEC" && vm.subpage_staff.extra_details.this_person_has_a_specialist_staff_role'>
+
+		
+		<div class="col-md-6">
+			
+
+		<!-- row -->
+		<div class="row" ng-class='{"has-error": vm.subpage_staff.StaffRoleCode.SpecialStaffRoleCode && !vm.subpage_staff.StaffRoleCode.SpecialStaffRoleCode.IsPaid}'>
+			<div class="col-md-12">
+				<label>
+					Is this person paid for this role at your service? 
+		    </label>
+			</div>
+			<div class="col-md-6">
+				<label>
+					<input type="radio" value="true" ng-model='vm.subpage_staff.StaffRoleCode.SpecialStaffRoleCode.IsPaid'>
+					Yes
+				</label>
+				<br>
+				<label>
+					<input type="radio" value="false" ng-model='vm.subpage_staff.StaffRoleCode.SpecialStaffRoleCode.IsPaid'>
+					No
+				</label>
+				<p class="help-block"></p>
+			</div>
+		</div>
+		<!-- row ends -->
+
+
+		</div>			
+		<div class="col-md-6">
+
+		<!-- row -->
+		<div class="row" ng-if='vm.subpage_staff.StaffRoleCode.SpecialStaffRoleCode' ng-class='{"has-error": vm.subpage_staff.StaffRoleCode.SpecialStaffRoleCode && !vm.subpage_staff.StaffRoleCode.SpecialStaffRoleCode.IsPermanent}'>
+			<div class="col-md-12">
+				<label>
+					Is this person permanently appointed in this role? 
+		    </label>
+			</div>
+			<div class="col-md-6">
+				<label>
+					<input type="radio" value="true" ng-model='vm.subpage_staff.StaffRoleCode.SpecialStaffRoleCode.IsPermanent'>
+					Yes
+				</label>
+				<br>
+				<label>
+					<input type="radio" value="false" ng-model='vm.subpage_staff.StaffRoleCode.SpecialStaffRoleCode.IsPermanent'>
+					No
+				</label>
+				<p class="help-block"></p>
+			</div>
+		</div>
+		<!-- row ends -->
+		</div>			
+		<div class="col-md-6">
+
+		<!-- row -->
+
+		<div class="row" ng-if='vm.subpage_staff.StaffRoleCode.SpecialStaffRoleCode' ng-class='{"has-error": vm.subpage_staff.StaffRoleCode.SpecialStaffRoleCode && !vm.subpage_staff.StaffRoleCode.SpecialStaffRoleCode.IsFullTime}'>
+			<div class="col-md-12">
+				<label>
+					Is this person full time in this role?
+		    </label>
+			</div>
+			<div class="col-md-12">
+				<label>
+					<input type="radio" value="true" ng-model='vm.subpage_staff.StaffRoleCode.SpecialStaffRoleCode.IsFullTime'>
+					Yes
+				</label>
+				<br>
+				<label>
+					<input type="radio" value="false" ng-model='vm.subpage_staff.StaffRoleCode.SpecialStaffRoleCode.IsFullTime'>
+					No
+				</label>
+				<p class="help-block">
+					(A person in this role working 25 hours per week or more is considered full-time.)
+				</p>
+			</div>
+		</div>
+		<!-- row ends -->
+		</div>
+		</div>
+
+		<!-- is paid etc ends -->
+		</div>
+	</div>
+	<!-- row ends -->
+
+	<br/>
+	<br/>
+	<div ng-if="vm.validateContactHours()" class="has-error row">Contact Hours are manadatory as you have selected educational role code</div>
+	<div class="panel panel-primary" ng-hide='vm.showContactHours()'>
+		<div class="panel-heading">		
+			Staff data Contact Hours
+		</div>
+		<div class="panel-body hours-body">
+			<label>
+				
+				System has prepopulated data for you, please review, edit and enter the contact hours for <b>{{vm.subpage_staff.LastName}}, {{vm.subpage_staff.FirstName}}</b> for the week of <b>{{vm.fields.ecereturn_date_readable}}</b> ECE Return year
+			</label>
+			
+			<div class="row">
+				<!-- <div class="col-md-5">
+					Days
+				</div> -->
+				<div class="col-md-1 week-hdng-box" ng-repeat='d in vm.subpage_staff.extra_details.ece_return_week'><b>{{d.day}}</b></div>
+			</div>
+
+			<div class="row">
+				<!-- <div class="col-md-5">
+					Total Hours 
+				</div> -->
+				<div class="col-md-1 weekday week-day-box" ng-repeat='(indexWeek, d) in vm.subpage_staff.extra_details.ece_return_week'>
+					<div class="row weekday_hours" ng-repeat='(indexHours, hour) in vm.subpage_staff.extra_details.ece_return_week[indexWeek].hours'>
+						<div class="col-md-12">Start Time 
+							<select ng-model='hour.start_time' ng-change='vm.updateEndTime(indexWeek, indexHours)'>
+								<option ng-disabled='vm.isThisTimeOptDisabled(indexWeek, opt)' ng-repeat='opt in d.timing_dropdown_opts'>{{opt}}</option>
+							</select>
+						</div>
+						<br>
+						<div  class="col-md-12 no-bordr-custm">
+							End Time 
+							<input type="text" ng-disabled='true' value='{{hour.end_time}}'>
+						</div>
+						<hr>
+						<div class="row del-btn">
+							<div class="text-center">
+								<button class="btn btn-xs btn-danger" ng-click="vm.deleteHours(indexWeek, indexHours)">
+									<i class="glyphicon glyphicon-minus"></i>
+								</button>
+							</div> 
+						</div>
+					</div>
+					<div class="row add-btn" ng-hide='vm.whenNoMoreHoursAvailable(indexWeek)'>
+						<div class="col-md-12 text-center">
+							<button class="btn btn-xs btn-success" ng-click="vm.addNewHours(indexWeek)">
+								<i class="glyphicon glyphicon-plus"></i>
+							</button>
+						</div> 
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 
+	OLD LOGIC
+	<div class="panel panel-primary" ng-hide='!vm.subpage_staff.StaffRoleCode.EducationalRoleCode || (vm.subpage_staff.StaffRoleCode.EducationalRoleCode.Code !="ECET" &&  vm.subpage_staff.StaffRoleCode.EducationalRoleCode.Code !="HBC") '>
+		<div class="panel-heading">		
+			Staff data Contact Hours
+		</div>
+		<div class="panel-body hours-body">
+			<label>
+				
+				System has prepopulated data for you, please review, edit and enter the contact hours for <b>{{vm.subpage_staff.LastName}}, {{vm.subpage_staff.FirstName}}</b> for the week of <b>{{vm.fields.ecereturn_date_readable}}</b> ECE Return year
+			</label>
+			<div class="row">
+				<div class="col-md-5">
+					Days
+				</div>
+				<div class="col-md-1" ng-repeat='d in vm.subpage_staff.extra_details.ece_return_week'>{{d.day}}</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-5">
+					Total Hours 
+				</div>
+				<div class="col-md-1" ng-repeat='d in vm.subpage_staff.extra_details.ece_return_week track by $index'>
+					<input type="text" class="form-control" value="{{d.total_hours}}" ng-model='vm.subpage_staff.extra_details.ece_return_week[$index].total_hours'>
+				</div>
+			</div>
+		</div>
+	</div>
+ 	-->
+ 	<br/>
+	<br/>
+	<div class="text-center">
+		<button class="btn btn-success"  ng-click='vm.closeSubpage($event)' ng-disabled='(!vm.subpage_staff.extra_details.ethnicity1 && vm.subpage_staff.StaffRoleCode.EducationalRoleCode)
+		||
+		(!vm.subpage_staff.extra_details.ethnicity4 && vm.subpage_staff.StaffRoleCode.EducationalRoleCode2)
+		||
+		(vm.checkRoleEligibility(vm.subpage_staff.StaffRoleCode.EducationalRoleCode, ["ECET","HBC","HBE", "PE"]) && 
+	  		!vm.subpage_staff.extra_details.HighestQualificationCode)
+		|| 	
+		 (vm.checkRoleEligibility(vm.subpage_staff.StaffRoleCode.EducationalRoleCode2, ["HBC","HBE"])&&
+		  !vm.subpage_staff.extra_details.HighestQualificationCode1)
+		||
+		( 
+		 	(
+	  		vm.checkRoleEligibility(vm.subpage_staff.StaffRoleCode.EducationalRoleCode, [ "PE"]) 
+			|| 	
+			vm.checkRoleEligibility(vm.subpage_staff.StaffRoleCode.EducationalRoleCode2, [ "PE"]) 
+			)
+			&&
+			!vm.subpage_staff.extra_details.HighestPlaycentreQualificationCode
+		)
+		||
+		(!vm.rolesIsPaidEtcCheck(vm.subpage_staff.StaffRoleCode))
+		||
+		 (!vm.validateStartLeftDates())
+		|| 
+		(!vm.validateStartEndDates())
+		||
+		(vm.validateContactHours())
+		||
+		(!vm.otherRoleIspaidCheck(["senior_management", "support", "specialist"], ["ManagementRoleCode", "SupportStaffRoleCode", "SpecialStaffRoleCode"] , vm.subpage_staff))
+		'>
+		Continue		
+		</button>
+		<button class="btn btn-warning"  ng-click='vm.subPageBack()'>Back</button>
+		<button class="btn btn-danger" ng-hide='vm.is_edit_mode' ng-click='vm.cancelWizard("CLOSE_SUBPAGE")'>Cancel</button>
+	</div>
+</div>

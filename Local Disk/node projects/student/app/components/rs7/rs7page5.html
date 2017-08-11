@@ -1,0 +1,31 @@
+
+    <div class="card no-print-padding">
+        <div class="card-header no-print">
+            <h2>Attestation</h2>
+        </div>
+        <div class="card-body card-padding no-print-padding">
+
+            <p>RS7 Return</p>
+            <p>{{rs7.facility.name}} ({{rs7.facility.ServiceId}})</p>
+
+            <p>Declaration</p>
+
+            <p>I certify that, to the best of my knowledge, the information contained on this form is true and correct in every particular. I agree that in the event of the claim resulting in any overpayment, I will undertake to ensure that the balance of any grant will be repaid to the Ministry.</p>
+
+            <p>By submitting this Declaration, I am confirming that this funding claim is made in accordance with the conditions outlined in the Early Childhood Funding Handbook.</p>
+
+            <p><label>Your Name:</label><input id="declarationName" type="text" ng-model="rs7.declarationName"/></p>
+            <p><label>Contact Phone:</label><input id="declarationContactPhone" maxlength="50" type="text" ng-model="rs7.declarationContactPhone"/></p>
+            <p><label>Designation:</label><input type="text" id="declarationDesignation" ng-model="rs7.declarationDesignation"/></p>
+
+            <p><b>Do you want to submit this RS7?</b></p>
+
+        </div>
+
+        <div class="text-center" style="padding:10px">
+            <button class="btn btn-success" ng-disabled="rs7.rs7Submitted" ng-click="rs7.submit()">Submit</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-info" ng-click="rs7.back()">Back</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-warning" ng-click="rs7.cancel()">Cancel</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-info" ng-click="rs7.print()">Print</button>
+        </div>
+    </div>
+
+

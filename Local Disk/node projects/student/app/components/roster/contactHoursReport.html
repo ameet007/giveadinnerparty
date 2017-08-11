@@ -1,0 +1,171 @@
+<div class="container">
+    <div class="block-header">
+        <h2>Contact Hours Report For: {{contactHours.today | date : 'dd-MM-yyyy' }}</h2>
+    </div>
+    <div class="card no-print">
+        <div class="card-header">
+            <a data-ui-sref="main.addAttendance" data-ng-click="mactrl.sidebarStat($event)"><h2 style="    width: 100%;display: block;float: left;"><span style="float:left">Contact Hours Report: {{contactHours.today | date : 'dd-MM-yyyy' }}</span>
+             
+            </h2></a>
+
+        </div>
+        <hr/>
+        <div class="card-body card-padding no-print">
+            <div class="row">
+                <div class="col-sm-4">
+                    <p class="c-black f-500 m-b-20">Date</p>
+
+                    <div class="form-group">
+                        <div class="fg-line">
+
+                            <div class="date-picker input-group"
+                                 ng-class="{ 'is-opened': contactHours.todayOpened == true }">
+                                <span class="input-group-addon linked-clander"
+                                    ng-click="contactHours.open($event, 'today')"
+                                    ng-change="contactHours.dateFilter()"
+                                    datepicker-popup="{{contactHours.format}}" show-weeks="false"
+                                    ng-change="contactHours.dateFilter()"
+                                    ng-model="contactHours.today" 
+                                    datepicker-options="dateOptions" 
+                                    close-text="Close"><i class="zmdi zmdi-calendar ma-icon"></i></span>
+
+                                <div class="fg-line" outside-if-not="dp-table" click-outside="contactHours.formClicked('today')" ng-class="{ 'fg-toggled': contactHours.todayOpened == true }">
+                                <input    date-format-filter="{{contactHours.format}}"
+                                           ng-change="contactHours.dateFilter()"
+                                           type="text" class="form-control"
+                                           ng-model="contactHours.today" 
+                                           ng-required="true"
+                                           placeholder="dd-mm-yyyy"/>
+                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                
+               
+
+              
+                <div class="col-sm-4 pull-right">
+
+                    <div>
+                        
+                        <div ng-if="contactHours.holiday">
+                            <span><b>Holiday Matrix:</b>  {{contactHours.holidayMatrix}}</span>
+                        </div>
+                        <div ng-if="!contactHours.holiday">
+                            <span><b>Holiday Matrix:</b>  --</span>
+                        </div>
+                        <div ng-if="contactHours.firstClosure">
+                             <span><b>Temporary Closure Matrix:</b>  {{contactHours.tempClousureMatrix}}</span>
+                        </div>
+                         <div ng-if="!contactHours.firstClosure">
+                             <span><b>Temporary Closure Matrix:</b>  --</span>
+                        </div>
+                        <div>
+                             <span><b>Service Close Matrix:</b> {{contactHours.serviceCloseMatrix}}</span>
+                        </div>
+                        <div>
+                             <span><b>Percentage of Qualified Teachers :</b> 
+                             <span ng-if="contactHours.contacthoursreport">
+                               
+                             {{contactHours.percentage_of_qualified_teachers%1? contactHours.percentage_of_qualified_teachers.toFixed(2): contactHours.percentage_of_qualified_teachers}}%
+                             </span>
+                             </span>
+                        </div>
+                       
+                    </div>
+                   
+                        </div>
+                    </div>
+  
+                </div>
+
+    <div class="card no-print-padding">
+        <div class="table-responsive table-daily" style="height:500px;">
+            <table class=" table table-striped table-daily table-vmiddle no-print-padding" >
+                <thead>
+                <tr>
+                  <th class="roster-header">Teacher</th>
+                  <th class="roster-header" colspan="2" style="text-align: center">Contact Hours</th>
+                  <th class="roster-header">Non Contact Hours</th>
+                  <th class="roster-header">Lunch Break</th>
+                  <th class="roster-header">Total Hours</th>
+                  <th class="roster-header">Paid Hours</th>
+                  <th class="roster-header">Sick Leave</th>
+                  <th class="roster-header">Holiday</th>
+                  <th class="roster-header">Bereavement</th>
+                </tr>
+                <tr>
+                  <th class="roster-header"></th>
+                  <th class="roster-header">Qualified</th>
+                  <th class="roster-header">Non Qualified</th>
+                  <th class="roster-header"></th>
+                  <th class="roster-header"></th>
+                  <th class="roster-header"></th>
+                  <th class="roster-header"></th>
+                  <th class="roster-header"></th>
+                  <th class="roster-header"></th>
+                  <th class="roster-header"></th>
+                </tr>
+                </thead>
+                <tbody ng-if="!contactHours.contacthoursreport && !contactHours.isloading && contactHours.serviceCloseMatrix">
+                    <tr>
+                      <td colspan="10" style="padding: 0">
+                        <div class="alert alert-danger" style="margin: 10px">No data found for today!</div>
+                      </td>
+                    </tr>
+                </tbody>
+                <tbody ng-if="!contactHours.serviceCloseMatrix && !contactHours.isloading">
+                    <tr>
+                      <td colspan="10" style="padding: 0">
+                        <div class="alert alert-warning" style="margin: 10px">Service is not scheduled for today!</div>
+                      </td>
+                    </tr>
+                </tbody>
+                <tbody ng-if="contactHours.isloading">
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td colspan="6">loading please wait....</td>
+                    </tr>
+                </tbody>
+                <tbody ng-if="contactHours.contacthoursreport.Matrix && contactHours.contacthoursreport.Matrix.length && !contactHours.isloading">
+                    <tr ng-repeat="row in contactHours.contacthoursreport.Matrix">
+                        <td>{{row.Staff.FirstName}} {{row.Staff.LastName}}</td>
+                        <td>{{row.Staff.IsRegistered ? (contactHours.toHourFormat(row.contact_hours) || '00:00'): '00:00'}}</td>
+                        <td>{{row.Staff.IsRegistered?'00:00':(contactHours.toHourFormat(row.contact_hours)||'00:00')}}</td>
+                        <td>{{contactHours.toHourFormat(row.non_contact_hours) || '00:00' }}</td>
+                        <td>{{contactHours.toHourFormat(row.lunch_break) || '00:00' }}</td>
+                        <td>{{contactHours.toHourFormat(row.total_hours) || '00:00' }}</td>
+                        <td>{{contactHours.toHourFormat(row.paid_hours) || '00:00' }}</td>
+                        <td>{{row.sick_leave || 0}}</td>
+                        <td>{{row.holiday || 0 }}</td>
+                        <td>{{row.bereavement || 0 }}</td>
+                    </tr>
+                </tbody>
+                <tfoot ng-if="contactHours.contacthoursreport && !contactHours.isloading">
+                  <tr>
+                        <td>Total Hours Recorded</td>
+                        <td>{{contactHours.toHourFormat(contactHours.contacthoursreport.total_qualified_teacher_hours)}}</td>
+                        <td>{{contactHours.toHourFormat(contactHours.contacthoursreport.total_nonqualified_teacher_hours)}}</td>
+                        <td>{{contactHours.toHourFormat(contactHours.contacthoursreport.total_noncontact_hours)}}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                  </tr>
+                </tfoot>
+       
+            </table>
+       
+        </div>
+
+
+    </div>
+</div>
+

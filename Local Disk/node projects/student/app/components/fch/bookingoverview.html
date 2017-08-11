@@ -1,0 +1,130 @@
+<div class="container">
+    <div class="block-header">
+        <h2>Booking Schedule Overview</h2>
+        
+    </div>
+    <div class="card no-print">
+        <div class="card-header">
+            <h2 style="    width: 100%;display: block;float: left;">
+              <span style="float:left">Booking Schedule Overview</span>
+            </h2>
+
+        </div>
+        <hr/>
+        <div class="card-body card-padding no-print">
+            <div class="row">
+                <div class="col-sm-4">
+                    <p class="c-black f-500 m-b-20">Date</p>
+
+                    <div class="form-group">
+                        <div class="fg-line">
+                            <div weeklydate-picker class="weekly-datepicker date-picker input-group"
+                                     ng-class="{ 'is-opened': bookingoverview.todayOpened == true }">
+                                    <span class="input-group-addon linked-clander"
+                                              
+                                              ng-click="bookingoverview.open($event, 'today')"
+                                              ng-change="bookingoverview.dateFilter()"
+                                              datepicker-options="dateOptions"
+                                              datepicker-popup="{{bookingoverview.format}}" 
+                                              ng-model="bookingoverview.today" 
+                                               
+                                              close-text="Close"
+
+                                    ><i class="zmdi zmdi-calendar ma-icon"></i></span>
+
+                                    <div class="fg-line" outside-if-not="dp-table" click-outside="bookingoverview.formClicked('today')" ng-class="{ 'fg-toggled': bookingoverview.todayOpened == true }">
+                                    <div  class="form-control">
+                                    <!-- <div ng-click="bookingoverview.open($event, 'today')"
+                                              ng-change="bookingoverview.dateFilter()"
+                                              class="form-control"
+                                              datepicker-options="dateOptions"
+                                              datepicker-popup="{{bookingoverview.format}}" 
+                                              ng-model="bookingoverview.today" is-open="bookingoverview.todayOpened"
+                                              ng-required="true" close-text="Close"
+                                              placeholder="dd-mm-yyyy"
+                                          > -->
+                                        <input type="text" ng-required="true"  class="form-control" ng-model="bookingoverview.weekrange"  ng-change="bookingoverview.dateFilter()" placeholder="dd-mm-yyyy" />
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+
+                </div>
+             <div class="col-sm-4 pull-right">
+                      <div>
+                        <span>
+                          <b>Child Places:</b>  {{bookingoverview.licenseConfiguration.ChildPlace}}
+                          </span>
+                      </div>
+                    
+                    <div>
+                        <span>
+                        <b>Child Places Under Two:</b>  {{bookingoverview.licenseConfiguration.UnderTwo}}
+                        </span>
+                    </div>
+                    <div style="margin:5px">
+                        <span>
+                        <span class="cyanColor" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Booked children are under Childplace
+                        </span>
+                    </div>
+
+                    <div style="margin:5px">
+                        <span>
+                         <span class="greenColor" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Booked children are equal to  Childplace
+                        </span>
+                    </div>
+                    <div style="margin:5px">
+                        <span>
+                         <span class="redColor">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Children are over booked</span>
+                    </div>
+                        
+
+             </div>
+                          
+          </div>
+      </div>
+  
+   </div>
+
+    <div class="card no-print-padding">
+        <div class="table-responsive table-monthly" style="height:500px;">
+          <table   class=" table table-striped  table-vmiddle no-print-padding" >
+                <thead>
+                  <tr>
+                      <th class="roster-header">
+                        <span>Hours</span>
+                    </th>
+                    <th class="text-center"  ng-repeat="day in bookingoverview.weekDates track by $index" ><span>{{day | date:'dd-MM-yyyy'}}</span></th>
+                 </tr>
+                </thead>
+                
+                <tbody>
+                    <tr>
+                      <td class="roster-header">&nbsp</td>
+                      <td class="roster-header" ng-repeat="day in bookingoverview.weekDates track by $index">
+                        <div class="col-xs-6">Total</div>
+                        <div class="col-xs-6">Under2</div>
+                      </td>
+                    </tr>
+
+                    <tr ng-repeat="timeslot in bookingoverview.timeslots">
+                      <td>{{timeslot}}</td>
+                      <td class="text-center" ng-repeat="day in bookingoverview.weekDates track by $index">
+                        <div ng-class="bookingoverview.getTotalRowClass(day,timeslot)" class="col-xs-6">{{bookingoverview.bookingScheduleMatrix[getDate(day)][timeslot]['total'] || 0}}</div>
+                        <div ng-class="bookingoverview.getunder2RowClass(day,timeslot)" class="col-xs-6">{{bookingoverview.bookingScheduleMatrix[getDate(day)][timeslot]['under2'] || 0}}</div>
+                      </td>
+
+                    </tr>
+                
+                    </tbody>
+              
+            </table>
+        </div>
+
+
+    </div>
+</div>
+

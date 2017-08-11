@@ -1,0 +1,134 @@
+<div class="container">
+    <div class="block-header">
+        <h2>FCH Cron Logs</h2>
+        
+    </div>
+    <div class="card no-print">
+        <div class="card-header">
+            <h2 style="    width: 100%;display: block;float: left;">
+              <span style="float:left">FCH Cron Logs</span>
+            </h2>
+
+        </div>
+        <hr/>
+        <div class="card-body card-padding no-print">
+            <div class="row">
+                <div class="col-sm-6">
+                   <div class="col-sm-6">
+                        <p class="c-black f-500 m-b-20">Event Date</p>
+                    <div class="form-group">
+                        <div class="fg-line">
+                            <div class="date-picker input-group"
+                                 ng-class="{ 'is-opened': fchcronlog.EventDateOpened == true }">
+                                <span class="input-group-addon linked-clander"
+                                    ng-click="fchcronlog.open($event, 'EventDate')"
+                                    ng-change="fchcronlog.dateFilter('EventDate')"
+                                    datepicker-popup="{{fchcronlog.format}}" show-weeks="false"
+                                    ng-change="fchcronlog.dateFilter('EventDate')"
+                                    ng-model="fchcronlog.EventDate" 
+                                    datepicker-options="dateOptions" 
+                                    close-text="Close"><i class="zmdi zmdi-calendar ma-icon"></i></span>
+
+                                <div class="fg-line" outside-if-not="dp-table" click-outside="fchcronlog.formClicked('EventDate')" ng-class="{ 'fg-toggled': fchcronlog.EventDateOpened == true }">
+                                <input    date-format-filter="{{fchcronlog.format}}"
+                                           ng-change="fchcronlog.dateFilter('EventDate')"
+                                           type="text" class="form-control"
+                                           ng-model="fchcronlog.EventDate" 
+                                           placeholder="dd-mm-yyyy"/>
+                               
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   </div>
+                   <div class="col-sm-6">
+                        <p class="c-black f-500 m-b-20">Saved Date</p>
+                    <div class="form-group">
+                        <div class="fg-line">
+                            <div class="date-picker input-group"
+                                 ng-class="{ 'is-opened': fchcronlog.savedDateOpened == true }">
+                                <span class="input-group-addon linked-clander"
+                                    ng-click="fchcronlog.open($event, 'savedDate')"
+                                    ng-change="fchcronlog.dateFilter()"
+                                    datepicker-popup="{{fchcronlog.format}}" show-weeks="false"
+                                    ng-change="fchcronlog.dateFilter()"
+                                    ng-model="fchcronlog.savedDate" 
+                                    datepicker-options="dateOptions" 
+                                    close-text="Close"><i class="zmdi zmdi-calendar ma-icon"></i></span>
+
+                                <div class="fg-line" outside-if-not="dp-table" click-outside="fchcronlog.formClicked('savedDate')" ng-class="{ 'fg-toggled': fchcronlog.savedDateOpened == true }">
+                                <input    date-format-filter="{{fchcronlog.format}}"
+                                           ng-change="fchcronlog.dateFilter()"
+                                           type="text" class="form-control"
+                                           ng-model="fchcronlog.savedDate" 
+                                           placeholder="dd-mm-yyyy"/>
+                               
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   </div>
+                   
+
+                </div>
+             <div class="col-sm-4 pull-right">
+                      
+                   <div class="row" ng-if="fchcronlog.facilities && fchcronlog.facilities.length" >
+                <div class="col-sm-6" >
+                    <label>
+                        <p class="c-black f-500 m-b-20">Centre</p>
+                    <select ng-change="fchcronlog.changeFacility()" class="form-control" ng-selected="fchcronlog.selectedFacility==centreName._id" ng-model="fchcronlog.selectedFacility"
+                                ng-options="centreName._id as centreName.name for centreName in fchcronlog.facilities">
+                                <option value="">All</option>
+                                </select>
+                    </label>
+
+                </div>
+            </div>
+             </div>
+                          
+          </div>
+      </div>
+  
+   </div>
+
+    <div class="card no-print-padding">
+        <div class="table-responsive table-monthly" style="height:500px;">
+          <table   class=" table table-striped  table-vmiddle no-print-padding" >
+                <thead>
+                  <tr>
+                      <th ><span>Centre Name</span></th>
+                      <th ><span>User Name</span></th>
+                      <th ><span>Event DateTime</span></th>
+                      <th ><span>Saved DateTime</span></th>
+                      <th ><span>CronJob Start Time</span></th>
+                      <th ><span>CronJob End Time</span></th>
+                      <th ><span>Status</span></th>
+                      <th ><span>Description</span></th>
+
+                   
+                </thead>
+                 <tbody>
+                    <tr ng-repeat="record in fchcronlog.tableRecords track by $index">
+                        <td>{{record.CentreName}}</td>
+                        <td>{{record.Username}}</td>
+                        <td>{{record.EventDateTime |  date : 'dd-MM-yyyy'}}</td>
+                        <td>{{record.SavedDateTime |  date : 'dd-MM-yyyy'}}</td>
+                        <td>{{record.CronStartTime |  date : 'dd-MM-yyyy'}}</td>
+                        <td>{{record.CronEndTime |  date : 'dd-MM-yyyy'}}</td>
+                        <td>{{record.Status}}</td>
+                        <td>{{record.Description}}</td>
+
+
+                    </tr>
+                
+                    </tbody>
+               
+              
+            </table>
+        </div>
+
+
+    </div>
+</div>
+

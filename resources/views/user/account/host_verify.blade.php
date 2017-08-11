@@ -2,9 +2,7 @@
 @section('content')
        <div class="middle-content">
 	<div class="container account-section">
-		<div class="row clearfix">
-			<h2>My Account</h2>
-			
+		<div class="row clearfix">		
 			@include('user.layout.sidebar')
 			<article class="col-lg-9 main-right">
 				<div class="panel-group">

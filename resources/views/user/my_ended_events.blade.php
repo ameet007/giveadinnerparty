@@ -15,19 +15,13 @@
         <div class="row clearfix">
             <aside class="col-md-2 left-sidebar">
                 <div class="sidenav-list">
-                    <ul>
-                        <li class=''><a href='{{Request::root()}}/user/your_hosting'>Host New Event</a></li>
-                        <li class=''><a href='{{Request::root()}}/user/my_active_event'>My Active Events</a></li>
-                        <li class='active'><a href='{{Request::root()}}/user/my_ended_event'>My Ended Events</a></li>
-                        <li class=''><a href='#'>Verify Me As A Host</a></li>
-                        <li class=''><a href='{{Request::root()}}/user/invite_friends'>Invite Users</a></li>
-                    </ul>
+                    @include('user.layout.host-sidebar')
                 </div>
             </aside>
             <article class="col-md-10">
                 <div class="dinner-parties">
                     <div class="main-heading">
-                        <h2>My Ended Events</h2>
+                        <h2>Your Ended Events</h2>
                     </div>
                     <div class="row">
 						@foreach($events as $event)
@@ -36,8 +30,8 @@
                             <div class="item">
 								<div class="parties-wrap">
 									<div class="parties-head">
-										<h3><a href="#">{{ $event->title }}</a></h3>
-										<p>{{ $event->description }}</p> 
+										<h3><a href="{{Request::root()}}/user/event/host/{{$event->id}}">{{ $event->title }}</a></h3>
+										<p>6 People Attended</p> 
 										<p>Tickets <span class="price"><i class="fa fa-gbp" aria-hidden="true"></i>{{ $event->ticket_price }} + <i class="fa fa-gbp" aria-hidden="true"></i><a href="#" data-toggle="tooltip" data-placement="bottom" title="">80.00</a></span> booking fee</p>
 										<div class="event-mf">
 											<i class="fa <?php if($event->guest_gender=='Men Only'){echo 'fa-male'; }elseif($event->guest_gender=='Ladies only'){ echo 'fa-female'; }elseif($event->guest_gender=='Singles only'){echo "fa-user"; } ?>" aria-hidden="true"></i>
@@ -46,15 +40,15 @@
 									</div>
 									<div class="parties-host">
 										<div class="hosted-by">
-											<div class="img">
-												<div class="heart-dil">
-													<a class="follow-ing" href="#/">Follow</a>
-												</div>
+											<div class="img">												
 												<div class="inner">
 													<div class="circle-img"></div>
 													<img src="{{Request::root()}}/assets/front/img/host-pic.png" alt="" />
 												</div>
-												<div class="rateyo-readonly-widg"></div>
+												<div class="align-center">
+													<div class="rateYo1"></div>
+													<span class="re-view">(17)</span>
+												</div>
 											</div>
 											<div class="content">
 												<p>Hosted By: <strong>{{ $event->name.' '.$event->last_name }}</strong></p>
@@ -68,20 +62,20 @@
 										<div class="hosted-by parties-foot">
 											<div class="img">
 												<div class="inner">
-													<img src="{{Request::root()}}/assets/admin/uploads/charity/{{ $charity[0]->logo }}" alt="" />
+													<img src="{{Request::root()}}/assets/admin/uploads/charity/{{ $event->logo }}" alt="" />
 												</div>
 											</div>
 											<div class="content">
-												<p><strong>{{ $event->charity_cut }}%</strong> of ticket price will go to {{ $charity[0]->title }}</p>
+												<p>{{ $event->charity_name }} receive £5100.00 <br/>You as host receive £5100.00</p>
 											</div>	
 										</div>
 									</div>
 								</div>
 							</div>
                         </div>
-						@endforeach 
-                       
+						@endforeach                       
                     </div>
+					<p class="mr40">Please note any hosting proceeds are forwarded 3 days after the successful completion of your event.</p>
                 </div>
             </article>
         </div>
@@ -89,7 +83,13 @@
 </div>
 <script>
     $("#tabs").tabs();
-
+	$(document).ready(function(){
+		$(".rateYo1").rateYo({
+			starWidth: "11px",
+			normalFill: "#484848",
+			ratedFill: "#fff"
+		});
+	});
     $('.search-panel .dropdown-menu').find('a').click(function (e) {
         e.preventDefault();
         var param = $(this).attr("href").replace("#", "");

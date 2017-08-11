@@ -1,0 +1,202 @@
+<div class="container">
+    <div class="block-header">
+        <h2>Daily FCH For: {{dailyfch.today | date : 'dd-MM-yyyy' }}</h2>
+        
+    </div>
+    <div class="card no-print">
+        <div class="card-header">
+            <a data-ui-sref="main.addAttendance" data-ng-click="mactrl.sidebarStat($event)"><h2 style="    width: 100%;display: block;float: left;"><span style="float:left">FCH: {{dailyfch.today | date : 'dd-MM-yyyy' }}</span>
+             
+            </h2></a>
+
+        </div>
+        <hr/>
+        <div class="card-body card-padding no-print">
+            <div class="row">
+                <div class="col-sm-4">
+                    <p class="c-black f-500 m-b-20">Date</p>
+
+                    <div class="form-group">
+                        <div class="fg-line">
+
+                            <div class="date-picker input-group"
+                                 ng-class="{ 'is-opened': dailyfch.todayOpened == true }">
+                                <span class="input-group-addon linked-clander"
+                                    ng-click="dailyfch.open($event, 'today')"
+                                    ng-change="dailyfch.dateFilter()"
+                                    datepicker-popup="{{dailyfch.format}}" show-weeks="false"
+                                    ng-change="dailyfch.dateFilter()"
+                                    ng-model="dailyfch.today" 
+                                    datepicker-options="dateOptions" 
+                                    close-text="Close"><i class="zmdi zmdi-calendar ma-icon"></i></span>
+
+                                <div class="fg-line" outside-if-not="dp-table" click-outside="dailyfch.formClicked('today')" ng-class="{ 'fg-toggled': dailyfch.todayOpened == true }">
+                                <input    date-format-filter="{{dailyfch.format}}"
+                                           ng-change="dailyfch.dateFilter()"
+                                           type="text" class="form-control"
+                                           ng-model="dailyfch.today" 
+                                           ng-required="true"
+                                           placeholder="dd-mm-yyyy"/>
+                                    <!-- <input ng-click="dailyfch.open($event, 'today')"
+                                          ng-change="dailyfch.dateFilter()"
+                                          type="text" class="form-control"
+                                           datepicker-popup="{{dailyfch.format}}" show-weeks="false"
+                                           ng-model="dailyfch.today" is-open="dailyfch.todayOpened"
+                                           datepicker-options="dateOptions" ng-required="true" close-text="Close"
+                                           placeholder="dd-mm-yyyy"/> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                
+               
+
+              
+                <div class="col-sm-4 pull-right">
+
+                    <div>
+                        <span><b>Child Places:</b>  {{dailyfch.licenseConfiguration.ChildPlace}}</span>
+                        </div>
+                        <div>
+                        <span><b>Child Places Under Two:</b>  {{dailyfch.licenseConfiguration.UnderTwo}}</span>
+                        </div>
+                        <div ng-if="dailyfch.holiday">
+                            <span><b>Holiday Matrix:</b>  {{dailyfch.holidayMatrix}}</span>
+                        </div>
+                        <div ng-if="!dailyfch.holiday">
+                            <span><b>Holiday Matrix:</b>  --</span>
+                        </div>
+                        <div ng-if="dailyfch.firstClosure">
+                             <span><b>Temporary Closure Matrix:</b>  {{dailyfch.tempClousureMatrix}}</span>
+                        </div>
+                         <div ng-if="!dailyfch.firstClosure">
+                             <span><b>Temporary Closure Matrix:</b>  --</span>
+                        </div>
+                        <div>
+                             <span><b>Service Close Matrix:</b> {{dailyfch.serviceCloseMatrix}}</span>
+                        </div>
+                       
+                    </div>
+                   
+                        </div>
+                    </div>
+  
+                </div>
+
+
+    
+
+
+    <div class="card no-print-padding">
+        <div class="table-responsive table-daily" style="height:500px;">
+          <table  ng-if="dailyfch.childList && dailyfch.childList.length " fixed-header="daily" ng-init="totalClaim=0;"  class=" table table-striped table-daily table-vmiddle no-print-padding" >
+                <thead>
+                <tr>
+                    <th class="roster-header">
+                        <span>Child</span>
+                    </th>
+                    <th ng-repeat="val in timeHeaders track by $index" class="roster-header">
+                        <span>{{val}}</span>
+                        </th>
+                   <th class="roster-header"><span>Absence</span></th>
+                   <th class="roster-header"><span>Three weeks rule</span></th>
+                   <th class="roster-header"><span>Total Hours  /Child/Day</span></th>
+                   <th class="roster-header"><span>Claimable FCH /Chid/Day</span></th>
+                   <!-- <th class="roster-header"><span>FAR</span></th> -->
+                   <th class="roster-header"><span>ECE Funding Under 2 FCH</span></th>
+                   <th class="roster-header"><span>ECE Funding 2 and over but less than six years FCH </span></th>
+                   <th class="roster-header"><span>20 Hours ECE</span></th>
+                   <th class="roster-header"><span>Plus 10</span></th>
+                </tr>
+                </thead>
+                 <tbody ng-if="!dailyfch.matrix">
+                    <tr><td></td><td colspan="6">FCH for this date in not synchronised with database!!</td></tr>
+                </tbody>
+                <tbody ng-if="dailyfch.matrix && !(dailyfch.licenseConfiguration && dailyfch.currentCentre.ServiceId!='' && dailyfch.bookingHoursCondition)">
+                    <tr><td></td><td colspan="6">FCH criteria is not met!!</td></tr>
+                </tbody>
+                <tbody ng-if="dailyfch.matrix && dailyfch.licenseConfiguration && dailyfch.currentCentre.ServiceId!='' && dailyfch.bookingHoursCondition">
+
+                <tr  ng-repeat="w in dailyfch.childList" ng-class="dailyfch.getRowClass(w)" childId={{w._id}} class="no-print-padding">
+                    <td data-title="'Child'" class="no-print-padding" >
+                      <span ng-if="!dailyfch.checkChildAgeCondition(w)">
+                      <i  class="testAlert glyphicon glyphicon-exclamation-sign"></i></span>
+                        <span>{{dailyfch.getChildName(w._id)}}</span>
+                    </td>
+                    <td class="no-print-padding" ng-repeat="val in timeHeaders track by $index">
+                        {{dailyfch.matrix[w._id][val]}}
+                    </td>
+                    <td ng-if="dailyfch.serviceCloseMatrix==0" class="no-print-padding" data-title="'Absence'">--</td>
+                    <td ng-if="dailyfch.serviceCloseMatrix" class="no-print-padding" data-title="'Absence'">
+                      {{dailyfch.matrix[w._id]['absence']}}
+                    </td>
+                    <td data-title="'three week rule'">
+                        {{dailyfch.matrix[w._id]['three_week_rule']}}
+                    </td>
+                    <td class="no-print-padding" data-title="'Total hours Attended'">
+                        {{dailyfch.matrix[w._id]['total_hours_attended']}}
+                    </td>
+                    <td class="no-print-padding" data-title="'Claimable FCH'">
+                        {{dailyfch.matrix[w._id]['claimable_fch']}}
+                    </td>
+                   <!--  <td class="no-print-padding" data-title="'Claimable FCH'">
+                        {{dailyfch.matrix[w._id]['far']}}
+                    </td> -->
+                    <td class="no-print-padding" data-title="'ECE Funding Under 2 FCH'">
+                        {{dailyfch.matrix[w._id]['ece_under_two_fch']}}
+                    </td>
+                    <td class="no-print-padding" data-title="'ECE Funding 2 and over but less than six years FCH'">
+                    {{dailyfch.matrix[w._id]['ece_over_two_and_less_than_six']}}
+                    </td>
+                    <td class="no-print-padding" data-title="'20 Hours ECE'">
+                    {{dailyfch.matrix[w._id]['twenty_hours_ece']}}
+                    </td>
+                    <td class="no-print-padding" data-title="'Plus 10'">
+                     {{dailyfch.matrix[w._id]['plus_ten_hours']}}
+                   </td>
+
+                </tr>
+                
+               <!--  </tbody>
+                <tfoot> -->
+                    <tr>
+                        <td data-title="'Child'" class="no-print-padding">Total</td>
+                        <td  class="no-print-padding" ng-repeat="val in timeHeaders track by $index" >
+                          {{dailyfch.matrix['totalperhour'][val]}}
+                         </td>
+                        <td data-title="'Absence'" class="no-print-padding" ></td>
+                        <td data-title="'Three Week rule'" class="no-print-padding" ></td>
+                        <td data-title="'Total hours Attended'" class="no-print-padding" >
+                           {{dailyfch.matrix['total_attended_hours']}}
+                        </td>
+                        <td data-title="'Claimable FCH'" class="no-print-padding" >
+                            {{dailyfch.matrix['total_claimable_fch']}}
+                        </td>
+                       <!--  <td class="no-print-padding" data-title="'Claimable FCH'">
+                            {{dailyfch.matrix['total_far']}}
+                        </td> -->
+                        <td data-title="'ECE Funding Under 2 FCH'" class="no-print-padding" >
+                         {{dailyfch.matrix['total_ecefuncding_under_two']}}
+                        </td>
+                        <td data-title="'ECE Funding 2 and over but less than six years FCH'" class="no-print-padding" >
+                        {{dailyfch.matrix['total_ecefuncding_over_two_and_less_six']}}
+                        </td>
+                        <td data-title="'20 Hours ECE'" class="no-print-padding" >
+                           {{dailyfch.matrix['total_ecetwenty_hours']}}
+                        </td>
+                        <td data-title="'Plus 10'" class="no-print-padding" >
+                        {{dailyfch.matrix['total_plus_ten_hours']}}
+                        </td>
+
+                    </tr>
+                    </tbody>
+               <!--  </tfoot> -->
+            </table>
+        </div>
+
+
+    </div>
+</div>
+

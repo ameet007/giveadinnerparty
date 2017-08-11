@@ -1,80 +1,74 @@
 @extends('user.layout.fronLayout')
 @section('content')
-
-<div class="pro-header">
-    <div class="container your-party">
-
-        <div class="pull-left">
-            <h2>Awesome. {{Auth::guard('user')->user()->name}},</h2>
-            <h3>Let’s Get You Ready to Host Your Dinner Party</h3>
-        </div>
-
-    </div>
-</div>
-
-<section class="middle-content host-step">
+<section class="middle-content account-section host-step">
     <form method='post' id='create_event_form' action='{{Request::root()}}/user/create_event' />
     <input type='hidden' name='_token' value='{{csrf_token()}}' />
     <div class="container">
         <div class="row">
-            <h3>Event Details</h3>
-            <div class="dat-time">
-                <div class="row">
-                    <div class="col-xs-12 feild">
-                        <div class="row">
-                            <div class="col-md-4 col-sm-12">
-                                <h4>Template</h4>
-                                <div class="form-group">
-                                    <select class="form-control" id="template">
-                                        <option selected="selected">Select A Template</option>
-                                        @foreach($past_events as $event)
-                                        <option value="{{$event->id}}">{{$event->title}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12 feild">
-                        <div class="row">
-                            <div class="col-md-4 col-sm-12">
-                                <h4>Event Title</h4>
-                                <div class="form-group">
-                                    <input type="text" name='title' class="form-control" placeholder="Title For Your Event" required />
-                                </div>
-                                @if(ISSET($errors))
-                                <ul class="parsley-errors-list filled" id="parsley-id-5">
-                                    <li class="parsley-required">{{$errors->first('title')}}</li>
-                                </ul>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12 feild">
-                        <div class="row">
-                            <div class="col-md-4 col-sm-12">
-                                <h4>Description</h4>
-                                <div class="form-group">
-                                    <textarea name='description' class="form-control" required ></textarea>
-                                </div>
-                                @if(ISSET($errors))
-                                <ul class="parsley-errors-list filled" id="parsley-id-5">
-                                    <li class="parsley-required">{{$errors->first('description')}}</li>
-                                </ul>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row">
+			
+			<aside class="col-md-2 left-sidebar">
+				<div class="sidenav-list">
+					@include('user.layout.host-sidebar')
+				</div>
+			</aside>
+			<div class="col-md-10">
+				<h3>Event Details</h3>
+				<div class="dat-time event-deta">
+					<div class="row">
+						<div class="col-xs-12 feild">
+							<div class="row">
+								<div class="col-md-6 col-sm-12">
+									<h4>Template 
+										<a href="#" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="If you’ve previously hosted an event, you can call up the same settings here"><i class="fa fa-info-circle" aria-hidden="true"></i></a></h4>
+									<div class="form-group">
+										<select class="form-control" id="template">
+											<option selected="selected">Select A Template</option>
+											@foreach($past_events as $event)
+												<option value="{{$event->id}}">{{$event->title}}</option>
+											@endforeach
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 feild">
+							<div class="row">
+								<div class="col-md-6 col-sm-12">
+									<h4>Event Title</h4>
+									<div class="form-group">
+										<input type="text" name='title' class="form-control" placeholder="eg Pictionary & cocktails evening (min.10 characters - max.30 characters)" data-parsley-trigger="keyup" data-parsley-minlength="10" data-parsley-maxlength="30" data-parsley-minlength-message="You need to enter at least a 30 character. " required/>
+									</div>
+									@if(ISSET($errors))
+									<ul class="parsley-errors-list filled" id="parsley-id-5">
+										<li class="parsley-required">{{$errors->first('title')}}</li>
+									</ul>
+									@endif
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 feild">
+							<div class="row">
+								<div class="col-md-6 col-sm-12">
+									<h4>Description</h4>
+									<div class="form-group">
+										<textarea name='description' class="form-control" placeholder="Say a little about your event (min.10 characters - max.100 characters)." data-parsley-trigger="keyup" data-parsley-minlength="10" data-parsley-maxlength="100" data-parsley-minlength-message="You need to enter at least a 100 character. " required ></textarea>
+									</div>
+									@if(ISSET($errors))
+									<ul class="parsley-errors-list filled" id="parsley-id-5">
+										<li class="parsley-required">{{$errors->first('description')}}</li>
+									</ul>
+									@endif
+								</div>
+							</div>
+						</div>
+					</div>
+				
+				</div>
+    
             <h3>When And Where Do You Want To Hold Your Events</h3>
             <div class="dat-time">
                 <div class="row">
@@ -99,33 +93,12 @@
                     <div class="col-xs-12 feild">
                         <div class="row">
                             <div class="col-md-4 col-sm-12">
-                                <h4>Start Time</h4>
+                                <h4>Start Time (24 hour clock)</h4>
                                 <div class="form-group">
-                                    <select name='start_time_1' class="form-control" id="start_time_1" required > 
-                                        <option value="0">0</option> 
-                                        <option value="1">1</option> 
-                                        <option value="2">2</option> 
-                                        <option value="3">3</option> 
-                                        <option value="4">4</option> 
-                                        <option value="5">5</option> 
-                                        <option value="6">6</option> 
-                                        <option value="7">7</option>
-                                        <option value="8">8</option> 
-                                        <option value="9">9</option> 
-                                        <option value="10">10</option> 
-                                        <option value="11">11</option> 
-                                        <option value="12">12</option> 
-                                        <option value="13">13</option> 
-                                        <option value="14">14</option> 
-                                        <option value="15">15</option> 
-                                        <option value="16">16</option> 
-                                        <option value="17">17</option> 
-                                        <option value="18">18</option> 
-                                        <option value="19">19</option> 
-                                        <option selected="" value="20">20</option> 
-                                        <option value="21">21</option> 
-                                        <option value="22">22</option> 
-                                        <option value="23">23</option> 
+                                    <select name='start_time_1' class="form-control" id="start_time_1" required >                                        
+                                       <?php for($k=0; $k<=23; $k++){ ?>
+											<option value="{{ $k }}">{{ $k }}</option> 
+                                       <?php } ?>                                     
                                     </select>
                                 </div>
                                 @if(ISSET($errors))
@@ -156,32 +129,11 @@
                         <div class="row">
                             <div class="col-md-4 col-sm-12">
                                 <div class="form-group">
-                                    <h4>End Time</h4>
+                                    <h4>End Time (24 hour clock)</h4>
                                     <select name='end_time_1' class="form-control" id="end_time_1"> 
-                                        <option value="0">0</option> 
-                                        <option value="1">1</option> 
-                                        <option value="2">2</option> 
-                                        <option value="3">3</option> 
-                                        <option value="4">4</option> 
-                                        <option value="5">5</option> 
-                                        <option value="6">6</option> 
-                                        <option value="7">7</option>
-                                        <option value="8">8</option> 
-                                        <option value="9">9</option> 
-                                        <option value="10">10</option> 
-                                        <option value="11">11</option> 
-                                        <option value="12">12</option> 
-                                        <option value="13">13</option> 
-                                        <option value="14">14</option> 
-                                        <option value="15">15</option> 
-                                        <option value="16">16</option> 
-                                        <option value="17">17</option> 
-                                        <option value="18">18</option> 
-                                        <option value="19">19</option> 
-                                        <option selected="" value="20">20</option> 
-                                        <option value="21">21</option> 
-                                        <option value="22">22</option> 
-                                        <option value="23">23</option> 
+                                        <?php for($l=0; $l<=23; $l++){ ?>
+                                        <option value="{{ $l }}">{{ $l }}</option> 
+                                       <?php } ?> 
                                     </select>
                                 </div>
                                 @if(ISSET($errors))
@@ -216,7 +168,7 @@
                         <div class="row">
                             <div class="col-md-8 col-sm-12">
                                 <h4>Location</h4>
-                                <p>Don’t worry, only confirmed, identity verified attendees will see your address</p>
+                                <p>Only users who purchase tickets will see your address/telephone number. All guests must request tickets. As the host, you authorise or reject each request. Once authorised, a guest can then purchase their tickets. Tickets are sold on a first come, first served basis.</p>
                                 <div class="form-group">
                                     <input name='street' type="text" class="form-control" placeholder="Enter Your Street and Home Number" required />
                                 </div>
@@ -263,17 +215,20 @@
                             <div class="col-md-4 col-sm-12">
                                 <div class="form-group">
                                     <div class="form-group">
-                                        <select  name="country" class="form-control" required>
+										<input type="hidden" name="country" value="United Kingdom"> 
+                                        <?php /* ?>
+										<select  name="country" class="form-control" required>
                                             <option value="">Country You’re In?</option>
                                             @foreach($country_list as $country)
                                             <option value="{{$country->title}}">{{$country->title}}</option>
                                             @endforeach
                                         </select>
+										<?php */ ?>
                                     </div>
                                     @if(ISSET($errors))
-                                <ul class="parsley-errors-list filled" id="parsley-id-5">
-                                    <li class="parsley-required">{{$errors->first('country')}}</li>
-                                </ul>
+									<ul class="parsley-errors-list filled" id="parsley-id-5">
+										<li class="parsley-required">{{$errors->first('country')}}</li>
+									</ul>
                                 @endif
                                 </div>
                             </div>
@@ -297,10 +252,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="container host-step2">
-        <div class="row">
+        
+           <div class="host-step2">
             <h3>Decide on Your Party Preferences</h3>
             <div class="dat-time">
                 <div class="row">
@@ -330,7 +283,7 @@
                     </div>
                     <div class="col-xs-12 feild">
                         <div class="row">
-                            <div class="col-md-4 col-sm-12">
+                            <div class="col-md-8 col-sm-12">
                                 <div class="form-group">
                                     <label>Which Drinks If Any Are Included?</label>
                                     <input name='drinks_included' type="text" class="form-control" placeholder="Included Drinks" />
@@ -342,49 +295,48 @@
                 <div class="row">
                     <div class="col-xs-12 feild">
                         <div class="row">
-                            <div class="col-md-4 col-sm-12">
+                            <div class="col-md-8 col-sm-12">
                                 <div class="form-group">
                                     <label>Food Included</label>
                                     <select name='food_included' class="form-control" id="sel1"> 
                                         <option value="None">None</option>
-                                        <option value="Every Guest To Bring A Dish">Every Guest To Bring A Dish</option>
-                                        <option value="1 Course">1 Course</option>
-                                        <option value="2 Courses">2 Courses</option>
-                                        <option value="3 Courses">3 Courses</option>
-                                        <option value="4 Courses">4 Courses</option>
-                                        <option value="5 Courses">5 Courses</option>
-                                        <option value="6 Courses">6 Courses</option>
-                                        <option value="7 Courses">7 Courses</option>
-                                        <option value="8 Courses">8 Courses</option>
-                                        <option value="9 Courses">9 Courses</option>
-                                        <option value="10 Courses">10 Courses</option>
-                                        <option value="11 Courses">11 Courses</option>
-                                        <option value="12 Courses">12 Courses</option>
+                                        <option value="Every Guest To Bring A Dish">Every Guest To Bring A Dish</option>                                        
+										<?php for($m=1; $m<=12; $m++){ ?>
+											<option value="{{ $m }} Course">{{ $m }} Course{{($m>1)?'s':''}}</option> 
+                                        <?php } ?> 
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-4 col-sm-12">
-                                <div class="form-group">
-                                    <label>Type</label>
-                                    <select name='food_type' class="form-control" id="sel1"> 
-                                        <option value="Breakfast">Breakfast</option>
-                                        <option value="Brunch">Brunch</option>
-                                        <option value="Lunch">Lunch</option>
-                                        <option value="Afternoon Tea">Afternoon Tea</option>
-                                        <option value="Dinner">Dinner</option>
-                                        <option value="Miscellaneous">Miscellaneous</option>
-                                    </select>
-                                </div>
-                            </div>
+							<span id="food_course"></span>
                         </div>
                     </div>
-
                 </div>
+				
+				<div class="row">
+					<div class="col-xs-12 feild">
+						<div class="row">
+							<div class="col-md-4 col-sm-12">
+								<div class="form-group">
+									<label>Type</label>
+									<select name='food_type' class="form-control" id="sel1"> 
+										<option value="Dinner">Dinner</option>
+										<option value="Breakfast">Breakfast</option>
+										<option value="Brunch">Brunch</option>
+										<option value="Lunch">Lunch</option>
+										<option value="Afternoon Tea">Afternoon Tea</option>
+										<option value="Miscellaneous">Miscellaneous</option>
+									</select>
+								</div>
+							</div>
+						</div>	
+					</div>
+				</div>
+				
             </div>
-            <div class="dat-time dietary-info" id="div_food_drinks">
+            <div class="dat-time dietary-info " id="div_food_drinks">
                 <div class="row">
                     <div class="col-xs-12 feild">
-                        <h4>Food And Drinks</h4>
+                        
                         <label class="checkbox-inline"><input name='food_drink_type[]' type="checkbox" value="Vegetarian">Vegetarian</label>
                         <label class="checkbox-inline"><input name='food_drink_type[]' type="checkbox" value="Vegan">Vegan</label>
                         <label class="checkbox-inline"><input name='food_drink_type[]' type="checkbox" value="Pescatarian">Pescatarian</label> 
@@ -396,6 +348,7 @@
                     </div>
                 </div>
             </div>
+			</div>
             <div class="dat-time event-pre">
                 <div class="row">
                     <div class="col-xs-12 feild">
@@ -429,99 +382,9 @@
                                 <div class="form-group">
                                     <label>Min. Age</label>
                                     <select name='min_age' required class="form-control" id="sel1"> 
-                                        <option selected="" value="18">18</option> 
-                                        <option value="19">19</option> 
-                                        <option value="20">20</option> 
-                                        <option value="21">21</option> 
-                                        <option value="22">22</option> 
-                                        <option value="23">23</option> 
-                                        <option value="24">24</option> 
-                                        <option value="25">25</option> 
-                                        <option value="26">26</option> 
-                                        <option value="27">27</option> 
-                                        <option value="28">28</option> 
-                                        <option value="29">29</option> 
-                                        <option value="30">30</option> 
-                                        <option value="31">31</option> 
-                                        <option value="32">32</option> 
-                                        <option value="33">33</option> 
-                                        <option value="34">34</option> 
-                                        <option value="35">35</option> 
-                                        <option value="36">36</option> 
-                                        <option value="37">37</option> 
-                                        <option value="38">38</option> 
-                                        <option value="39">39</option> 
-                                        <option value="40">40</option> 
-                                        <option value="41">41</option> 
-                                        <option value="42">42</option> 
-                                        <option value="43">43</option> 
-                                        <option value="44">44</option> 
-                                        <option value="45">45</option> 
-                                        <option value="46">46</option> 
-                                        <option value="47">47</option> 
-                                        <option value="48">48</option> 
-                                        <option value="49">49</option> 
-                                        <option value="50">50</option> 
-                                        <option value="51">51</option> 
-                                        <option value="52">52</option> 
-                                        <option value="53">53</option> 
-                                        <option value="54">54</option> 
-                                        <option value="55">55</option> 
-                                        <option value="56">56</option> 
-                                        <option value="57">57</option> 
-                                        <option value="58">58</option> 
-                                        <option value="59">59</option> 
-                                        <option value="60">60</option> 
-                                        <option value="61">61</option> 
-                                        <option value="62">62</option> 
-                                        <option value="63">63</option> 
-                                        <option value="64">64</option> 
-                                        <option value="65">65</option>
-                                        <option value="66">66</option> 
-                                        <option value="67">67</option> 
-                                        <option value="68">68</option> 
-                                        <option value="69">69</option> 
-                                        <option value="70">70</option> 
-                                        <option value="71">71</option> 
-                                        <option value="72">72</option> 
-                                        <option value="73">73</option> 
-                                        <option value="74">74</option> 
-                                        <option value="75">75</option> 
-                                        <option value="76">76</option>
-                                        <option value="77">77</option> 
-                                        <option value="78">78</option> 
-                                        <option value="79">79</option> 
-                                        <option value="80">80</option>
-                                        <option value="81">81</option> 
-                                        <option value="82">82</option> 
-                                        <option value="83">83</option> 
-                                        <option value="84">84</option> 
-                                        <option value="85">85</option> 
-                                        <option value="86">86</option> 
-                                        <option value="87">87</option> 
-                                        <option value="88">88</option> 
-                                        <option value="89">89</option> 
-                                        <option value="90">90</option> 
-                                        <option value="91">91</option> 
-                                        <option value="92">92</option> 
-                                        <option value="93">93</option> 
-                                        <option value="94">94</option>
-                                        <option value="95">95</option> 
-                                        <option value="96">96</option> 
-                                        <option value="97">97</option> 
-                                        <option value="98">98</option> 
-                                        <option value="99">99</option> 
-                                        <option value="100">100</option> 
-                                        <option value="101">101</option> 
-                                        <option value="102">102</option> 
-                                        <option value="103">103</option> 
-                                        <option value="104">104</option> 
-                                        <option value="105">105</option> 
-                                        <option value="106">106</option> 
-                                        <option value="107">107</option> 
-                                        <option value="108">108</option> 
-                                        <option value="109">109</option>
-                                        <option value="110">110</option> 
+										<?php for($i=18; $i<=110; $i++){ ?>
+                                        <option value="{{ $i }}">{{ $i }}</option> 
+                                        <?php } ?> 
                                     </select>
                                 </div>
                             </div>
@@ -529,99 +392,9 @@
                                 <div class="form-group">
                                     <label>Max. Age</label>
                                     <select name='max_age' required class="form-control" id="sel1"> 
-                                        <option selected="" value="18">18</option> 
-                                        <option value="19">19</option> 
-                                        <option value="20">20</option> 
-                                        <option value="21">21</option> 
-                                        <option value="22">22</option> 
-                                        <option value="23">23</option> 
-                                        <option value="24">24</option> 
-                                        <option value="25">25</option> 
-                                        <option value="26">26</option> 
-                                        <option value="27">27</option> 
-                                        <option value="28">28</option> 
-                                        <option value="29">29</option> 
-                                        <option value="30">30</option> 
-                                        <option value="31">31</option> 
-                                        <option value="32">32</option> 
-                                        <option value="33">33</option> 
-                                        <option value="34">34</option> 
-                                        <option value="35">35</option> 
-                                        <option value="36">36</option> 
-                                        <option value="37">37</option> 
-                                        <option value="38">38</option> 
-                                        <option value="39">39</option> 
-                                        <option value="40">40</option> 
-                                        <option value="41">41</option> 
-                                        <option value="42">42</option> 
-                                        <option value="43">43</option> 
-                                        <option value="44">44</option> 
-                                        <option value="45">45</option> 
-                                        <option value="46">46</option> 
-                                        <option value="47">47</option> 
-                                        <option value="48">48</option> 
-                                        <option value="49">49</option> 
-                                        <option value="50">50</option> 
-                                        <option value="51">51</option> 
-                                        <option value="52">52</option> 
-                                        <option value="53">53</option> 
-                                        <option value="54">54</option> 
-                                        <option value="55">55</option> 
-                                        <option value="56">56</option> 
-                                        <option value="57">57</option> 
-                                        <option value="58">58</option> 
-                                        <option value="59">59</option> 
-                                        <option value="60">60</option> 
-                                        <option value="61">61</option> 
-                                        <option value="62">62</option> 
-                                        <option value="63">63</option> 
-                                        <option value="64">64</option> 
-                                        <option value="65">65</option>
-                                        <option value="66">66</option> 
-                                        <option value="67">67</option> 
-                                        <option value="68">68</option> 
-                                        <option value="69">69</option> 
-                                        <option value="70">70</option> 
-                                        <option value="71">71</option> 
-                                        <option value="72">72</option> 
-                                        <option value="73">73</option> 
-                                        <option value="74">74</option> 
-                                        <option value="75">75</option> 
-                                        <option value="76">76</option>
-                                        <option value="77">77</option> 
-                                        <option value="78">78</option> 
-                                        <option value="79">79</option> 
-                                        <option value="80">80</option>
-                                        <option value="81">81</option> 
-                                        <option value="82">82</option> 
-                                        <option value="83">83</option> 
-                                        <option value="84">84</option> 
-                                        <option value="85">85</option> 
-                                        <option value="86">86</option> 
-                                        <option value="87">87</option> 
-                                        <option value="88">88</option> 
-                                        <option value="89">89</option> 
-                                        <option value="90">90</option> 
-                                        <option value="91">91</option> 
-                                        <option value="92">92</option> 
-                                        <option value="93">93</option> 
-                                        <option value="94">94</option>
-                                        <option value="95">95</option> 
-                                        <option value="96">96</option> 
-                                        <option value="97">97</option> 
-                                        <option value="98">98</option> 
-                                        <option value="99">99</option> 
-                                        <option value="100">100</option> 
-                                        <option value="101">101</option> 
-                                        <option value="102">102</option> 
-                                        <option value="103">103</option> 
-                                        <option value="104">104</option> 
-                                        <option value="105">105</option> 
-                                        <option value="106">106</option> 
-                                        <option value="107">107</option> 
-                                        <option value="108">108</option> 
-                                        <option value="109">109</option>
-                                        <option value="110">110</option> 
+                                       <?php for($j=18; $j<=110; $j++){ ?>
+                                        <option value="{{ $j }}">{{ $j }}</option> 
+                                       <?php } ?> 
                                     </select>
                                 </div>
                             </div>
@@ -689,10 +462,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="container host-step3">
-        <div class="row">
+        
+    
             <h3>You’re almost there..</h3>
             <div class="dat-time pr-charity">
                 <div class="row">
@@ -701,14 +472,17 @@
                         <div class="row">
                             <div class="col-md-4 col-sm-12">
                                 <div class="form-group">
-                                    <label>Guests (Min)</label>
-                                    <input name='min_guests' required type="number" class="form-control" placeholder="1" />
+                                    <label>Guests (Min)
+									<a href="#" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Should you have less than your minimum guest
+requirement your event will auto-cancel 24 hours before. Any booked guests will be notified."><i class="fa fa-info-circle" aria-hidden="true"></i></a>	
+									</label>
+                                    <input name='min_guests' required type="number" class="form-control" placeholder="1" min="0"/>
                                 </div>
                             </div>
                             <div class="col-md-4 col-sm-12">
                                 <div class="form-group">
                                     <label>Guests (Max)</label>
-                                    <input name='max_guests' required type="number" class="form-control" placeholder="6" />
+                                    <input name='max_guests' required type="number" class="form-control" placeholder="6" min="0"/>
                                 </div>
                             </div>
                             <div class="col-md-4 col-sm-12">
@@ -741,10 +515,10 @@
                                     <label>Charity Receives</label>
                                     <select name='charity_cut' required class="form-control" id="charity_cut">
                                         <option value="100">100%</option>
-                                        <option value="75">75%</option>
+                                        <!--<option value="75">75%</option>-->
                                         <option value="50">50%</option>
                                     </select>
-                                    <p id='charity_price'>$0.00 per ticket</p>
+                                    <p id='charity_price'><i class="fa fa-gbp" aria-hidden="true"></i>0.00 per ticket</p>
                                 </div>
                             </div>
                             <div class="col-md-4 col-sm-12">
@@ -752,21 +526,23 @@
                                     <label>I Receive</label>
                                     <select class="form-control" id="my_cut">
                                         <option value='0' selected="selected">0%</option>
-                                        <option value='25'>25%</option>
+                                        <!--<option value='25'>25%</option>-->
                                         <option value='50'>50%</option>
                                     </select>
-                                    <p id='my_price'>$0.00 per ticket</p>
+                                    <p id='my_price'><i class="fa fa-gbp" aria-hidden="true"></i>0.00 per ticket</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-sx-12">
+            <div class="col-sx-12 host-step3">
                 <div class="row">
                     <div class="col-md-8 col-sm-12">
                         <div class="refer-number">
-                            <p>Have you been given a sponsored event reference number for your chosen charity, <i class="fa fa-question-circle" aria-hidden="true"></i></p>
+                            <p>Have you been given a sponsored event reference number for your chosen charity, 
+							<a href="#" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Some people are raising money for a particular charity under a reference number the charity has given them. this will ensure the source of funds raised through Give A Dinner Party is registered by the charity."><i class="fa fa-question-circle" aria-hidden="true"></i></a></h4>
+							</p>
                             <p>If so, please enter this in the box provided below.</p>
                             <input name='reference_number' type="text" class="form-control" placeholder="Reference Number" />
                         </div>
@@ -778,17 +554,13 @@
                     <div class="col-xs-12 feild">
                         <div class="row">
                             <div class="col-md-8 col-sm-12">
-                                <h4>Finally, Send Your Participants A Warm Welcoming Note</h4>
-                                <p>Along with helpful travel instructions to help them get to your place.</p>
+                                <h4>Finally Send Your Guests A Welcome Note</h4>
+                            
                                 <div class="form-group">
-                                    <textarea name='welcome_note' required class="form-control" placeholder="Say hi, and Tell Them How to Get To Your Place"></textarea>
-                                </div>
-                                <label><input name='agree' required type="checkbox" value="1">I agree to be contacted by Action Against Hunger to receive my free recipe and fundraising pack and hear more about their work.</label>
-
-                                <label><input name='confirm' required type="checkbox" value="1">I have read and agree to the <a href="#">Terms And Conditions</a> and <a href="#">Privacy Policy</a></label>
-
-
-                                <label>Confirmed</label>
+                                    <textarea name='welcome_note' required class="form-control" placeholder="Say Hi And Let Them Know How To Find You, Where To Park Etc (min.10 characters - max.100 characters)" placeholder="Say a little about your event (min.10 characters - max.100 characters)." data-parsley-trigger="keyup" data-parsley-minlength="10" data-parsley-maxlength="100" data-parsley-minlength-message="You need to enter at least a 100 character. "></textarea>
+                                </div>                               
+                                <label>I have read and agree to the <a href="#">Terms And Conditions</a> and <a href="#">Privacy Policy</a>.</label><br>
+                                <label><input name='confirm' required type="checkbox" value="1"> Confirmed</label>
 
                             </div>
                         </div>
@@ -804,6 +576,25 @@
 </section>
 <script>
     $(document).ready(function () {
+		
+		$(document).ready(function(){
+		$('[data-toggle="tooltip"]').tooltip();
+	});
+
+		
+		$("select[name='food_included']").change(function(){
+			var food_val = $(this).val().split(' ');
+			var course_html = "";
+			for(i=1; i<=food_val[0]; i++)
+			{
+				course_html +='<div class="col-md-8 col-sm-12"><div class="form-group">';
+                course_html +='<input type="text" class="form-control" placeholder="Course '+ i +'" />';
+				course_html +='</div></div>';        
+			}	
+			$('#food_course').html(course_html);
+		});
+		
+		
         $('.datepicker').datepicker();
         
         $('#charity_cut').change(function(){
@@ -817,9 +608,9 @@
                 $('#my_cut').val('50');
             }
             var amount_charity = ($(this).val()*$('#charity_cut').val())/100;
-            var text_charity = '$'+amount_charity +' per ticket';
+            var text_charity = '<i class="fa fa-gbp" aria-hidden="true"></i>'+amount_charity +' per ticket';
             var amount_my = ($(this).val()*$('#my_cut').val())/100;
-            var text_my = '$'+amount_my +' per ticket';
+            var text_my = '<i class="fa fa-gbp" aria-hidden="true"></i>'+amount_my +' per ticket';
             $('#charity_price').html(text_charity);
             $('#my_price').html(text_my);
         })

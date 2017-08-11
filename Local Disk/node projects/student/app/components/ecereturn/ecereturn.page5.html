@@ -1,0 +1,92 @@
+<style type="text/css">
+	.panel-body .row{
+		padding: 10px 0;
+	}
+	.panel-body .row:nth-child(odd){
+		background-color: #EDECEC;
+	}
+	.link{
+		cursor: pointer;
+	}
+	.link:hover{
+		font-weight: bold !important;
+		text-decoration: underline !important;
+	}
+	.green{
+		color: #4CAF50;
+	}
+	.icon{
+		font-size: 16px;
+	}
+	.subtitle{
+		font-size: 12px;
+		padding: 5px;
+	}
+</style>
+<div>
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			
+			Staff Activity for the ECE Return Week
+		</div>
+	</div>
+	<div class="alert alert-info">
+		<p>
+			Click on the name of each of the staff listed below. For non-teaching roles, check the box for any role that staff member worked in this week. For teaching staff, provide the actual contact start and finish times for all teachers who were teaching in this week. Do not include non-contact time and breaks of 15 minutes or more in the contact hours. If a teacher on the list was not present this week, do not enter contact hours. If you have used relieving teacher during this week, add the teacher to staff record and enter the relieving teacher’s contact hours.
+		</p>
+	</div>
+	<div class="panel panel-primary">
+		<div class="panel-heading subtitle">
+			<div class="row">
+				<div class="col-md-10">
+					Service Staff List
+				</div>
+				<div class="col-md-2 text-right">
+					<button class="btn btn-xs btn-default" ng-click='vm.addStaff()'> 
+						<i class="glyphicon glyphicon-plus"></i> 
+						Add Staff
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<div class="row subtitle" ng-show='vm.fields.staff.length'>
+				<div class="col-md-1"></div>
+				<div class="col-md-3">
+					Staff Name
+				</div>
+				<div class="col-md-4">
+					Action
+				</div>
+			</div>
+			<!--  -->
+			<div class="row" ng-repeat="staff in vm.fields.staff track by $index">
+				<div class="col-md-1">
+					<div ng-show='vm.fields.staff[$index].extra_details' class="glyphicon glyphicon-ok green icon"></div>
+				</div>
+				<div class="col-md-3">
+					<a ng-click="vm.openSubPage($index)" class='link'>{{staff.LastName}} {{staff.FirstName}}</a>
+				</div>
+				<div class="col-md-4">
+					<button class="btn btn-danger btn-sm actionicon" ng-click="vm.deleteStaff($index)">
+					<i class="glyphicon glyphicon-trash"></i>
+					</button>
+				</div>
+			</div>
+			<div class="row" ng-show='!vm.fields.staff.length && !vm.loading'>
+				<div class="col-md-12 alert alert-info">
+					No staff found. please try adding manually.
+				</div>
+			</div>
+		</div>
+	</div>
+	<br/>
+	<br/>
+	<div class="text-center">
+		<button class="btn btn-success" ng-click='vm.finalSubmissionCheck(vm.fields.staff)' ng-disabled='vm.isFinalSubmissionDisabled(vm.fields.staff)'>
+		Continue		
+		</button>
+		<button class="btn btn-warning"  ng-click='vm.gotoPage(5,4, true)'>Back</button>
+		<button class="btn btn-danger" ng-hide='vm.is_edit_mode' ng-click='vm.cancelWizard()'>Cancel</button>
+	</div>
+</div>

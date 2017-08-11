@@ -1,0 +1,56 @@
+
+    <div class="card no-print-padding">
+        <div class="card-header no-print">
+            <h2>RS7 Prerequesite Check</h2>
+        </div>
+        <div class="card-body card-padding no-print-padding">
+            <ul>
+                <li>Verify that you have entered all holidays relevant to your centre and is showing up under Holiday Tab</li>
+                <li>Please make sure you have attendance marked for the funding period you are submitting RS7 for and sign in sheets are available for auditing purpose</li>
+                <li>Please make sure contact hours are recorded for qualified and non qualified educator/teacher for the funding period</li>
+            </ul>
+
+            <br/>
+
+            <div class="text-center">
+                <span class="well">
+                <label>Select Payment Cycle</label>
+                <select ng-model="rs7.selectedPayPeriod" ng-disabled="false"
+                        ng-options="period as (period.StartPayPeriodMonth+' '+rs7.getYear(period.StartPayPeriodMonth,period.RS7SubmissionNotification) + ' - ' + period.EndPayPeriodMonth+' '+rs7.getYear(period.EndPayPeriodMonth,period.RS7SubmissionNotification)) for period in rs7.payPeriods"></select>
+                </span>
+                <span class="well" style="margin-left:20px;">
+                <label >Submission By</label>
+                <span>{{rs7.getSubmitWithinDates()}}</span>
+                </span>
+                <span class="well" style="margin-left:20px;">
+                <label>Submitted Status:</label>
+                <span>{{rs7.isSubmitted()}}</span>
+                </span>
+            </div>
+
+            <br/>
+
+            <b>Completing the RS7 Return</b>
+
+            <p>You can refer to Chapter 9 of the Early Childhood Funding Handbook on instructions on filling out this return.
+                If you have any queries, you can call the Resourcing Contact centre on 0800 ECE ECE (0800 323 323) or
+                email <a href="mailto:resourcing@education.govt.nz">resourcing@education.govt.nz</a></p>
+
+            <p>Please note that only the most recently submitted RS7 form data will be processed for funding at the end of a given day.</p>
+
+            <p>The current RS7 funding return period is <b>{{(rs7.selectedPayPeriod.StartPayPeriodMonth + ' - ' + rs7.selectedPayPeriod.EndPayPeriodMonth)}}</b>.
+                To ensure you receive a timely payment, please refer to He Pānui Kōhungahunga- The Early Learning Bulletin for more information.
+                Submission after the due date will delay funding until the next available date.
+                </p>
+
+            <p>Submission of a return for the current period can be done between {{rs7.getSubmitWithinDates(true)}} and {{rs7.getSubmitWithinDates()}}, after which it will no longer be available for editing or submitting.</p>
+
+
+        </div>
+
+        <div class="text-center" style="padding:10px">
+            <button class="btn btn-info" ng-disabled="!rs7.selectedPayPeriod" ng-click="rs7.continue()">Continue</button>&nbsp;&nbsp;&nbsp;&nbsp;<button ui-sref="main.rs7history"  class="btn btn-info">View History</button>
+        </div>
+    </div>
+
+

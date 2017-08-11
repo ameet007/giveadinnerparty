@@ -1,0 +1,30 @@
+<div>
+	<h4>
+		
+	You are initiating process to submit ECE Return for the year "{{vm.fields.this_year}}". 
+	</h4>
+	<h5>
+		
+		Please carry out following task.
+	</h5>
+	<ul>
+		<li>
+			Recorded child attendance for the return week
+		</li>
+		<li>
+			Update staff details
+		</li>
+		<li>
+			Ensure all children have been allocated an NSN
+		</li>
+		<li ng-if="vm.facility_details.CenterType=='Playcenter'">
+			Record home-based coordinator work hours for the return week (Show this line only when Centre type is set to Homebased)
+		</li>
+	</ul>
+<br/>
+  	<div class="text-center" ng-hide='!vm.checkDateValid(vm.fields.ecereturnweekstart_date, vm.fields.ecereturnweekend_date)'>
+
+		<button class="btn btn-success" ng-click='vm.gotoPage(1,2)'>Continue</button>
+	</div>
+
+</div>

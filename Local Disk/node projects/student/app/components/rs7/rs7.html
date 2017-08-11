@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="block-header">
+        <h2>Submit RS7</h2>
+    </div>
+
+    <div class="card no-print-padding">
+        <div class="card-header no-print">
+            <h2>RS7 Submission Wizard</h2>
+        </div>
+        <div class="card-body card-padding no-print-padding">
+            <ul>
+                <li ng-style="rs7.getStepStyle($index)" ng-repeat="page in rs7.pages">{{page}}</li>
+            </ul>
+        </div>
+    </div>
+
+    <div ng-if="!rs7.showAll" ng-include="rs7.getPage()"/>
+
+    <div ng-if="rs7.showAll" id="rs7Content">
+        <!--<div ng-include="'components/rs7/rs7page1.html'"/>-->
+        <div ng-include="'components/rs7/rs7page2.html'"/>
+        <div ng-include="'components/rs7/rs7page3.html'"/>
+        <div ng-if="rs7.isCB()" ng-include="'components/rs7/rs7page4.html'"/>
+        <div ng-include="'components/rs7/rs7page5.html'"/>
+    </div>
+
+
+
+
+</div>
+
+

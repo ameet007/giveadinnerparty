@@ -1,0 +1,41 @@
+
+<a class="pull-right btn btn-info" ng-click="formsCtrl.openColumns()" ng-if="formsCtrl.vm.selectedSchema && !formsCtrl.vm.selectedSchema.form.disableCols"><i class="zmdi zmdi-view-column"></i></a>
+<a class="btn btn-success" ng-click="formsCtrl.newObject()" ng-if="formsCtrl.vm.selectedSchema&&formsCtrl.canAddNewRecord()">Add A New {{formsCtrl.prettyName(formsCtrl.vm.selectedSchema)}}</a>
+
+<a class="pull-right btn btn-danger" ng-disabled="formsCtrl.vm.gridApi.selection.getSelectedRows().length < 1" ng-click="formsCtrl.deleteSelectedRows()" ng-if="formsCtrl.vm.selectedSchema.name=='holiday' &&!formsCtrl.vm.selectedSchema.form.disableDelete"><i class="zmdi zmdi-delete"></i></a>
+<a class="pull-right btn btn-danger" ng-disabled="formsCtrl.vm.gridApi.selection.getSelectedRows().length < 1" ng-click="formsCtrl.deleteSelectedRows()" ng-if="(formsCtrl.vm.selectedSchema.name!='holiday' && formsCtrl.checkRole('SYSTEM_ADMIN_ROLE')&&!formsCtrl.vm.selectedSchema.form.disableDelete) || (formsCtrl.vm.selectedSchema.form.checkDeletePermission ? formsCtrl.checkChildDelete(true) : true )"><i class="zmdi zmdi-delete"></i></a>
+
+<style>
+    .ui-grid-header-cell {
+        height: 57px;
+        max-height: 57px;
+    }
+</style>
+
+<script type="text/ng-template" id="columnModal.html">
+    <div class="modal-header">
+        <h4 class="modal-title">Select Columns</h4>
+    </div>
+    <div class="modal-body">
+        <p>
+            <ul>
+                <li ng-repeat="row in rows">
+
+                    <div class="checkbox">
+                    <label>{{row.displayName}}
+                        <input type="checkbox" ng-model="row.visible">
+                        <i class="input-helper"></i>
+                    </label>
+                </div>
+                </li>
+            </ul>
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-link" ng-click="ok()">OK</button>
+        <button class="btn btn-link" ng-click="cancel()">Cancel</button>
+    </div>
+</script>
+
+
+<div ui-grid="formsCtrl.vm.gridOptions" class="myGrid" ui-grid-pagination ui-grid-resize-columns ui-grid-selection ui-grid-move-columns></div>

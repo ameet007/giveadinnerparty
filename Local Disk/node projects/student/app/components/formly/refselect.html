@@ -1,0 +1,8 @@
+<div style="position:relative">
+    <button class="btn btn-sm btn-success addRefSelect" ng-if="options.templateOptions.extras.allowAdd" ng-click="addNew(options.templateOptions.extras.type)"><i class="zmdi zmdi-plus-circle"></i></button>
+   <!--  <button class="btn btn-sm btn-warning addRefSelect" ng-if="options.templateOptions.extras.allowAdd && model[options.key]" ng-click="edit(options.templateOptions.extras.type, model[options.key])"><i class="zmdi zmdi-edit"></i></button> -->
+   <button class="btn btn-sm btn-warning addRefSelect" ng-if="checkEditAccess(options.templateOptions.extras.allowEditForRole,options.templateOptions.extras.allowAdd,options.key) && model[options.key] " ng-click="edit(options.templateOptions.extras.type, model[options.key])"><i class="zmdi zmdi-edit"></i></button>
+    <select class="form-control refselect-form-control" ng-model="model[options.key]"></select>
+</div>
+
+

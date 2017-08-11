@@ -1,0 +1,67 @@
+<style type="text/css">
+	.link{
+		cursor: pointer;
+	}
+	.link:hover{
+		font-weight: bold !important;
+		text-decoration: underline !important;
+	}
+	.panel-body .row{
+		padding: 10px 0;
+	}
+	.panel-body .row:nth-child(odd){
+		background-color: #EDECEC;
+	}
+	.head-row{
+		font-weight: bold;
+	}
+</style>
+<div class="container">
+	<div class="block-header">
+	<h2>ECE Return History</h2>
+	</div>
+
+	<div class="card no-print-padding">
+		<div class="card-header no-print">
+			<!-- <h2>ECE Return Wizard</h2> -->
+		</div>
+		<div class="card-body card-padding no-print-padding">
+			
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					ECE Return History
+				</div>
+				<div class="panel-body" ng-show="!vm.loading && vm.history.length">
+					
+					<div class="row head-row">
+						<div class="col-md-1">#</div>
+						<div class="col-md-4">ECE Return Year</div>
+						<div class="col-md-4">Save Date</div>
+						<div class="col-md-3">Action</div>
+					</div>
+					<div class="row" ng-repeat='h in vm.history track by $index'>
+						
+						<div class="col-md-1">{{$index+1}}</div>
+						<div class="col-md-4">
+							{{h.EceReturnYear}}
+						</div>
+						<div class="col-md-4">
+							{{vm.formatDate(h.SaveDate)}}
+						</div>
+						<div class="col-md-3">
+							<a class="btn btn-xs btn-success" ui-sref="main.ecereturn-edit({ecereturnid:h._id})">
+								View
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row" ng-show="!vm.history.length && !vm.loading">
+				<div class="col-md-12 alert alert-info">No data found!</div>
+			</div>
+			<div class="row" ng-show="vm.loading">
+				<div class="col-md-12">loading, please wait...</div>
+			</div>
+		</div>
+	</div>
+</div>

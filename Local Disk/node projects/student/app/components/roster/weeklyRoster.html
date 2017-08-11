@@ -1,0 +1,158 @@
+<div class="container">
+    <div class="block-header">
+        <h2>Weekly Time Sheet</h2>
+    </div>
+
+    <div class="card no-print-padding">
+        <div class="card-header no-print">
+            <h2>View Weekly Time Sheet
+                <button class="btn btn-success pull-right" ng-click="roster.print()"><i class="fa fa-print"></i> Print</button>
+            </h2>
+
+        </div>
+        <div class="card-body card-padding no-print-padding">
+            <div class="row">
+                <div class="col-sm-3">
+                    <p class="c-black f-500 m-b-20">Date</p>
+
+                    <div class="form-group">
+                        <div class="fg-line">
+
+                            <div class="date-picker input-group"
+                                 ng-class="{ 'is-opened': roster.todayOpened == true }">
+                                <span class="input-group-addon linked-clander"
+                                     ng-click="roster.open($event, 'today')" 
+                                     datepicker-popup="{{roster.format}}" show-weeks="false"
+                                     ng-model="roster.today" 
+                                     ng-change="roster.updateWeekelyRosterReportByDate()"
+                                     datepicker-options="dateOptions"
+                                     close-text="Close"><i class="zmdi zmdi-calendar ma-icon"></i></span>
+                                <div class="fg-line" outside-if-not="dp-table" click-outside="roster.formClicked('today')" ng-class="{ 'fg-toggled': roster.todayOpened == true }">
+                                <input   type="text" class="form-control"
+                                         ng-model="roster.today" 
+                                         date-format-filter="{{roster.format}}"
+                                         ng-change="roster.updateWeekelyRosterReportByDate()"
+                                         ng-required="true" 
+                                         placeholder="dd-mm-yyyy"/>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               <div class="col-sm-3">
+                    <p class="c-black f-500 m-b-20">Educator</p>
+
+                    <div class="form-group">
+                        <div class="fg-line">
+                            <div class="select">
+                                <select chosen class="form-control" ng-change="roster.updateRosterReportWeekely(true)"
+                                        ng-model="roster.rosterReportEducator"
+                                        ng-options="a._id as a.FirstName+' '+a.LastName for a in roster.educatorList"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    <p class="c-black f-500 m-b-20">Start</p>
+
+                    <div class="form-group">
+                        <div class="fg-line">
+                            <select class="form-control"
+                                    ng-change="roster.rosterParamsChange()"
+                                    ng-model="roster.startTime"
+                                    ng-options="a.Value as a.Label for a in roster.startTimes"></select>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-sm-2">
+                    <p class="c-black f-500 m-b-20">Interval Duration
+                    </p>
+
+                    <div class="form-group">
+                        <div class="fg-line">
+                            <select class="form-control"
+                                    ng-change="roster.rosterParamsChange()"
+                                    ng-model="roster.interval"
+                                    ng-options="a as a for a in roster.intervals"></select>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="card no-print-padding">
+        <div class="table-responsive height500"  id="datatable">
+            <table  class="table table-striped table-vmiddle no-print-padding" >
+                <thead>
+                <tr>
+                    <th class="roster-header">
+                        <span>Date</span>
+                    </th>
+                    <th ng-repeat="w in roster.roster.Hours track by $index" class="roster-header">
+                        <span>{{roster.getTimeLabel(w.StartTime) + " to " + roster.getTimeLabel(w.EndTime)}}</span>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="r in roster.weeklyContactHoursRoster | filter:{Date: roster.today}" class="no-print-padding">
+                    <td class="no-print-padding">
+                        <span>{{ r.Date | date : 'dd-MM-yyyy' }}</span>
+                        <!--<div ng-if="w.$edit"><input class="form-control" type="date" ng-model="w.Date"/></div>
+                    </td>
+
+                    <td class="no-print-padding" ng-repeat="w in r.Hours track by $index">
+                        {{roster.getEducatorDuty(r, w)}}
+                    </td>
+
+                </tr>
+                <tr ng-if="(roster.weeklyContactHoursRoster).length==0">
+                     <td class="no-print-padding" colspan="8" style="text-align:center;">
+                            No Records Found!    
+                      </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+    </div> -->
+    <div class="card no-print-padding" ng-if="roster.reportType=='Weekly'" >
+        <div class="table-responsive height500"  id="datatable">
+            <table  class="table table-bordered table-vmiddle no-print-padding" ng-if="!roster.hideRoster">
+                <thead>
+                <tr>
+                    <th class="roster-header">
+                        <span>Hours</span>
+                    
+                    </th>
+                    <th ng-repeat="w in roster.weeklyDateRange" class="roster-header">
+                         <span>{{ w | date : 'dd-MM-yyyy' }}</span>
+                    </th>
+                    <!--   <th ng-repeat="w in roster.roster.Hours track by $index" class="roster-header">
+                        <span>{{roster.getTimeLabel(w.StartTime) + " to " + roster.getTimeLabel(w.EndTime)}}</span>
+                    </th> -->
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="w in roster.roster.Hours track by $index" class="no-print-padding">
+                    <td class="no-print-padding">
+                          <span>{{roster.getTimeLabel(w.StartTime) + " to " + roster.getTimeLabel(w.EndTime)}}</span>
+                    </td>
+                    
+                    <td class="no-print-padding spanPadding" ng-repeat="d in roster.weeklyDateRange track by $index">
+                        <span>{{roster.getDuty(d, w)}}</span>
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+
+    </div>

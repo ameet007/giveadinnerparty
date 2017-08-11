@@ -1,0 +1,16 @@
+<style>
+    .repeatSectionCheckbox .checkbox input {
+        opacity:1 !important;
+    }
+</style>
+
+<div class="repeatSectionCheckbox">
+    <!--loop through each element in model array.  Expect a single refselect field.  -->
+    <div class="repeatsection panel panel-primary" ng-repeat="element in to.fields" ng-init="fields = to.fields;element.__index = $index;">
+        <formly-form fields="fields"
+                     model=" model"
+                     form="tab">
+        </formly-form>
+
+    </div>
+</div>

@@ -1,0 +1,469 @@
+<div class="container">
+    <div class="block-header">
+         <h2 class="text-center printable">{{attendance.currentUser.facility.name}}</h2>   
+        <h2 class="no-print">Set Attendance Marking:</h2>
+    </div>
+
+
+    <!---SMS-638 added -->
+
+    <div class="card no-print" >
+        <div class="card-header">
+            <h2>Attendance For: {{attendance.today | date : 'dd-MM-yyyy' }}</h2>
+            
+            <button class="btn btn-success pull-right no-print" ng-click="attendance.print()" href="#">Print</button>
+            <button style="margin-right:10px;" class="btn btn-info pull-right no-print" ng-click="attendance.syncDailyfch()">Click here to sync with Monthly FCH now</button>
+
+            <h3 style="color:red" ng-if="!attendance.licenseConfiguration">No ECE License Configuration Defined!</h3>
+        </div>
+        <div class="card-body card-padding no-print">
+            <div class="row">
+                <div class="col-sm-12">
+                    <p class="c-black f-500 m-b-20"><button class="btn btn-info" ng-click="attendance.cycleFilter()">{{attendance.currentFilter}}...</button>
+                    <span class="checkbox m-b-15" style="display: inline;margin-left: 20px;">
+                        <label>
+                            <input ng-change='attendance.toggleOnlyBookedChildren()' type="checkbox" value="" ng-model="attendance.onlyBookedChildren" tabindex="1"/>
+                            <i class="input-helper"></i>
+                            <small>Show Booked Children Only {{attendance.onlyBookedChildren}}</small>
+                        </label>
+                    </span>
+                    </p>
+
+             <div class="form-group" >
+                        <div class="fg-line">
+                            <div class="select">
+                                <select ng-if="attendance.currentFilter=='Room'" ng-change="attendance.filterChange()" chosen data-placeholder="Select a Room..."
+                                        class="form-control input-group" ng-model="attendance.selectedRoom"
+                                        ng-options="room as (room.room.name) for room in attendance.roomList" tabindex="2"></select>
+
+                                <select ng-if="attendance.currentFilter=='Child'" ng-change="attendance.filterChange()" chosen data-placeholder="Select a Child..."
+                                        class="form-control input-group" ng-model="attendance.selectedChild"
+                                        ng-options="kid as attendance.getChildName(kid) for kid in attendance.filteredChildlist" tabindex="2"></select>
+
+                                <select ng-if="attendance.currentFilter=='Educator'" ng-change="attendance.filterChange()" chosen data-placeholder="Select an Educator..."
+                                        class="form-control input-group" ng-model="attendance.selectedEducator"
+                                        ng-options="edu as attendance.getEducatorName(edu) for edu in attendance.educatorList" tabindex="2"></select>
+
+                            </div>
+                        </div>
+                    </div>        
+            <div class="row">
+                <div ng-if="attendance.isHomeBased && attendance.onlyBookedChildren" ng-class="(attendance.isHomeBased)?'col-sm-4':'col-sm-6'">
+                    <div class="form-group" ng-if="attendance.isHomeBased">
+                        <div class="fg-line widthsetter">
+                        <p class="c-black f-500 m-b-20" style="margin-bottom:28px!important;">
+                         Educator
+                         </p>
+                             <select ng-change="attendance.filterChange()" chosen data-placeholder="Select an Educator..."
+                                        class="form-control input-group" ng-model="attendance.filterEducator"
+                                        ng-options="edu as attendance.getEducatorName(edu) for edu in attendance.educatorList" >
+                                             <option value="">All</option>
+                                </select>
+                        </div>
+                    </div>
+                </div>
+                <div ng-class="(attendance.isHomeBased)?'col-sm-4':'col-sm-6'" ng-if="attendance.onlyBookedChildren">
+                    <p class="c-black f-500 m-b-20">Session
+                        <!-- <button  type="button" class="btn btn-success pull-right" ng-click="attendance.applySession()">Apply
+                    </button> --></p>
+
+                    <div class="form-group">
+                        <div class="fg-line">
+                            <select ng-if="attendance.sessionList" class="form-control"  ng-change="attendance.searchChildrens()"
+                                    ng-model="attendance.currentSession" ng-options="a as a.Name for a in attendance.sessionList" tabindex="4"/>
+
+                        </div>
+                    </div>
+                </div>
+                <div ng-style="(!attendance.onlyBookedChildren) ? { 'float':'right'} : ''" ng-class="(attendance.isHomeBased && attendance.onlyBookedChildren)?'col-sm-4':'col-sm-6'">
+                    <p class="c-black f-500 m-b-20">Date</p>
+
+                    <div class="form-group">
+                            <div class="fg-line">
+                           
+                            <div class="date-picker input-group" 
+                                 ng-class="{ 'is-opened': attendance.todayOpened == true }">
+                                <span class="input-group-addon linked-clander"
+                                     ng-click="attendance.open($event, 'today')"
+                                      datepicker-popup="{{attendance.format}}" show-weeks="false"
+                                      ng-model="attendance.today" 
+                                      datepicker-options="dateOptions"
+                                      close-text="Close"
+                                ><i class="zmdi zmdi-calendar ma-icon"></i></span>
+
+                                <div class="fg-line"  outside-if-not="dp-table" click-outside="attendance.formClicked('today')"  ng-class="{ 'fg-toggled': attendance.todayOpened == true }">
+                                    
+                                    <input   type="text" class="form-control"
+                                               date-format-filter="{{attendance.format}}"
+                                               ng-model="attendance.today" 
+                                               ng-required="true" 
+                                               placeholder="dd-mm-yyyy" tabindex="3"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                </div>
+            </div>
+                   
+
+
+                </div>
+
+            <div class="row" ng-if="!attendance.onlyBookedChildren">
+                <div class="col-sm-4" >
+                    <p class="c-black f-500 m-b-20">Session
+                        <button  type="button" class="btn btn-success pull-right" ng-click="attendance.applySession()">Apply
+                    </button></p>
+
+                    <div class="form-group">
+                        <div class="fg-line">
+                           <!--  <select ng-if="attendance.sessionList" class="form-control"  ng-change="attendance.applySession()"
+                                    ng-model="attendance.currentSession" ng-options="a as a.Name for a in attendance.sessionList" tabindex="4"/> -->
+                            <select ng-if="attendance.sessionList" class="form-control"
+                                    ng-model="attendance.currentSession" ng-options="a as a.Name for a in attendance.sessionList" tabindex="4"/>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4" >
+                    <p class="c-black f-500 m-b-20">Set Start Time
+                        <button type="button" class="btn btn-success pull-right" ng-click="attendance.applyStartTime()">Apply
+                    </button></p>
+
+                    <div class="form-group">
+                        <div class="fg-line">
+                            <input class="form-control" type="time" ng-model="attendance.AttendanceTimeStart" tabindex="5"/>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-sm-4" >
+                    <p class="c-black f-500 m-b-20">Set End Time
+                        <button type="button" class="btn btn-success pull-right" ng-click="attendance.applyEndTime()">Apply
+                    </button></p>
+
+                    <div class="form-group">
+                        <div class="fg-line">
+                            <input class="form-control" type="time" ng-model="attendance.AttendanceTimeEnd"/>
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+    <!-- <div class="card no-print" >
+        <div class="card-header">
+            <h2>Attendance For: {{attendance.today | date : 'dd-MM-yyyy' }}</h2>
+            <button class="btn btn-success pull-right no-print" ng-click="attendance.print()" href="#">Print</button>
+             <button style="margin-right:10px;" class="btn btn-info pull-right no-print" ng-click="attendance.syncDailyfch()">Click here to sync with Monthly FCH now</button>
+
+            <h3 style="color:red" ng-if="!attendance.licenseConfiguration">No ECE License Configuration Defined!</h3>
+        </div>
+        <div class="card-body card-padding no-print">
+            <div class="row">
+                <div class="col-sm-12">
+                    <p class="c-black f-500 m-b-20"><button class="btn btn-info" ng-click="attendance.cycleFilter()">{{attendance.currentFilter}}...</button>
+                    <span class="checkbox m-b-15" style="display: inline;margin-left: 20px;">
+                        <label>
+                            <input ng-change='attendance.toggleOnlyBookedChildren()' type="checkbox" value="" ng-model="attendance.onlyBookedChildren" tabindex="1"/>
+                            <i class="input-helper"></i>
+                            <small>Show Booked Children Only {{attendance.onlyBookedChildren}}</small>
+                        </label>
+                    </span>
+                    </p>
+
+                    <div class="form-group">
+                        <div class="fg-line">
+                            <div class="select">
+                                <select ng-if="attendance.currentFilter=='Room'" ng-change="attendance.filterChange()" chosen data-placeholder="Select a Room..."
+                                        class="form-control input-group" ng-model="attendance.selectedRoom"
+                                        ng-options="room as (room.room.name) for room in attendance.roomList" tabindex="2"></select>
+
+                                <select ng-if="attendance.currentFilter=='Child'" ng-change="attendance.filterChange()" chosen data-placeholder="Select a Child..."
+                                        class="form-control input-group" ng-model="attendance.selectedChild"
+                                        ng-options="kid as attendance.getChildName(kid) for kid in attendance.filteredChildlist" tabindex="2"></select>
+
+                                <select ng-if="attendance.currentFilter=='Educator'" ng-change="attendance.filterChange()" chosen data-placeholder="Select an Educator..."
+                                        class="form-control input-group" ng-model="attendance.selectedEducator"
+                                        ng-options="edu as attendance.getEducatorName(edu) for edu in attendance.educatorList" tabindex="2"></select>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-sm-6">
+                    <p class="c-black f-500 m-b-20">Date</p>
+
+                    <div class="form-group">
+                            <div class="fg-line">
+                           
+                            <div class="date-picker input-group" 
+                                 ng-class="{ 'is-opened': attendance.todayOpened == true }">
+                                <span class="input-group-addon linked-clander"
+                                     ng-click="attendance.open($event, 'today')"
+                                      datepicker-popup="{{attendance.format}}" show-weeks="false"
+                                      ng-model="attendance.today" 
+                                      datepicker-options="dateOptions"
+                                      close-text="Close"
+                                ><i class="zmdi zmdi-calendar ma-icon"></i></span>
+
+                                <div class="fg-line"  outside-if-not="dp-table" click-outside="attendance.formClicked('today')"  ng-class="{ 'fg-toggled': attendance.todayOpened == true }">
+                                    
+                                    <input   type="text" class="form-control"
+                                               date-format-filter="{{attendance.format}}"
+                                               ng-model="attendance.today" 
+                                               ng-required="true" 
+                                               placeholder="dd-mm-yyyy" tabindex="3"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <p class="c-black f-500 m-b-20">Session
+                        <button type="button" class="btn btn-success pull-right" ng-click="attendance.applySession()">Apply
+                    </button></p>
+
+                    <div class="form-group">
+                        <div class="fg-line">
+                            <select ng-if="attendance.sessionList" class="form-control"  ng-change="attendance.setSession()"
+                                    ng-model="attendance.currentSession" ng-options="a as a.Name for a in attendance.sessionList" tabindex="4"/>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <p class="c-black f-500 m-b-20">Set Start Time
+                        <button type="button" class="btn btn-success pull-right" ng-click="attendance.applyStartTime()">Apply
+                    </button></p>
+
+                    <div class="form-group">
+                        <div class="fg-line">
+                            <input class="form-control" type="time" ng-model="attendance.AttendanceTimeStart" tabindex="5"/>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-sm-4">
+                    <p class="c-black f-500 m-b-20">Set End Time
+                        <button type="button" class="btn btn-success pull-right" ng-click="attendance.applyEndTime()">Apply
+                    </button></p>
+
+                    <div class="form-group">
+                        <div class="fg-line">
+                            <input class="form-control" type="time" ng-model="attendance.AttendanceTimeEnd"/>
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>-->
+    
+    <div ng-if="attendance.holiday || attendance.firstClosure" class="card-body alert alert-info text-center no-print">
+        <h3 ng-if="attendance.holiday && !attendance.firstClosure">
+        It's {{attendance.holiday.Name}} <!-- Holiday --> and admin is not required to mark attendance/absence. Any attendance/absence marked for the day would be considered as override
+        <!-- It looks like Today is a {{attendance.holiday.Type}} Holiday for {{attendance.holiday.Name}}! --> </h3>
+        <!-- <h3 ng-if="attendance.firstClosure">It looks like Today is a Temporary Closure for {{attendance.firstClosure.ClosureReasonCode.Description}}. Admin is not required to mark attendance/absence</h3> -->
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;
+
+        <button ng-if="attendance.allowedMarking(attendance.holiday)" ng-show="attendance.holiday && !attendance.firstClosure && !attendance.holiday.canMarkAttendance" class="btn btn-success" ng-click="attendance.overrideHoliday(attendance.holiday,true)" href="#">Overide and Mark Attendance
+        </button>
+         <button ng-if="attendance.allowedMarking(attendance.holiday)" ng-show="attendance.holiday &&  attendance.holiday.canMarkAttendance" class="btn btn-success" ng-click="attendance.overrideHoliday(attendance.holiday,false)" href="#">Disable Attendance Marking
+        
+        </button>
+        <!--<button ng-if="attendance.holiday && !attendance.firstClosure" class="btn btn-success" ng-click="attendance.markAllAbsent()" href="#">Mark All Children Absent?
+        </button>-->
+    </div>
+
+    <div class="card no-print">
+        <div class="table-responsive">
+            <table ng-table="attendance.tableEdit" class="table table-striped table-vmiddle">
+                <tr ng-repeat="w in $data" ng-class="{ 'active': w.$edit }">
+                    <td data-title="'Child'">
+                        <button type="button" class="btn btn-small btn-default" ng-if="!w.$edit && !w.IsAbsent"
+                                ng-click="attendance.addRow(w.Child, null, $index);"><i
+                                class="zmdi zmdi-collection-plus"></i></button>
+                        &nbsp;&nbsp;
+                        <span>{{ attendance.getChildName(w.Child) }}</span>
+                    </td>
+                    <td class="" data-title="'Educator'" ng-if="attendance.isHomeBased">
+                        <select class="form-control" ng-if="w.$edit && !w.IsAbsent"
+                                ng-model="w.Educator" ng-options="a.educator as attendance.getEducatorName(a) for a in attendance.educatorList"/>
+                        <span ng-show="!w.$edit || w.IsAbsent">{{ attendance.getEducatorName(w.Educator) }}</span>
+                    </td>
+                    <td class="" data-title="'Session'">
+                        <select ng-if="attendance.sessionList && w.$edit && !w.IsAbsent" class="form-control"  ng-change="attendance.sessionChange(w)"
+                                ng-model="w.Session" ng-options="a as a.Name for a in attendance.getSessionList()"/>
+                    </td>
+                    <td data-title="'Time In'">
+                        <span ng-if="!w.$edit || w.IsAbsent">{{ w.AttendanceTimeStart | date : 'hh:mm a' }}</span>
+
+                        <div ng-if="w.$edit && !w.IsAbsent"><input class="form-control" type="time" ng-model="w.AttendanceTimeStart"/>
+                        </div>
+                    </td>
+                    
+                    <td data-title="'Time Out'">
+                        <span ng-if="!w.$edit || w.IsAbsent">{{ w.AttendanceTimeEnd | date : 'hh:mm a' }}</span>
+
+                        <div ng-if="w.$edit && !w.IsAbsent"><input class="form-control" type="time" ng-model="w.AttendanceTimeEnd"/>
+                        </div>
+                    </td>
+
+                    <td class="" data-title="'Absent Marking?'">
+                        <span class="checkbox m-b-15 pull-left">
+                            <label class="pull-left">
+                                <input ng-if="attendance.holiday || attendance.firstClosure" ng-disabled="!w.$edit && !attendance.holiday.canMarkAttendance || w.$edit && !attendance. holiday.canMarkAttendance " type="checkbox" value="" ng-model="w.IsAbsent" ng-click="attendance.markRowAbsent(w)"/>
+                                <input ng-if="!attendance.holiday && !attendance.firstClosure" ng-disabled="!w.$edit" type="checkbox" value="" ng-model="w.IsAbsent" ng-click="attendance.markRowAbsent(w)"/>
+                                <i class="input-helper"></i>
+                            </label>
+
+                            <span class="pull-left" ng-if="!w.$edit && w.IsAbsent"
+                                  ng-bind="attendance.absenceReasonMap[w.AbsenceReason].Description">
+                            </span>
+                        </span>
+                        <div class="pull-left" ng-if="w.$edit && w.IsAbsent">
+                            <select class="form-control" ng-model="w.AbsenceReason"
+                                    ng-options="a._id as a.Description for a in attendance.filteredAbsenceReasons" ng-change="attendance.absenceReasonChanged(attendance.filteredAbsenceReasons, w.AbsenceReason)"/>
+                        </div>
+
+
+                    </td>
+                    <td class="" data-title="'Actions'">
+                     <button type="button" class="btn btn-default" ng-if="attendance.holiday && !w.$edit && attendance.holiday.canMarkAttendance"
+                                ng-click="attendance.startEdit(w, $index);"><i class="zmdi zmdi-edit"></i></button>
+                        <button type="button" class="btn btn-default" ng-if="!attendance.holiday && !w.$edit && !attendance.firstClosure"
+                                ng-click="attendance.startEdit(w, $index);"><i class="zmdi zmdi-edit"></i></button>
+                        <button type="button" class="btn btn-success" ng-if="attendance.holiday && w.$edit && attendance.holiday.canMarkAttendance"
+                                ng-click="attendance.finishEdit(w, $index);"><i class="zmdi zmdi-check"></i></button>
+                        <button type="button" class="btn btn-success" ng-if="!attendance.holiday && w.$edit && !attendance.firstClosure"
+                                ng-click="attendance.finishEdit(w, $index);"><i class="zmdi zmdi-check"></i></button>
+                        <button type="button" class="btn btn-warning" ng-if="attendance.showDeleteButton(w, w.$edit)"
+                                ng-click="attendance.cancelEdit(w, $index);"><i class="zmdi zmdi-minus-circle"></i>
+                        </button>
+                        <button type="button" class="btn btn-danger" ng-if="attendance.showDeleteRowButton(w, w.$edit)"
+                                ng-click="attendance.deleteRow(w, $index);"><i class="zmdi zmdi-delete"></i>
+                        </button>
+
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <h2 class="printable">Attendance For: {{attendance.today | date : 'dd-MM-yyyy' }}</h2>
+        <div class="card printable no-print-padding">
+            <div class="table-responsive">
+                <table ng-table="attendance.tableEdit" class="table table-striped table-vmiddle">
+                    <tr ng-repeat="w in $data | orderBy:'Child' " ng-class="{ 'active': w.$edit }">
+                        <td data-title="'Child'" style="width:20%;">
+                            <span>{{ attendance.getChildName(w.Child) }}</span>
+                        </td>
+                        <td class="" style="width: 10%;" data-title="'Time In'">
+                            <!--<span ng-if="!w.$edit">{{ w.AttendanceTimeStart | date : 'hh:mm a' }}</span>-->
+
+                            <!--<div ng-if="w.$edit"><input class="form-control" type="time" ng-model="w.AttendanceTimeStart"/>-->
+                            <!--</div>-->
+                            <div class="fg-line" style="border-bottom:1px solid black;margin-top:30px">
+                            </div>
+
+                        </td>
+                        <td data-title="'Parent Name'" style="width: 20%;">
+                        <div class="fg-line" style="border-bottom:1px solid black;margin-top:30px">
+                            </div>
+                        </td>
+                        <td class="" style="width: 20%;" data-title="'Signature'">
+                            <div class="fg-line" style="border-bottom:1px solid black;margin-top:30px">
+                            </div>
+
+                        </td>
+                        <td class="" style="width: 10%;" data-title="'Time Out'">
+                            <!--<span ng-if="!w.$edit">{{ w.AttendanceTimeEnd | date : 'hh:mm a' }}</span>-->
+
+                            <!--<div ng-if="w.$edit"><input class="form-control" type="time" ng-model="w.AttendanceTimeEnd"/>-->
+                            <div class="fg-line" style="border-bottom:1px solid black;margin-top:30px">
+                            </div>
+
+                            </div>
+                        </td>
+                        <td data-title="'Parent Name'" style="width: 20%;">
+                            <div class="fg-line" style="border-bottom:1px solid black;margin-top:30px">
+                            </div>
+                        </td>
+                        <td class="" style="width: 20%;"  data-title="'Signature'">
+                                <div class="fg-line" style="border-bottom:1px solid black;margin-top:30px">
+                                </div>
+                        </td>
+
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- -->
+        <!--<div class="table-responsive">-->
+        <!--<table class="table table-hover">-->
+        <!--<thead>-->
+        <!--<tr>-->
+
+        <!--<th>Date</th>-->
+        <!--<th>Time In</th>-->
+        <!--<th>Time Out</th>-->
+        <!--&lt;!&ndash;<th>Details</th>&ndash;&gt;-->
+        <!--<th>Action</th>-->
+        <!--</tr>-->
+        <!--</thead>-->
+        <!--<tbody>-->
+        <!--&lt;!&ndash;<div class="listview" ng-repeat="(k, v) in hctrl.centerList">&ndash;&gt;-->
+        <!--&lt;!&ndash;<render-centers header="k" item="v" />&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+        <!--<tr ng-repeat="row in attendance.attendanceList">-->
+        <!--<td>{{$index+1}}</td>-->
+        <!--<td>{{row.AttendanceTimeStart}}</td>-->
+        <!--<td>{{row.AttendanceTimeStart}}</td>-->
+        <!--<td>{{row.IsAbsent}}</td>-->
+        <!--<td>-->
+        <!--<button class="btn btn-success" ng-click="centre.selectCentre(row)" href="#">View</button>-->
+        <!--</td>-->
+
+        <!--</tr>-->
+        <!--</tbody>-->
+        <!--</table>-->
+        <!--</div>-->
+        <!--</div>-->
+    </div>
+</div>
+
+<style>
+    div[template-url="templates.pagination"] {
+        display: none;
+    }
+</style>
+
+

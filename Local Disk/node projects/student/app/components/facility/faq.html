@@ -1,0 +1,38 @@
+<div class="container">
+
+    <div class="card">
+        <div class="card-header">
+            <h2>Edit Faq Link</h2>
+           
+        </div>
+
+        <div class="card-body forms-button-header">
+                <span class="">
+                      <span class="pull-right floatingButtons">
+                         <button class="btn btn-primary" ng-click="facCtrl.saveFaq()">
+                            Save & Exit
+                        </button>
+                        <button class="btn btn-warning" ng-click="facCtrl.cancelFaq()">Cancel</button>
+                 </span>
+
+        </div>
+        <div class="card-body card-padding" style="padding-top: 32px;">
+            <div class="row">
+                <div class="col-sm-6">
+                    <p class="c-black f-500 m-b-20">Faq Link</p>
+
+                    <div class="form-group">
+                        <div class="fg-line">
+                            <div class="input">
+                                <input  class="form-control input-group" ng-model="facCtrl.faq['link']" type="text" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               </div>
+        </div>
+    </div>
+</div>
+
+
+

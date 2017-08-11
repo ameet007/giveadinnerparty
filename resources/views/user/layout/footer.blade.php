@@ -2,24 +2,24 @@
             <div class="footer-top">
                 <div class="container">
                     <div class="row">
-                        <div class="one-fourth">
-                            <h3>About Us</h3>
-                            <ul>
-                                <li><a href="#">Frequently Asked Questions</a></li>
-                                <li><a href="#">Trust</a></li>
-                                <li><a href="#">Blog</a></li>
-                                <li><a href="#">About Us</a></li>
-                            </ul>
-                        </div>
-                        <div class="one-fourth">
-                            <h3>Company Pages</h3>
-                            <ul>
-                                <li><a href="#">Terms &amp; Conditions</a></li>
-                                <li><a href="#">Privacy Policy</a></li>
-                                <li><a href="#">Refunds</a></li>
-                                <li><a href="#">Contact Us</a></li>
-                            </ul>
-                        </div>
+                         <div class="one-fourth">
+							<h3>About Us</h3>
+							<ul>
+								<li><a href="{{Request::root()}}/faq">Frequently Asked Questions</a></li>
+								<li><a href="#">Trust</a></li>
+								<li><a href="{{Request::root()}}/blog">Blog</a></li>
+								<li><a href="{{Request::root()}}/about-us">About Us</a></li>
+							</ul>
+						</div>
+						<div class="one-fourth">
+							<h3>Company Pages</h3>
+							<ul>
+								<li><a href="#">Terms &amp; Conditions</a></li>
+								<li><a href="#">Privacy Policy</a></li>
+								<li><a href="#">Refunds</a></li>
+								<li><a href="{{Request::root()}}/contact">Contact Us</a></li>
+							</ul>
+						</div>
                         <div class="one-fourth">
                             <h3>Social Media</h3>
                             <div class="social">
@@ -55,12 +55,12 @@
             </div>
             <div class="footer-bottom">
                 <div class="container">
-                    <p>Copyright &copy; 2017 Give A Dinner Party. Design by: Neurons-It</p>
+                    <p>Copyright &copy; 2017 Give A Dinner Party.</p>
                 </div>
             </div>
         </footer>
-        
-        <script type="text/javascript">
+        <?php if(request()->segment(2)!='my_active_event'){ ?>
+        <script type="text/javascript">		
         $(document).ready(function () {
             $('.owl-carousel').owlCarousel({
                 loop: true,
@@ -83,5 +83,33 @@
                     }
                 }
             })
+		}); 
+			</script>
+			<?php }else{ ?>		
+			<script type="text/javascript">
+			$(document).ready(function () {
+				$('.owl-carousel').owlCarousel({
+					loop:true,
+					margin:15,
+					dots: false,
+					nav:true,
+					responsiveClass: true,
+					responsive:{
+						0:{
+							items:1
+						},
+						600:{
+							items:2
+						},
+						1000:{
+							items:3
+						},
+						1100:{
+							items:3
+						}
+					}
+				})
+
         }); 
         </script>
+		<?php } ?>

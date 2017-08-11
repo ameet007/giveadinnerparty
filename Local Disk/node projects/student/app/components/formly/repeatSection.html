@@ -1,0 +1,36 @@
+<div>
+    <!--loop through each element in model array-->
+    <div class="{{hideRepeat}}">
+        <div class="repeatsection panel panel-primary well" ng-repeat="element in model[options.key]"
+             ng-init="fields = copyFields(to.fields);element.__index = $index;">
+
+            <div ng-if="$index==0" class="panel-heading px-nested-panel-heading clearfix">
+                <strong class="control-label" ng-if="to.label">
+                    {{to.label}}
+                    {{to.required ? '*' : ''}}
+                </strong>
+            </div>
+            <div class="panel-body px-nested-panel-body">
+                <div class="formlyRepeatRow">
+                    <b>{{$index+1}}</b>
+                    <button ng-if="!hideDeleteBtn(model, model[options.key], options.key, $index)" ng-disabled="isDisabled(model, model[options.key], options.key, $index)" type="button" class="btn btn-sm btn-danger"
+                    ng-hide="attendanceCheck(model, model[options.key], options.key, $index)|| !isLatest(model, model[options.key], options.key, $index)"
+                    ng-click="deleteRow($index)">
+                        <i class="zmdi zmdi-delete"></i>
+                    </button>
+                </div>
+                <formly-form fields="fields"
+                             model="element"
+                             parent="model"
+                             form="tab"
+
+                             ng-disabled="isDisabled(model, model[options.key], options.key, $index)">
+                </formly-form>
+            </div>
+        </div>
+        <p class="AddNewButton">
+            <button type="button" ng-if="!hideAddBtn(model, model[options.key], options.key, $index)" class="btn btn-primary" ng-disabled="isDisabled(model, model[options.key], options.key, $index)" ng-click="addNew()">{{to.btnText}}</button>
+        </p>
+    </div>
+
+</div>

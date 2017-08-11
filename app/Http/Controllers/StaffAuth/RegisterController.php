@@ -20,7 +20,7 @@ class RegisterController extends Controller
     | provide this functionality without requiring any additional code.
     |
     */
-
+	
     use RegistersUsers;
 
     /**
@@ -46,7 +46,8 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
+    
+	protected function validator(array $data)
     {
         return Validator::make($data, [
             'name' => 'required|max:255',

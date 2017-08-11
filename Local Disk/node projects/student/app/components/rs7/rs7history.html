@@ -1,0 +1,42 @@
+<div class="container">
+    <div class="block-header">
+        <h2>RS7 History</h2>
+    </div>
+
+    <div class="card no-print-padding">
+        <div class="card-header no-print">
+            <h2>RS7 History Page</h2>
+        </div>
+        <div class="card-body card-padding no-print-padding">
+            <div class="card" ng-repeat="row in rs7.rs7History">
+                <div class="row">
+                    <div class="col-sm-1">
+                        <b>{{$index+1}}</b>
+                    </div>
+                    <div class="col-sm-2">
+                        <span>For Period:&nbsp;&nbsp;{{row.Values.PeriodStartDate}}</span>
+                    </div>
+                    <div class="col-sm-2">
+                        <span>Submitted Status: {{row.SaveDate && row.SubmittedDate ? "Success" : "Failed"}}</span>
+                    </div>
+                    <div class="col-sm-3">
+                        <span>Save Date: {{row.SaveDate | date : 'dd-MM-yyyy hh:mm a'}}</span>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <span>Submitted Date: {{row.SubmittedDate | date : 'dd-MM-yyyy hh:mm a'}}</span>
+                    </div>
+                    <div class="col-sm-1">
+                        <button ng-click="rs7.viewReturn(row)" class="btn btn-info">View</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+

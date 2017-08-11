@@ -1,0 +1,38 @@
+<div class="panel panel-primary">
+
+
+    <div>
+        <div class="clearfix">
+            <div class="row panel panel-primary"
+                 style="margin-bottom:14px"
+                 ng-repeat="item in model[options.key] track by $index"
+                 ng-init="itemOptions = copyItemOptions()">
+
+                <div class="panel-heading px-nested-panel-heading clearfix">
+                    <strong class="control-label" ng-if="to.label">
+                        {{to.label}}
+                        {{to.required ? '*' : ''}}
+                    </strong>
+                </div>
+
+                <div class="panel-body px-nested-panel-body">
+
+                    <formly-field class="no-padding col-xs-10"
+                                  options="itemOptions"
+                                  model="model[options.key]"
+                                  form="form"
+                                  index="$index">
+                    </formly-field>
+                </div>
+                <div class="col-xs-2" style="margin-top:6px">
+                    <a ng-click="model[options.key].splice($index, 1)">
+                        x Remove
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div>
+            <button type="button" class="btn btn-success btn-sm" ng-click="model[options.key].push('')">Add</button>
+        </div>
+    </div>
+</div>

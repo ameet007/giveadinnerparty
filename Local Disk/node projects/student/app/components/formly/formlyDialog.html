@@ -1,0 +1,10 @@
+<div class="modal-header">
+    <h3 class="modal-title" ng-bind="params.title"></h3>
+</div>
+<div class="modal-body">
+    <span ng-include="'components/formly/formly-tabs.html'"></span>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-success" ng-disabled="!formsCtrl.vm.form.$valid" ng-click="formsCtrl.save(true, true,true)">Save</button>
+    <button class="btn btn-warning" ng-click="formsCtrl.cancel(true)">Cancel</button>
+</div>

@@ -1,0 +1,18 @@
+<!--<div ng-include="'components/navbar/navbar.html'"></div>-->
+
+
+<!--<link rel="stylesheet" href="app/formly/formly.css">-->
+
+
+
+    <div class="formly-container">
+        <div class="row">
+            <select ng-model="formsCtrl.vm.selectedSchema" ng-options="item as item.name for item in formsCtrl.vm.schemas" ></select>
+       <a class="btn btn-success" ng-click="newObject()">New</a>
+            <a class="btn btn-success" ng-click="listObjects()">List</a>
+            <!--<a href="/formly/edit">Edit</a>-->
+        </div>
+    </div>
+
+
+

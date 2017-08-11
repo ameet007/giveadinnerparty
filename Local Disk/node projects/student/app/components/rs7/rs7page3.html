@@ -1,0 +1,102 @@
+
+    <div class="card no-print-padding">
+        <div class="card-header no-print">
+            <h2>Advance Days</h2>
+        </div>
+        <div class="card-body card-padding no-print-padding">
+
+            <p>Advance days determine the number of days per month for which your service will receive advance funding. You can refer to the Early Childhood Funding Handbook for instructions on calculating Advance Days.</p>
+
+            <b>Please verify and continue</b>
+
+            <h5>Advance Days for {{rs7.selectedPayPeriod.StartAdvanceMonth}} to {{rs7.selectedPayPeriod.EndAdvanceMonth}} for
+                {{rs7.selectedPayPeriod.StartPayPeriodMonth + ' - ' + rs7.selectedPayPeriod.EndPayPeriodMonth}}</h5>
+                <i>For e.g Payment cycle February to May, Advance month would be July, August, September and October</i>
+
+            <br/>
+            <hr/>
+            <table style="text-align:center;width:100%;">
+                <thead>
+                    <tr>
+                        <th style="width:150px;">&nbsp;</th> 
+
+                        <th ng-repeat="title in rs7.data.titles" class="text-center" colspan="2">“{{title}}” days</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Month</td>                            
+                        <td>Number of funded days your service will operate</td>
+                        <td>Maximum number of days possible</td>
+                        <td ng-if="rs7.data.titles.length>1">Number of funded days your service will operate</td>
+                        <td ng-if="rs7.data.titles.length>1">Maximum number of days possible</td>
+                    </tr>
+                    <tr ng-repeat="month in rs7.data.months">
+                        <td>{{month}}</td>
+                        <td>
+                            <div class="row">
+                                <div class="col-md-offset-4 col-md-4">
+                                    
+                                    <input type="number" 
+                                    ng-model="rs7.data.all_day[month].funded_days" 
+                                    class="form-control" 
+                                    max="{{rs7.data.all_day[month].max_days}}" min="0">
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            {{rs7.data.all_day[month].max_days}}
+                        </td>
+                        <td ng-if="rs7.data.titles.length>1">
+                            <div class="row">
+                                <div class="col-md-offset-4 col-md-4">
+                                    
+                                    <input type="number" 
+                                    ng-model="rs7.data.sessional[month].funded_days" 
+                                    class="form-control" max="{{rs7.data.sessional[month].max_days}}" min="0">
+                                </div>
+                            </div>
+                        </td>
+                        <td ng-if="rs7.data.titles.length>1">
+                            {{rs7.data.sessional[month].max_days}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+          <!--   <table style="text-align:center;width:100%;">
+                <thead>
+                    <tr>
+                        <th style="min-width:60px;">&nbsp;</th>
+                        <th class="text-center" ng-if="rs7.showAllDayAdvance(rs7.getAdvanceMonths()[0])" colspan="2">“All Day” days</th>
+
+                        <th class="text-center" ng-if="rs7.showSessionalAdvance()" colspan="2">“{{rs7.facility.CenterType=='Playcentre'?'Parentled':'Sessional'}}” days</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Month</td>
+                        <td ng-if="rs7.showAllDayAdvance()">Number of funded days your service will operate</td>
+                        <td ng-if="rs7.showAllDayAdvance()">Maximum number of days possible</td>
+                        <td>Number of funded days your service will operate</td>
+                        <td>Maximum number of days possible</td>
+                    </tr>
+                    <tr ng-repeat="month in rs7.getAdvanceMonths()">
+                        <td>{{month}}</td>
+                        <td ng-if="rs7.showAllDayAdvance(month)">
+                        {{rs7.getAdvanceDaysInMonth(month, 'All Day')}}</td>
+                        <td ng-if="rs7.showAllDayAdvance(month)">{{rs7.getMaxDaysMonth(month)}}</td>
+                        <td ng-if="rs7.showSessionalAdvance()" >{{rs7.getAdvanceDaysInMonth(month, 'Sessional')}}</td>
+                        <td ng-if="rs7.showSessionalAdvance()" >{{rs7.getMaxDaysMonth(month)}}</td>
+                    </tr>
+                </tbody>
+            </table> -->
+
+        </div>
+
+        <div class="text-center" style="padding:10px">
+            <button class="btn btn-info" ng-click="rs7.continue()">Continue</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-info" ng-click="rs7.back()">Back</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-warning" ng-click="rs7.cancel()">Cancel</button>
+        </div>
+    </div>
+
+

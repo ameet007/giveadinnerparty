@@ -1,0 +1,80 @@
+<!--<div ng-include="'components/navbar/navbar.html'"></div>-->
+
+
+<!--<link rel="stylesheet" href="../components/formly/formly.css">-->
+
+
+<div class="container">
+
+    <div class="card">
+        <div class="card-header">
+            <h2 ng-if="formsCtrl.vm.selectedSchema">{{formsCtrl.getHeader()}}</h2>
+            <div style="position: relative; height: 30px; text-align: center;margin-top:-15px;"  importcsv="formsCtrl.vm.selectedSchema.name" ng-click="angular.element('uploadCSV').click()" ng-if="formsCtrl.vm.selectedSchema && formsCtrl.vm.selectedSchema.form && formsCtrl.vm.selectedSchema.form.hasImport && formsCtrl.isList" class="btn btn-success pull-right" >
+               <input type="file" id="uploadCSV"   style="opacity: 0.0; position: absolute; top:0; left: 0; bottom: 0; right:0; width: 100%; height:100%;" />Import
+            
+             </div>
+             <div style="position: relative; height: 30px; text-align: center;margin-top:-15px;"    ng-if="formsCtrl.vm.selectedSchema && formsCtrl.vm.selectedSchema.form && formsCtrl.vm.selectedSchema.form.hasExport && formsCtrl.isList" class="btn btn-success pull-right" >
+               <input type="button" id="exportCSV"  ng-click="formsCtrl.exportTableData()" style="opacity: 0.0; position: absolute; top:0; left: 0; bottom: 0; right:0; width: 100%; height:100%;" />Export           
+             </div>
+
+        </div>
+
+        <div class="card-body forms-button-header" ng-if="formsCtrl.isNewOrEdit">
+                <span class="">
+                    <span ng-if="formsCtrl.vm.data._id && formsCtrl.vm.selectedSchema.name == 'child'" class="">
+
+                        <span class="pull-left" ng-if="formsCtrl.vm.data._id" ng-controller="NsiCtrl as nsi">
+                            <button name="nsiSearch" id="nsiSearch"
+                                    ng-disabled="!formsCtrl.vm.form.$valid"
+                                    class="btn btn-large btn-info"
+                                    ng-click="nsi.nsiSearch(formsCtrl.vm.data, formsCtrl.save)">
+                                {{nsi.loading?"Loading...":"NSI Search"}}
+                            </button>
+                            <button name="nsiUpdate" id="nsiUpdate"
+                                    ng-disabled="!formsCtrl.vm.form.$valid || !nsi.canUpdateNSI(formsCtrl.vm.data)"
+                                    class="btn btn-large btn-warning"
+                                    ng-click="nsi.nsiUpdate(formsCtrl.vm.data, formsCtrl.save)">
+                                {{nsi.loading?"Loading...":"NSI Update"}}
+                            </button>
+                        </span>
+                        <span class="pull-left" ng-controller="ChildCtrl as kid">
+                            <button name="addEnrolment" id="addEnrolment" style="margin-left:5px;margin-right:5px;"
+                                    ng-if="formsCtrl.vm.form.$valid && kid.canAddEnrolment(formsCtrl.vm.data) && kid.endDatePassed(formsCtrl.vm.data)"
+                                    class="btn btn-large btn-success"
+                                    ng-click="kid.addEnrolment(formsCtrl.vm.data, formsCtrl)">
+                                {{kid.enrolmentText(formsCtrl.vm.data)}}
+                            </button>
+                            <span class="alert alert-warning" ng-if="kid.isEnrolled(formsCtrl.vm.data) && (kid.endDatePassed(formsCtrl.vm.data,true) || kid.endDateIsCorrect(formsCtrl.vm.data))">
+
+                                <b ng-if="kid.endDateIsCorrect(formsCtrl.vm.data)">Enrolment End date should be on or after any recorded child attendance.&nbsp;</b>
+                                <b ng-if="!kid.endDateIsCorrect(formsCtrl.vm.data)">Child is marked as Enrolled but Enrolment End Date has passed!  Please update Status or Re-Enrol.&nbsp;</b>
+                                </span>
+
+                        </span>
+
+
+                    </span>
+                    <span class="pull-right floatingButtons">
+                        <button class="btn btn-success" ng-class="formsCtrl.dirtyRecord()" ng-disabled="!formsCtrl.vm.form.$valid" ng-click="formsCtrl.save()">
+                            Save & Continue
+                        </button>
+                        <button class="btn btn-info" ng-class="formsCtrl.dirtyRecord()" ng-if="formsCtrl.vm.selectedSchema&&!formsCtrl.vm.selectedSchema.form.disableAdd" ng-disabled="!formsCtrl.vm.form.$valid" ng-click="formsCtrl.save(false, false, true)">
+                            Save & Add New
+                        </button>
+                        <button class="btn btn-primary" ng-class="formsCtrl.dirtyRecord()" ng-disabled="!formsCtrl.vm.form.$valid" ng-click="formsCtrl.save(true)">
+                            Save & Exit
+                        </button>
+                        <button class="btn btn-warning" ng-click="formsCtrl.cancel()">Cancel</button>
+                        <button class="btn btn-danger" ng-if="(formsCtrl.isEdit&&!formsCtrl.vm.selectedSchema.form.disableDelete) || (formsCtrl.vm.selectedSchema.form.checkDeletePermission ? formsCtrl.checkChildDelete() : true )" ng-click="formsCtrl.delete()">Delete
+                        </button>
+                        </span>
+
+        </div>
+        <div class="card-body card-padding" style="padding-top: 32px;">
+            <div ui-view></div>
+        </div>
+    </div>
+</div>
+
+
+

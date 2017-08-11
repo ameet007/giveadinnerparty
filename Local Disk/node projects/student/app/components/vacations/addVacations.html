@@ -1,0 +1,127 @@
+<div class="container">
+    <div class="block-header">
+        <h2>Vacation Register</h2>
+    </div>
+
+    <div class="card no-print-padding">
+        <div class="card-header no-print">
+            <h2>Add Vacations Data</h2>
+
+        </div>
+        <div class="card-body forms-button-header">
+                <span class="">
+                    <span class="pull-right floatingButtons">
+                        <button class="btn btn-success" ng-class="formsCtrl.dirtyRecord()" ng-disabled="vacationform.$invalid" ng-click="saveVacation('Continue')">
+                            Save & Continue
+                        </button>
+                        <button class="btn btn-info" ng-class="formsCtrl.dirtyRecord()"  ng-disabled="vacationform.$invalid" ng-click="saveVacation('addNew')">
+                            Save & Add New
+                        </button>
+                        <button class="btn btn-primary" ng-class="formsCtrl.dirtyRecord()" ng-disabled="vacationform.$invalid" ng-click="saveVacation('Exit')">
+                            Save & Exit
+                        </button>
+                        <button class="btn btn-warning" ng-click="cancelVacation('canceladd')">Cancel</button>
+                        </span>
+
+        </div>
+        <form name="vacationform">
+            <div class="card-body card-padding no-print-padding">
+            <div class="row">
+                <div class="col-sm-6">
+                    <p class="c-black f-500 m-b-20">Child *</p>
+
+                    <div class="form-group">
+                        <div class="fg-line">
+                            <div class="select">
+                                <select ng-change chosen data-placeholder="Select a Child..." class="form-control input-group" name="child" ng-model="vacation.child" ng-options="child as ((child.PreferredGiven1Name?child.PreferredGiven1Name:child.OfficialGiven1Name)+' '+child.OfficialFamilyName) for child in vacations.childlist" ng-required="true" required></select>
+                            </div>
+                            <div ng-show="vacationform.child.$touched && vacationform.child.$invalid" class="error has-error"> * Please Select Child</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <p class="c-black f-500 m-b-20">Start Date *</p>
+
+                    <div class="form-group">
+                        <div class="fg-line">
+
+                                <div class="date-picker input-group" ng-class="{ 'is-opened': vacations.startOpened == true }">
+                                    <span class="input-group-addon linked-clander"
+                                        ng-click="vacations.open($event, 'start')"
+                                        datepicker-popup="{{vacations.format}}"  show-weeks="false"
+                                        ng-model="vacation.startDate" 
+                                        datepicker-options="dateOptions"
+                                        close-text="Close"><i class="zmdi zmdi-calendar ma-icon"></i></span>
+                                    <div class="fg-line" outside-if-not="dp-table" click-outside="vacations.formClicked('start')" ng-class="{ 'fg-toggled': vacations.startOpened == true }">
+                                    <input type="text" class="form-control" 
+                                           date-format-filter="{{vacations.format}}"
+                                           name="startDate" 
+                                           ng-model="vacation.startDate" 
+                                           ng-required="true" 
+                                          placeholder="dd-mm-yyyy" required />
+                                        <!-- <input ng-click="vacations.open($event, 'start')" type="text" class="form-control" datepicker-popup="{{vacations.format}}" show-weeks="false" name="startDate" ng-model="vacation.startDate"  is-open="vacations.startOpened" datepicker-options="dateOptions" ng-required="true" close-text="Close" placeholder="dd-mm-yyyy" required /> -->
+                                    </div>
+                                    <div ng-show="vacationform.startDate.$touched && vacationform.startDate.$invalid" class="error has-error"> * Please Select Start Date</div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <p class="c-black f-500 m-b-20">End Date *</p>
+
+                    <div class="form-group">
+                        <div class="fg-line">
+                             <div class="date-picker input-group" ng-class="{ 'is-opened': vacations.stopOpened == true }">
+                                <span class="input-group-addon linked-clander"
+                                    ng-click="vacations.open($event, 'stop')"
+                                    datepicker-popup="{{vacations.format}}" show-weeks="false"
+                                     ng-model="vacation.endDate"
+                                     datepicker-options="dateOptions"  close-text="Close"
+                                ><i class="zmdi zmdi-calendar ma-icon"></i></span>
+                                <div class="fg-line" outside-if-not="dp-table" click-outside="vacations.formClicked('stop')" ng-class="{ 'fg-toggled': vacations.stopOpened == true }">
+                                <input  type="text" name="endDate" class="form-control"
+                                      ng-model="vacation.endDate"
+                                      date-format-filter="{{vacations.format}}" 
+                                      ng-required="true" placeholder="dd-mm-yyyy" required />
+                                    <!-- <input ng-click="vacations.open($event, 'stop')" type="text" name="endDate" class="form-control" datepicker-popup="{{vacations.format}}" show-weeks="false" ng-model="vacation.endDate"  is-open="vacations.stopOpened" datepicker-options="dateOptions" ng-required="true" close-text="Close" placeholder="dd-mm-yyyy" required /> -->
+                                </div>
+                                <div ng-show="vacationform.endDate.$touched && vacationform.endDate.$invalid" class="error has-error"> * Please Select End Date</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <p class="c-black f-500 m-b-20">Reason Code *</p>
+
+                    <div class="form-group">
+                        <div class="fg-line">
+                            <div class="select">
+                                <select name="reasonCode" ng-change chosen data-placeholder="Select a Reason..." class="form-control input-group" ng-model="vacation.reasonCode" ng-options="absencereason as (absencereason.Description ? absencereason.Description : absencereason.Name) for absencereason in vacations.absenceReasons" ng-required="true" required></select>
+                            </div>
+                            <div ng-show="vacationform.reasonCode.$touched && vacationform.reasonCode.$invalid" class="error has-error"> * Please Select Reason Code</div>
+                        </div>
+                    </div>
+                </div>
+
+               <!--  <div class="col-sm-6 pull-right">
+                    <div class="form-group">
+                        <div class="fg-line">
+                            <button class="btn btn-warning pull-right" ng-click="cencelVacation('canceladd')">Cancel</button>
+                            <button ng-disabled="vacationform.$invalid" class="btn btn-success pull-right" style="margin-right:10px;" ng-click="saveVacation()">Save</button>
+                       </div>
+                    </div>
+                </div> -->
+
+            </div>
+        </div>
+        </form>
+        
+    </div>
+
+
+
+
+    
+</div>
+
+

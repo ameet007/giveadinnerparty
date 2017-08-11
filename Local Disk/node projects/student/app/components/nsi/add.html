@@ -1,0 +1,17 @@
+<div class="popover-header">
+    <a href="#" ng-click="cancel()" style="float:left">Cancel</a>
+    <span class="titlebar-title">Add New NSN</span>
+</div>
+<div class="nsi-results">
+    <h3 ng-if="loading">Please Wait...</h3>
+    <div ng-if="!loading">
+        <h3>NSN Add Results</h3>
+        <p ng-if="needsOverride"><!-- We found a record in the system with an NSN assigned.  Are you sure you wish to create a new National Student Number? -->
+        Are you sure you wish to create a new National Student Number?
+            <hr/>
+           <!--  <a ng-click="override()" class="btn btn-large btn-warning">Override and Create New NSN</a> -->
+            <a ng-click="override()" class="btn btn-large btn-warning">Confirm Add New</a>
+            <a ng-click="cancel()" class="btn btn-large btn-info">Cancel</a>
+        </p>
+    </div>
+</div>

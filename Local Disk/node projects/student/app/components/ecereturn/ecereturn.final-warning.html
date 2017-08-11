@@ -1,0 +1,24 @@
+<div class="alert alert-danger">
+	<p>
+		<!-- By Submitting this ECE Return, you confirm that all data contained in the return is correct for the week beginning on the specified date. You will not be able to make any changes to staff details on the staff tab for the rest of the day. -->
+		By Submitting this ECE Return, you confirm that all data contained in the return is correct for the week beginning on the {{vm.fields.ecereturn_date | date : 'dd-MM-yyyy'}}
+	</p>
+</div>
+<br>
+<br>
+<div class="row">
+	<div class="col-md-12 text-center">
+		
+			<h5>Do you want to continue?</h5>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12 text-center">
+		<button class="btn btn-success" ng-click='vm.activateFinalSubmission()'>
+			Yes
+		</button>
+		<button class="btn btn-danger" ng-click='vm.cancelSubmission()'>
+			No
+		</button>
+	</div>
+</div>

@@ -1,0 +1,237 @@
+<div class="container">
+    <div class="block-header">
+        <h2>Contact Hours For: {{roster.today | date : 'dd-MM-yyyy' }}</h2>
+    </div>
+    <div class="card no-print">
+        <div class="card-header">
+            <h2 style="    width: 100%;display: block;float: left;"><span style="float:left">Record Contact Hours For: {{roster.today | date : 'dd-MM-yyyy' }}</span>
+                <button class="btn btn-success pull-right no-print" ng-click="roster.print()" href="#">Print
+                </button>
+            </h2>
+
+        </div>
+        <hr/>
+        <div class="card-body card-padding no-print">
+            <div class="row">
+                <div class="col-sm-2">
+                    <p class="c-black f-500 m-b-20">Date</p>
+
+                    <div class="form-group">
+                        <div class="fg-line">
+
+                            <div class="date-picker input-group"
+                                 ng-class="{ 'is-opened': roster.todayOpened == true }">
+                                <span class="input-group-addon linked-clander"
+                                         ng-click="roster.open($event, 'today')"
+                                         datepicker-popup="{{roster.format}}" show-weeks="false"
+                                         datepicker-options="dateOptions"
+                                          ng-model="roster.today" 
+                                          ng-change="roster.rosterDateChange()"
+                                          close-text="Close"
+
+                                ><i class="zmdi zmdi-calendar ma-icon"></i></span>
+
+                                <div class="fg-line" outside-if-not="dp-table" click-outside="roster.formClicked('today')" ng-class="{ 'fg-toggled': roster.todayOpened == true }">
+                                 <input type="text" class="form-control"
+                                           date-format-filter="{{roster.format}}"
+                                           ng-model="roster.today" 
+                                            ng-required="true" 
+                                           placeholder="dd-mm-yyyy"/>
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-sm-1">
+                    <p class="c-black f-500 m-b-20">Start</p>
+
+                    <div class="form-group">
+                        <div class="fg-line">
+                            <select class="form-control"
+                                    ng-change="roster.rosterParamsChange()"
+                                    ng-model="roster.startTime"
+                                    ng-options="a.Value as a.Label for a in roster.startTimes"></select>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-sm-2">
+                    <p class="c-black f-500 m-b-20">Interval Duration
+                    </p>
+
+                    <div class="form-group">
+                        <div class="fg-line">
+                            <select class="form-control"
+                                    ng-change="roster.rosterParamsChange()"
+                                    ng-model="roster.interval"
+                                    ng-options="a as a for a in roster.intervals"></select>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-sm-2">
+                    <p class="c-black f-500 m-b-20">First Aid Certificate Holder
+
+                    </p>
+
+                    <div class="form-group">
+                        <div class="fg-line">
+                            <span ng-class="roster.getFirstAidClass()">{{roster.firstAidCount}}</span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-sm-1">
+                    <p class="c-black f-500 m-b-20">Discretion Count
+
+                    </p>
+
+                    <div class="form-group">
+                        <div class="fg-line">
+                            <span ng-if='roster.roster.Hours && roster.roster.Hours.length && roster.educatorMap'ng-class="roster.getDiscretionCountClass()">{{roster.displayDiscretCount}}</span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-sm-3">
+                    <p class="c-black f-500 m-b-20">Actions
+
+                    </p>
+
+                    <div class="form-group">
+                        <div class="fg-line">
+                            <button ng-click="roster.clearAll()" class="btn btn-danger">Clear All</button>
+                            <button ng-click="roster.reset()" class="btn btn-warning">Reset</button>
+                            <button ng-click="roster.save()" class="btn btn-success">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card no-print-padding">
+        <div class="table-responsive" style="height:500px;" id="datatable">
+            <table class="table table-bordered table-vmiddle no-print-padding" ng-if="!roster.hideRoster">
+                <thead>
+                <tr>
+                    <th colspan="{{roster.getColspan($index)}}"  ng-repeat="val in roster.getHeaders() track by $index" class="roster-header" style="min-width:{{roster.getHeaderWidths()[$index]}}px; text-align:center;">
+                        <span>{{val}}</span>
+                    </th>
+                    <th  colspan="{{roster.getEducatorHeaders(true).length}}"></th>
+                </tr>
+                <tr>
+                    <th class="roster-header"></th>
+                    <th class="roster-header">Under2</th>
+                    <th class="roster-header">Over2</th>
+                    <th class="roster-header">Minimum Staff Required</th>
+                    <th class="roster-header">Minimum Qualified Staff Required</th>
+                    <th class="roster-header">Qualified Staff For Max. Funding</th>
+
+                    <th ng-repeat="val in roster.getParentHeaders() track by $index" class="roster-header">
+                            <span>{{val}}</span>
+                            <span ng-if="val.indexOf('Parent ')>-1">
+                                <select class="form-control"
+                                        ng-model="roster.roster.Parents[$index]"
+                                        ng-options="a._id as a.GivenName+' '+a.FamilyNameSurname for a in roster.parentList"></select>
+                           </span>
+                       </th>
+                      <th ng-repeat="val in roster.getEducatorHeaders(true) track by $index" class="roster-header">
+                        <span>{{val}}</span>
+                        <span ng-if="val.indexOf('Educator')>-1">
+                                  <select class="form-control" ng-change="roster.checkEducators($index/2,true)"
+                                    ng-model="roster.roster.Educators[$index/2]"
+                                    ng-options="a._id as a.FirstName+' '+a.LastName for a in roster.educatorList"></select>
+
+                            </span>
+
+                        </th>
+                 
+                </tr>
+                </thead>
+                <tbody>
+               
+                <tr ng-repeat="w in roster.getHours()" ng-class="roster.getRowClass(w)" class="no-print-padding">
+                    <td data-title="'Hours'" class="no-print-padding">
+                        <span>{{ roster.getTimeLabel(w.StartTime) + " to " + roster.getTimeLabel(w.EndTime) }}</span>
+                        <!--<div ng-if="w.$edit"><input class="form-control" type="date" ng-model="w.Date"/></div>-->
+                    </td>
+                    <td data-title="'Enrolled Under2'" class="no-print-padding">
+
+                        <div ng-if="true"><input ng-value="{{w.EnrolledUnderTwo}}" class="form-control" type="number" ng-change="roster.enrolledChange(w,'under2')"
+                                                 ng-model="w.EnrolledUnderTwo"/>
+                        </div>
+                    </td>
+                    <td data-title="'EnrolledOver2'" class="no-print-padding">
+
+                        <div ng-if="true"><input ng-value="{{w.EnrolledOverTwo}}" class="form-control" type="number" ng-change="roster.enrolledChange(w,'over2')"
+                                                 ng-model="w.EnrolledOverTwo"/>
+                        </div>
+                    </td>
+                    <!--<td data-title="'Parents Required'" class="no-print-padding">-->
+                    <!--<div ng-if="true"><input class="form-control" type="number"-->
+                    <!--ng-change="roster.parentsRequiredChange(w)"-->
+                    <!--ng-model="w.ParentsRequired"/>-->
+                    <!--</div>-->
+                    <!--</td>-->
+                    <td data-title="'Minimum Staff Required'" class="no-print-padding">
+
+                        <div ng-if="true"><input ng-value="{{w.MinStaffRequired}}" class="form-control" type="number"
+                                                 ng-change="roster.educatorsRequiredChange(w)"
+                                                 ng-model="w.MinStaffRequired"/>
+                        </div>
+                    </td>
+                    <td data-title="'Minimum Qualified Staff Required'" class="no-print-padding">
+
+                        <div ng-if="true"><input ng-value="{{w.MinQualifiedStaffRequired}}" class="form-control" type="number"
+                                                 ng-change="roster.educatorsRequiredChange(w)"
+                                                 ng-model="w.MinQualifiedStaffRequired"/>
+                        </div>
+                    </td>
+                    <td data-title="'Qualified Staff For Max. Funding'" class="no-print-padding">
+
+                <div ng-if="true"><input  ng-value="{{w.QualifiedStaffRequiredMaxFunding}}" class="form-control" type="number"
+                                                 ng-change="roster.educatorsRequiredChange(w)"
+                                                 ng-model="w.QualifiedStaffRequiredMaxFunding"/>
+                        </div>
+                    </td>
+
+                    <td title="Dutylist" class="no-print-padding" ng-repeat="edu in roster.getEducatorDutyList(w) track by $index">
+                        <div ng-if="$index%2==0 && !edu.filler">
+                            <select class="form-control" ng-model="w.Educators[$index/2]"
+                                    ng-options="a._id as a.FirstName+' '+a.LastName for a in roster.educatorList"></select>
+                        </div>
+
+                        <div ng-if="$index%2!=0 && !edu.filler" >
+                        <select class="form-control" ng-model="w.EducatorDutyList[($index-1)/2]"
+                                    ng-options="a._id as a.Name for a in roster.dutyListItems"></select>
+                        
+                        </div>
+
+                    </td>
+             
+
+                    <!--<td ng-repeat="edu in w.ParentDutyList" class="no-print-padding">-->
+                    <!--<div ng-if="!edu.filler">-->
+                    <!--<select class="form-control" ng-model="w.ParentDutyList[$index]"-->
+                    <!--ng-options="a._id as a.Name for a in roster.dutyListItems"></select>-->
+                    <!--</div>-->
+                    <!--</td>-->
+                    <!--&lt;!&ndash;<td data-title="'Actions'">&ndash;&gt;-->
+                    <!--<button type="button" class="btn btn-default" ng-if="!w.$edit" ng-click="attendance.startEdit(w, $index);"><i class="zmdi zmdi-edit"></i></button>-->
+                    <!--<button type="button" class="btn btn-success" ng-if="w.$edit" ng-click="attendance.finishEdit(w, $index);"><i class="zmdi zmdi-check"></i></button>-->
+                    <!--<button type="button" class="btn btn-danger" ng-if="w.$edit" ng-click="attendance.cancelEdit(w, $index);"><i class="zmdi zmdi-minus-circle"></i></button>-->
+                    <!--</td>-->
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+</div>
+
+

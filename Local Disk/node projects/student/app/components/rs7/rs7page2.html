@@ -1,0 +1,82 @@
+
+    <div class="card no-print-padding">
+        <div class="card-header no-print">
+            <h2>Daily Data Screen</h2>
+        </div>
+        <div class="card-body card-padding no-print-padding">
+            <span ng-repeat="month in rs7.getPayPeriodMonths()">
+                <h4>{{month}} of Payment Cycle</h4>
+
+                <table style="width:100%;text-align:center">
+                    <thead>
+                    <tr style="border:1px solid black;">
+                        <th style="min-width:60px;">&nbsp;</th>
+                        <th style="min-width:60px;">&nbsp;</th>
+                        <th class="text-center" colspan="2">ECE Subsidy</th>
+                        <th class="text-center" colspan="2">20 Hours ECE</th>
+                        <!--<th colspan="1">&nbsp;</th>-->
+                        <th class="text-center" ng-if="!rs7.hideSHC(null,month)" colspan="2">Staff Hour Count
+                        <br/>
+                        <span>ECE Qualified and Certificated</span>
+                        </th>
+                        <!--<th class="text-center" colspan="1">Remarks</th>-->
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="border:1px solid black;">
+                        <td>Day</td>
+                        <td>Date</td>
+                        <td>Under 2</td>
+                        <td>Over 2</td>
+                        <td>20 Hours ECE</td>
+                        <td>Plus 10</td>
+                        <!--<td>Total</td>-->
+                        <td ng-if="!rs7.hideSHC(null,month)">Registered</td>
+                        <td ng-if="!rs7.hideSHC(null,month)">Non Registered</td>
+                        <!-- <td ng-if="!rs7.hideSHC(null,month)">Total</td> -->
+                        <!--<td>&nbsp;</td>-->
+                    </tr>
+                    <tr style="border:1px solid black;" ng-repeat="row in rs7.getDailyData(month)">
+                        <td>{{row.day}}</td>
+                        <td><a target="_blank" href="/#/main/dailyfch?date={{row.date}}">{{row.date}}</a></td>
+                        <td>{{row.under2}}</td>
+                        <td>{{row.over2}}</td>
+                        <td>{{row.twentyHoursECE}}</td>
+                        <td>{{row.plus10}}</td>
+                        <!--<td>{{row.eceTotal}}</td>-->
+                        <td ng-if="!rs7.hideSHC(null,month)">
+                            {{row.registered}}
+                        </td>
+                        <td ng-if="!rs7.hideSHC(null,month)">
+                                {{row.nonRegistered}}
+                        </td>
+                        <!-- <td ng-if="!rs7.hideSHC(null,month)">
+                            {{row.shcTotal}}
+                        </td> -->
+                        <!--<td>{{row.remarks}}</td>-->
+                    </tr>
+                    <tr style="border:1px solid black;font-weight:bolder;" >
+                        <td>Total Hours</td>
+                        <td>&nbsp;</td>
+                        <td>{{rs7.getMonthlyTotal(month, 'under2')}}</td>
+                        <td>{{rs7.getMonthlyTotal(month, 'over2')}}</td>
+                        <td>{{rs7.getMonthlyTotal(month, 'twentyHoursECE')}}</td>
+                        <td>{{rs7.getMonthlyTotal(month, 'plus10')}}</td>
+                        <!--<td>{{row.eceTotal}}</td>-->
+                        <td ng-if="!rs7.hideSHC(null,month)">{{rs7.getMonthlyTotal(month, 'registered')}}</td>
+                        <td ng-if="!rs7.hideSHC(null,month)">{{rs7.getMonthlyTotal(month, 'nonRegistered')}}</td>
+                        <!-- <td ng-if="!rs7.hideSHC(null,month)">{{rs7.getMonthlyTotal(month, 'shcTotal')}}</td> -->
+                        <!--<td>{{row.remarks}}</td>-->
+                    </tr>
+                    </tbody>
+                </table>
+            </span>
+        </div>
+
+        <div class="text-center" style="padding:10px">
+            <button class="btn btn-info" ng-click="rs7.continue()">Continue</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-info" ng-click="rs7.back()">Back</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-warning" ng-click="rs7.cancel()">Cancel</button>
+        </div>
+    </div>
+
+

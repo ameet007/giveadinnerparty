@@ -1,7 +1,22 @@
+<?php
+//***********For Making Meta Tags dynamic***********\\
+ use App\Http\Controllers\cmsController; 
+
+ $url = $_SERVER['REQUEST_URI']; 
+$meta_data =  cmsController::get_metatag($url);
+//***************************************************\\
+?>
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Give A Dinner Party</title>
+    <head
+	
+		<?php if(count($meta_data)==1){ ?>
+			<title>{{ $meta_data[0]->title }}</title>
+			<meta name="description" content="{{ $meta_data[0]->description }}" />
+			<meta name="keywords" content="{{ $meta_data[0]->keyword }}" />
+		<?php } else { ?>
+			<title>Give A Dinner Party</title>
+		<?php } ?>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <meta name="format-detection" content="telephone=no" />
@@ -23,6 +38,13 @@
         <script src="{{Request::root()}}/assets/front/js/fancySelect.js" type="text/javascript"></script>
         <script src="{{Request::root()}}/assets/front/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="{{Request::root()}}/assets/front/js/bootstrap-datepicker.js" type="text/javascript"></script>
+		<script src="{{Request::root()}}/assets/admin/plugins/parsleyjs/parsley.min.js" type="text/javascript"></script>
+		<script>
+			$(document).ready(function() {
+				$('#demo-form').parsley();
+			});			
+		</script>
+		
     </head>
     <body>
         @include('common.layout.front-header')

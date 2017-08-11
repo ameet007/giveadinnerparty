@@ -1,0 +1,111 @@
+<div>
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			
+			Teaching Languages at your service
+		</div>
+	</div>
+	<div class="alert alert-info">
+		<p>
+			Teaching languages include all spoken languages and signed languages of communication used during formal programme in your service.
+		</p>
+		<p>
+			Please select languages of teaching and percentage used ensure that total percentage of languages used have to be 100%. System has pre populated indicative data and you are required to review and edit as appropriate.
+		</p>
+	</div>
+	<div class="row">
+		<div class="col-md-6 text-right">
+			<h5>Language of Teaching</h5>
+		</div>
+		<div class="col-md-6">
+			<h5>Percentage</h5>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-offset-3 col-md-3 text-right">
+			<select ng-model='vm.fields.center_language_1.Id' class="form-control" ng-change='vm.resetThisField(vm.fields.center_language_1.Id, 1)'>
+				<option selected="" value="">Please select from the list</option>
+				<option ng-repeat='language in vm.fields.all_languages' value="{{language._id}}">{{language.Description}}</option>
+			</select>
+		</div>
+		<div class="col-md-3"> 
+			<div class="input-group">
+			  <input type="number" class="form-control" name='language1' ng-model='vm.fields.center_language_1.Percentage' ng-disabled='!vm.fields.center_language_1.Id' ng-blur="vm.fields.center_language_1.Percentage? '':vm.fields.center_language_1.Percentage=1" ng-change="vm.fields.center_language_1.Percentage = vm.checkEmptyOrDecimal(vm.fields.center_language_1.Percentage)">
+			  <span class="input-group-addon" id="basic-addon1">%</span>
+			</div>		
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-offset-3 col-md-3 text-right">
+			<select ng-model='vm.fields.center_language_2.Id' class="form-control" ng-change='vm.resetThisField(vm.fields.center_language_2.Id, 2)'>
+				<option selected="" value="">Please select from the list</option>
+				<option ng-repeat='language in vm.fields.all_languages' value="{{language._id}}">{{language.Description}}</option>
+			</select>
+		</div>
+		<div class="col-md-3"> 
+			<div class="input-group">
+			  <input type="number" class="form-control" name='language1' ng-model='vm.fields.center_language_2.Percentage' ng-disabled='!vm.fields.center_language_2.Id' ng-blur="vm.fields.center_language_2.Percentage? '':vm.fields.center_language_2.Percentage=1" ng-change="vm.fields.center_language_2.Percentage = vm.checkEmptyOrDecimal(vm.fields.center_language_2.Percentage)">
+			  <span class="input-group-addon" id="basic-addon1">%</span>
+			</div>		
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-offset-3 col-md-3 text-right">
+			<select ng-model='vm.fields.center_language_3.Id' class="form-control" ng-change='vm.resetThisField(vm.fields.center_language_3.Id, 3)'>
+				<option selected="" value="">Please select from the list</option>
+				<option ng-repeat='language in vm.fields.all_languages' value="{{language._id}}">{{language.Description}}</option>
+			</select>
+		</div>
+		<div class="col-md-3"> 
+			<div class="input-group">
+			  <input type="number" class="form-control" name='language1' ng-model='vm.fields.center_language_3.Percentage' ng-disabled='!vm.fields.center_language_3.Id' ng-blur="vm.fields.center_language_3.Percentage? '':vm.fields.center_language_3.Percentage=1" ng-change="vm.fields.center_language_3.Percentage = vm.checkEmptyOrDecimal(vm.fields.center_language_3.Percentage)"> 
+			  <span class="input-group-addon" id="basic-addon1">%</span>
+			</div>		
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-offset-3 col-md-3 text-right">
+			<select ng-model='vm.fields.center_language_4.Id' class="form-control" ng-change='vm.resetThisField(vm.fields.center_language_4.Id, 4)'>
+				<option selected="" value="">Please select from the list</option>
+				<option ng-repeat='language in vm.fields.all_languages' value="{{language._id}}">{{language.Description}}</option>
+			</select>
+		</div>
+		<div class="col-md-3"> 
+			<div class="input-group">
+			  <input type="number" class="form-control" name='language1' ng-model='vm.fields.center_language_4.Percentage' ng-disabled='!vm.fields.center_language_4.Id' ng-blur="vm.fields.center_language_4.Percentage? '':vm.fields.center_language_4.Percentage=1" ng-change="vm.fields.center_language_4.Percentage = vm.checkEmptyOrDecimal(vm.fields.center_language_4.Percentage)">
+			  <span class="input-group-addon" id="basic-addon1">%</span>
+			</div>		
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-offset-3 col-md-3 text-right">
+			<select ng-model='vm.fields.center_language_5.Id' class="form-control" ng-change='vm.resetThisField(vm.fields.center_language_5.Id, 5)'>
+				<option selected="" value="">Please select from the list</option>
+				<option ng-repeat='language in vm.fields.all_languages' value="{{language._id}}">{{language.Description}}</option>
+			</select>
+		</div>
+		<div class="col-md-3"> 
+			<div class="input-group">
+			  <input type="number" class="form-control" name='language1' ng-model='vm.fields.center_language_5.Percentage' ng-disabled='!vm.fields.center_language_5.Id' ng-blur="vm.fields.center_language_5.Percentage? '':vm.fields.center_language_5.Percentage=1"  ng-change="vm.fields.center_language_5.Percentage = vm.checkEmptyOrDecimal(vm.fields.center_language_5.Percentage)">
+			  <span class="input-group-addon" id="basic-addon1">%</span>
+			</div>		
+		</div>
+	</div>
+	<br/>
+	<br/>
+	<div class="alert alert-danger" ng-show='!vm.fields.center_language_1.Id && !vm.fields.center_language_2.Id && !vm.fields.center_language_3.Id  && !vm.fields.center_language_4.Id && !vm.fields.center_language_5.Id'>
+		Atleast one language must be selected
+	</div>
+	<div class="alert alert-danger" ng-show='
+	(vm.fields.center_language_1.Id || vm.fields.center_language_2.Id || vm.fields.center_language_3.Id  || vm.fields.center_language_4.Id || vm.fields.center_language_5.Id) &&
+	vm.fields.center_language_1.Percentage + vm.fields.center_language_2.Percentage+ vm.fields.center_language_3.Percentage+vm.fields.center_language_4.Percentage + vm.fields.center_language_5.Percentage !=100'>
+		Sum of all/selected languages percentage must be 100	
+	</div>
+	<div class="text-center">
+		<button class="btn btn-success" ng-disabled='vm.fields.center_language_1.Percentage + vm.fields.center_language_2.Percentage+ vm.fields.center_language_3.Percentage+vm.fields.center_language_4.Percentage + vm.fields.center_language_5.Percentage !=100' ng-click='vm.gotoPage(4,5)'>
+		Continue		
+		</button>
+		<button class="btn btn-warning"  ng-click='vm.gotoPage(4,3, true)'>Back</button>
+		<button class="btn btn-danger" ng-hide='vm.is_edit_mode' ng-click='vm.cancelWizard()'>Cancel</button>
+	</div>
+</div>

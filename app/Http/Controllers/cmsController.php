@@ -166,17 +166,55 @@ class cmsController extends Controller
 	
 	/************** Start about us code ****************/
 	
-	 public function aboutus(Request $request)
+	 public function cms_listing(Request $request)
 	{
-		$aboutus = Cms::get();
-		return view('admin.aboutus.listing')->with(['aboutus'=>$aboutus]);
+		$cms = Cms::get();
+		return view('admin.cms.listing')->with(['cms'=>$cms]);
 	}
-	public function aboutusedit(Request $request, $id=0)
+	public function add_cms(Request $request, $id=0)
 	{
 		$data = $request->all();
 		$validate = Validator::make($data, [
         'title' => 'required|string|max:191', 
-		'description' => 'required|string|max:191', 
+		'description' => 'required|string', 
+		]);
+		
+		if(!$validate->fails())
+		{
+			$file = $request->file('image');
+			if(isset($_FILES['image']['name']) && !empty($_FILES['image']['name']))
+			{
+				$file_name = str_replace(' ','_',time().$file->getClientOriginalName());			
+				$destinationPath = 'assets/admin/uploads/images';			
+				$file->move($destinationPath,$file_name);
+				if(file_exists('assets/admin/uploads/images/'.$data['old_image']) && !empty($data['old_image']))
+				{
+					unlink('assets/admin/uploads/images/'.$data['old_image']);
+				}
+			}
+			else
+			{
+				$file_name = "";
+			}
+			$data['image'] = $file_name;
+			unset($data['_token']);
+			//unset($data['old_image']);
+			Cms::insert($data);
+			return redirect('admin/cms')->with(['success'=>'page successfully created']);
+		}
+		else
+		{
+			redirect('admin/cms/add')->withErrors($validate)->withInput();
+		}
+		
+		return view('admin.cms.edit_cms');
+	}
+	public function edit_cms(Request $request, $id=0)
+	{
+		$data = $request->all();
+		$validate = Validator::make($data, [
+        'title' => 'required|string|max:191', 
+		'description' => 'required|string', 
 		]);
 		
 		if(!$validate->fails())
@@ -200,15 +238,15 @@ class cmsController extends Controller
 			unset($data['_token']);
 			unset($data['old_image']);
 			Cms::where('id',$id)->update($data);
-			return redirect('admin/aboutus')->with(['success'=>'banner successfully created']);
+			return redirect('admin/cms')->with(['success'=>'page successfully updated']);
 		}
 		else
 		{
-			redirect('admin/aboutus/edit')->withErrors($validate)->withInput();
+			redirect('admin/cms/edit/'.$id)->withErrors($validate)->withInput();
 		}
 		
-		$aboutus_data = Cms::where('id',1)->first();
-		return view('admin.aboutus.edit_aboutus')->with(['aboutus'=>$aboutus_data]);
+		$cms_data = Cms::where('id',$id)->first();
+		return view('admin.cms.edit_cms')->with(['cms'=>$cms_data]);
 	}
 	/*********************end about us code***********************/
 	

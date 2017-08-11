@@ -1,0 +1,15 @@
+.printable {
+    display:block;
+}
+
+.no-print {
+    display:none;
+}
+
+.no-print-padding {
+    padding-top:0px !important;
+    padding-bottom:0px !important;
+    margin-top:0px !important;
+    margin-bottom:0px !important;
+}
+

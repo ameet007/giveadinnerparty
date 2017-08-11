@@ -1,0 +1,27 @@
+<div class="date-picker input-group" ng-class="{ 'is-opened': opened == true }">
+    <span class="input-group-addon linked-clander"
+    	ng-click="(!options.templateOptions['disabled'])? open($event, 'opened'):''"
+        datepicker-popup="{{format}}" 
+        show-weeks="false"
+        ng-model="model[options.key]"
+        datepicker-options="dateOptions"
+       	ng-change="dateChanged(model,options,options.key)"
+        close-text="Close"><i class="zmdi zmdi-calendar ma-icon"></i></span>
+       <div class="fg-line" outside-if-not="dp-table" click-outside="formClicked('opened')" ng-class="{ 'fg-toggled': opened == true }">
+        <input type="text"
+        date-format-filter="{{format}}"
+
+        formly-focus="{{options.templateOptions.focus}}"
+        class="form-control" ng-model="model[options.key]" value="{{model[options.key] | date:'dd-MM-yyyy'}}" placeholder="dd-mm-yyyy" />
+    </div>
+    <span ng-if="!options.templateOptions.disabled" style="color:#f44336" class="input-group-addon" ng-click="deleteDateVal(model, options, options.key)"><i class="zmdi zmdi-close ma-icon"></i></span>
+</div>
+<div class="pull-left" style="width:100%" ng-if="options.key=='EnrolmentEndDate'">
+ <div  ng-if="endDateIsCorrect(model, options, options.key)" class="error-messages">
+        <div class="message">Enrolment End date should be on or after any recorded child attendance</div>
+    </div>
+</div>
+<div ng-messages="fc.$error" ng-if="!options.formControl.$valid" class="error-messages">
+    <div ng-message="{{ ::name }}" ng-repeat="(name, message) in ::options.validation.messages" ng-if="options.templateOptions['required'] && !model[options.key]" class="message">This field is required</div>
+
+</div>
