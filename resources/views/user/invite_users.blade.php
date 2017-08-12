@@ -452,7 +452,7 @@ $(document).ready(function(){
 			   data: {'_token':'{{csrf_token()}}','friend_id':$('#friend_id').val(),'event_id':$('#event_id').val()},
 			   success: function(responsedata)
 			   {		      
-				   $('.inviteuser').html('Invited');					
+					$('.inviteuser').html('Invited');
 					setTimeout(function(){
 						$('.inviteuser').prop('disabled', false);
 						$('.inviteuser').html('Invite');

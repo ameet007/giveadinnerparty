@@ -30,7 +30,7 @@ use App\tickets;
 use App\notifications;
 use DB;
 use App\accountClose;
-
+use App\Cms;
 class userController extends Controller {
 
     public function myaccount(Request $request, $id = 0) {
@@ -1262,7 +1262,7 @@ class userController extends Controller {
     public function yourHosting() {
         $user = Auth::guard('user')->user();
         //$events = User::rightJoin('events', 'users.id', '=', 'events.user_id')->where('events.user_id', $user->id)->get();
-		 $events = User::leftJoin('events', 'users.id', '=', 'events.user_id')
+		$events = User::leftJoin('events', 'users.id', '=', 'events.user_id')
 			->leftJoin('charities', 'charities.id', '=', 'events.charity_id')
 			->where('events.user_id', $user->id)
 			->select('events.*', 'users.name','charities.title as charity_name','charities.logo')->get();
@@ -1270,13 +1270,18 @@ class userController extends Controller {
     }
 
     public function myActiveEvent(Request $request) {
-        $user = Auth::guard('user')->user();     
+        $user = Auth::guard('user')->user();
 		$events = User::leftJoin('events', 'users.id', '=', 'events.user_id')
 			->leftJoin('charities', 'charities.id', '=', 'events.charity_id')
 			->where('events.event_date', '>=', date('m/d/Y'))
 			->where('events.user_id', $user->id)
-			->select('events.*', 'users.name','charities.title as charity_name','charities.logo')->get();				
-        return view('user/my_active_events')->with(['events' => $events,]);
+			->select('events.*', 'users.name','charities.title as charity_name','charities.logo')->get();
+		//$awaiting_tickets = 
+		
+		$awaiting_events = events::where('events.user_id', $user->id)
+							->where('events.event_date', '>=', date('m/d/Y'))->get();
+		
+        return view('user/my_active_events')->with(['events' => $events,'awaiting_events'=>$awaiting_events]);
     }
 
     public function myEndedEvent(Request $request) {
@@ -1494,13 +1499,18 @@ class userController extends Controller {
 	//**************About Us**************\\
 	public function aboutus()
 	{
-		return view('staticpage.about-us');
+		$about_us = Cms::where('id','=',1)->first();
+		
+		//dd($about_us);
+		return view('staticpage.about-us')->with('about',$about_us);
 	}
 	
 	public function index()
 	{
 		$country = Country::get();
-	    return view('staticpage.about-us')->with(['country_list'=>$country]);
+		$about_us = Cms::where('id','=',1)->first();
+
+	    return view('staticpage.about-us')->with(['country_list'=>$country,'about'=>$about_us]);
 	}
 	
 	public function transactionHistory(Request $request)
@@ -1559,5 +1569,29 @@ class userController extends Controller {
 		$login_user = Auth::guard('user')->user();
 		return view('user.account.close-account')->with(['cancel_account'=>$cancel_account]);
 	}
+	
+	/* start approve cancel tickets */
+		public function approveTicket(Request $request)
+		{
+			if(isset($_POST['ticket_id']))
+			{	
+				$ticket_id = $_POST['ticket_id'];
+				$ins_data['status'] =  'approve';
+				tickets::where('id',$ticket_id)->update($ins_data);
+			}
+		}
+		
+		public function cancelTicket(Request $request)
+		{
+			if(isset($_POST['ticket_id']))
+			{
+				$ticket_id = $_POST['ticket_id'];
+				$ins_data['cancel'] = 'yes';
+				tickets::where('id',$ticket_id)->update($ins_data);
+			}	
+		}
+	/* end approve cancel tickets */
+ 
+	
 	
 }

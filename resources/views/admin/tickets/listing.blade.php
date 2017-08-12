@@ -26,13 +26,17 @@
           <div class="card-box table-responsive">
 			<a class="btn btn-warning {{ (Request::segment(3)=='all')?'active':'' }}" href="{{Request::root()}}/admin/tickets/all">All Tickets</a>
 			<a class="btn btn-warning {{ (Request::segment(3)=='approve')?'active':'' }}" href="{{Request::root()}}/admin/tickets/approve">Approved Tickets</a>
-			<a class="btn btn-warning {{ (Request::segment(3)=='unapprove')?'active':'' }}" href="{{Request::root()}}/admin/tickets/unapprove">Unapproved Tickets</a><br>
+			<a class="btn btn-warning {{ (Request::segment(3)=='unapprove')?'active':'' }}" href="{{Request::root()}}/admin/tickets/unapprove">Unapproved Tickets</a>
+			<a class="btn btn-warning {{ (Request::segment(3)=='refaund')?'active':'' }}" href="{{Request::root()}}/admin/tickets/refaund">Refaunded Tickets</a>
+			<a class="btn btn-warning {{ (Request::segment(3)=='cancel')?'active':'' }}" href="{{Request::root()}}/admin/tickets/cancel">Cancelled Tickets</a>
+			<br>
             <div id="datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer"><div class="row"><div class="col-sm-12"><table id="datatable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">
               <thead>
                 <tr role="row">
                   <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 67px;">ID</th>
                   <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 197px;">Event Title</th>
 				  <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 127px;">User</th>
+				  <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 127px;">No. of Ticket</th>
                   <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 127px;">Ticket Amount</th>
 				  <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 127px;">Request Date</th>
 				  <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 127px;">Status</th>
@@ -45,7 +49,8 @@
 					<td>{{$item->id}}</td>
 					<td class="sorting_1">{{$item->event_title}}</td>
 					<td class="sorting_1">{{$item->user_name}}</td>
-					<td class="sorting_1">{{$item->ticket_price}}</td>
+					<td class="sorting_1">{{$item->qty}}</td>
+					<td class="sorting_1">{{$item->final_amount}}</td>
 					<td class="sorting_1">{{$item->created_at}}</td>
 					<td>{{$item->status}}</td>
 					<td>

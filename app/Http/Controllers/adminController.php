@@ -11,7 +11,7 @@ use Validator;
 use Crypt;
 use Illuminate\Support\Facades\Auth;
 use App\charity_report;
-
+use App\accountClose;
 
 /* -------------Manage Users----------------- */
 class adminController extends Controller
@@ -21,7 +21,7 @@ class adminController extends Controller
     return view('admin.users.users')->with([
       'users'=>$user,
     ]);
-  }
+}
 
   public function addUsers(Request $request, $id=0){
     if($request->isMethod('get')){
@@ -298,4 +298,13 @@ class adminController extends Controller
   }
   /* -------------End Manage  Events----------------- */
   
-}
+  /* start close account code */
+	public function closeRequest(Request $request)
+	{
+		$close_query = accountClose::join('users','users.id','account_closes.user_id')->get();    
+		//dd($close_query);	
+		return view('admin.users.account_close')->with('users',$close_query);
+	}
+  /* end close account code */	
+  
+ }

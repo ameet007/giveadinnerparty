@@ -28,15 +28,24 @@
           </ul>
         </li>
         <li class="has_sub">
-          <a href="{{Request::root()}}/admin/users" class="waves-effect <?= (Request::segment(2) == 'users') ? 'active' : '' ?>"><i class="fa fa-users"></i> <span> Manage Users </span> </a>
+			<a href="javascript:void(0);" class="waves-effect"><i class="fa fa-users"></i> <span> Manage Users </span> <span class="menu-arrow"></span></a>
+			<ul>
+				<li><a href="{{Request::root()}}/admin/users" class="waves-effect"> <span> Manage Users </span> </a></li>
+				<li><a href="{{Request::root()}}/admin/users/close_requests" class="waves-effect"> <span> Close Account Requests </span> </a></li>
+			</ul>
+		  
         </li>
         <li class="has_sub">
           <a href="{{Request::root()}}/admin/events" class="waves-effect"><i class="fa fa-calendar"></i> <span> Manage Events </span></a>
         </li>
 		
 		<li class="has_sub">
-          <a href="{{Request::root()}}/admin/tickets/all" class="waves-effect"><i class="fa fa-ticket"></i> <span> Manage Tickets </span></a>
-        </li>
+			<a href="javascript:void(0);" class="waves-effect"><i class="fa fa-ticket"></i> <span> Manage Tickets </span> <span class="menu-arrow"></span></a>
+			<ul class="list-unstyled">
+				<li><a href="{{Request::root()}}/admin/tickets/all">Tickets</a></li>
+				<li><a href="{{Request::root()}}/admin/tickets/cancel_request">Cancel Request</a></li>
+			</ul>
+		</li>
 		
         <li class="has_sub">
           <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-dollar"></i> <span> Transaction Reports </span></a>

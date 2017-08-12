@@ -24,9 +24,20 @@
 					<div class="main-heading">
 						<h2>Awaiting Approval Decision</h2>
 					</div>
+					@foreach($awaiting_events as $wait_event)
+					<?php //$ticket_data = DB::select("select * from tickets where event_id='$wait_event->event_id'"); ?>
+					
+					<?php $tickets_data = DB::table('tickets')
+					->join('users', 'users.id', '=', 'tickets.user_id')
+					->where('tickets.event_id','=',$wait_event->id)
+					->select('tickets.*','users.name as first_name','users.last_name','users.dob as user_dob')->get() ?>
+					<?php if(count($tickets_data)>0){ ?>
+					
 					<div class="col-xs-12">
-						<h4 class="mr20">Friday 23rd August <br/>Summer BBQ With Cocktails</h4>
+						<h4 class="mr20">{{ date('d, F Y',strtotime($wait_event->event_date)) }}<br/>{{$wait_event->title}}</h4>
 						<div class="owl-carousel owl-theme">
+						@foreach($tickets_data as $ticket)
+						{{ $dob = date('Y')-date('Y',strtotime($ticket->user_dob)) }}
 							<div class="item">
 								<div class="parties-wrap">
 									<div class="parties-head">
@@ -38,8 +49,8 @@
 									<div class="parties-host">
 										<div class="hosted-by">
 											<div class="content">
-												<strong>Khairul P,</strong>
-												<span>Aged: <strong>24</strong></>
+												<strong>{{$ticket->first_name.' '.$ticket->last_name}},</strong>
+												<span>Aged: <strong>{{$dob}}</strong></>
 												<p>Bukit Tunku, KL</p>
 												<div class="img">
 													<div class="inner">
@@ -48,11 +59,11 @@
 													</div>
 													<div class="rateYo3"></div><span class="re-view">(17)</span>
 												</div>
-												<p><strong>Number of tickets requested:</strong> 2</p>
+												<p><strong>Number of tickets requested:</strong> {{$ticket->qty}}</p>
 												<p><strong>Dietary (or other) restrictions:</strong>  Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
 												<div class="tow-btn">
-													<button class="btn2 accep-t">Accept</button>
-													<button class="grey-btn rejec-t">Reject</button>
+													<button class="btn2 accep-t" id="act{{$ticket->id}}" onclick="return approve_ticket({{$ticket->id}})">Accept</button>
+													<button class="grey-btn rejec-t" id="cancel{{$ticket->id}}" onclick="return cancel_ticket({{$ticket->id}})">Reject</button>
 													<button data-toggle="modal" data-target="#myModal" class="btn2">Message</button>
 												</div>
 											</div>	
@@ -60,178 +71,11 @@
 									</div>
 								</div>
 							</div>
-							<div class="item">
-								<div class="parties-wrap">
-									<div class="parties-head">
-										<div class="event-mf">
-											<i class="fa fa-male" aria-hidden="true"></i>
-											<p>Men only</p>
-										</div>
-									</div>
-									<div class="parties-host">
-										<div class="hosted-by">
-											<div class="content">
-												<strong>Khairul P,</strong>
-												<span>Aged: <strong>24</strong></>
-												<p>Bukit Tunku, KL</p>
-												<div class="img">
-													<div class="inner">
-														<div class="circle-img"></div>
-														<img src="{{Request::root()}}/assets/front/img/host-pic.png" alt="" />
-													</div>
-													<div class="rateYo3"></div><span class="re-view">(17)</span>
-												</div>
-												<p><strong>Number of tickets requested:</strong> 2</p>
-												<p><strong>Dietary (or other) restrictions:</strong> Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-												<div class="tow-btn">
-													<button class="btn2 accep-t">Accept</button>
-													<button class="grey-btn rejec-t">Reject</button>
-													<button data-toggle="modal" data-target="#myModal" class="btn2">Message</button>
-												</div>
-											</div>	
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="item">
-								<div class="parties-wrap">
-									<div class="parties-head">
-										<div class="event-mf">
-											<i class="fa fa-male" aria-hidden="true"></i>
-											<p>Men only</p>
-										</div>
-									</div>
-									<div class="parties-host">
-										<div class="hosted-by">
-											<div class="content">
-												<strong>Khairul P,</strong>
-												<span>Aged: <strong>24</strong></>
-												<p>Bukit Tunku, KL</p>
-												<div class="img">
-													<div class="inner">
-														<div class="circle-img"></div>
-														<img src="{{Request::root()}}/assets/front/img/host-pic.png" alt="" />
-													</div>
-													<div class="rateYo3"></div><span class="re-view">(17)</span>
-												</div>
-												<p><strong>Number of tickets requested:</strong> 2</p>
-												<p><strong>Dietary (or other) restrictions:</strong> Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-												<div class="tow-btn">
-													<button class="btn2 accep-t">Accept</button>
-													<button class="grey-btn rejec-t">Reject</button>
-													<button data-toggle="modal" data-target="#myModal" class="btn2">Message</button>
-												</div>
-											</div>	
-										</div>
-									</div>
-								</div>
-							</div>
+							@endforeach
 						</div>
 					</div>
-					<div class="col-xs-12 ">
-						<h4 class="mr20">Friday 22nd August <br/>Summer BBQ With Cocktails</h4>
-						<div class="owl-carousel owl-theme">
-							<div class="item">
-								<div class="parties-wrap">
-									<div class="parties-head">
-										<div class="event-mf">
-											<i class="fa fa-male" aria-hidden="true"></i>
-											<p>Men only</p>
-										</div>
-									</div>
-									<div class="parties-host">
-										<div class="hosted-by">
-											<div class="content">
-												<strong>Khairul P,</strong>
-												<span>Aged: <strong>24</strong></>
-												<p>Bukit Tunku, KL</p>
-												<div class="img">
-													<div class="inner">
-														<div class="circle-img"></div>
-														<img src="{{Request::root()}}/assets/front/img/host-pic.png" alt="" />
-													</div>
-													<div class="rateYo3"></div><span class="re-view">(17)</span>
-												</div>
-												<p><strong>Number of tickets requested:</strong> 2</p>
-												<p><strong>Dietary (or other) restrictions:</strong> Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-												<div class="tow-btn">
-													<button class="btn2 accep-t">Accept</button>
-													<button class="grey-btn rejec-t">Reject</button>
-													<button data-toggle="modal" data-target="#myModal" class="btn2">Message</button>
-												</div>
-											</div>	
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="item">
-								<div class="parties-wrap">
-									<div class="parties-head">
-										<div class="event-mf">
-											<i class="fa fa-male" aria-hidden="true"></i>
-											<p>Men only</p>
-										</div>
-									</div>
-									<div class="parties-host">
-										<div class="hosted-by">
-											<div class="content">
-												<strong>Khairul P,</strong>
-												<span>Aged: <strong>24</strong></>
-												<p>Bukit Tunku, KL</p>
-												<div class="img">
-													<div class="inner">
-														<div class="circle-img"></div>
-														<img src="{{Request::root()}}/assets/front/img/host-pic.png" alt="" />
-													</div>
-													<div class="rateYo3"></div><span class="re-view">(17)</span>
-												</div>
-												<p><strong>Number of tickets requested:</strong> 2</p>
-												<p><strong>Dietary (or other) restrictions:</strong> Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-												<div class="tow-btn">
-													<button class="btn2 accep-t">Accept</button>
-													<button class="grey-btn rejec-t">Reject</button>
-													<button data-toggle="modal" data-target="#myModal" class="btn2">Message</button>
-												</div>
-											</div>	
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="item">
-								<div class="parties-wrap">
-									<div class="parties-head">
-										<div class="event-mf">
-											<i class="fa fa-male" aria-hidden="true"></i>
-											<p>Men only</p>
-										</div>
-									</div>
-									<div class="parties-host">
-										<div class="hosted-by">
-											<div class="content">
-												<strong>Khairul P,</strong>
-												<span>Aged: <strong>24</strong></>
-												<p>Bukit Tunku, KL</p>
-												<div class="img">
-													<div class="inner">
-														<div class="circle-img"></div>
-														<img src="{{Request::root()}}/assets/front/img/host-pic.png" alt="" />
-													</div>
-													<div class="rateYo3"></div><span class="re-view">(17)</span>
-												</div>
-												<p><strong>Number of tickets requested:</strong> 2</p>
-												<p><strong>Dietary (or other) restrictions:</strong> Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-												<div class="tow-btn">
-													<button class="btn2 accep-t">Accept</button>
-													<button class="grey-btn rejec-t">Reject</button>
-													<button data-toggle="modal" data-target="#myModal" class="btn2">Message</button>
-												</div>
-											</div>	
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+					<?php } ?>
+					@endforeach
 				</div>
 			</div>
 			
@@ -276,7 +120,7 @@
 													<span class="re-view">(17)</span>
 												</div>
 											</div>
-											<div class="content">
+											<div  class="content">
 												<p>Hosted By: <strong>{{ $event->name.' '.$event->last_name }}</strong></p>
 												<p>Aged: <strong>{{ $event->min_age }} - {{$event->max_age }}</strong></p>
 												<p>Friday {{ $event->event_date }}</p>
@@ -305,8 +149,6 @@
                 </div>
             </div>
 			</div>
-
-
 <script>
     $("#tabs").tabs();
     $(function () {
@@ -323,5 +165,34 @@
         $('.search-panel span#search_concept').text(concept);
         $('.input-group #search_param').val(param);
     });
+	
+	function approve_ticket(TICKET_ID)
+	{		
+		//alert(TICKET_ID);
+		$.ajax({
+			url: '<?php echo url('/user/approve_tickets'); ?>',
+			type:'post',
+			data: {'_token':'{{csrf_token()}}','ticket_id':TICKET_ID },	
+			success: function(responseData)
+			{
+				$('#act'+TICKET_ID).html('Accepted');
+			}
+		});
+	}
+	
+	function cancel_ticket(TICKET_ID)
+	{		
+		//alert(TICKET_ID);
+		$.ajax({
+			url: '<?php echo url('/user/cancel_tickets'); ?>',
+			type:'post',
+			data: {'_token':'{{csrf_token()}}','ticket_id':TICKET_ID },	
+			success: function(responseData)
+			{
+				$('#cancel'+TICKET_ID).html('Accepted');
+			}
+		});
+	}
+	
 </script>
 @endsection('content')

@@ -14,9 +14,7 @@
               <li>
                 <a href="{{Request::root()}}/admin/home">Admin</a>
               </li>
-              <li class="active">
-                Edit Ticket
-              </li>
+              <li class="active">Edit Ticket</li>
             </ol>
             <div class="clearfix"></div>
           </div>
@@ -74,8 +72,8 @@
 				<option <?= ($ticket->status == 'approve') ? 'checked' : '' ?> value="approve">Approve</option>
 				<option <?= ($ticket->status == 'unapprove') ? 'checked' : '' ?> value="unapprove">Unapprove</option>
 				<option <?= ($ticket->status == 'refaund') ? 'checked' : '' ?> value="refaund">Refaund</option>
-			  </select>              
-             
+				<option <?= ($ticket->status == 'cancel') ? 'checked' : '' ?> value="cancel">Cancel</option>
+			  </select>
             </div>
 
             <div class="form-group">

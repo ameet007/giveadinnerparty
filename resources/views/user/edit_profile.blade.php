@@ -1,6 +1,6 @@
 @extends('user.layout.fronLayout')
 @section('content')
- <section class="middle-content account-section profile-edit">
+<section class="middle-content account-section profile-edit">
             <div class="container">
 				<aside class="col-md-2 left-sidebar">
 					<div class="sidenav-list">

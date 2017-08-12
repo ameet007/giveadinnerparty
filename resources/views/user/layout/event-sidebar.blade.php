@@ -4,3 +4,8 @@
     <li class='{{ (request()->segment(2)=='events_attending')?'active':'' }}'><a href='{{ Request::root()}}/user/events_attending'>Events You’re Attending</a></li>
     <li class='{{ (request()->segment(2)=='events_attended')?'active':'' }}'><a href='{{ Request::root()}}/user/events_attended'>Events You Attended</a></li>
 </ul>
+<script>
+$(document).ready(function(){
+	$('#cssmenu ul li:nth-child(4)').addClass('active');
+});
+</script>

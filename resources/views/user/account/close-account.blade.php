@@ -76,6 +76,15 @@ $(document).ready(function(){
 		});
 	<?php } ?>
 	$('form').parsley();
+	
+	/*
+	$('#cssmenu ul li a').each(function(){
+		var li_html = $(this).html();
+		if(li_html=='Account')
+		{
+			$('#cssmenu ul li:nth-child(6)').addClass('active');
+		}		
+	});*/
 });
 </script>
  @endsection('content')

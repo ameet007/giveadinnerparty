@@ -12,12 +12,22 @@ use DB;
 class ticketController extends Controller
 {
     public function ticket_listing(Request $request, $args='all')
-	{	
-		//echo $args;
-		//$tickets = tickets::get();
+	{
+		
+		//$methods = get_class_methods('Controller');
+		//print_r($methods); die;
+		
+		
 		if($args!='all')
 		{	
-			$where = "where tickets.status='$args'";
+			if($args=='cancel_request')
+			{
+				$where = "where tickets.cancel='yes' and tickets.status!='cancel'";
+			}
+			else
+			{
+				$where = "where tickets.status='$args'";
+			}
 		}
 		else
 		{
@@ -27,6 +37,7 @@ class ticketController extends Controller
 	
 		return view('admin.tickets.listing')->with(['tickets'=>$tickets,]);
 	}
+	
 	
 	public function change_ticket_status(Request $request, $id='0')
 	{	

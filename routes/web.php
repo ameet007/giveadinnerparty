@@ -72,6 +72,7 @@ Route::group(['prefix' => 'admin'], function () {
 		Route::any('/tickets/{args?}', 'ticketController@ticket_listing');
 		Route::any('/ticket/status_change/{id}', 'ticketController@change_ticket_status');
 		Route::any('/ticket/edit/{id}', 'ticketController@edit_ticket');
+		Route::any('/users/close_requests','adminController@closeRequest');
     });
 });
 Route::any('admin/verify_id/{id}', 'adminController@verifyid');
@@ -173,6 +174,9 @@ Route::group(['prefix' => 'user'], function () {
 		Route::any('/transaction_history', 'userController@transactionHistory');
 		
 		Route::any('/close_account', 'userController@closeAccount');
+		
+		Route::any('/approve_tickets', 'userController@approveTicket');
+		Route::any('/cancel_tickets', 'userController@cancelTicket');
     });
 	
 	Route::any('/get_single_event_data', 'userController@get_single_event_data');

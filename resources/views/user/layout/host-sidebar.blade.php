@@ -11,3 +11,9 @@
 	<li class='{{ (request()->segment(2)=='friend_payment_link')?'active':'' }}'><a href='{{Request::root()}}/user/friend_payment_link'>Friend Payment Link</a></li>
     <li class='{{ (request()->segment(2)=='invite_friends')?'active':'' }}'><a href='{{Request::root()}}/user/invite_friends'>Invite Users</a></li>
 </ul>
+			<script>
+$(document).ready(function(){
+	$('#cssmenu ul li:nth-child(3)').addClass('active');
+});
+</script>
+			
